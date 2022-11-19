@@ -1,5 +1,7 @@
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +18,23 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	public InstituteAdmin saveInstituteAdmin(InstituteAdmin instituteAdmin) {
 		
 		instituteAdmin.setCreatedBy("admin");
-		instituteAdmin.setCreatedOn("12234");
+		
 		instituteAdmin.setModifiedBy("admin");
-		instituteAdmin.setModifiedOn("242");
+		
 		
 		
 		
 		return instituteAdminRepository.save(instituteAdmin);
+	}
+	@Override
+	public InstituteAdmin getInstitutebyName(String firstName) {
+
+		return instituteAdminRepository.findByFirstName(firstName);
+	}
+	@Override
+	public List<InstituteAdmin> getAllInstitute() {
+
+		return (List<InstituteAdmin>) instituteAdminRepository.findAll();
 	}
 
 }

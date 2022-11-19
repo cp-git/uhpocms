@@ -8,5 +8,7 @@ import com.cpa.uhpocms.entity.InstituteAdmin;
 
 @Repository
 public interface InstituteAdminRepository extends CrudRepository<InstituteAdmin,Integer> {
+	
+	public InstituteAdmin findByFirstName(String firstName);
 
 }

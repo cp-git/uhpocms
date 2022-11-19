@@ -1,12 +1,19 @@
 package com.cpa.uhpocms.entity;
 
-import java.text.SimpleDateFormat;
+
+
 import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="InstituteAdmin")
@@ -55,18 +62,24 @@ public class InstituteAdmin {
 	private String profilePics;
 	
 	@Column(name="CreatedBy")
-	private String CreatedBy;
+	private String createdBy;
 	
+	
+	@CreationTimestamp
 	@Column(name="CreatedDate")
-	private String createdOn;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date  createdOn =new Date(System.currentTimeMillis());
 	
 	
 	
 	@Column(name="UpdatedBy")
 	private String modifiedBy;
 	
+	
+	@UpdateTimestamp
 	@Column(name="UpdatedDate")
-	private String ModifiedOn;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date  ModifiedOn =new Date(System.currentTimeMillis());
 	
 	
 	@Column(name="isActive")
@@ -78,16 +91,13 @@ public class InstituteAdmin {
 		super();
 
 	}
-	
-
-
 
 
 
 	public InstituteAdmin(int adminId, String userRole, String firstName, String lastName, String dob,
 			String mobilePhone, String adminGender, int adminDepartment, String adminAddress1, String adminAddress2,
-			String adminCity, String adminState, String adminZip, String profilePics, String createdBy,
-			String createdOn, String modifiedBy, String modifiedOn, boolean isActive) {
+			String adminCity, String adminState, String adminZip, String profilePics, String createdBy, Date createdOn,
+			String modifiedBy, Date modifiedOn, boolean isActive) {
 		super();
 		this.adminId = adminId;
 		this.userRole = userRole;
@@ -103,43 +113,12 @@ public class InstituteAdmin {
 		this.adminState = adminState;
 		this.adminZip = adminZip;
 		this.profilePics = profilePics;
-		CreatedBy = createdBy;
+		this.createdBy = createdBy;
 		this.createdOn = createdOn;
 		this.modifiedBy = modifiedBy;
 		ModifiedOn = modifiedOn;
 		this.isActive = isActive;
-	
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	@Override
-	public String toString() {
-		return "InstituteAdmin [adminId=" + adminId + ", userRole=" + userRole + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", dob=" + dob + ", mobilePhone=" + mobilePhone + ", adminGender="
-				+ adminGender + ", adminDepartment=" + adminDepartment + ", adminAddress1=" + adminAddress1
-				+ ", adminAddress2=" + adminAddress2 + ", adminCity=" + adminCity + ", adminState=" + adminState
-				+ ", adminZip=" + adminZip + ", profilePics=" + profilePics + ", CreatedBy=" + CreatedBy
-				+ ", createdOn=" + createdOn + ", modifiedBy=" + modifiedBy + ", ModifiedOn=" + ModifiedOn
-				+ ", isActive=" + isActive + "]";
-	}
-
-
 
 
 
@@ -147,29 +126,43 @@ public class InstituteAdmin {
 		return adminId;
 	}
 
+
+
 	public void setAdminId(int adminId) {
 		this.adminId = adminId;
 	}
+
+
 
 	public String getUserRole() {
 		return userRole;
 	}
 
+
+
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
+
+
 
 	public String getFirstName() {
 		return firstName;
 	}
 
+
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
+
+
 	public String getLastName() {
 		return lastName;
 	}
+
+
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -186,8 +179,6 @@ public class InstituteAdmin {
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
-	
-	
 
 
 
@@ -196,9 +187,11 @@ public class InstituteAdmin {
 	}
 
 
+
 	public void setMobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 	}
+
 
 
 	public String getAdminGender() {
@@ -206,9 +199,11 @@ public class InstituteAdmin {
 	}
 
 
+
 	public void setAdminGender(String adminGender) {
 		this.adminGender = adminGender;
 	}
+
 
 
 	public int getAdminDepartment() {
@@ -216,17 +211,16 @@ public class InstituteAdmin {
 	}
 
 
+
 	public void setAdminDepartment(int adminDepartment) {
 		this.adminDepartment = adminDepartment;
 	}
-	
-	
+
 
 
 	public String getAdminAddress1() {
 		return adminAddress1;
 	}
-
 
 
 
@@ -236,11 +230,9 @@ public class InstituteAdmin {
 
 
 
-
 	public String getAdminAddress2() {
 		return adminAddress2;
 	}
-
 
 
 
@@ -250,11 +242,9 @@ public class InstituteAdmin {
 
 
 
-
 	public String getAdminCity() {
 		return adminCity;
 	}
-
 
 
 
@@ -264,11 +254,9 @@ public class InstituteAdmin {
 
 
 
-
 	public String getAdminState() {
 		return adminState;
 	}
-
 
 
 
@@ -278,11 +266,9 @@ public class InstituteAdmin {
 
 
 
-
 	public String getAdminZip() {
 		return adminZip;
 	}
-
 
 
 
@@ -292,11 +278,9 @@ public class InstituteAdmin {
 
 
 
-
 	public String getProfilePics() {
 		return profilePics;
 	}
-
 
 
 
@@ -304,35 +288,29 @@ public class InstituteAdmin {
 		this.profilePics = profilePics;
 	}
 
-	
-
 
 
 	public String getCreatedBy() {
-		return CreatedBy;
+		return createdBy;
 	}
-
 
 
 
 	public void setCreatedBy(String createdBy) {
-		CreatedBy = createdBy;
+		this.createdBy = createdBy;
 	}
 
 
 
-
-	public String getCreatedOn() {
+	public Date getCreatedOn() {
 		return createdOn;
 	}
 
 
 
-
-	public void setCreatedOn(String createdOn) {
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
-
 
 
 
@@ -342,27 +320,22 @@ public class InstituteAdmin {
 
 
 
-
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
 
 
-
-	public String getModifiedOn() {
+	public Date getModifiedOn() {
 		return ModifiedOn;
 	}
 
 
 
-
-	public void setModifiedOn(String modifiedOn) {
+	public void setModifiedOn(Date modifiedOn) {
 		ModifiedOn = modifiedOn;
 	}
 
-
-	
 
 
 	public boolean isActive() {
@@ -371,11 +344,27 @@ public class InstituteAdmin {
 
 
 
-
-
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "InstituteAdmin [adminId=" + adminId + ", userRole=" + userRole + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", dob=" + dob + ", mobilePhone=" + mobilePhone + ", adminGender="
+				+ adminGender + ", adminDepartment=" + adminDepartment + ", adminAddress1=" + adminAddress1
+				+ ", adminAddress2=" + adminAddress2 + ", adminCity=" + adminCity + ", adminState=" + adminState
+				+ ", adminZip=" + adminZip + ", profilePics=" + profilePics + ", createdBy=" + createdBy
+				+ ", createdOn=" + createdOn + ", modifiedBy=" + modifiedBy + ", ModifiedOn=" + ModifiedOn
+				+ ", isActive=" + isActive + "]";
+	}
+	
+	
+	
+
+
 
 
 
