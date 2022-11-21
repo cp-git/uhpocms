@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "099fc0d7-5022-4e39-ba93-9378a5dffd4f",
+		"name": "department",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getall",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/uhpocms/getdept",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"uhpocms",
+						"getdept"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"dnoDept\",\r\n        \"description\": \"dont know the dept\",\r\n        \"institutionId_id\": 1,\r\n        \"active\": true\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/uhpocms/department",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"uhpocms",
+						"department"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"upddept\",\r\n        \"description\": \"Department updated\",\r\n        \"institutionId_id\": 1,\r\n        \"active\": true\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/uhpocms/department/dnoDept",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"uhpocms",
+						"department",
+						"dnoDept"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
