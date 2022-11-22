@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 
 @Entity
 @Table(name = "Admin_institution")
@@ -85,6 +87,11 @@ public class AdminInstitution {
 	public AdminInstitution() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public AdminInstitution(HttpStatus badRequest, String error, HttpMessageNotReadableException ex) {
+		// TODO Auto-generated constructor stub
+
 	}
 
 	/**

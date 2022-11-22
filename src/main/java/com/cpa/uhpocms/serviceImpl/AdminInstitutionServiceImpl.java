@@ -71,7 +71,14 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	public AdminInstitution updateAdminInstitutionByName(AdminInstitution adminInstitution,
 			String adminInstitutionName) {
 
-		return null;
+		AdminInstitution admin = adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
+		admin.setAdminInstitutionName(adminInstitution.getAdminInstitutionName());
+		admin.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
+		admin.setAdminInstitutionIsActive(adminInstitution.isAdminInstitutionIsActive());
+		admin.setAdminInstitutionPicture(adminInstitution.getAdminInstitutionPicture());
+		adminInstitutionRepository.save(admin);
+		return admin;
+
 	}
 
 	/**
@@ -80,7 +87,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	 * @return : List<AdminInstitution>
 	 * @description : For retrieving the specific entry in admin_institution table
 	 */
-	public List<AdminInstitution> findByAdminInstitutionName(String adminInstitutionName) {
+	public AdminInstitution findByAdminInstitutionName(String adminInstitutionName) {
 
 		return adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
 	}

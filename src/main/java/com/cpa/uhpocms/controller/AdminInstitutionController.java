@@ -8,6 +8,8 @@
 package com.cpa.uhpocms.controller;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +18,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cpa.uhpocms.entity.AdminInstitution;
+import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.AdminInstitutionService;
 
 @RequestMapping("/uhpocms")
@@ -32,38 +36,77 @@ public class AdminInstitutionController {
 	@Autowired
 	private AdminInstitutionService adminInstitutionService;
 
-	// creating/inserting entry in AdminInstitution
-	@PostMapping("/institution")
-	public AdminInstitution addAdminInstitution(@RequestBody AdminInstitution adminInstitution) {
-		return adminInstitutionService.saveAdminInstitution(adminInstitution);
+	private ResourceBundle resourceBundle;
+
+	AdminInstitutionController() {
+		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 	}
 
-	// get mapping that retrieves all the institution details from the db
+	/**
+	 * @author: Akash
+	 * @param: AdminInstitution adminInstitution
+	 * @description : For creating/inserting entry in AdminInstitution.
+	 */
+	@PostMapping("/institution")
+	public ResponseEntity<Object> addAdminInstitution(@RequestBody AdminInstitution adminInstitution) {
+		AdminInstitution addInstitution = null;
+		try {
+			addInstitution = adminInstitutionService.saveAdminInstitution(adminInstitution);
+		} catch (Exception e) {
+			System.err.println(resourceBundle.getString("err013"));
+			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err013");
+		}
+		return ResponseHandler.generateResponse(addInstitution, HttpStatus.CREATED);
+	}
+
+	/**
+	 * @author: Akash
+	 * @param: List<AdminInstitution>
+	 * @description : get mapping that retrieves all the institution details from
+	 *              the db
+	 */
 	@GetMapping("/allinstitution")
 	public List<AdminInstitution> getAllAdminInstitution() {
 		return adminInstitutionService.getAllAdminInstitution();
 
 	}
 
-	// get mapping that retrieves the institution details by Name
-
+	/**
+	 * @author: Akash
+	 * @param: String adminInstitutionName
+	 * @description :get mapping that retrieves the institution details by Name
+	 */
 	@GetMapping("/institution/{name}")
-
-	public ResponseEntity<List<AdminInstitution>> getInstitutionByName(
-			@RequestParam(name = "name") String adminInstitutionName) {
-		// System.out.println("hey" + adminInstitutionName);
-		return new ResponseEntity<List<AdminInstitution>>(
-				adminInstitutionService.findByAdminInstitutionName(adminInstitutionName), HttpStatus.OK);
-	//initial test comment
+	public ResponseEntity<Object> getInstitutionByName(@RequestParam(name = "name") String adminInstitutionName) {
+		return new ResponseEntity<Object>(adminInstitutionService.findByAdminInstitutionName(adminInstitutionName),
+				HttpStatus.OK);
 	}
 
-	// deleting a specific record by using the method deleteAdminInstitutionByName()
-
+	/**
+	 * @author: Akash
+	 * @param: String adminInstitutionName
+	 * @description :deleting a specific record by using the method
+	 *              deleteAdminInstitutionByName()
+	 */
 	@DeleteMapping("/institution/{name}")
 	public String deleteAdminInstitutionByName(@PathVariable("name") String adminInstitutionName) {
 		adminInstitutionService.deleteAdminInstitutionByName(adminInstitutionName);
 		return "Record delete successfully";
 	}
 
-	// bgudysbckbik
+	/**
+	 * @author: Akash
+	 * @param: AdminInstitution adminInstitution, String adminInstitutionName
+	 * @description : Updating a specific record by using the method
+	 *              updateAdminInstitutionByName()
+	 */
+	@PutMapping("/institution/{name}")
+	public ResponseEntity<Object> updateAdminInstitutionByName(@RequestBody AdminInstitution adminInstitution,
+			@PathVariable("name") String adminInstitutionName) {
+		return new ResponseEntity<Object>(
+				adminInstitutionService.updateAdminInstitutionByName(adminInstitution, adminInstitutionName),
+				HttpStatus.OK);
+
+	}
+
 }

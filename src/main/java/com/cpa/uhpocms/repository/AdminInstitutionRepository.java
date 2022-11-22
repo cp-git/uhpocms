@@ -7,8 +7,6 @@
 
 package com.cpa.uhpocms.repository;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,8 +14,21 @@ import com.cpa.uhpocms.entity.AdminInstitution;
 
 @Repository
 public interface AdminInstitutionRepository extends CrudRepository<AdminInstitution, Integer> {
+	/**
+	 * @author: Akash
+	 * @param : String adminInstitutionName
+	 * @return : List<AdminInstitution>
+	 * @description: To find the all data using Institution name from
+	 *               AdminInstitution table
+	 */
+	AdminInstitution findByAdminInstitutionName(String adminInstitutionName);
 
-	List<AdminInstitution> findByAdminInstitutionName(String adminInstitutionName);
-
+	/**
+	 * @author: Akash
+	 * @param : String adminInstitutionName
+	 * @return : String
+	 * @description: To delete all data using Institution name from AdminInstitution
+	 *               table
+	 */
 	String deleteByAdminInstitutionName(String adminInstitutionName);
 }
