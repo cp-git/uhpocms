@@ -41,7 +41,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 	/**
 	 * @author: Akash
-	 * @return : List<AdminInstitution> getAllAdminInstitution
+	 * @return : List<AdminInstitution>
 	 * @description : For Retrieving all entry in admin_institution table
 	 */
 	public List<AdminInstitution> getAllAdminInstitution() {
@@ -78,7 +78,6 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	 * @author: Akash
 	 * @param: String adminInstitutionName
 	 * @return : List<AdminInstitution>
-	 *         adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName)
 	 * @description : For retrieving the specific entry in admin_institution table
 	 */
 	public List<AdminInstitution> findByAdminInstitutionName(String adminInstitutionName) {

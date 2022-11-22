@@ -25,7 +25,7 @@ import com.cpa.uhpocms.entity.AdminInstitution;
 import com.cpa.uhpocms.service.AdminInstitutionService;
 
 @RequestMapping("/uhpocms")
-//mark class as Controller
+
 @RestController
 public class AdminInstitutionController {
 	// autowire the AdminInstitutionService
@@ -64,5 +64,4 @@ public class AdminInstitutionController {
 		return "Record delete successfully";
 	}
 
-	// comment
 }

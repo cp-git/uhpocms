@@ -1,6 +1,8 @@
 /**
- * 
+ * @author : Akash
+ * @description : This is the Entity class for Admin Institution.
  */
+
 package com.cpa.uhpocms.entity;
 
 import java.sql.Date;
@@ -16,12 +18,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-/**
- * @author Akash
- *
- */
 @Entity
-@Table(name = "\"Admin_institution\"")
+@Table(name = "Admin_institution")
 public class AdminInstitution {
 
 	@Id

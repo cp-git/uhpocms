@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.cpa.uhpocms.entity.AdminInstitution;
 
 @Repository
-public interface AdminInstitutionRepository extends CrudRepository<AdminInstitution, String> {
+public interface AdminInstitutionRepository extends CrudRepository<AdminInstitution, Integer> {
 
 	List<AdminInstitution> findByAdminInstitutionName(String adminInstitutionName);
 
