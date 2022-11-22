@@ -54,6 +54,7 @@ public class AdminInstitutionController {
 		// System.out.println("hey" + adminInstitutionName);
 		return new ResponseEntity<List<AdminInstitution>>(
 				adminInstitutionService.findByAdminInstitutionName(adminInstitutionName), HttpStatus.OK);
+	//initial test comment
 	}
 
 	// deleting a specific record by using the method deleteAdminInstitutionByName()
