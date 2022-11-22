@@ -64,4 +64,5 @@ public class AdminInstitutionController {
 		return "Record delete successfully";
 	}
 
+	// bgudysbckbik
 }
