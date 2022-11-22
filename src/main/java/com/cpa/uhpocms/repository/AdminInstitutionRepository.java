@@ -7,13 +7,18 @@
 
 package com.cpa.uhpocms.repository;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cpa.uhpocms.entity.AdminInstitution;
 
 @Repository
 public interface AdminInstitutionRepository extends CrudRepository<AdminInstitution, Integer> {
+	boolean adminInstitutionIsActive = true;
+
 	/**
 	 * @author: Akash
 	 * @param : String adminInstitutionName
@@ -30,5 +35,8 @@ public interface AdminInstitutionRepository extends CrudRepository<AdminInstitut
 	 * @description: To delete all data using Institution name from AdminInstitution
 	 *               table
 	 */
-	String deleteByAdminInstitutionName(String adminInstitutionName);
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE admin_institution SET is_active=false WHERE institution_name=?1", nativeQuery = true)
+	int deleteByAdminInstitutionName(String adminInstitutionName);
 }
