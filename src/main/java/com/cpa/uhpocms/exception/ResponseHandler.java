@@ -1,3 +1,4 @@
+
 package com.cpa.uhpocms.exception;
 
 import java.util.ArrayList;
@@ -10,12 +11,9 @@ import java.util.ResourceBundle;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-public class ExceptionHandler {
+public class ResponseHandler {
 
 	static ResourceBundle resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
-
-	private ExceptionHandler() {
-	}
 
 	public static ResponseEntity<Object> generateResponse(HttpStatus status) {
 
@@ -45,8 +43,7 @@ public class ExceptionHandler {
 		map.put("errorMessage", resourceBunde.getObject(code));
 
 		list.add(map);
-		System.out.println("here " + list);
-		System.out.println(new ResponseEntity<List<Object>>(list, status));
+
 		return new ResponseEntity<List<Object>>(list, status);
 	}
 

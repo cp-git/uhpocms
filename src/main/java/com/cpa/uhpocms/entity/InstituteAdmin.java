@@ -1,19 +1,12 @@
 package com.cpa.uhpocms.entity;
 
-
-
 import java.util.Date;
-import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,101 +14,85 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
-@Table(name="instituteadmin_profile")
+@Table(name = "instituteadmin_profile")
 public class InstituteAdmin {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int adminId;
-	
-	@Column(name="user_role")
+
+	@Column(name = "user_role", nullable = false)
 	private String userRole;
-	
-	@Column(name="first_name")
+
+	@Column(name = "first_name")
 	private String firstName;
-	
-	@Column(name="last_name")
+
+	@Column(name = "last_name")
 	private String lastName;
-	
 
-	@Column(name="email")
+	@Column(name = "email")
 	private String adminEmail;
-	
-	@Column(name="dob")
+
+	@Column(name = "dob")
 	private String dob;
-	
-	@Column(name="mobile_no")
+
+	@Column(name = "mobile_no")
 	private String mobilePhone;
-	
-	@Column(name="gender")
+
+	@Column(name = "gender")
 	private String adminGender;
-	
-	@Column(name="department")
+
+	@Column(name = "department")
 	private Integer adminDepartment;
-	
-	@Column(name="address1")
+
+	@Column(name = "address1")
 	private String adminAddress1;
-	
-	@Column(name="address2")
+
+	@Column(name = "address2")
 	private String adminAddress2;
-	
-	@Column(name="city")
+
+	@Column(name = "city")
 	private String adminCity;
-	
-	@Column(name="state")
+
+	@Column(name = "state")
 	private String adminState;
-	
-	@Column(name="zip")
+
+	@Column(name = "zip")
 	private String adminZip;
-	
-	@Column(name="profile_pics")
+
+	@Column(name = "profile_pics")
 	private String profilePics;
-	
-	@Column(name="created_by")
+
+	@Column(name = "created_by")
 	private String createdBy;
-	
-	
+
 	@CreationTimestamp
-	@Column(name="created_date")
+	@Column(name = "created_date")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date  createdOn =new Date(System.currentTimeMillis());
-	
-	
-	
-	@Column(name="updated_by")
+	private Date createdOn = new Date(System.currentTimeMillis());
+
+	@Column(name = "updated_by")
 	private String modifiedBy;
-	
-	
+
 	@UpdateTimestamp
-	@Column(name="updated_date")
+	@Column(name = "updated_date")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date  modifiedOn =new Date(System.currentTimeMillis());
-	
-	
-	@Column(name="is_active")
+	private Date modifiedOn = new Date(System.currentTimeMillis());
+
+	@Column(name = "is_active")
 	private boolean activeUser;
-	
-	
-	
-	@Column(name="institution_id")
+
+	@Column(name = "institution_id")
 	private int institutionId;
-	
-	
 
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	private Integer userId;
-
-
 
 	public InstituteAdmin() {
 		super();
 
 	}
-
-
 
 	public InstituteAdmin(int adminId, String userRole, String firstName, String lastName, String adminEmail,
 			String dob, String mobilePhone, String adminGender, Integer adminDepartment, String adminAddress1,
@@ -147,271 +124,181 @@ public class InstituteAdmin {
 		this.userId = userId;
 	}
 
-
-
 	public int getAdminId() {
 		return adminId;
 	}
-
-
 
 	public void setAdminId(int adminId) {
 		this.adminId = adminId;
 	}
 
-
-
 	public String getUserRole() {
 		return userRole;
 	}
-
-
 
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
 
-
-
 	public String getFirstName() {
 		return firstName;
 	}
-
-
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-
-
 	public String getLastName() {
 		return lastName;
 	}
-
-
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-
-
 	public String getAdminEmail() {
 		return adminEmail;
 	}
-
-
 
 	public void setAdminEmail(String adminEmail) {
 		this.adminEmail = adminEmail;
 	}
 
-
-
 	public String getDob() {
 		return dob;
 	}
-
-
 
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
 
-
-
 	public String getMobilePhone() {
 		return mobilePhone;
 	}
-
-
 
 	public void setMobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 	}
 
-
-
 	public String getAdminGender() {
 		return adminGender;
 	}
-
-
 
 	public void setAdminGender(String adminGender) {
 		this.adminGender = adminGender;
 	}
 
-
-
 	public Integer getAdminDepartment() {
 		return adminDepartment;
 	}
-
-
 
 	public void setAdminDepartment(Integer adminDepartment) {
 		this.adminDepartment = adminDepartment;
 	}
 
-
-
 	public String getAdminAddress1() {
 		return adminAddress1;
 	}
-
-
 
 	public void setAdminAddress1(String adminAddress1) {
 		this.adminAddress1 = adminAddress1;
 	}
 
-
-
 	public String getAdminAddress2() {
 		return adminAddress2;
 	}
-
-
 
 	public void setAdminAddress2(String adminAddress2) {
 		this.adminAddress2 = adminAddress2;
 	}
 
-
-
 	public String getAdminCity() {
 		return adminCity;
 	}
-
-
 
 	public void setAdminCity(String adminCity) {
 		this.adminCity = adminCity;
 	}
 
-
-
 	public String getAdminState() {
 		return adminState;
 	}
-
-
 
 	public void setAdminState(String adminState) {
 		this.adminState = adminState;
 	}
 
-
-
 	public String getAdminZip() {
 		return adminZip;
 	}
-
-
 
 	public void setAdminZip(String adminZip) {
 		this.adminZip = adminZip;
 	}
 
-
-
 	public String getProfilePics() {
 		return profilePics;
 	}
-
-
 
 	public void setProfilePics(String profilePics) {
 		this.profilePics = profilePics;
 	}
 
-
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
-
-
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
-
-
 	public Date getCreatedOn() {
 		return createdOn;
 	}
-
-
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 
-
-
 	public String getModifiedBy() {
 		return modifiedBy;
 	}
-
-
 
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
-
-
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}
-
-
 
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
 
-
-
 	public boolean isActiveUser() {
 		return activeUser;
 	}
-
-
 
 	public void setActiveUser(boolean activeUser) {
 		this.activeUser = activeUser;
 	}
 
-
-
 	public int getInstitutionId() {
 		return institutionId;
 	}
-
-
 
 	public void setInstitutionId(int institutionId) {
 		this.institutionId = institutionId;
 	}
 
-
-
 	public Integer getUserId() {
 		return userId;
 	}
 
-
-
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -424,10 +311,5 @@ public class InstituteAdmin {
 				+ ", modifiedOn=" + modifiedOn + ", activeUser=" + activeUser + ", institutionId=" + institutionId
 				+ ", userId=" + userId + "]";
 	}
-
-
-
-	
-	
 
 }

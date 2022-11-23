@@ -11,7 +11,7 @@ public interface InstituteAdminService {
 	InstituteAdmin getInstitutebyName(String firstName);
 	
 	
-	List<InstituteAdmin> getAllInstitute(); 
+	List<Object> getAllInstitute(); 
 	
 	InstituteAdmin updateInstituteAdmin(InstituteAdmin instituteAdmin, String  firstName);
 	

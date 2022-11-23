@@ -1,5 +1,6 @@
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,33 +14,35 @@ import com.cpa.uhpocms.service.InstituteAdminService;
 class InstituteAdminServiceImpl implements InstituteAdminService {
 
 	@Autowired
-	private InstituteAdminRepository  instituteAdminRepository;
+	private InstituteAdminRepository instituteAdminRepository;
+
 	@Override
 	public InstituteAdmin saveInstituteAdmin(InstituteAdmin instituteAdmin) {
-		
+
 		instituteAdmin.setCreatedBy("admin");
-		
+
 		instituteAdmin.setModifiedBy("admin");
-		
-		
-		
-		
+
 		return instituteAdminRepository.save(instituteAdmin);
 	}
+
 	@Override
 	public InstituteAdmin getInstitutebyName(String firstName) {
 
 		return instituteAdminRepository.findByFirstName(firstName);
 	}
-	@Override
-	public List<InstituteAdmin> getAllInstitute() {
 
-		return (List<InstituteAdmin>) instituteAdminRepository.findAll();
+	@Override
+	public List<Object> getAllInstitute() {
+
+		List<Object> list = null;
+		list = new ArrayList<Object>(instituteAdminRepository.findAll());
+		return list;
 	}
-	
+
 	@Override
 	public InstituteAdmin updateInstituteAdmin(InstituteAdmin instituteAdmin, String firstName) {
-		InstituteAdmin insAdmin=instituteAdminRepository.findByFirstName(firstName);
+		InstituteAdmin insAdmin = instituteAdminRepository.findByFirstName(firstName);
 		insAdmin.setUserId(instituteAdmin.getAdminId());
 		insAdmin.setUserRole(instituteAdmin.getUserRole());
 		insAdmin.setFirstName(instituteAdmin.getFirstName());
@@ -58,10 +61,11 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		insAdmin.setActiveUser(instituteAdmin.isActiveUser());
 		insAdmin.setInstitutionId(instituteAdmin.getInstitutionId());
 		insAdmin.setUserId(instituteAdmin.getUserId());
-		
+
 		instituteAdminRepository.save(insAdmin);
 		return insAdmin;
 	}
+
 	@Override
 	public int deleteDepartmentById(String firstName) {
 
