@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cpa.uhpocms.entity.AdminInstitution;
+import com.cpa.uhpocms.helper.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.AdminInstitutionService;
 
@@ -48,7 +49,8 @@ public class AdminInstitutionController {
 	 * @description : For creating/inserting entry in AdminInstitution.
 	 */
 	@PostMapping("/institution")
-	public ResponseEntity<Object> addAdminInstitution(@RequestBody AdminInstitution adminInstitution) {
+	public ResponseEntity<Object> addAdminInstitution(@RequestBody AdminInstitution adminInstitution)
+			throws CPException {
 		AdminInstitution addInstitution = null;
 		try {
 			addInstitution = adminInstitutionService.saveAdminInstitution(adminInstitution);
@@ -65,9 +67,23 @@ public class AdminInstitutionController {
 	 * @description : get mapping that retrieves all the institution details from
 	 *              the db
 	 */
-	@GetMapping("/allinstitution")
-	public List<AdminInstitution> getAllAdminInstitution() {
-		return adminInstitutionService.getAllAdminInstitution();
+	@GetMapping("/institution")
+	public ResponseEntity<List<Object>> getAllAdminInstitution(
+			@RequestParam(name = "name") String adminInstitutionName) {
+
+		try {
+			if (adminInstitutionName.equals("all")) {
+				// adminInstitutionService.getAllAdminInstitution();
+				return ResponseHandler.generateListResponse(adminInstitutionService.getAllAdminInstitution(),
+						HttpStatus.OK);
+			} else {
+				return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err012");
+			}
+		} catch (Exception e) {
+			System.err.println(resourceBundle.getString("err012"));
+
+		}
+		return ResponseHandler.generateListResponse(adminInstitutionService.getAllAdminInstitution(), HttpStatus.OK);
 
 	}
 
@@ -77,9 +93,18 @@ public class AdminInstitutionController {
 	 * @description :get mapping that retrieves the institution details by Name
 	 */
 	@GetMapping("/institution/{name}")
-	public ResponseEntity<Object> getInstitutionByName(@RequestParam(name = "name") String adminInstitutionName) {
-		return new ResponseEntity<Object>(adminInstitutionService.findByAdminInstitutionName(adminInstitutionName),
-				HttpStatus.OK);
+	public ResponseEntity<Object> getInstitutionByName(@PathVariable("name") String adminInstitutionName) {
+		AdminInstitution admin = null;
+		admin = adminInstitutionService.findByAdminInstitutionName(adminInstitutionName);
+
+		if (admin != null) {
+
+			return ResponseHandler.generateResponse(admin, HttpStatus.OK);
+		} else {
+			System.err.println(resourceBundle.getString("err011"));
+			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err011");
+		}
+
 	}
 
 	/**
@@ -89,9 +114,18 @@ public class AdminInstitutionController {
 	 *              deleteAdminInstitutionByName()
 	 */
 	@DeleteMapping("/institution/{name}")
-	public String deleteAdminInstitutionByName(@PathVariable("name") String adminInstitutionName) {
-		adminInstitutionService.deleteAdminInstitutionByName(adminInstitutionName);
-		return "Record delete successfully";
+	public ResponseEntity<Object> deleteAdminInstitutionByName(@PathVariable("name") String adminInstitutionName) {
+		AdminInstitution admin = null;
+
+		admin = adminInstitutionService.findByAdminInstitutionName(adminInstitutionName);
+		if (admin != null) {
+			return ResponseHandler.generateResponse(
+					adminInstitutionService.deleteAdminInstitutionByName(adminInstitutionName), HttpStatus.NO_CONTENT);
+		} else {
+			System.err.println(resourceBundle.getString("err015"));
+			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err015");
+		}
+
 	}
 
 	/**
@@ -102,10 +136,16 @@ public class AdminInstitutionController {
 	 */
 	@PutMapping("/institution/{name}")
 	public ResponseEntity<Object> updateAdminInstitutionByName(@RequestBody AdminInstitution adminInstitution,
-			@PathVariable("name") String adminInstitutionName) {
-		return new ResponseEntity<Object>(
+			@PathVariable("name") String adminInstitutionName) throws CPException {
+		try {
+			adminInstitutionService.updateAdminInstitutionByName(adminInstitution, adminInstitutionName);
+		} catch (Exception e) {
+			System.err.println(resourceBundle.getString("err014"));
+			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err014");
+		}
+		return ResponseHandler.generateResponse(
 				adminInstitutionService.updateAdminInstitutionByName(adminInstitution, adminInstitutionName),
-				HttpStatus.OK);
+				HttpStatus.CREATED);
 
 	}
 

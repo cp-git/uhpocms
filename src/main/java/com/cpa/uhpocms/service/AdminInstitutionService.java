@@ -18,9 +18,9 @@ public interface AdminInstitutionService {
 
 	AdminInstitution saveAdminInstitution(AdminInstitution adminInstitution);
 
-	List<AdminInstitution> getAllAdminInstitution();
+	List<Object> getAllAdminInstitution();
 
-	String deleteAdminInstitutionByName(String adminInstitutionName);
+	int deleteAdminInstitutionByName(String adminInstitutionName);
 
 	AdminInstitution updateAdminInstitutionByName(AdminInstitution adminInstitution, String adminInstitutionName);
 

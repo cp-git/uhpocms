@@ -7,16 +7,16 @@
 
 package com.cpa.uhpocms.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cpa.uhpocms.entity.AdminInstitution;
 
 @Repository
-public interface AdminInstitutionRepository extends CrudRepository<AdminInstitution, Integer> {
+public interface AdminInstitutionRepository extends JpaRepository<AdminInstitution, Integer> {
 	boolean adminInstitutionIsActive = true;
 
 	/**

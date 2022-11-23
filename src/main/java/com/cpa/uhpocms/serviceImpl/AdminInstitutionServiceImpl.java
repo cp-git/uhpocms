@@ -6,6 +6,7 @@
  */
 package com.cpa.uhpocms.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,11 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	 * @return : List<AdminInstitution>
 	 * @description : For Retrieving all entry in admin_institution table
 	 */
-	public List<AdminInstitution> getAllAdminInstitution() {
 
-		return (List<AdminInstitution>) adminInstitutionRepository.findAll();
+	public List<Object> getAllAdminInstitution() {
+
+		List<Object> objectList = new ArrayList<Object>(adminInstitutionRepository.findAll());
+		return objectList;
 	}
 
 	/**
@@ -55,17 +58,16 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	 * @return : String Record deleted Successfully.
 	 * @description : For deleting entry in admin_institution table
 	 */
-	public String deleteAdminInstitutionByName(String adminInstitutionName) {
+	public int deleteAdminInstitutionByName(String adminInstitutionName) {
 
-		adminInstitutionRepository.deleteByAdminInstitutionName(adminInstitutionName);
-		return "Record Deleted Successfully";
+		return adminInstitutionRepository.deleteByAdminInstitutionName(adminInstitutionName);
 
 	}
 
 	/**
 	 * @author: Akash
 	 * @param: AdminInstitution adminInstitution,String adminInstitutionName
-	 * @return : null.
+	 * @return : AdminInstitution admin.
 	 * @description : For updating entry in admin_institution table
 	 */
 	public AdminInstitution updateAdminInstitutionByName(AdminInstitution adminInstitution,
