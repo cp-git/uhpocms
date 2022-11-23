@@ -7,7 +7,13 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,14 +21,17 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-@Table(name="InstituteAdmin")
+@Table(name="instituteadmin_profile")
 public class InstituteAdmin {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int adminId;
 	
-	@Column(name="UserRole")
+	@Column(name="user_role")
 	private String userRole;
 	
 	@Column(name="first_name")
@@ -31,60 +40,74 @@ public class InstituteAdmin {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="Dob")
+
+	@Column(name="email")
+	private String adminEmail;
+	
+	@Column(name="dob")
 	private String dob;
 	
-	@Column(name="MobileNo")
+	@Column(name="mobile_no")
 	private String mobilePhone;
 	
 	@Column(name="gender")
 	private String adminGender;
 	
-	@Column(name="Department")
-	private int adminDepartment;
+	@Column(name="department")
+	private Integer adminDepartment;
 	
-	@Column(name="Address1")
+	@Column(name="address1")
 	private String adminAddress1;
 	
-	@Column(name="Address2")
+	@Column(name="address2")
 	private String adminAddress2;
 	
-	@Column(name="City")
+	@Column(name="city")
 	private String adminCity;
 	
-	@Column(name="State")
+	@Column(name="state")
 	private String adminState;
 	
-	@Column(name="Zip")
+	@Column(name="zip")
 	private String adminZip;
 	
 	@Column(name="profile_pics")
 	private String profilePics;
 	
-	@Column(name="CreatedBy")
+	@Column(name="created_by")
 	private String createdBy;
 	
 	
 	@CreationTimestamp
-	@Column(name="CreatedDate")
+	@Column(name="created_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date  createdOn =new Date(System.currentTimeMillis());
 	
 	
 	
-	@Column(name="UpdatedBy")
+	@Column(name="updated_by")
 	private String modifiedBy;
 	
 	
 	@UpdateTimestamp
-	@Column(name="UpdatedDate")
+	@Column(name="updated_date")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date  ModifiedOn =new Date(System.currentTimeMillis());
+	private Date  modifiedOn =new Date(System.currentTimeMillis());
 	
 	
-	@Column(name="isActive")
-	private boolean isActive;
+	@Column(name="is_active")
+	private boolean activeUser;
 	
+	
+	
+	@Column(name="institution_id")
+	private int institutionId;
+	
+	
+
+	@Column(name="user_id")
+	private Integer userId;
+
 
 
 	public InstituteAdmin() {
@@ -94,15 +117,17 @@ public class InstituteAdmin {
 
 
 
-	public InstituteAdmin(int adminId, String userRole, String firstName, String lastName, String dob,
-			String mobilePhone, String adminGender, int adminDepartment, String adminAddress1, String adminAddress2,
-			String adminCity, String adminState, String adminZip, String profilePics, String createdBy, Date createdOn,
-			String modifiedBy, Date modifiedOn, boolean isActive) {
+	public InstituteAdmin(int adminId, String userRole, String firstName, String lastName, String adminEmail,
+			String dob, String mobilePhone, String adminGender, Integer adminDepartment, String adminAddress1,
+			String adminAddress2, String adminCity, String adminState, String adminZip, String profilePics,
+			String createdBy, Date createdOn, String modifiedBy, Date modifiedOn, boolean activeUser, int institutionId,
+			Integer userId) {
 		super();
 		this.adminId = adminId;
 		this.userRole = userRole;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.adminEmail = adminEmail;
 		this.dob = dob;
 		this.mobilePhone = mobilePhone;
 		this.adminGender = adminGender;
@@ -116,8 +141,10 @@ public class InstituteAdmin {
 		this.createdBy = createdBy;
 		this.createdOn = createdOn;
 		this.modifiedBy = modifiedBy;
-		ModifiedOn = modifiedOn;
-		this.isActive = isActive;
+		this.modifiedOn = modifiedOn;
+		this.activeUser = activeUser;
+		this.institutionId = institutionId;
+		this.userId = userId;
 	}
 
 
@@ -170,6 +197,18 @@ public class InstituteAdmin {
 
 
 
+	public String getAdminEmail() {
+		return adminEmail;
+	}
+
+
+
+	public void setAdminEmail(String adminEmail) {
+		this.adminEmail = adminEmail;
+	}
+
+
+
 	public String getDob() {
 		return dob;
 	}
@@ -206,13 +245,13 @@ public class InstituteAdmin {
 
 
 
-	public int getAdminDepartment() {
+	public Integer getAdminDepartment() {
 		return adminDepartment;
 	}
 
 
 
-	public void setAdminDepartment(int adminDepartment) {
+	public void setAdminDepartment(Integer adminDepartment) {
 		this.adminDepartment = adminDepartment;
 	}
 
@@ -327,25 +366,49 @@ public class InstituteAdmin {
 
 
 	public Date getModifiedOn() {
-		return ModifiedOn;
+		return modifiedOn;
 	}
 
 
 
 	public void setModifiedOn(Date modifiedOn) {
-		ModifiedOn = modifiedOn;
+		this.modifiedOn = modifiedOn;
 	}
 
 
 
-	public boolean isActive() {
-		return isActive;
+	public boolean isActiveUser() {
+		return activeUser;
 	}
 
 
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setActiveUser(boolean activeUser) {
+		this.activeUser = activeUser;
+	}
+
+
+
+	public int getInstitutionId() {
+		return institutionId;
+	}
+
+
+
+	public void setInstitutionId(int institutionId) {
+		this.institutionId = institutionId;
+	}
+
+
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 
@@ -353,44 +416,17 @@ public class InstituteAdmin {
 	@Override
 	public String toString() {
 		return "InstituteAdmin [adminId=" + adminId + ", userRole=" + userRole + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", dob=" + dob + ", mobilePhone=" + mobilePhone + ", adminGender="
-				+ adminGender + ", adminDepartment=" + adminDepartment + ", adminAddress1=" + adminAddress1
-				+ ", adminAddress2=" + adminAddress2 + ", adminCity=" + adminCity + ", adminState=" + adminState
-				+ ", adminZip=" + adminZip + ", profilePics=" + profilePics + ", createdBy=" + createdBy
-				+ ", createdOn=" + createdOn + ", modifiedBy=" + modifiedBy + ", ModifiedOn=" + ModifiedOn
-				+ ", isActive=" + isActive + "]";
+				+ ", lastName=" + lastName + ", adminEmail=" + adminEmail + ", dob=" + dob + ", mobilePhone="
+				+ mobilePhone + ", adminGender=" + adminGender + ", adminDepartment=" + adminDepartment
+				+ ", adminAddress1=" + adminAddress1 + ", adminAddress2=" + adminAddress2 + ", adminCity=" + adminCity
+				+ ", adminState=" + adminState + ", adminZip=" + adminZip + ", profilePics=" + profilePics
+				+ ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", modifiedBy=" + modifiedBy
+				+ ", modifiedOn=" + modifiedOn + ", activeUser=" + activeUser + ", institutionId=" + institutionId
+				+ ", userId=" + userId + "]";
 	}
-	
-	
-	
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-	
-
-
-
-
-
-
-	
 	
 	
 

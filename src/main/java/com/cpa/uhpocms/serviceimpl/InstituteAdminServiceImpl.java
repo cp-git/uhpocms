@@ -36,5 +36,36 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 
 		return (List<InstituteAdmin>) instituteAdminRepository.findAll();
 	}
+	
+	@Override
+	public InstituteAdmin updateInstituteAdmin(InstituteAdmin instituteAdmin, String firstName) {
+		InstituteAdmin insAdmin=instituteAdminRepository.findByFirstName(firstName);
+		insAdmin.setUserId(instituteAdmin.getAdminId());
+		insAdmin.setUserRole(instituteAdmin.getUserRole());
+		insAdmin.setFirstName(instituteAdmin.getFirstName());
+		insAdmin.setLastName(instituteAdmin.getLastName());
+		insAdmin.setAdminEmail(instituteAdmin.getAdminEmail());
+		insAdmin.setDob(instituteAdmin.getDob());
+		insAdmin.setMobilePhone(instituteAdmin.getMobilePhone());
+		insAdmin.setAdminGender(instituteAdmin.getAdminGender());
+		insAdmin.setAdminDepartment(instituteAdmin.getAdminDepartment());
+		insAdmin.setAdminAddress1(instituteAdmin.getAdminAddress1());
+		insAdmin.setAdminAddress2(instituteAdmin.getAdminAddress2());
+		insAdmin.setAdminCity(instituteAdmin.getAdminCity());
+		insAdmin.setAdminState(instituteAdmin.getAdminState());
+		insAdmin.setAdminZip(instituteAdmin.getAdminZip());
+		insAdmin.setProfilePics(instituteAdmin.getProfilePics());
+		insAdmin.setActiveUser(instituteAdmin.isActiveUser());
+		insAdmin.setInstitutionId(instituteAdmin.getInstitutionId());
+		insAdmin.setUserId(instituteAdmin.getUserId());
+		
+		instituteAdminRepository.save(insAdmin);
+		return insAdmin;
+	}
+	@Override
+	public int deleteDepartmentById(String firstName) {
+
+		return instituteAdminRepository.deleteDepartmentById(firstName);
+	}
 
 }
