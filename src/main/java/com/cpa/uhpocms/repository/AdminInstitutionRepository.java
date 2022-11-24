@@ -7,6 +7,8 @@
 
 package com.cpa.uhpocms.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -28,6 +30,8 @@ public interface AdminInstitutionRepository extends JpaRepository<AdminInstituti
 	 */
 	AdminInstitution findByAdminInstitutionName(String adminInstitutionName);
 
+	public List<Object> findByAdminInstitutionIsActiveTrue();
+
 	/**
 	 * @author: Akash
 	 * @param : String adminInstitutionName
@@ -37,6 +41,6 @@ public interface AdminInstitutionRepository extends JpaRepository<AdminInstituti
 	 */
 	@Transactional
 	@Modifying
-	@Query(value = "UPDATE admin_institution SET is_active=false WHERE institution_name=?1", nativeQuery = true)
+	@Query(value = "UPDATE admin_institution SET isactive=false WHERE name=?1", nativeQuery = true)
 	int deleteByAdminInstitutionName(String adminInstitutionName);
 }

@@ -5,8 +5,7 @@
 
 package com.cpa.uhpocms.entity;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,35 +20,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 
 @Entity
-@Table(name = "Admin_institution")
+@Table(name = "admin_institution")
 public class AdminInstitution {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "institutionid")
 	private int adminInstitutionId;
 
-	@Column(name = "institution_name", nullable = false, unique = true)
+	@Column(name = "name", nullable = false, unique = true)
 	private String adminInstitutionName;
 
 	@Column(name = "description", nullable = false)
 	private String adminInstitutionDescription;
 
-	@Column(name = "is_active", nullable = false)
+	@Column(name = "isactive", nullable = false)
 	private boolean adminInstitutionIsActive;
 
-	@Column(name = "created_by", nullable = false)
+	@Column(name = "createdby", nullable = false)
 	private String adminInstitutionCreatedBy;
 
 	@CreationTimestamp
-	@Column(name = "created_on", nullable = false)
+	@Column(name = "createdon", nullable = false)
 	private Date adminInstitutionCreatedOn;
 
-	@Column(name = "modified_by", nullable = false)
+	@Column(name = "modifiedby", nullable = false)
 	private String adminInstitutionModifiedBy;
 
 	@UpdateTimestamp
-	@Column(name = "modified_on", nullable = false)
-	private LocalDateTime adminInstitutionModifiedOn;
+	@Column(name = "modifiedon", nullable = false)
+	private Date adminInstitutionModifiedOn;
 
 	@Column(name = "picture", nullable = false)
 	private String adminInstitutionPicture;
@@ -67,8 +67,7 @@ public class AdminInstitution {
 	 */
 	public AdminInstitution(int adminInstitutionId, String adminInstitutionName, String adminInstitutionDescription,
 			boolean adminInstitutionIsActive, String adminInstitutionCreatedBy, Date adminInstitutionCreatedOn,
-			String adminInstitutionModifiedBy, LocalDateTime adminInstitutionModifiedOn,
-			String adminInstitutionPicture) {
+			String adminInstitutionModifiedBy, Date adminInstitutionModifiedOn, String adminInstitutionPicture) {
 		super();
 		this.adminInstitutionId = adminInstitutionId;
 		this.adminInstitutionName = adminInstitutionName;
@@ -78,6 +77,16 @@ public class AdminInstitution {
 		this.adminInstitutionCreatedOn = adminInstitutionCreatedOn;
 		this.adminInstitutionModifiedBy = adminInstitutionModifiedBy;
 		this.adminInstitutionModifiedOn = adminInstitutionModifiedOn;
+		this.adminInstitutionPicture = adminInstitutionPicture;
+	}
+
+	public AdminInstitution(String adminInstitutionName, String adminInstitutionDescription,
+			boolean adminInstitutionIsActive, String adminInstitutionPicture) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.adminInstitutionName = adminInstitutionName;
+		this.adminInstitutionDescription = adminInstitutionDescription;
+		this.adminInstitutionIsActive = adminInstitutionIsActive;
 		this.adminInstitutionPicture = adminInstitutionPicture;
 	}
 
@@ -195,14 +204,14 @@ public class AdminInstitution {
 	/**
 	 * @return the adminInstitutionModifiedOn
 	 */
-	public LocalDateTime getAdminInstitutionModifiedOn() {
+	public Date getAdminInstitutionModifiedOn() {
 		return adminInstitutionModifiedOn;
 	}
 
 	/**
 	 * @param adminInstitutionModifiedOn the adminInstitutionModifiedOn to set
 	 */
-	public void setAdminInstitutionModifiedOn(LocalDateTime adminInstitutionModifiedOn) {
+	public void setAdminInstitutionModifiedOn(Date adminInstitutionModifiedOn) {
 		this.adminInstitutionModifiedOn = adminInstitutionModifiedOn;
 	}
 

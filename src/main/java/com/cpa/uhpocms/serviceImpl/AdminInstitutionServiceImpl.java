@@ -6,7 +6,6 @@
  */
 package com.cpa.uhpocms.serviceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +47,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 	public List<Object> getAllAdminInstitution() {
 
-		List<Object> objectList = new ArrayList<Object>(adminInstitutionRepository.findAll());
+		List<Object> objectList = adminInstitutionRepository.findByAdminInstitutionIsActiveTrue();
 		return objectList;
 	}
 
