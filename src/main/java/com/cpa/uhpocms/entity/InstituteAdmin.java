@@ -124,6 +124,31 @@ public class InstituteAdmin {
 		this.userId = userId;
 	}
 
+	public InstituteAdmin(int adminId, String userRole, String firstName, String lastName, String adminEmail,
+			String dob, String mobilePhone, String adminGender, Integer adminDepartment, String adminAddress1,
+			String adminAddress2, String adminCity, String adminState, String adminZip, String profilePics,
+			boolean activeUser, int institutionId, Integer userId) {
+		super();
+		this.adminId = adminId;
+		this.userRole = userRole;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.adminEmail = adminEmail;
+		this.dob = dob;
+		this.mobilePhone = mobilePhone;
+		this.adminGender = adminGender;
+		this.adminDepartment = adminDepartment;
+		this.adminAddress1 = adminAddress1;
+		this.adminAddress2 = adminAddress2;
+		this.adminCity = adminCity;
+		this.adminState = adminState;
+		this.adminZip = adminZip;
+		this.profilePics = profilePics;
+		this.activeUser = activeUser;
+		this.institutionId = institutionId;
+		this.userId = userId;
+	}
+
 	public int getAdminId() {
 		return adminId;
 	}
