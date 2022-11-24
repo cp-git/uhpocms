@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/UHPOC
+    url: jdbc:postgresql://localhost:5432/uhpocms
     username: postgres
     password: Pass1word
 
@@ -10,5 +10,5 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    generate-ddl: true
+    #generate-ddl: true
     show-sql:  true

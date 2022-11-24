@@ -22,7 +22,7 @@ public class InstituteAdmin {
 	@Column(name = "id")
 	private int adminId;
 
-	@Column(name = "user_role", nullable = false)
+	@Column(name = "userrole")
 	private String userRole;
 
 	@Column(name = "first_name")
@@ -37,7 +37,7 @@ public class InstituteAdmin {
 	@Column(name = "dob")
 	private String dob;
 
-	@Column(name = "mobile_no")
+	@Column(name = "mobileno")
 	private String mobilePhone;
 
 	@Column(name = "gender")
@@ -64,26 +64,26 @@ public class InstituteAdmin {
 	@Column(name = "profile_pics")
 	private String profilePics;
 
-	@Column(name = "created_by")
+	@Column(name = "createdby")
 	private String createdBy;
 
 	@CreationTimestamp
-	@Column(name = "created_date")
+	@Column(name = "createddate")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn = new Date(System.currentTimeMillis());
 
-	@Column(name = "updated_by")
+	@Column(name = "updatedby")
 	private String modifiedBy;
 
 	@UpdateTimestamp
-	@Column(name = "updated_date")
+	@Column(name = "updateddate")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedOn = new Date(System.currentTimeMillis());
 
-	@Column(name = "is_active")
+	@Column(name = "isactive")
 	private boolean activeUser;
 
-	@Column(name = "institution_id")
+	@Column(name = "institutionid_id")
 	private int institutionId;
 
 	@Column(name = "user_id")

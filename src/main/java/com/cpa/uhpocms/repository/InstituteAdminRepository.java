@@ -14,7 +14,7 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	public InstituteAdmin findByFirstName(String firstName);
 
 	String name = "instituteadmin_profile";
-	String val = "is_active";
+	String val = "isactive";
 
 	@Transactional
 	@Modifying

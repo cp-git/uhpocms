@@ -34,7 +34,7 @@ public class InstituteAdminController {
 		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 	}
 
-	@PostMapping("/saveInstitituteAdmin")
+	@PostMapping("/profile")
 
 	public ResponseEntity<Object> saveInstituteAdmin(@RequestBody InstituteAdmin instituteAdmin) {
 		InstituteAdmin insAdmin;
@@ -49,7 +49,7 @@ public class InstituteAdminController {
 
 	}
 
-	@GetMapping("/getInstituteByname/{firstName}")
+	@GetMapping("/profile/{firstName}")
 	public ResponseEntity<Object> getNameIntitute(@PathVariable("firstName") String firstName) throws CPException {
 
 		InstituteAdmin instituteAdmin = null;
@@ -70,7 +70,7 @@ public class InstituteAdminController {
 
 	}
 
-	@PutMapping("/updateInstituteByName/{firstName}")
+	@PutMapping("/profile/{firstName}")
 	public ResponseEntity<Object> updateEmployee(@RequestBody InstituteAdmin instituteAdmin,
 			@PathVariable("firstName") String firstName) throws CPException {
 		InstituteAdmin toFirstName = null;
@@ -92,7 +92,7 @@ public class InstituteAdminController {
 
 	}
 
-	@GetMapping("/GetAllInstitute")
+	@GetMapping("/profile")
 	public ResponseEntity<List<Object>> getAllAuthUsers(@RequestParam(name = "firstName") String firstName) {
 
 		if (firstName.equals("all")) {
@@ -110,7 +110,7 @@ public class InstituteAdminController {
 
 	}
 
-	@DeleteMapping("/DeleteDepartmentByName/{firstName}")
+	@DeleteMapping("/profile/{firstName}")
 
 	public ResponseEntity<Object> deleteDepartmentById(@PathVariable("firstName") String firstName) {
 		int status = 0;
