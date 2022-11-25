@@ -1,0 +1,30 @@
+2022-Nov-25 14:41:50 INFO [restartedMain] com.cpa.uhpocms.InstituteadminApplication.main(InstituteadminApplication.java:13) - in Main class
+2022-Nov-25 14:43:59 INFO [restartedMain] com.cpa.uhpocms.InstituteadminApplication.main(InstituteadminApplication.java:13) - in Main class
+2022-Nov-25 14:44:07 INFO [http-nio-8080-exec-9] com.cpa.uhpocms.controller.InstituteAdminController.getNameIntitute(InstituteAdminController.java:59) - in getByName
+2022-Nov-25 14:45:23 INFO [restartedMain] com.cpa.uhpocms.InstituteadminApplication.main(InstituteadminApplication.java:13) - in Main class
+2022-Nov-25 14:46:08 INFO [restartedMain] com.cpa.uhpocms.InstituteadminApplication.main(InstituteadminApplication.java:13) - in Main class
+2022-Nov-25 14:46:27 INFO [restartedMain] com.cpa.uhpocms.InstituteadminApplication.main(InstituteadminApplication.java:13) - in Main class
+2022-Nov-25 14:46:38 INFO [http-nio-8080-exec-2] com.cpa.uhpocms.controller.InstituteAdminController.getNameIntitute(InstituteAdminController.java:59) - in getByName
+2022-Nov-25 14:46:44 INFO [http-nio-8080-exec-3] com.cpa.uhpocms.controller.InstituteAdminController.getNameIntitute(InstituteAdminController.java:59) - in getByName
+2022-Nov-25 14:46:44 DEBUG [http-nio-8080-exec-3] com.cpa.uhpocms.controller.InstituteAdminController.getNameIntitute(InstituteAdminController.java:67) - Not Found
+2022-Nov-25 14:48:51 INFO [restartedMain] com.cpa.uhpocms.InstituteadminApplication.main(InstituteadminApplication.java:13) - in Main class
+2022-Nov-25 14:49:20 INFO [restartedMain] com.cpa.uhpocms.InstituteadminApplication.main(InstituteadminApplication.java:13) - in Main class
+2022-Nov-25 14:49:29 INFO [http-nio-8080-exec-2] com.cpa.uhpocms.controller.InstituteAdminController.getAllAuthUsers(InstituteAdminController.java:105) - in GetAllIntituteAdminProfile...
+2022-Nov-25 14:49:46 INFO [http-nio-8080-exec-3] com.cpa.uhpocms.controller.InstituteAdminController.getAllAuthUsers(InstituteAdminController.java:105) - in GetAllIntituteAdminProfile...
+2022-Nov-25 14:49:46 ERROR [http-nio-8080-exec-3] com.cpa.uhpocms.controller.InstituteAdminController.getAllAuthUsers(InstituteAdminController.java:117) - Not found ALL Data
+2022-Nov-25 14:51:52 INFO [restartedMain] com.cpa.uhpocms.InstituteadminApplication.main(InstituteadminApplication.java:13) - in Main class
+2022-Nov-25 14:52:02 INFO [http-nio-8080-exec-2] com.cpa.uhpocms.controller.InstituteAdminController.saveInstituteAdmin(InstituteAdminController.java:45) - In Post Method...
+2022-Nov-25 14:52:02 ERROR [http-nio-8080-exec-2] com.cpa.uhpocms.controller.InstituteAdminController.saveInstituteAdmin(InstituteAdminController.java:50) - User Creation failed in post method..
+2022-Nov-25 14:52:18 INFO [http-nio-8080-exec-4] com.cpa.uhpocms.controller.InstituteAdminController.saveInstituteAdmin(InstituteAdminController.java:45) - In Post Method...
+2022-Nov-25 14:54:04 INFO [restartedMain] com.cpa.uhpocms.InstituteadminApplication.main(InstituteadminApplication.java:13) - in Main class
+2022-Nov-25 14:54:32 INFO [http-nio-8080-exec-2] com.cpa.uhpocms.controller.InstituteAdminController.updateEmployee(InstituteAdminController.java:85) - inside the put method..
+2022-Nov-25 14:54:32 INFO [http-nio-8080-exec-2] com.cpa.uhpocms.controller.InstituteAdminController.updateEmployee(InstituteAdminController.java:90) - Update Operation is failed...
+2022-Nov-25 14:54:53 INFO [http-nio-8080-exec-4] com.cpa.uhpocms.controller.InstituteAdminController.updateEmployee(InstituteAdminController.java:85) - inside the put method..
+2022-Nov-25 14:55:55 INFO [restartedMain] com.cpa.uhpocms.InstituteadminApplication.main(InstituteadminApplication.java:13) - in Main class
+2022-Nov-25 14:56:16 INFO [http-nio-8080-exec-1] com.cpa.uhpocms.controller.InstituteAdminController.deleteDepartmentById(InstituteAdminController.java:130) - inside the delete method...
+2022-Nov-25 14:56:29 INFO [http-nio-8080-exec-2] com.cpa.uhpocms.controller.InstituteAdminController.deleteDepartmentById(InstituteAdminController.java:130) - inside the delete method...
+2022-Nov-25 14:56:29 ERROR [http-nio-8080-exec-2] com.cpa.uhpocms.controller.InstituteAdminController.deleteDepartmentById(InstituteAdminController.java:138) - User Deletion Failed...
+2022-Nov-25 14:56:45 INFO [http-nio-8080-exec-4] com.cpa.uhpocms.controller.InstituteAdminController.getNameIntitute(InstituteAdminController.java:60) - in getByName
+2022-Nov-25 14:56:45 DEBUG [http-nio-8080-exec-4] com.cpa.uhpocms.controller.InstituteAdminController.getNameIntitute(InstituteAdminController.java:68) - Not Found
+2022-Nov-25 14:57:20 INFO [http-nio-8080-exec-6] com.cpa.uhpocms.controller.InstituteAdminController.updateEmployee(InstituteAdminController.java:85) - inside the put method..
+2022-Nov-25 14:57:20 INFO [http-nio-8080-exec-6] com.cpa.uhpocms.controller.InstituteAdminController.updateEmployee(InstituteAdminController.java:90) - Update Operation is failed...
