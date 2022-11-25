@@ -39,7 +39,7 @@ public class AdminInstitutionServiceImplTest {
 		Date createdOn = null;
 		Date modifiedOn = null;
 		try {
-			createdOn = new SimpleDateFormat("yyyy-MM-dd ").parse("2022-11-24");
+			createdOn = new SimpleDateFormat("yyyy-MM-dd").parse("2022-11-24");
 			modifiedOn = new SimpleDateFormat("yyyy-MM-dd").parse("2022-11-24");
 
 		} catch (ParseException e) {
@@ -101,6 +101,40 @@ public class AdminInstitutionServiceImplTest {
 
 		int count = adminInstitutionService.deleteAdminInstitutionByName("GEC");
 		assertEquals(count, 1);
+	}
+
+	@Test
+	public void testUpdateAdminInstitutionName() {
+
+		Date createdOn = null;
+		Date modifiedOn = null;
+		try {
+			createdOn = new SimpleDateFormat("yyyy-MM-dd ").parse("2022-11-24");
+			modifiedOn = new SimpleDateFormat("yyyy-MM-dd").parse("2022-11-24");
+
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+		}
+
+		// exisiting adminInstitution
+		AdminInstitution existing = new AdminInstitution(1, "GEC", "Engineering", true, "Admin", createdOn, "Admin",
+				modifiedOn, "abc");
+
+		// updating admin institution to update entry in table
+		AdminInstitution adminInstitution = new AdminInstitution("GEC", "BA", true, "ert");
+
+		// expected admin institution
+		AdminInstitution expect = new AdminInstitution(1, "GEC", "BA", true, "Admin", createdOn, "Admin", modifiedOn,
+				"ert");
+
+		Mockito.when(adminInstitutionRepository.findByAdminInstitutionName("GEC")).thenReturn(existing);
+		AdminInstitution toUpdateAdminInstitution = adminInstitutionRepository.findByAdminInstitutionName("GEC");
+		Mockito.when(adminInstitutionRepository.save(toUpdateAdminInstitution)).thenReturn(expect);
+		AdminInstitution result = adminInstitutionService.updateAdminInstitutionByName(adminInstitution, "GEC");
+
+		assertEquals(expect.toString(), result.toString());
+
 	}
 
 	@AfterEach

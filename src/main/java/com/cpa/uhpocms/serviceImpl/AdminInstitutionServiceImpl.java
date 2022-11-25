@@ -8,10 +8,12 @@ package com.cpa.uhpocms.serviceImpl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cpa.uhpocms.controller.AdminInstitutionController;
 import com.cpa.uhpocms.entity.AdminInstitution;
 import com.cpa.uhpocms.repository.AdminInstitutionRepository;
 import com.cpa.uhpocms.service.AdminInstitutionService;
@@ -21,6 +23,12 @@ import com.cpa.uhpocms.service.AdminInstitutionService;
 public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	@Autowired
 	AdminInstitutionRepository adminInstitutionRepository;
+	private static Logger logger;
+
+	public AdminInstitutionServiceImpl() {
+		logger = Logger.getLogger(AdminInstitutionController.class);
+
+	}
 
 	/**
 	 * @author: Akash
@@ -29,38 +37,50 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	 * @description : For creating/inserting entry in admin_institution table
 	 */
 	public AdminInstitution saveAdminInstitution(AdminInstitution adminInstitution) {
+
 		adminInstitution.setAdminInstitutionCreatedBy("Admin");
 		adminInstitution.setAdminInstitutionModifiedBy("Admin");
+
+		logger.debug("Entering the admin institution data");
 
 		AdminInstitution createdAdminInstitution = null;
 
 		createdAdminInstitution = adminInstitutionRepository.save(adminInstitution);
+		logger.info("Created admin institution :" + createdAdminInstitution);
 
 		return createdAdminInstitution;
 	}
 
 	/**
 	 * @author: Akash
-	 * @return : List<AdminInstitution>
+	 * @return : objectList
 	 * @description : For Retrieving all entry in admin_institution table
 	 */
 
 	public List<Object> getAllAdminInstitution() {
-
+		logger.debug("Entering getAllAdminInstitution");
 		List<Object> objectList = adminInstitutionRepository.findByAdminInstitutionIsActiveTrue();
+
+		logger.info("Fetched all active institution :" + objectList);
+
 		return objectList;
+
 	}
 
 	/**
 	 * @author: Akash
 	 * @param: String adminInstitutionName
-	 * @return : String Record deleted Successfully.
+	 * @return : count
 	 * @description : For deleting entry in admin_institution table
 	 */
 	public int deleteAdminInstitutionByName(String adminInstitutionName) {
+		logger.debug("Entering deleteAdminInstitutionByName");
 
-		return adminInstitutionRepository.deleteByAdminInstitutionName(adminInstitutionName);
+		int count = 0;
+		count = adminInstitutionRepository.deleteByAdminInstitutionName(adminInstitutionName);
 
+		logger.info("Deletion count " + count);
+		return count;
 	}
 
 	/**
@@ -71,26 +91,36 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	 */
 	public AdminInstitution updateAdminInstitutionByName(AdminInstitution adminInstitution,
 			String adminInstitutionName) {
+		logger.debug("Entering updateAdminInstitutionByName");
+
+		AdminInstitution updatedAdminInstitution;
 
 		AdminInstitution admin = adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
+		logger.info("Existimg Admin Institution" + admin);
+
 		admin.setAdminInstitutionName(adminInstitution.getAdminInstitutionName());
 		admin.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
 		admin.setAdminInstitutionIsActive(adminInstitution.isAdminInstitutionIsActive());
 		admin.setAdminInstitutionPicture(adminInstitution.getAdminInstitutionPicture());
-		adminInstitutionRepository.save(admin);
-		return admin;
+		updatedAdminInstitution = adminInstitutionRepository.save(admin);
+
+		logger.info("Updated AdminInstitution data" + updatedAdminInstitution);
+		return updatedAdminInstitution;
 
 	}
 
 	/**
 	 * @author: Akash
 	 * @param: String adminInstitutionName
-	 * @return : List<AdminInstitution>
+	 * @return : adminInstitutionName
 	 * @description : For retrieving the specific entry in admin_institution table
 	 */
 	public AdminInstitution findByAdminInstitutionName(String adminInstitutionName) {
+		logger.debug("Entering getAdminInstitutionByName");
+		AdminInstitution adminInstitution = adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
 
-		return adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
+		logger.info("Fetched AdminInstitution data" + adminInstitution);
+		return adminInstitution;
 	}
 
 }
