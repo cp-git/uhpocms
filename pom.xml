@@ -70,10 +70,10 @@
 	
 	<modules>
 		<module>services/authuser</module>
-		<!--<module>services/adminrole</module>
-		<module>services/admindepartment</module>
 		<module>services/admininstitution</module>
-		<module>services/institituteadminprofile</module> -->
+		<module>services/admindepartment</module>
+		<module>services/institituteadminprofile</module>
+		<module>services/adminrole</module>
 	</modules>
 
 </project>

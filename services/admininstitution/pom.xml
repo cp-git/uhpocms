@@ -8,11 +8,10 @@
 	</parent>
 	
 	<groupId>com.cpa.uhpocms.ms.services</groupId>
-	<artifactId>authuser</artifactId>
+	<artifactId>admininstitution</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>authuser</name>
-	<packaging>war</packaging>
-	<description>This is authuser module of uhpocms</description>
+	<name>admininstitution</name>
+	<description>This is admininstitution of uhpocms</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -28,4 +27,3 @@
 	</build>
 
 </project>
-

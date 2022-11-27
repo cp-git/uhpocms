@@ -6,16 +6,16 @@
 	<appender name="CA" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
-				value="%d{yyyy-MMM-dd HH:mm:ss} %-6p --- [%10t] %-50logger{25} : %m%n" />
+				value="%d{yyyy-MMM-dd HH:mm:ss} %p [%-10t] %l - %m%n" />
 		</layout>
 	</appender>
 
 	<appender name="FA" class="org.apache.log4j.FileAppender">
-		<param name="File" value="logs/authuser.log" />
-		<param name="Threshold" value="INFO" />
+		<param name="File" value="logs/institituteadminprofile.log" />
+		<param name="Threshold" value="DEBUG" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
-				value="%d{yyyy-MMM-dd HH:mm:ss} %-6p --- [%10t] %-50logger{25} : %m%n" />
+				value="%d{yyyy-MMM-dd HH:mm:ss} %p [%-10t] %l - %m%n" />
 		</layout>
 	</appender>
 
