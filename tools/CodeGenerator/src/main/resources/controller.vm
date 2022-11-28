@@ -1,0 +1,91 @@
+/**
+ * @author - Code Generator
+ * @createdOn ${genDate}
+ * @Description Controller class for ${service}
+ * 
+ */
+
+package com.cpa.uhpocms.controller;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cpa.uhpocms.entity.${entity};
+import com.cpa.uhpocms.helper.CPException;
+import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.service.${Cservice}Service;
+
+@RestController
+@RequestMapping("/uhpocms")
+public class AuthUserController {
+
+	@Autowired
+	private ${Cservice}Service ${service}Service;;
+
+	private ResourceBundle resourceBunde;
+	private static Logger logger;
+
+	AuthUserController() {
+		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
+		logger = Logger.getLogger(${Cservice}Controller.class);
+	}
+
+	@PostMapping("/${uri}")
+	public ResponseEntity<Object> create${Cservice}(@RequestBody ${Cservice} ${service}) throws CPException {
+		logger.debug("Entering create${Cservice}");
+		logger.info("data of creating ${Cservice}  :" + ${service}.toString());
+
+		${Cservice} created${service} = null;
+		//TODO - implement the business logic
+	}
+
+	@GetMapping("/${uri}/{${param}}")
+	public ResponseEntity<Object> get${Cservice}ByName(@PathVariable("${param}") String ${param})
+			throws CPException {
+		logger.debug("Entering get${Cservice}ByName");
+		logger.info("entered user name :" + ${param});
+		//TODO - implement the business logic
+
+	}
+
+	@GetMapping("/${uri}")
+	public ResponseEntity<List<Object>> getAll${Cservice}(@RequestParam(name = "${param}") String ${param})
+			throws CPException {
+		logger.debug("Entering getAll${Cservice}");
+		logger.info("Parameter  :" + ${param});
+		//TODO - implement the business logic
+		
+	}
+
+	@DeleteMapping("/${uri}/{${param}}")
+	public ResponseEntity<Object> delete${Cservice}(@PathVariable("${param}") String ${param}) throws CPException {
+		logger.debug("Entering deleteAuthUser");
+		logger.info("entered delete${Cservice}  :" + ${param});
+		//TODO - implement the business logic
+
+	}
+
+	@PutMapping("/${uri}/{${param}}")
+	public ResponseEntity<Object> update${Cservice}(@RequestBody ${Cservice} ${service},
+			@PathVariable("${param}") String ${param}) throws CPException {
+		logger.debug("Entering update${Cservice}");
+		logger.info("entered  update${Cservice} :" + ${service});
+
+	}
+
+}
