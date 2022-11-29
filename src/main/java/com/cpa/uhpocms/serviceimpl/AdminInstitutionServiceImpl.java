@@ -4,14 +4,13 @@
  * @Description : This class is an implementation class for AdminInstitution
  * Last modified : None 
  */
-package com.cpa.uhpocms.serviceImpl;
+package com.cpa.uhpocms.serviceimpl;
 
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cpa.uhpocms.controller.AdminInstitutionController;
 import com.cpa.uhpocms.entity.AdminInstitution;
@@ -19,7 +18,7 @@ import com.cpa.uhpocms.repository.AdminInstitutionRepository;
 import com.cpa.uhpocms.service.AdminInstitutionService;
 
 @Service
-@Transactional
+
 public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	@Autowired
 	AdminInstitutionRepository adminInstitutionRepository;
@@ -46,6 +45,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		AdminInstitution createdAdminInstitution = null;
 
 		createdAdminInstitution = adminInstitutionRepository.save(adminInstitution);
+
 		logger.info("Created admin institution :" + createdAdminInstitution);
 
 		return createdAdminInstitution;

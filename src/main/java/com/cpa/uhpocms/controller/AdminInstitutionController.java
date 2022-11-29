@@ -50,8 +50,7 @@ public class AdminInstitutionController {
 	/**
 	 * @author: Akash
 	 * @param: AdminInstitution adminInstitution
-	 * @return : ResponseHandler.generateResponse(addInstitution,
-	 *         HttpStatus.CREATED)
+	 * @return : ResponseEntity
 	 * @description : For creating/inserting entry in AdminInstitution.
 	 */
 	@PostMapping("/institution")
@@ -63,28 +62,37 @@ public class AdminInstitutionController {
 		AdminInstitution addInstitution = null;
 
 		try {
-			addInstitution = adminInstitutionService.saveAdminInstitution(adminInstitution);
-			logger.info("created admin institution :" + addInstitution);
+			AdminInstitution toCheckAdminInstitution = adminInstitutionService
+					.findByAdminInstitutionName(adminInstitution.getAdminInstitutionName());
+			logger.debug("existing admin institution :" + toCheckAdminInstitution);
+
+			if (toCheckAdminInstitution == null) {
+				addInstitution = adminInstitutionService.saveAdminInstitution(adminInstitution);
+				logger.info("institution created :" + addInstitution);
+				return ResponseHandler.generateResponse(addInstitution, HttpStatus.CREATED);
+
+			} else {
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err013");
+			}
 		} catch (Exception e) {
 			logger.error(resourceBundle.getString("err013"));
-			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err013");
+			throw new CPException("err013", resourceBundle.getString("err013"));
+
 		}
 
-		return ResponseHandler.generateResponse(addInstitution, HttpStatus.CREATED);
 	}
 
 	/**
 	 * @author: Akash
 	 * @param: List<Object>
-	 * @return :
-	 *         ResponseHandler.generateListResponse(adminInstitutionService.getAllAdminInstitution(),
-	 *         HttpStatus.OK);
+	 * @return :ResponseEntity
+	 * @throws CPException
 	 * @description : get mapping that retrieves all the institution details from
 	 *              the db
 	 */
 	@GetMapping("/institution")
-	public ResponseEntity<List<Object>> getAllAdminInstitution(
-			@RequestParam(name = "name") String adminInstitutionName) {
+	public ResponseEntity<List<Object>> getAllAdminInstitution(@RequestParam(name = "name") String adminInstitutionName)
+			throws CPException {
 
 		logger.debug("getAll Admin Institution");
 
@@ -102,34 +110,40 @@ public class AdminInstitutionController {
 			}
 		} catch (Exception e) {
 			logger.error(resourceBundle.getString("err012"));
+			throw new CPException("err012", resourceBundle.getString("err012"));
 
 		}
-		return ResponseHandler.generateListResponse(listAdminInstitution, HttpStatus.OK);
 
 	}
 
 	/**
 	 * @author: Akash
 	 * @param: String adminInstitutionName
-	 * @return : ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR,
-	 *         "err011")
+	 * @return : ResponseEntity
+	 * @throws CPException
 	 * @description :get mapping that retrieves the institution details by Name
 	 */
 	@GetMapping("/institution/{name}")
-	public ResponseEntity<Object> getInstitutionByName(@PathVariable("name") String adminInstitutionName) {
+	public ResponseEntity<Object> getInstitutionByName(@PathVariable("name") String adminInstitutionName)
+			throws CPException {
 		logger.debug("get institution by name");
 
-		AdminInstitution admin = null;
-		admin = adminInstitutionService.findByAdminInstitutionName(adminInstitutionName);
+		AdminInstitution adminInstitution = null;
+		try {
+			adminInstitution = adminInstitutionService.findByAdminInstitutionName(adminInstitutionName);
+			logger.info("get the data of institution by name" + adminInstitution);
 
-		logger.info("get the data of institution by name" + admin);
+			if (adminInstitution != null) {
 
-		if (admin != null) {
+				return ResponseHandler.generateResponse(adminInstitution, HttpStatus.OK);
+			} else {
+				logger.error(resourceBundle.getString("err011"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err011");
+			}
+		} catch (Exception ex) {
 
-			return ResponseHandler.generateResponse(admin, HttpStatus.OK);
-		} else {
-			logger.error(resourceBundle.getString("err011"));
-			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err011");
+			logger.error("Failed getting admin institution : " + ex.getMessage());
+			throw new CPException("err011", resourceBundle.getString("err011"));
 		}
 
 	}
@@ -137,25 +151,31 @@ public class AdminInstitutionController {
 	/**
 	 * @author: Akash
 	 * @param: String adminInstitutionName
-	 * @return : ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR,
-	 *         "err015")
+	 * @return : ResponseEntity
+	 * @throws CPException
 	 * @description :deleting a specific record by using the method
 	 *              deleteAdminInstitutionByName()
 	 */
 	@DeleteMapping("/institution/{name}")
-	public ResponseEntity<Object> deleteAdminInstitutionByName(@PathVariable("name") String adminInstitutionName) {
+	public ResponseEntity<Object> deleteAdminInstitutionByName(@PathVariable("name") String adminInstitutionName)
+			throws CPException {
 		logger.debug("delete institution by name");
+		int adminInstitution = 0;
 
-		AdminInstitution admin = null;
+		try {
+			adminInstitution = adminInstitutionService.deleteAdminInstitutionByName(adminInstitutionName);
 
-		admin = adminInstitutionService.findByAdminInstitutionName(adminInstitutionName);
-		logger.info("data present in institution delete by name" + admin);
-		if (admin != null) {
-			return ResponseHandler.generateResponse(
-					adminInstitutionService.deleteAdminInstitutionByName(adminInstitutionName), HttpStatus.NO_CONTENT);
-		} else {
-			logger.error(resourceBundle.getString("err015"));
-			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err015");
+			if (adminInstitution >= 1) {
+				logger.info("deleted admin institution : adminInstitutionName = " + adminInstitutionName);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err015");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete admin Institution :" + ex.getMessage());
+			throw new CPException("err015", resourceBundle.getString("err015"));
 		}
 
 	}
@@ -185,7 +205,8 @@ public class AdminInstitutionController {
 			}
 		} catch (Exception e) {
 			logger.error(resourceBundle.getString("err014"));
-			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err014");
+			throw new CPException("err014", resourceBundle.getString("err014"));
+
 		}
 
 	}
