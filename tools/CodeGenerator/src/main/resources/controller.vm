@@ -26,13 +26,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cpa.uhpocms.entity.${entity};
-import com.cpa.uhpocms.helper.CPException;
+import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.${Cservice}Service;
 
 @RestController
 @RequestMapping("/uhpocms")
-public class AuthUserController {
+public class ${Cservice}Controller {
 
 	@Autowired
 	private ${Cservice}Service ${service}Service;;
@@ -40,7 +40,7 @@ public class AuthUserController {
 	private ResourceBundle resourceBunde;
 	private static Logger logger;
 
-	AuthUserController() {
+	${Cservice}Controller() {
 		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(${Cservice}Controller.class);
 	}
@@ -50,16 +50,61 @@ public class AuthUserController {
 		logger.debug("Entering create${Cservice}");
 		logger.info("data of creating ${Cservice}  :" + ${service}.toString());
 
-		${Cservice} created${service} = null;
-		//TODO - implement the business logic
+		${Cservice} created${Cservice} = null;
+		try {
+
+			${Cservice} toCheck${Cservice} = ${service}Service.get${Cservice}By${findBy}(${service}.get${findBy}());
+			logger.debug("existing ${service} :" + toCheck${Cservice});
+
+			if (toCheck${Cservice} == null) {
+
+			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
+			//	${service}.setCreatedby("admin");
+			//	${service}.setUpdatedby("admin");
+
+				created${Cservice} = ${service}Service.create${Cservice}(${service});
+				logger.info("${Cservice} created :" + created${Cservice});
+
+				return ResponseHandler.generateResponse(created${Cservice}, HttpStatus.CREATED);
+
+			} else {
+
+				logger.error(resourceBunde.getString("err003"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed ${Cservice} creation : " + ex.getMessage());
+			throw new CPException("err003", resourceBunde.getString("err003"));
+		}
 	}
 
 	@GetMapping("/${uri}/{${param}}")
-	public ResponseEntity<Object> get${Cservice}ByName(@PathVariable("${param}") String ${param})
+	public ResponseEntity<Object> get${Cservice}By${param}(@PathVariable("${param}") String ${param})
 			throws CPException {
-		logger.debug("Entering get${Cservice}ByName");
+		logger.debug("Entering get${Cservice}By${param}");
 		logger.info("entered user name :" + ${param});
-		//TODO - implement the business logic
+		
+		${Cservice} ${service} = null;
+
+		try {
+
+			${service} = ${service}Service.get${Cservice}By${findBy}(${param});
+			logger.info("fetched ${Cservice} :" + ${service});
+
+			if (${service} != null) {
+				logger.debug("${Cservice} fetched generating response");
+				return ResponseHandler.generateResponse(${service}, HttpStatus.OK);
+			} else {
+				logger.debug("${Cservice} not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting ${service} : " + ex.getMessage());
+			throw new CPException("err001", resourceBunde.getString("err001"));
+		}
 
 	}
 
@@ -68,8 +113,29 @@ public class AuthUserController {
 			throws CPException {
 		logger.debug("Entering getAll${Cservice}");
 		logger.info("Parameter  :" + ${param});
-		//TODO - implement the business logic
 		
+		List<Object> ${service}s = null;
+
+		try {
+
+			if (${param}.equalsIgnoreCase("all")) {
+
+				${service}s = ${service}Service.getAll${Cservice}s();
+				logger.info("Fetched all ${Cservice} :" + ${service}s);
+
+				return ResponseHandler.generateListResponse(${service}s, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all ${service}s : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
 	}
 
 	@DeleteMapping("/${uri}/{${param}}")
@@ -77,6 +143,24 @@ public class AuthUserController {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered delete${Cservice}  :" + ${param});
 		//TODO - implement the business logic
+		
+		int count = 0;
+
+		try {
+			count = ${service}Service.delete${Cservice}By${findBy}(${param});
+			if (count >= 1) {
+				logger.info("deleted ${Cservice} : ${findBy} = " + ${param});
+				return ResponseHandler.generateResponse(HttpStatus.ACCEPTED);
+			} else {
+				logger.info(resourceBunde.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete ${Cservice} :" + ex.getMessage());
+			throw new CPException("err005", resourceBunde.getString("err005"));
+		}
+		
 
 	}
 
@@ -85,6 +169,25 @@ public class AuthUserController {
 			@PathVariable("${param}") String ${param}) throws CPException {
 		logger.debug("Entering update${Cservice}");
 		logger.info("entered  update${Cservice} :" + ${service});
+
+		${Cservice} updated${Cservice} = null;
+
+		try {
+			updated${Cservice} = ${service}Service.update${Cservice}(${service}, ${param});
+
+			if (updated${Cservice} == null) {
+				logger.info(resourceBunde.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated ${service} : " + updated${Cservice});
+				return ResponseHandler.generateResponse(updated${Cservice}, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update ${Cservice} : " + ex.getMessage());
+			throw new CPException("err004", resourceBunde.getString("err004"));
+
+		}
 
 	}
 
