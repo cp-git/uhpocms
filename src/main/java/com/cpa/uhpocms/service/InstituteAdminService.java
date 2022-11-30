@@ -10,12 +10,14 @@ public interface InstituteAdminService {
 	
 	InstituteAdmin getInstitutebyName(String firstName);
 	
+	public InstituteAdmin findByUserId(int userId);
+	
 	
 	List<Object> getAllInstitute(); 
 	
 	InstituteAdmin updateInstituteAdmin(InstituteAdmin instituteAdmin, String  firstName);
 	
-	int deleteDepartmentById(String firstName);
+	int deleteDepartmentByName(String firstName);
 	
 	
 }
