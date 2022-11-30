@@ -49,7 +49,7 @@ public class InstituteAdminController {
 
 	/**
 	 * @author : Anmesh
-	 * @param :  SaveInstituteAdmin
+	 * @param :  InstituteAdmin
 	 * @return : InstituteAdmin 
 	 * @description : For Saving All the data 
 	 */
@@ -86,7 +86,7 @@ public class InstituteAdminController {
 	/**
 	 * @author : Anmesh
 	 * @param :  getInstituteByName
-	 * @return : InstituteAdmin 
+	 * @return : ResponseEntity<Object> 
 	 * @description : For Getting Data using firstName 
 	 */
 
@@ -119,7 +119,7 @@ public class InstituteAdminController {
 	/**
 	 * @author : Anmesh
 	 * @param :  updateInstituteAdmin
-	 * @return : InstituteAdmin 
+	 * @return : ResponseEntity<Object> 
 	 * @description : For Updating Data using firstName 
 	 */
 
@@ -143,7 +143,7 @@ public class InstituteAdminController {
 			}
 
 		} catch (Exception ee) {
-			System.err.println(ee.toString());
+			
 			loggger.error(ee.toString());
 			throw new CPException("err004", resourceBundle.getString("err004"));
 
@@ -154,7 +154,7 @@ public class InstituteAdminController {
 	/**
 	 * @author : Anmesh
 	 * @param :  getAllInstituteAdmin
-	 * @return : List<InstituteAdmin> 
+	 * @return : ResponseEntity<List<object>> 
 	 * @description : For Getting All Data using firstName 
 	 */
 
@@ -188,28 +188,35 @@ public class InstituteAdminController {
 	
 	/**
 	 * @author : Anmesh
-	 * @param :  deleteDepartmentByName
+	 * @param :  ResponseEntity<Object>
 	 * @return : int 
 	 * @description : For Deleting Data using firstName 
 	 */
 
 	@DeleteMapping("/profile/{firstName}")
 
-	public ResponseEntity<Object> deleteDepartmentByName(@PathVariable("firstName") String firstName) {
+	public ResponseEntity<Object> deleteDepartmentByName(@PathVariable("firstName") String firstName)throws CPException {
 		loggger.info("inside the delete method...");
 		int status = 0;
 
 		status = instituteAdminService.deleteDepartmentByName(firstName);
 		 loggger.info("DeleteIntituteAdminProfile Values"+status);
 
+		 try {
 		if (status == 1) {
 			return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 		} else {
 			loggger.error("User Deletion Failed...");
-			System.err.println(resourceBundle.getString("err005"));
-			return ResponseHandler.generateResponse(HttpStatus.GONE, "err005");
+		
+			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
 
 		}
+		 }
+		 catch(Exception ee)
+		 {
+			 ee.printStackTrace();
+			 throw new CPException("err002", resourceBundle.getString("err005"));
+		 }
 
 	}
 

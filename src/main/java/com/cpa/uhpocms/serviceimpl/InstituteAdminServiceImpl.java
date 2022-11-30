@@ -7,6 +7,7 @@ package com.cpa.uhpocms.serviceimpl;
  * 
  */
 
+
 import java.util.List;
 
 
@@ -30,7 +31,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	
 	/**
 	 * @author : Anmesh
-	 * @param :  SaveInstituteAdmin
+	 * @param :  InstituteAdmin
 	 * @return : InstituteAdmin 
 	 * @description : For Saving All the data 
 	 */
@@ -55,7 +56,6 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	
 	/**
 	 * @author : Anmesh
-	 * @param :  getAllInstitute
 	 * @return : List<InstituteAdmin> 
 	 * @description : For getting All data using getAllInstitute
 	 */
@@ -71,7 +71,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	
 	/**
 	 * @author : Anmesh
-	 * @param :  updateInstituteAdmin
+	 * @param :  InstituteAdmin,String
 	 * @return : InstituteAdmin 
 	 * @description : For updating data using firstName
 	 */
@@ -106,7 +106,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	
 	/**
 	 * @author : Anmesh
-	 * @param :  DeleteInstituteAdmin
+	 * @param :  String
 	 * @return : int
 	 * @description : For Soft Delete data using firstName
 	 */
@@ -119,7 +119,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	
 	/**
 	 * @author : Anmesh
-	 * @param :  UserId unique key and foreign key
+	 * @param :  int
 	 * @return : int UserId
 	 * @description : For fetching userId  using
 	 */
@@ -139,7 +139,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 
 	@Override
 	public InstituteAdmin getInstituteByName(String firstName) {
-		// TODO Auto-generated method stub
+
 		return instituteAdminRepository.findByFirstName(firstName);
 	}
 
