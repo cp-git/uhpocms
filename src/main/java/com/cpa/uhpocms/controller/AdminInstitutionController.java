@@ -160,12 +160,12 @@ public class AdminInstitutionController {
 	public ResponseEntity<Object> deleteAdminInstitutionByName(@PathVariable("name") String adminInstitutionName)
 			throws CPException {
 		logger.debug("delete institution by name");
-		int adminInstitution = 0;
+		int count = 0;
 
 		try {
-			adminInstitution = adminInstitutionService.deleteAdminInstitutionByName(adminInstitutionName);
+			count = adminInstitutionService.deleteAdminInstitutionByName(adminInstitutionName);
 
-			if (adminInstitution >= 1) {
+			if (count >= 1) {
 				logger.info("deleted admin institution : adminInstitutionName = " + adminInstitutionName);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
@@ -183,6 +183,7 @@ public class AdminInstitutionController {
 	/**
 	 * @author: Akash
 	 * @param: AdminInstitution adminInstitution, String adminInstitutionName
+	 * @return : ResponseEntity<Object>
 	 * @description : Updating a specific record by using the method
 	 *              updateAdminInstitutionByName()
 	 */
