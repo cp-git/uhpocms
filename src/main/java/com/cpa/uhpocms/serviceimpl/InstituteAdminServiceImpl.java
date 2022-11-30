@@ -31,7 +31,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	/**
 	 * @author : Anmesh
 	 * @param :  SaveInstituteAdmin
-	 * @return : InstituteAdmin SaveInstituteAdmin
+	 * @return : InstituteAdmin 
 	 * @description : For Saving All the data 
 	 */
 	@Override
@@ -49,23 +49,14 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	
 	
 	
-	/**
-	 * @author : Anmesh
-	 * @param :  getInstituteByName
-	 * @return : InstituteAdmin getInstituteByName
-	 * @description : For getting data using firstName
-	 */
-	@Override
-	public InstituteAdmin getInstitutebyName(String firstName) {
-		loggger.debug("in GetInstituteByName method...");
-		return instituteAdminRepository.findByFirstName(firstName);
-	}
+	
+	
 
 	
 	/**
 	 * @author : Anmesh
 	 * @param :  getAllInstitute
-	 * @return : InstituteAdmin List of all Data getAllInstitute
+	 * @return : List<InstituteAdmin> 
 	 * @description : For getting All data using getAllInstitute
 	 */
 	@Override
@@ -81,7 +72,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	/**
 	 * @author : Anmesh
 	 * @param :  updateInstituteAdmin
-	 * @return : InstituteAdmin updateInstituteAdmin
+	 * @return : InstituteAdmin 
 	 * @description : For updating data using firstName
 	 */
 	@Override
@@ -116,7 +107,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	/**
 	 * @author : Anmesh
 	 * @param :  DeleteInstituteAdmin
-	 * @return : InstituteAdmin DeleteInstituteAdmin
+	 * @return : int
 	 * @description : For Soft Delete data using firstName
 	 */
 	@Override
@@ -129,13 +120,27 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	/**
 	 * @author : Anmesh
 	 * @param :  UserId unique key and foreign key
-	 * @return : InstituteAdmin UserId
+	 * @return : int UserId
 	 * @description : For fetching userId  using
 	 */
 	@Override
 	public InstituteAdmin findByUserId(int userId) {
 		loggger.debug("in unique key constraint...");
 		return instituteAdminRepository.findByUserId(userId);
+	}
+
+
+	/**
+	 * @author : Anmesh
+	 * @param :  getInstituteByName
+	 * @return : InstituteAdmin 
+	 * @description : For getting data using firstName
+	 */
+
+	@Override
+	public InstituteAdmin getInstituteByName(String firstName) {
+		// TODO Auto-generated method stub
+		return instituteAdminRepository.findByFirstName(firstName);
 	}
 
 }

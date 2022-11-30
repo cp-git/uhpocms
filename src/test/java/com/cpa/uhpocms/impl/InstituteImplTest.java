@@ -67,7 +67,7 @@ class InstituteImplTest {
 		//System.out.println("expect " + admin.toString());
 		Mockito.when(instituteAdminRepository.findByFirstName("ravi")).thenReturn(this.admin);
 		//System.out.println("expect " + admin.toString());
-		InstituteAdmin adminResult = instituteAdminService.getInstitutebyName("ravi");
+		InstituteAdmin adminResult = instituteAdminService.getInstituteByName("ravi");
 		//System.out.println("result " + adminResult.toString());
 		assertEquals(this.admin1.toString(), adminResult.toString());
 	}

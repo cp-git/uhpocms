@@ -45,6 +45,14 @@ public class InstituteAdminController {
 	InstituteAdminController() {
 		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 	}
+	
+
+	/**
+	 * @author : Anmesh
+	 * @param :  SaveInstituteAdmin
+	 * @return : InstituteAdmin 
+	 * @description : For Saving All the data 
+	 */
 
 	@PostMapping("/profile")
 
@@ -73,6 +81,14 @@ public class InstituteAdminController {
 
 
 	}
+	
+
+	/**
+	 * @author : Anmesh
+	 * @param :  getInstituteByName
+	 * @return : InstituteAdmin 
+	 * @description : For Getting Data using firstName 
+	 */
 
 	@GetMapping("/profile/{firstName}")
 	public ResponseEntity<Object> getIntituteByName(@PathVariable("firstName") String firstName) throws CPException {
@@ -80,7 +96,7 @@ public class InstituteAdminController {
 		loggger.info("in getByName");
 		InstituteAdmin instituteAdmin = null;
 		try {
-			instituteAdmin = instituteAdminService.getInstitutebyName(firstName);
+			instituteAdmin = instituteAdminService.getInstituteByName(firstName);
 			loggger.info("GetInstituteByName Values"+instituteAdmin);
 
 			if (instituteAdmin != null) {
@@ -99,6 +115,13 @@ public class InstituteAdminController {
 
 	}
 	
+	
+	/**
+	 * @author : Anmesh
+	 * @param :  updateInstituteAdmin
+	 * @return : InstituteAdmin 
+	 * @description : For Updating Data using firstName 
+	 */
 
 	@PutMapping("/profile/{firstName}")
 	public ResponseEntity<Object> updateInstituteAdmin(@RequestBody InstituteAdmin instituteAdmin,
@@ -107,7 +130,7 @@ public class InstituteAdminController {
 		loggger.info("inside the put method..");
 		InstituteAdmin adminProfileFirstName = null;
 		try {
-			adminProfileFirstName = instituteAdminService.getInstitutebyName(firstName);
+			adminProfileFirstName = instituteAdminService.getInstituteByName(firstName);
 			loggger.info("updateInstituteAdmin Values"+adminProfileFirstName);
 			
 			if (adminProfileFirstName == null) {
@@ -127,6 +150,13 @@ public class InstituteAdminController {
 		}
 
 	}
+	
+	/**
+	 * @author : Anmesh
+	 * @param :  getAllInstituteAdmin
+	 * @return : List<InstituteAdmin> 
+	 * @description : For Getting All Data using firstName 
+	 */
 
 	@GetMapping("/profile")
 	public ResponseEntity<List<Object>> getAllInstituteAdmin(@RequestParam(name = "firstName") String firstName)throws CPException {
@@ -155,6 +185,13 @@ public class InstituteAdminController {
 		
 
 	}
+	
+	/**
+	 * @author : Anmesh
+	 * @param :  deleteDepartmentByName
+	 * @return : int 
+	 * @description : For Deleting Data using firstName 
+	 */
 
 	@DeleteMapping("/profile/{firstName}")
 

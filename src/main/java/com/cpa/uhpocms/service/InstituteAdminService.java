@@ -8,7 +8,7 @@ public interface InstituteAdminService {
 	
 	InstituteAdmin saveInstituteAdmin(InstituteAdmin instituteAdmin);
 	
-	InstituteAdmin getInstitutebyName(String firstName);
+	InstituteAdmin getInstituteByName(String firstName);
 	
 	public InstituteAdmin findByUserId(int userId);
 	
