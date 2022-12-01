@@ -77,7 +77,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		logger.debug("Entering deleteAdminInstitutionByName");
 
 		int count = 0;
-		count = adminInstitutionRepository.deleteByAdminInstitutionName(adminInstitutionName);
+		count = adminInstitutionRepository.deleteAdminInstitutionByInstitutionName(adminInstitutionName);
 
 		logger.info("Deletion count " + count);
 		return count;
@@ -93,16 +93,18 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 			String adminInstitutionName) {
 		logger.debug("Entering updateAdminInstitutionByName");
 
-		AdminInstitution updatedAdminInstitution;
+		AdminInstitution updatedAdminInstitution = null;
 
 		AdminInstitution admin = adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
 		logger.info("Existimg Admin Institution" + admin);
 
-		admin.setAdminInstitutionName(adminInstitution.getAdminInstitutionName());
-		admin.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
-		admin.setAdminInstitutionIsActive(adminInstitution.isAdminInstitutionIsActive());
-		admin.setAdminInstitutionPicture(adminInstitution.getAdminInstitutionPicture());
-		updatedAdminInstitution = adminInstitutionRepository.save(admin);
+		if (admin != null) {
+			admin.setAdminInstitutionName(adminInstitution.getAdminInstitutionName());
+			admin.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
+			admin.setAdminInstitutionIsActive(adminInstitution.isAdminInstitutionIsActive());
+			admin.setAdminInstitutionPicture(adminInstitution.getAdminInstitutionPicture());
+			updatedAdminInstitution = adminInstitutionRepository.save(admin);
+		}
 
 		logger.info("Updated AdminInstitution data" + updatedAdminInstitution);
 		return updatedAdminInstitution;

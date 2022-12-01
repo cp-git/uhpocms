@@ -49,5 +49,5 @@ public interface AdminInstitutionRepository extends JpaRepository<AdminInstituti
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE admin_institution SET isactive=false WHERE name=?1", nativeQuery = true)
-	int deleteByAdminInstitutionName(String adminInstitutionName);
+	public int deleteAdminInstitutionByInstitutionName(String adminInstitutionName);
 }

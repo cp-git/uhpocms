@@ -169,7 +169,7 @@ public class AdminInstitutionController {
 				logger.info("deleted admin institution : adminInstitutionName = " + adminInstitutionName);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
-				logger.info(resourceBundle.getString("err005"));
+				logger.info(resourceBundle.getString("err015"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err015");
 			}
 
