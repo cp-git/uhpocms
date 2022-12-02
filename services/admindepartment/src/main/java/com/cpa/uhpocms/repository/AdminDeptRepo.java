@@ -15,8 +15,10 @@ import com.cpa.uhpocms.entity.AdminDepartment;
 @Repository
 public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 
-	public List<Object> findByIsactiveTrue();
+	// Method to find a list of entries with is active flag true
+	public List<Object> findByIsActiveTrue();
 
+	// Method to find entry by giving name as parameter to function
 	public AdminDepartment findByName(String name);
 
 }
