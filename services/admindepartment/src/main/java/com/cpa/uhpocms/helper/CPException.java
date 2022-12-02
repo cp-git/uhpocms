@@ -1,4 +1,4 @@
-package com.cpa.uhpocms.exception;
+package com.cpa.uhpocms.helper;
 
 
 public class CPException extends Exception {

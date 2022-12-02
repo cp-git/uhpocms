@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cpa.uhpocms.entity.AdminDepartment;
-import com.cpa.uhpocms.exception.CPException;
-import com.cpa.uhpocms.exception.ResponseHandler;
+import com.cpa.uhpocms.helper.CPException;
+import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.AdminDeptService;
 
 /*
@@ -104,7 +104,8 @@ public class AdminDeptController {
 
 					logger.info("getting all AdminDepartment entries performed successfully!");
 					logger.info(adminDept);
-					return new ResponseEntity<>(adminDept, HttpStatus.OK);
+
+					return ResponseHandler.generateListResponse(adminDept, HttpStatus.OK);
 				}
 			}
 		} catch (Exception e) {
@@ -136,7 +137,8 @@ public class AdminDeptController {
 
 				logger.info("Getting AdminDepartment by " + name + " performed successfully");
 				logger.info(adminDept);
-				return new ResponseEntity<>(adminDept, HttpStatus.OK);
+
+				return ResponseHandler.generateResponse(adminDept, HttpStatus.OK);
 			}
 		}
 
@@ -171,7 +173,8 @@ public class AdminDeptController {
 			if (refAdminDepartment != null) {
 				logger.info("Inserting AdminDepartment performed successfully");
 				logger.info(refAdminDepartment);
-				return new ResponseEntity<>(refAdminDepartment, HttpStatus.CREATED);
+
+				return ResponseHandler.generateResponse(refAdminDepartment, HttpStatus.CREATED);
 			}
 		} catch (Exception e) {
 
@@ -201,7 +204,8 @@ public class AdminDeptController {
 				refAdminDepartment = (AdminDepartment) adminDeptService.updateDept(adminDepartment, name);
 				logger.info("Updating admin department for " + name + " performed successfully");
 				logger.info(refAdminDepartment);
-				return new ResponseEntity<>(refAdminDepartment, HttpStatus.CREATED);
+
+				return ResponseHandler.generateResponse("err004", HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		} catch (Exception e) {
 
