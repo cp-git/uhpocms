@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class AdminDepartment {
 
 	@Column(name = "isactive")
-	private boolean isactive;
+	private boolean isActive;
 
 	@Column(name = "departmentid")
 	@Id
@@ -42,12 +42,27 @@ public class AdminDepartment {
 	@Column(name = "modifiedon")
 	private Date modifiedOn;
 
-
 	@Column(name = "institutionid_id")
 	private int institutionId_id;
 
 	public AdminDepartment() {
 		super();
+	}
+
+	/**
+	 * @param isactive
+	 * @param id
+	 * @param name
+	 * @param description
+	 * @param institutionId_id
+	 */
+	public AdminDepartment(boolean isactive, int id, String name, String description, int institutionId_id) {
+		super();
+		this.isActive = isactive;
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.institutionId_id = institutionId_id;
 	}
 
 	/**
@@ -64,7 +79,7 @@ public class AdminDepartment {
 	public AdminDepartment(boolean isactive, int id, String name, String description, String createdBy, Date createdOn,
 			String modifiedBy, Date modifiedOn, int institutionId_id) {
 		super();
-		this.isactive = isactive;
+		this.isActive = isactive;
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -73,80 +88,6 @@ public class AdminDepartment {
 		this.modifiedBy = modifiedBy;
 		this.modifiedOn = modifiedOn;
 		this.institutionId_id = institutionId_id;
-	}
-
-
-
-	/**
-	 * @param isactive
-	 * @param id
-	 * @param name
-	 * @param description
-	 * @param institutionId_id
-	 */
-	public AdminDepartment(boolean isactive, int id, String name, String description, int institutionId_id) {
-		super();
-		this.isactive = isactive;
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.institutionId_id = institutionId_id;
-	}
-
-	/**
-	 * @return the isactive
-	 */
-	public boolean isIsactive() {
-		return isactive;
-	}
-
-	/**
-	 * @param isactive the isactive to set
-	 */
-	public void setIsactive(boolean isactive) {
-		this.isactive = isactive;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	/**
@@ -157,13 +98,6 @@ public class AdminDepartment {
 	}
 
 	/**
-	 * @param createdBy the createdBy to set
-	 */
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	/**
 	 * @return the createdOn
 	 */
 	public Date getCreatedOn() {
@@ -171,38 +105,17 @@ public class AdminDepartment {
 	}
 
 	/**
-	 * @param createdOn the createdOn to set
+	 * @return the description
 	 */
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
+	public String getDescription() {
+		return description;
 	}
 
 	/**
-	 * @return the modifiedBy
+	 * @return the id
 	 */
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	/**
-	 * @param modifiedBy the modifiedBy to set
-	 */
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-
-	/**
-	 * @return the modifiedOn
-	 */
-	public Date getModifiedOn() {
-		return modifiedOn;
-	}
-
-	/**
-	 * @param modifiedOn the modifiedOn to set
-	 */
-	public void setModifiedOn(Date modifiedOn) {
-		this.modifiedOn = modifiedOn;
+	public int getId() {
+		return id;
 	}
 
 	/**
@@ -213,21 +126,106 @@ public class AdminDepartment {
 	}
 
 	/**
+	 * @return the modifiedBy
+	 */
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	/**
+	 * @return the modifiedOn
+	 */
+	public Date getModifiedOn() {
+		return modifiedOn;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @return the isActive
+	 */
+	public boolean isActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	/**
+	 * @param createdBy the createdBy to set
+	 */
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	/**
+	 * @param createdOn the createdOn to set
+	 */
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
 	 * @param institutionId_id the institutionId_id to set
 	 */
 	public void setInstitutionId_id(int institutionId_id) {
 		this.institutionId_id = institutionId_id;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @param modifiedBy the modifiedBy to set
+	 */
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	/**
+	 * @param modifiedOn the modifiedOn to set
+	 */
+	public void setModifiedOn(Date modifiedOn) {
+		this.modifiedOn = modifiedOn;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "AdminDepartment [isactive=" + isactive + ", id=" + id + ", name=" + name + ", description="
+		return "AdminDepartment [isactive=" + isActive + ", id=" + id + ", name=" + name + ", description="
 				+ description + ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", modifiedBy=" + modifiedBy
 				+ ", modifiedOn=" + modifiedOn + ", institutionId_id=" + institutionId_id + "]";
 	}
-
 
 }

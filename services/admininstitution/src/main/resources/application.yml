@@ -9,9 +9,9 @@ spring:
   
   
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/uhpoc
     username: postgres
-    password: admin
+    password: Pass1word
     
 server:
   port: 8090
