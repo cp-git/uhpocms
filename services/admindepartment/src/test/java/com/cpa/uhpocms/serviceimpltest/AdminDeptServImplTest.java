@@ -22,7 +22,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.cpa.uhpocms.entity.AdminDepartment;
 import com.cpa.uhpocms.repository.AdminDeptRepo;
-import com.cpa.uhpocms.serviceimpl.AdminDeptServImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class AdminDeptServImplTest {
@@ -52,7 +51,7 @@ public class AdminDeptServImplTest {
 
 		// deleteDept() is supposed to do soft delete by changing isActive flag to false
 		// so below cond. is applied accordingly
-		assertThat(adminDepartment.isActive()).isNotEqualTo(true);
+		assertThat(adminDepartment.isIsactive()).isNotEqualTo(true);
 
 	}
 
@@ -72,7 +71,7 @@ public class AdminDeptServImplTest {
 		List<Object> adminDepartments = new ArrayList<>();
 		adminDepartments.add(adminDepartment);
 
-		given(adminDeptRepo.findByIsActiveTrue()).willReturn(adminDepartments);
+		given(adminDeptRepo.findByIsactiveTrue()).willReturn(adminDepartments);
 		List<Object> adminDepartments2 = adminDeptServ.getAdminDepartments();
 		assertThat(adminDepartments2).isNotNull();
 
@@ -119,7 +118,7 @@ public class AdminDeptServImplTest {
 		AdminDepartment adminDepartment2 = adminDeptServ.insertDept(adminDepartment);
 		assertThat(adminDepartment2.getName()).isEqualTo("Forensic");
 		assertThat(adminDepartment2.getDescription()).isEqualTo("Forensic");
-		assertThat(adminDepartment2.isActive()).isEqualTo(true);
+		assertThat(adminDepartment2.isIsactive()).isEqualTo(true);
 		assertThat(adminDepartment2.getInstitutionId_id()).isEqualTo(1);
 
 	}
@@ -154,7 +153,7 @@ public class AdminDeptServImplTest {
 		given(adminDeptRepo.findByName(adminDepartment.getName())).willReturn(adminDepartment);
 
 		AdminDepartment adminDepartment2 = new AdminDepartment();
-		adminDepartment2.setActive(false);
+		adminDepartment2.setIsactive(false);
 		adminDepartment2.setName("Micro");
 		adminDepartment2.setDescription("Micro");
 		adminDepartment2.setInstitutionId_id(1);
@@ -166,7 +165,7 @@ public class AdminDeptServImplTest {
 
 		assertThat(updatedDepartment.getName()).isNotEqualTo("Forensic");
 		assertThat(updatedDepartment.getDescription()).isNotEqualTo("Forensic");
-		assertThat(updatedDepartment.isActive()).isNotEqualTo(true);
+		assertThat(updatedDepartment.isIsactive()).isNotEqualTo(true);
 		assertThat(updatedDepartment.getInstitutionId_id()).isEqualTo(1);
 
 	}

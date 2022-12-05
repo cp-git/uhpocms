@@ -16,8 +16,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 
 @Entity
 @Table(name = "admin_institution")
@@ -28,30 +26,30 @@ public class AdminInstitution {
 	@Column(name = "institutionid")
 	private int adminInstitutionId;
 
-	@Column(name = "name", nullable = false, unique = true)
+	@Column(name = "name", unique = true)
 	private String adminInstitutionName;
 
-	@Column(name = "description", nullable = false)
+	@Column(name = "description")
 	private String adminInstitutionDescription;
 
-	@Column(name = "isactive", nullable = false)
+	@Column(name = "isactive")
 	private boolean adminInstitutionIsActive;
 
-	@Column(name = "createdby", nullable = false)
+	@Column(name = "createdby")
 	private String adminInstitutionCreatedBy;
 
 	@CreationTimestamp
-	@Column(name = "createdon", nullable = false)
+	@Column(name = "createdon")
 	private Date adminInstitutionCreatedOn;
 
-	@Column(name = "modifiedby", nullable = false)
+	@Column(name = "modifiedby")
 	private String adminInstitutionModifiedBy;
 
 	@UpdateTimestamp
-	@Column(name = "modifiedon", nullable = false)
+	@Column(name = "modifiedon")
 	private Date adminInstitutionModifiedOn;
 
-	@Column(name = "picture", nullable = false)
+	@Column(name = "picture")
 	private String adminInstitutionPicture;
 
 	/**
@@ -96,11 +94,6 @@ public class AdminInstitution {
 	public AdminInstitution() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public AdminInstitution(HttpStatus badRequest, String error, HttpMessageNotReadableException ex) {
-		// TODO Auto-generated constructor stub
-
 	}
 
 	/**

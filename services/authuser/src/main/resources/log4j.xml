@@ -11,7 +11,7 @@
 	</appender>
 
 	<appender name="FA" class="org.apache.log4j.FileAppender">
-		<param name="File" value="logs/authuser.log" />
+		<param name="File" value="logs/authuser_log.log" />
 		<param name="Threshold" value="INFO" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"

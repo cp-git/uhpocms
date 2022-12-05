@@ -1,5 +1,12 @@
 package com.cpa.uhpocms.entity;
 
+/**
+ * @author Anmesh
+ * @createdOn 30 Nov 2022
+ * @Description Entity class for InstituteAdmin
+ * 
+ */
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -93,6 +100,30 @@ public class InstituteAdmin {
 		super();
 
 	}
+	
+	/**
+	 * @param adminId
+	 * @param userRole
+	 * @param firstName
+	 * @param lastName
+	 * @param adminEmail
+	 * @param dob
+	 * @param mobilePhone
+	 * @param adminGender
+	 * @param adminDepartment
+	 * @param adminAddress1
+	 * @param adminAddress1
+	 * @param adminCity
+	 * @param adminState
+	 * @param adminZip
+	 * @param profilePics
+	 * @param createdBy
+	 * @param createdOn
+	 * @param modifiedBy
+	 * @param modifiedOn
+	 * @param activeUser
+	 * @param institutionid
+	 */
 
 	public InstituteAdmin(int adminId, String userRole, String firstName, String lastName, String adminEmail,
 			String dob, String mobilePhone, String adminGender, Integer adminDepartment, String adminAddress1,
@@ -123,6 +154,28 @@ public class InstituteAdmin {
 		this.institutionId = institutionId;
 		this.userId = userId;
 	}
+	
+	
+	
+	/**
+	 * @param adminId
+	 * @param userRole
+	 * @param firstName
+	 * @param lastName
+	 * @param adminEmail
+	 * @param dob
+	 * @param mobilePhone
+	 * @param adminGender
+	 * @param adminDepartment
+	 * @param adminAddress1
+	 * @param adminAddress1
+	 * @param adminCity
+	 * @param adminState
+	 * @param adminZip
+	 * @param profilePics
+	 * @param activeUser
+	 * @param institutionid
+	 */
 
 	public InstituteAdmin(int adminId, String userRole, String firstName, String lastName, String adminEmail,
 			String dob, String mobilePhone, String adminGender, Integer adminDepartment, String adminAddress1,
@@ -148,179 +201,324 @@ public class InstituteAdmin {
 		this.institutionId = institutionId;
 		this.userId = userId;
 	}
-
+	
+	
+	/**
+	 * @return the adminId
+	 */
 	public int getAdminId() {
 		return adminId;
 	}
 
+	/**
+	 * @param adminId the adminId to set
+	 */
 	public void setAdminId(int adminId) {
 		this.adminId = adminId;
 	}
 
+	/**
+	 * @return the userRole
+	 */
 	public String getUserRole() {
 		return userRole;
 	}
 
+	/**
+	 * @param userRole the userRole to set
+	 */
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
 	}
 
+	/**
+	 * @return the FirstName
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
+	/**
+	 * @param firstName the firstName to set
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
+	/**
+	 * @return the lastName
+	 */
 	public String getLastName() {
 		return lastName;
 	}
 
+	/**
+	 * @param lastName the lastName to set
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
+	
+	/**
+	 * @return the adminEmail
+	 */
 	public String getAdminEmail() {
 		return adminEmail;
 	}
 
+	/**
+	 * @param adminEmail the adminEmail to set
+	 */
 	public void setAdminEmail(String adminEmail) {
 		this.adminEmail = adminEmail;
 	}
 
+	
+	/**
+	 * @return the dob
+	 */
 	public String getDob() {
 		return dob;
 	}
 
+	/**
+	 * @param dob the dob to set
+	 */
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
 
+
+	/**
+	 * @return the mobilePhone
+	 */
 	public String getMobilePhone() {
 		return mobilePhone;
 	}
 
+	/**
+	 * @param mobilePhone the mobilePhone to set
+	 */
 	public void setMobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 	}
 
+	/**
+	 * @return the adminGender
+	 */
 	public String getAdminGender() {
 		return adminGender;
 	}
 
+	
+	/**
+	 * @param adminGender the adminGender to set
+	 */
 	public void setAdminGender(String adminGender) {
 		this.adminGender = adminGender;
 	}
 
+	
+	/**
+	 * @return the adminDepartment
+	 */
 	public Integer getAdminDepartment() {
 		return adminDepartment;
 	}
 
+	/**
+	 * @param adminDepartment the adminDepartment to set
+	 */
 	public void setAdminDepartment(Integer adminDepartment) {
 		this.adminDepartment = adminDepartment;
 	}
 
+	
+	/**
+	 * @return the adminAddress1
+	 */
 	public String getAdminAddress1() {
 		return adminAddress1;
 	}
 
+	/**
+	 * @param adminAddress1 the adminAddress1 to set
+	 */
 	public void setAdminAddress1(String adminAddress1) {
 		this.adminAddress1 = adminAddress1;
 	}
 
+	
+
+	/**
+	 * @return the adminAddress2
+	 */
 	public String getAdminAddress2() {
 		return adminAddress2;
 	}
 
+	/**
+	 * @param adminAddress2 the adminAddress2 to set
+	 */
 	public void setAdminAddress2(String adminAddress2) {
 		this.adminAddress2 = adminAddress2;
 	}
 
+	/**
+	 * @return the adminCity
+	 */
 	public String getAdminCity() {
 		return adminCity;
 	}
 
+
+	/**
+	 * @param adminCity the adminCity to set
+	 */
 	public void setAdminCity(String adminCity) {
 		this.adminCity = adminCity;
 	}
 
+	/**
+	 * @return the adminState
+	 */
 	public String getAdminState() {
 		return adminState;
 	}
 
+	/**
+	 * @param adminState the adminState to set
+	 */
 	public void setAdminState(String adminState) {
 		this.adminState = adminState;
 	}
 
+	/**
+	 * @return the adminZip
+	 */
 	public String getAdminZip() {
 		return adminZip;
 	}
 
+	/**
+	 * @param adminZip the adminZip to set
+	 */
 	public void setAdminZip(String adminZip) {
 		this.adminZip = adminZip;
 	}
 
+	/**
+	 * @return the ProfilePics
+	 */
 	public String getProfilePics() {
 		return profilePics;
 	}
 
+
+	/**
+	 * @param profilePics the profilePics to set
+	 */
 	public void setProfilePics(String profilePics) {
 		this.profilePics = profilePics;
 	}
 
+	/**
+	 * @return the createdBy
+	 */
 	public String getCreatedBy() {
 		return createdBy;
 	}
 
+	/**
+	 * @param createdBy the createdBy to set
+	 */
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
+	/**
+	 * @return the createdDate
+	 */
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
+	/**
+	 * @param createdDate the createdDate to set
+	 */
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
 
+	/**
+	 * @return the modifiedBy
+	 */
 	public String getModifiedBy() {
 		return modifiedBy;
 	}
 
+	/**
+	 * @param modifiedBy the modifiedBy to set
+	 */
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
+	/**
+	 * @return the modifiedOn
+	 */
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}
 
+	/**
+	 * @param modifiedDate the modifiedDate to set
+	 */
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
 
+	/**
+	 * @return the isActiveUser
+	 */
 	public boolean isActiveUser() {
 		return activeUser;
 	}
 
+
+	/**
+	 * @param activeUser the activeUser to set
+	 */
 	public void setActiveUser(boolean activeUser) {
 		this.activeUser = activeUser;
 	}
 
+	/**
+	 * @return the institutionalId
+	 */
 	public int getInstitutionId() {
 		return institutionId;
 	}
+	
+	/**
+	 * @param institutionalId the institutionalId to set
+	 */
 
 	public void setInstitutionId(int institutionId) {
 		this.institutionId = institutionId;
 	}
 
+	/**
+	 * @return the userId
+	 */
 	public Integer getUserId() {
 		return userId;
 	}
 
+	/**
+	 * @param userId the userId to set
+	 */
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}

@@ -97,7 +97,7 @@ public class AdminInstitutionServiceImplTest {
 
 	@Test
 	public void testDeleteAdminInstitutionByName() {
-		Mockito.when(adminInstitutionRepository.deleteByAdminInstitutionName("GEC")).thenReturn(1);
+		Mockito.when(adminInstitutionRepository.deleteAdminInstitutionByInstitutionName("GEC")).thenReturn(1);
 
 		int count = adminInstitutionService.deleteAdminInstitutionByName("GEC");
 		assertEquals(count, 1);

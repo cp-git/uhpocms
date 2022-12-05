@@ -1,6 +1,6 @@
 logging:
   file:
-    name: "logs/authuser.log"
+    name: "logs/authuser_log.log"
   pattern:
     console: "%d{yyyy-MMM-dd} %p [%-10t] %l{1.} - %m%n"
     file:  "%d{yyyy-MMM-dd} %p [%-10t] %l{1.} - %m%n"

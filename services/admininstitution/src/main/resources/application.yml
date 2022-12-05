@@ -9,7 +9,7 @@ spring:
   
   
   datasource:
-    url: jdbc:postgresql://localhost:5432/uhpoc
+    url: jdbc:postgresql://localhost:5433/uhpocms
     username: postgres
     password: Pass1word
     

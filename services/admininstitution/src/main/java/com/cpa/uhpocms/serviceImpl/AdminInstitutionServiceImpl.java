@@ -4,14 +4,13 @@
  * @Description : This class is an implementation class for AdminInstitution
  * Last modified : None 
  */
-package com.cpa.uhpocms.serviceImpl;
+package com.cpa.uhpocms.serviceimpl;
 
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cpa.uhpocms.controller.AdminInstitutionController;
 import com.cpa.uhpocms.entity.AdminInstitution;
@@ -19,7 +18,7 @@ import com.cpa.uhpocms.repository.AdminInstitutionRepository;
 import com.cpa.uhpocms.service.AdminInstitutionService;
 
 @Service
-@Transactional
+
 public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	@Autowired
 	AdminInstitutionRepository adminInstitutionRepository;
@@ -46,6 +45,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		AdminInstitution createdAdminInstitution = null;
 
 		createdAdminInstitution = adminInstitutionRepository.save(adminInstitution);
+
 		logger.info("Created admin institution :" + createdAdminInstitution);
 
 		return createdAdminInstitution;
@@ -77,7 +77,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		logger.debug("Entering deleteAdminInstitutionByName");
 
 		int count = 0;
-		count = adminInstitutionRepository.deleteByAdminInstitutionName(adminInstitutionName);
+		count = adminInstitutionRepository.deleteAdminInstitutionByInstitutionName(adminInstitutionName);
 
 		logger.info("Deletion count " + count);
 		return count;
@@ -93,16 +93,18 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 			String adminInstitutionName) {
 		logger.debug("Entering updateAdminInstitutionByName");
 
-		AdminInstitution updatedAdminInstitution;
+		AdminInstitution updatedAdminInstitution = null;
 
 		AdminInstitution admin = adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
 		logger.info("Existimg Admin Institution" + admin);
 
-		admin.setAdminInstitutionName(adminInstitution.getAdminInstitutionName());
-		admin.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
-		admin.setAdminInstitutionIsActive(adminInstitution.isAdminInstitutionIsActive());
-		admin.setAdminInstitutionPicture(adminInstitution.getAdminInstitutionPicture());
-		updatedAdminInstitution = adminInstitutionRepository.save(admin);
+		if (admin != null) {
+			admin.setAdminInstitutionName(adminInstitution.getAdminInstitutionName());
+			admin.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
+			admin.setAdminInstitutionIsActive(adminInstitution.isAdminInstitutionIsActive());
+			admin.setAdminInstitutionPicture(adminInstitution.getAdminInstitutionPicture());
+			updatedAdminInstitution = adminInstitutionRepository.save(admin);
+		}
 
 		logger.info("Updated AdminInstitution data" + updatedAdminInstitution);
 		return updatedAdminInstitution;

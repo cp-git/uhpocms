@@ -5,10 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InstituteadminApplication {
-	  private static final Logger loggger = Logger.getLogger(InstituteadminApplication.class);
+public class InstituteAdminApplication {
+	  private static final Logger loggger = Logger.getLogger(InstituteAdminApplication.class);
 	public static void main(String[] args) {
-		SpringApplication.run(InstituteadminApplication.class, args);
+		SpringApplication.run(InstituteAdminApplication.class, args);
 		System.out.println("Welcome to spring boot");
 		loggger.info("in Main class");
 	}

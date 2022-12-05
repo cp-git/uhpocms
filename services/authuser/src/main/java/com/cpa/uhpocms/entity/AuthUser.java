@@ -66,7 +66,7 @@ public class AuthUser {
 	private String authUserCreatedBy;
 
 	@CreationTimestamp
-	@Column(name = "created_on", nullable = false, updatable = false)
+	@Column(name = "created_on", nullable = false)
 	@JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Asia/Kolkata")
 	private Date authUserCreatedOn;
 

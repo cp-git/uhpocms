@@ -2,8 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.cpa.uhpoc.ms</groupId>
 	<artifactId>uhpocms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -46,22 +44,20 @@
 		</dependency>
 		
 		<dependency>
-   <groupId>org.mockito</groupId>
-   <artifactId>mockito-all</artifactId>
-   <version>1.9.5</version>
-</dependency>
+		   <groupId>org.mockito</groupId>
+		   <artifactId>mockito-all</artifactId>
+		   <version>1.9.5</version>
+		</dependency>
 
-<dependency>
-   <groupId>junit</groupId>
-   <artifactId>junit</artifactId>
-  
-</dependency>
-<dependency>
-  <groupId>org.assertj</groupId>
-  <artifactId>assertj-core</artifactId>
- 
-  <scope>test</scope>
-</dependency>
+		<dependency>
+		   <groupId>junit</groupId>
+		   <artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+		  <groupId>org.assertj</groupId>
+		  <artifactId>assertj-core</artifactId>
+		  <scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -108,5 +104,4 @@
 		<module>services/adminrole</module>
 		<module>tools/CodeGenerator</module>
 	</modules>
-
 </project>

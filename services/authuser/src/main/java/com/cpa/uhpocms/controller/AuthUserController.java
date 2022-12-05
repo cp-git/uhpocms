@@ -37,11 +37,11 @@ public class AuthUserController {
 	@Autowired
 	private AuthUserService authUserService;
 
-	private ResourceBundle resourceBunde;
+	private ResourceBundle resourceBundle;
 	private static Logger logger;
 
 	AuthUserController() {
-		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
+		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(AuthUserController.class);
 	}
 
@@ -65,13 +65,13 @@ public class AuthUserController {
 
 			} else {
 
-				logger.error(resourceBunde.getString("err003"));
+				logger.error(resourceBundle.getString("err003"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
 			}
 
 		} catch (Exception ex) {
 			logger.error("Failed auth user creation : " + ex.getMessage());
-			throw new CPException("err003", resourceBunde.getString("err003"));
+			throw new CPException("err003", resourceBundle.getString("err003"));
 		}
 
 	}
@@ -100,7 +100,7 @@ public class AuthUserController {
 		} catch (Exception ex) {
 
 			logger.error("Failed getting auth user : " + ex.getMessage());
-			throw new CPException("err001", resourceBunde.getString("err001"));
+			throw new CPException("err001", resourceBundle.getString("err001"));
 		}
 
 	}
@@ -123,14 +123,14 @@ public class AuthUserController {
 				return ResponseHandler.generateListResponse(authUsers, HttpStatus.OK);
 			} else {
 
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
 
 		} catch (Exception ex) {
 
 			logger.error("Failed getting all auth users : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 
 		}
 	}
@@ -148,13 +148,13 @@ public class AuthUserController {
 				logger.info("deleted auth user : username = " + authUserName);
 				return ResponseHandler.generateResponse(HttpStatus.ACCEPTED);
 			} else {
-				logger.info(resourceBunde.getString("err005"));
+				logger.info(resourceBundle.getString("err005"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
 			}
 
 		} catch (Exception ex) {
 			logger.error("Failed to delete auth user :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
+			throw new CPException("err005", resourceBundle.getString("err005"));
 		}
 
 	}
@@ -171,7 +171,7 @@ public class AuthUserController {
 			updatedUser = authUserService.updateAuthUser(authUser, authUserName);
 
 			if (updatedUser == null) {
-				logger.info(resourceBunde.getString("err004"));
+				logger.info(resourceBundle.getString("err004"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			} else {
 				logger.info("updated auth user :" + updatedUser);
@@ -180,7 +180,7 @@ public class AuthUserController {
 
 		} catch (Exception ex) {
 			logger.error("Failed update auth user : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
+			throw new CPException("err004", resourceBundle.getString("err004"));
 
 		}
 

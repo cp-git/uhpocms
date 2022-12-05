@@ -8,14 +8,16 @@ public interface InstituteAdminService {
 	
 	InstituteAdmin saveInstituteAdmin(InstituteAdmin instituteAdmin);
 	
-	InstituteAdmin getInstitutebyName(String firstName);
+	InstituteAdmin getInstituteByName(String firstName);
+	
+	public InstituteAdmin findByUserId(int userId);
 	
 	
 	List<Object> getAllInstitute(); 
 	
 	InstituteAdmin updateInstituteAdmin(InstituteAdmin instituteAdmin, String  firstName);
 	
-	int deleteDepartmentById(String firstName);
+	int deleteDepartmentByName(String firstName);
 	
 	
 }
