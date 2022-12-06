@@ -108,6 +108,40 @@ public class CodeGenerator {
 	}
 
 	/**
+	 * To generate ErrorMessage_en_US.properties using the errmsg.vm velocity
+	 * template
+	 * 
+	 * @param velocityEngine - velocity engine
+	 * @param path           - base path - where to generate the code
+	 */
+	public static void generateErrorMessageEnUSFile(VelocityEngine velocityEngine, String path) {
+		System.out.println("generateErroMessage_en_US_File started. The Parameters are :\n\tvelocityEngine :: "
+				+ velocityEngine + "\n\tPath :: " + path + "\n");
+		Template t = velocityEngine.getTemplate(Constants.VM_ERRUS);
+
+		VelocityContext context = new VelocityContext();
+
+		context.put("Cservice", props.get("Cservice"));
+		context.put("findBy", props.get("findBy"));
+
+		StringWriter writer = new StringWriter();
+		t.merge(context, writer);
+		try {
+
+			FileWriter fw = new FileWriter(
+					new File(path + Constants.PATH_ERRUS + File.separatorChar + Constants.FILE_ERRUS));
+			fw.write(writer.toString());
+			fw.close();
+			System.out.println("\t" + path + Constants.PATH_ERRUS + File.separatorChar + Constants.FILE_ERRUS
+					+ " - file created !!!");
+
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+		System.out.println("generateErroMessage_en_US_File Ended.");
+	}
+
+	/**
 	 * To generate pom.xml using the pom.vm velocity template
 	 * 
 	 * @param velocityEngine - velocity engine
@@ -276,7 +310,7 @@ public class CodeGenerator {
 		context.put("TableName", props.get("TableName"));
 		context.put("findBy", props.get("findBy"));
 		context.put("findbys", props.get("findbys"));
-		
+
 		StringWriter writer = new StringWriter();
 		t.merge(context, writer);
 		try {
@@ -389,11 +423,12 @@ public class CodeGenerator {
 
 	/**
 	 * To generate CPException.java file
+	 * 
 	 * @param velocityEngine
 	 */
 	public static void generateException(VelocityEngine velocityEngine) {
-		System.out
-				.println("generateException started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		System.out.println(
+				"generateException started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
 		Template t = velocityEngine.getTemplate(Constants.VM_EXCP);
 		VelocityContext context = new VelocityContext();
 
@@ -402,7 +437,7 @@ public class CodeGenerator {
 		try {
 
 			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + props.get("service")
-					+ Constants.PATH_EXCP  + Constants.FILE_EXCP));
+					+ Constants.PATH_EXCP + Constants.FILE_EXCP));
 			fw.write(writer.toString());
 			fw.close();
 			System.out.println("\t" + props.getProperty("rootFolder") + props.get("service") + Constants.PATH_EXCP
@@ -413,14 +448,15 @@ public class CodeGenerator {
 		System.out.println("generateException Ended.");
 
 	}
-	
+
 	/**
 	 * To generate Response Handler java file
+	 * 
 	 * @param velocityEngine
 	 */
 	public static void generateResponseHandler(VelocityEngine velocityEngine) {
-		System.out
-				.println("generateResponseHandler started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		System.out.println(
+				"generateResponseHandler started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
 		Template t = velocityEngine.getTemplate(Constants.VM_RESPP);
 		VelocityContext context = new VelocityContext();
 
@@ -431,11 +467,11 @@ public class CodeGenerator {
 		try {
 
 			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + props.get("service")
-					+ Constants.PATH_HELP  + Constants.FILE_RESP));
+					+ Constants.PATH_HELP + Constants.FILE_RESP));
 			fw.write(writer.toString());
 			fw.close();
 			System.out.println("\t" + props.getProperty("rootFolder") + props.get("service") + Constants.PATH_HELP
-					 + Constants.FILE_RESP + " - file created !!!");
+					+ Constants.FILE_RESP + " - file created !!!");
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}
@@ -444,13 +480,13 @@ public class CodeGenerator {
 	}
 
 	public static void generateImpl(VelocityEngine velocityEngine) {
-		System.out
-				.println("generateResponseHandler started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		System.out.println(
+				"generateResponseHandler started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
 		Template t = velocityEngine.getTemplate(Constants.VM_IMPL);
 		VelocityContext context = new VelocityContext();
 
 		StringWriter writer = new StringWriter();
-		
+
 		context.put("genDate", props.get("genDate"));
 		context.put("Cservice", props.get("Cservice"));
 		context.put("service", props.get("service"));
@@ -460,24 +496,23 @@ public class CodeGenerator {
 		context.put("TableName", props.get("TableName"));
 		context.put("findBy", props.get("findBy"));
 		context.put("findbys", props.get("findbys"));
-		
+
 		t.merge(context, writer);
 		try {
 
 			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + props.get("service")
-					+ Constants.PATH_IMPL  + File.separatorChar + props.get("Cservice") + "ServiceImpl.java"));
+					+ Constants.PATH_IMPL + File.separatorChar + props.get("Cservice") + "ServiceImpl.java"));
 			fw.write(writer.toString());
 			fw.close();
-			System.out.println("\t" + props.getProperty("rootFolder") + props.get("service")
-			+ Constants.PATH_IMPL  + File.separatorChar + props.get("Cservice") + "ServiceImpl.java - file created !!!");
+			System.out.println("\t" + props.getProperty("rootFolder") + props.get("service") + Constants.PATH_IMPL
+					+ File.separatorChar + props.get("Cservice") + "ServiceImpl.java - file created !!!");
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}
 		System.out.println("generateResponseHandler Ended.");
 
 	}
-	
-	
+
 	/**
 	 * @param args
 	 */
@@ -496,7 +531,7 @@ public class CodeGenerator {
 		velocityProperties.put("file.resource.loader.cache", "false");
 		velocityEngine.init(velocityProperties);
 
-		loadProperties("C:\\Moorthy\\GIT\\msws\\codegen\\src\\main\\resources\\CodeGen.properties");
+		loadProperties("E:\\Mayur Workspace\\_uhpocms\\uhpocms\\tools\\CodeGenerator\\src\\main\\resources\\CodeGen.properties");
 
 		String rootFolder = props.getProperty("rootFolder");
 		String serviceName = props.getProperty("service");
@@ -508,6 +543,7 @@ public class CodeGenerator {
 		generateAppYaml(velocityEngine, rootFolder + serviceName);
 		generateLog4j(velocityEngine, rootFolder + serviceName, serviceName, moduleName);
 		generateController(velocityEngine, rootFolder + serviceName, Cservice);
+		generateErrorMessageEnUSFile(velocityEngine, rootFolder + serviceName);
 		generateEntity(velocityEngine);
 		generateRepo(velocityEngine);
 		generateService(velocityEngine);
