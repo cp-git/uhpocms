@@ -101,10 +101,50 @@ public class CodeGenerator {
 			f1.mkdirs();
 			System.out.println("\t" + serviceName + Constants.PATH_IMPL + " - Directory Created!!!");
 
+			f1 = new File(props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN);
+			f1.mkdirs();
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + " - Directory Created!!!");
+
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}
 		System.out.println("createDirectories Ended.");
+	}
+
+	/**
+	 * To generate ErrorMessage_en_US.properties using the errmsg.vm velocity
+	 * template
+	 * 
+	 * @param velocityEngine - velocity engine
+	 * @param path           - base path - where to generate the code
+	 */
+	public static void generateErrorMessageEnUSFile(VelocityEngine velocityEngine, String path) {
+		System.out.println("generateErroMessage_en_US_File started. The Parameters are :\n\tvelocityEngine :: "
+				+ velocityEngine + "\n\tPath :: " + path + "\n");
+		Template t = velocityEngine.getTemplate(Constants.VM_ERRUS);
+
+		VelocityContext context = new VelocityContext();
+
+		context.put("Cservice", props.get("Cservice"));
+		context.put("findBy", props.get("findBy"));
+
+		StringWriter writer = new StringWriter();
+		t.merge(context, writer);
+		try {
+
+			FileWriter fw = new FileWriter(
+					new File(path + Constants.PATH_ERRUS + File.separatorChar + Constants.FILE_ERRUS));
+			fw.write(writer.toString());
+			fw.close();
+			System.out.println("\t" + path + Constants.PATH_ERRUS + File.separatorChar + Constants.FILE_ERRUS
+					+ " - file created !!!");
+
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+		System.out.println("generateErroMessage_en_US_File Ended.");
 	}
 
 	/**
@@ -276,7 +316,7 @@ public class CodeGenerator {
 		context.put("TableName", props.get("TableName"));
 		context.put("findBy", props.get("findBy"));
 		context.put("findbys", props.get("findbys"));
-		
+
 		StringWriter writer = new StringWriter();
 		t.merge(context, writer);
 		try {
@@ -389,11 +429,12 @@ public class CodeGenerator {
 
 	/**
 	 * To generate CPException.java file
+	 * 
 	 * @param velocityEngine
 	 */
 	public static void generateException(VelocityEngine velocityEngine) {
-		System.out
-				.println("generateException started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		System.out.println(
+				"generateException started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
 		Template t = velocityEngine.getTemplate(Constants.VM_EXCP);
 		VelocityContext context = new VelocityContext();
 
@@ -402,7 +443,7 @@ public class CodeGenerator {
 		try {
 
 			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + props.get("service")
-					+ Constants.PATH_EXCP  + Constants.FILE_EXCP));
+					+ Constants.PATH_EXCP + Constants.FILE_EXCP));
 			fw.write(writer.toString());
 			fw.close();
 			System.out.println("\t" + props.getProperty("rootFolder") + props.get("service") + Constants.PATH_EXCP
@@ -413,14 +454,15 @@ public class CodeGenerator {
 		System.out.println("generateException Ended.");
 
 	}
-	
+
 	/**
 	 * To generate Response Handler java file
+	 * 
 	 * @param velocityEngine
 	 */
 	public static void generateResponseHandler(VelocityEngine velocityEngine) {
-		System.out
-				.println("generateResponseHandler started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		System.out.println(
+				"generateResponseHandler started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
 		Template t = velocityEngine.getTemplate(Constants.VM_RESPP);
 		VelocityContext context = new VelocityContext();
 
@@ -431,11 +473,11 @@ public class CodeGenerator {
 		try {
 
 			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + props.get("service")
-					+ Constants.PATH_HELP  + Constants.FILE_RESP));
+					+ Constants.PATH_HELP + Constants.FILE_RESP));
 			fw.write(writer.toString());
 			fw.close();
 			System.out.println("\t" + props.getProperty("rootFolder") + props.get("service") + Constants.PATH_HELP
-					 + Constants.FILE_RESP + " - file created !!!");
+					+ Constants.FILE_RESP + " - file created !!!");
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}
@@ -443,14 +485,19 @@ public class CodeGenerator {
 
 	}
 
+	/**
+	 * To generate Service IMPL class
+	 * 
+	 * @param velocityEngine
+	 */
 	public static void generateImpl(VelocityEngine velocityEngine) {
-		System.out
-				.println("generateResponseHandler started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		System.out.println(
+				"generateResponseHandler started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
 		Template t = velocityEngine.getTemplate(Constants.VM_IMPL);
 		VelocityContext context = new VelocityContext();
 
 		StringWriter writer = new StringWriter();
-		
+
 		context.put("genDate", props.get("genDate"));
 		context.put("Cservice", props.get("Cservice"));
 		context.put("service", props.get("service"));
@@ -460,24 +507,214 @@ public class CodeGenerator {
 		context.put("TableName", props.get("TableName"));
 		context.put("findBy", props.get("findBy"));
 		context.put("findbys", props.get("findbys"));
-		
+
 		t.merge(context, writer);
 		try {
 
 			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + props.get("service")
-					+ Constants.PATH_IMPL  + File.separatorChar + props.get("Cservice") + "ServiceImpl.java"));
+					+ Constants.PATH_IMPL + File.separatorChar + props.get("Cservice") + "ServiceImpl.java"));
 			fw.write(writer.toString());
 			fw.close();
-			System.out.println("\t" + props.getProperty("rootFolder") + props.get("service")
-			+ Constants.PATH_IMPL  + File.separatorChar + props.get("Cservice") + "ServiceImpl.java - file created !!!");
+			System.out.println("\t" + props.getProperty("rootFolder") + props.get("service") + Constants.PATH_IMPL
+					+ File.separatorChar + props.get("Cservice") + "ServiceImpl.java - file created !!!");
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}
 		System.out.println("generateResponseHandler Ended.");
 
 	}
-	
-	
+
+	/**
+	 * To generate class diagram plantuml text file
+	 * 
+	 * @param velocityEngine
+	 */
+	public static void generateClassDiagram(VelocityEngine velocityEngine) {
+		System.out.println(
+				"generateClassDiagram started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		Template t = velocityEngine.getTemplate(Constants.VM_CLASS);
+		VelocityContext context = new VelocityContext();
+		StringWriter writer = new StringWriter();
+		context.put("Cservice", props.get("Cservice"));
+		context.put("service", props.get("service"));
+		t.merge(context, writer);
+		try {
+
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice")
+					+ Constants.FILE_CLASS));
+			fw.write(writer.toString());
+			fw.close();
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_CLASS
+					+ " - file created !!!");
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+		System.out.println("generateClassDiagram Ended.");
+	}
+
+	/**
+	 * To generate Post Sequence diagram plantuml text file
+	 * 
+	 * @param velocityEngine
+	 */
+	public static void generatePostSeqDiagram(VelocityEngine velocityEngine) {
+		System.out.println(
+				"generatePostSeqDiagram started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		Template t = velocityEngine.getTemplate(Constants.VM_POST);
+		VelocityContext context = new VelocityContext();
+		StringWriter writer = new StringWriter();
+		context.put("Cservice", props.get("Cservice"));
+		context.put("service", props.get("service"));
+		t.merge(context, writer);
+		try {
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice")
+					+ Constants.FILE_POST));
+			fw.write(writer.toString());
+			fw.close();
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_POST
+					+ " - file created !!!");
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+
+		System.out.println("generatePostSeqDiagram Ended.");
+	}
+
+	/**
+	 * To generate Get Sequence diagram plantuml text file
+	 * 
+	 * @param velocityEngine
+	 */
+	public static void generateGetSeqDiagram(VelocityEngine velocityEngine) {
+		System.out.println(
+				"generateGetSeqDiagram started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		Template t = velocityEngine.getTemplate(Constants.VM_GET);
+		VelocityContext context = new VelocityContext();
+		StringWriter writer = new StringWriter();
+		context.put("Cservice", props.get("Cservice"));
+		context.put("service", props.get("service"));
+		context.put("findbys", props.get("findbys"));
+		context.put("findBy", props.get("findBy"));
+		t.merge(context, writer);
+		try {
+			FileWriter fw = new FileWriter(
+					new File(props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+							+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_GET));
+			fw.write(writer.toString());
+			fw.close();
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_GET
+					+ " - file created !!!");
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+
+		System.out.println("generateGetSeqDiagram Ended.");
+	}
+
+	/**
+	 * To generate Get All Sequence diagram plantuml text file
+	 * 
+	 * @param velocityEngine
+	 */
+	public static void generateGetAllSeqDiagram(VelocityEngine velocityEngine) {
+		System.out.println(
+				"generateGetAllSeqDiagram started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		Template t = velocityEngine.getTemplate(Constants.VM_GETALL);
+		VelocityContext context = new VelocityContext();
+		StringWriter writer = new StringWriter();
+		context.put("Cservice", props.get("Cservice"));
+		context.put("service", props.get("service"));
+		context.put("findbys", props.get("findbys"));
+		context.put("findBy", props.get("findBy"));
+		context.put("param", props.get("param"));
+		t.merge(context, writer);
+		try {
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice")
+					+ Constants.FILE_GETALL));
+			fw.write(writer.toString());
+			fw.close();
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_GETALL
+					+ " - file created !!!");
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+
+		System.out.println("generateGetAllSeqDiagram Ended.");
+	}
+
+	/**
+	 * To generate Update Sequence diagram plantuml text file
+	 * 
+	 * @param velocityEngine
+	 */
+	public static void generateUpdateSeqDiagram(VelocityEngine velocityEngine) {
+		System.out.println(
+				"generateUpdateSeqDiagram started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		Template t = velocityEngine.getTemplate(Constants.VM_UPDATE);
+		VelocityContext context = new VelocityContext();
+		StringWriter writer = new StringWriter();
+		context.put("Cservice", props.get("Cservice"));
+		context.put("service", props.get("service"));
+		context.put("findbys", props.get("findbys"));
+		context.put("findBy", props.get("findBy"));
+		context.put("param", props.get("param"));
+		t.merge(context, writer);
+		try {
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN
+					+ File.separatorChar + props.get("Cservice") + Constants.FILE_UPDATE));
+			fw.write(writer.toString());
+			fw.close();
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN + File.separatorChar
+					+ props.get("Cservice") + Constants.FILE_UPDATE + " - file created !!!");
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+
+		System.out.println("generateUpdateSeqDiagram Ended.");
+	}
+
+	/**
+	 * To generate Delete Sequence diagram plantuml text file
+	 * 
+	 * @param velocityEngine
+	 */
+	public static void generateDeleteSeqDiagram(VelocityEngine velocityEngine) {
+		System.out.println(
+				"generateDeleteSeqDiagram started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		Template t = velocityEngine.getTemplate(Constants.VM_DELETE);
+		VelocityContext context = new VelocityContext();
+		StringWriter writer = new StringWriter();
+		context.put("Cservice", props.get("Cservice"));
+		context.put("service", props.get("service"));
+		context.put("findbys", props.get("findbys"));
+		context.put("findBy", props.get("findBy"));
+		context.put("param", props.get("param"));
+		t.merge(context, writer);
+		try {
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder")  + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN
+					+ File.separatorChar + props.get("Cservice") + Constants.FILE_DELETE));
+			fw.write(writer.toString());
+			fw.close();
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") +  Constants.PATH_DESIGN + File.separatorChar
+					+ props.get("Cservice") + Constants.FILE_DELETE + " - file created !!!");
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+
+		System.out.println("generateDeleteSeqDiagram Ended.");
+	}
+
 	/**
 	 * @param args
 	 */
@@ -496,7 +733,8 @@ public class CodeGenerator {
 		velocityProperties.put("file.resource.loader.cache", "false");
 		velocityEngine.init(velocityProperties);
 
-		loadProperties("C:\\Moorthy\\GIT\\msws\\codegen\\src\\main\\resources\\CodeGen.properties");
+		loadProperties(
+				"C:\\Moorthy\\GIT\\ms\\latest\\uhpocms\\tools\\CodeGenerator\\src\\main\\resources\\CodeGen.properties");
 
 		String rootFolder = props.getProperty("rootFolder");
 		String serviceName = props.getProperty("service");
@@ -508,12 +746,19 @@ public class CodeGenerator {
 		generateAppYaml(velocityEngine, rootFolder + serviceName);
 		generateLog4j(velocityEngine, rootFolder + serviceName, serviceName, moduleName);
 		generateController(velocityEngine, rootFolder + serviceName, Cservice);
+		generateErrorMessageEnUSFile(velocityEngine, rootFolder + serviceName);
 		generateEntity(velocityEngine);
 		generateRepo(velocityEngine);
 		generateService(velocityEngine);
 		generateException(velocityEngine);
 		generateResponseHandler(velocityEngine);
 		generateImpl(velocityEngine);
+		generateClassDiagram(velocityEngine);
+		generatePostSeqDiagram(velocityEngine);
+		generateGetSeqDiagram(velocityEngine);
+		generateGetAllSeqDiagram(velocityEngine);
+		generateUpdateSeqDiagram(velocityEngine);
+		generateDeleteSeqDiagram(velocityEngine);
 		System.out.println(props.get("Cservice"));
 		System.out.println("Code Generated under " + rootFolder + serviceName + " ...");
 	}
