@@ -1,0 +1,70 @@
+@startuml
+actor user
+participant ${Cservice}Application as uhpoc
+participant ${Cservice}Controller as main
+participant CPException as cp
+participant ResponseHandler as rh
+participant ${Cservice}Service as serv
+participant ${Cservice}ServiceImpl as impl
+participant ${Cservice}Repository as repo
+database DATABASE as db
+activate uhpoc
+activate user
+  user-->uhpoc : Enter URL-[http://localhost:8090/uhpocms/${service}/{${param}}]\n and Enter Data
+    alt#Gold Case: If any Exception occur
+    uhpoc-> main : 
+    activate main
+    main->cp : throws CPException
+    activate cp
+    cp-> user : ${Cservice} Update Failed 
+    deactivate cp
+    else  Case: If no exception occur
+     uhpoc -> main : main()
+          main -> serv : update${Cservice}By${findBy}()
+          activate serv
+          serv -> impl : update${Cservice}By${findBy}()
+          activate impl
+          impl -> repo : findBy${Cservice}${findBy}()
+          activate repo
+          repo -> db : Fetching ${Cservice} by ${findBy}
+          activate db
+           db->db : Fetching data
+          db --> repo : Data of ${Cservice} 
+          deactivate db
+          repo --> impl :  Data of ${Cservice}
+          deactivate repo
+          impl -> repo : Setting updated value and save()
+          activate repo
+          repo->db :  Setting updated value and save
+          activate db
+          db->db : Store data into db
+          db->repo : updated data
+          deactivate db
+          repo->impl : updated data
+          deactivate repo
+          impl->serv : updated data
+          deactivate impl
+          serv --> main :  Updated data 
+          deactivate serv
+          alt#Gold If update ${Cservice} is not null
+          main->rh : generateResponse()
+          activate rh
+          rh->rh : generating response
+          rh->main : response with HttpStatus code 201
+          deactivate rh
+          main --> uhpoc :  Return updated data and return HttpStatus code 201
+          uhpoc--> user :  Return updated data and return HttpStatus code 201
+          else If update ${Cservice} is Null
+           main->rh : generateResponse()
+          activate rh
+          rh->rh : generating response
+          rh->main : response with HttpStatus code 500
+          deactivate rh
+          main->uhpoc : Return ${Cservice} updation failed with HttpStatus Code 500
+          deactivate main
+          uhpoc->user : Return ${Cservice} updation failed with HttpStatus Code 500
+          deactivate uhpoc
+          deactivate user
+      end
+      end
+@enduml

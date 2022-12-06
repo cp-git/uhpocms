@@ -87,5 +87,31 @@ public interface Constants {
 	public static final String FILE_ERRUS = "ErrorMessage_en_US.properties";
 
 	public static final String PATH_ERRUS = MAIN_RESOURCE;
+	
+	public static final String PATH_DESIGN = "/design";
+	
+	public static final String VM_CLASS = "classdiag.vm";
+	
+	public static final String FILE_CLASS = "Class.txt";
+	
+	public static final String VM_POST = "postseq.vm";
+	
+	public static final String FILE_POST = "CreateSeq.txt";
+	
+	public static final String VM_GET = "getseq.vm";
+	
+	public static final String FILE_GET = "GetSeq.txt";
+	
+	public static final String VM_GETALL = "getall.vm";
+	
+	public static final String FILE_GETALL = "GetAllSeq.txt";
+	
+	public static final String VM_UPDATE = "updateseq.vm";
+	
+	public static final String FILE_UPDATE = "UpdateSeq.txt";
+
+	public static final String VM_DELETE = "deleteseq.vm";
+	
+	public static final String FILE_DELETE = "DeleteSeq.txt";
 
 }

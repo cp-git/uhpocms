@@ -1,0 +1,61 @@
+@startuml
+actor user
+participant ${Cservice}Application as uhpoc
+participant ${Cservice}Controller as main
+participant CPException as cp
+participant ResponseHandler as rh
+participant ${Cservice}Service as serv
+participant ${Cservice}ServiceImpl as impl
+participant ${Cservice}Repository as repo
+database DATABASE as db
+activate uhpoc
+activate user
+  user-->uhpoc : Enter URL-[http://localhost:8090/uhpocms/${service}?${param}=all]
+    alt#Gold Case:If any Exception occur
+    uhpoc-> main : 
+    activate main
+    main->cp : throws CPException
+    activate cp
+    cp-> user : Get All ${service} Failed 
+    deactivate cp
+    else  Case: If no exception occur
+     alt#Gold If URI contain all
+     uhpoc -> main : main()
+          main -> serv : getAll${Cservice}()
+          activate serv
+          serv -> impl : getAll${Cservice}()
+          activate impl
+          impl -> repo : findBy${Cservice}IsActiveTrue()
+          activate repo
+          repo -> db : Fetching ${Cservice} which is Active True
+          activate db
+           db->db : Fetching data
+          db --> repo : Data of ${Cservice} 
+          deactivate db
+          repo --> impl :  Data of ${Cservice} 
+          deactivate repo
+          impl --> serv : Data of ${Cservice}
+          deactivate impl
+          serv --> main :  Data of ${Cservice} 
+          deactivate serv
+          main->rh : generateResponse()
+          activate rh
+          rh->rh : generating response
+          rh->main : response with HttpStatus code 200
+          deactivate rh
+          main --> uhpoc :  Return All ${service} data and return HttpStatus code 200
+          uhpoc--> user :  Return All ${service} data and return HttpStatus code 200
+          else If URI contain other than all
+           main->rh : generateResponse()
+          activate rh
+          rh->rh : generating response
+          rh->main : response with HttpStatus code 500
+          deactivate rh
+          main->uhpoc : Getting all ${Cservice} failed with HttpStatus Code 500
+          deactivate main
+          uhpoc->user : Getting all ${Cservice} failed with HttpStatus Code 500
+          deactivate uhpoc
+          deactivate user
+      end
+      end
+@enduml
