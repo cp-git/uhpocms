@@ -88,7 +88,7 @@ public interface Constants {
 
 	public static final String PATH_ERRUS = MAIN_RESOURCE;
 	
-	public static final String PATH_DESIGN = "/design";
+	public static final String PATH_DESIGN = "Design";
 	
 	public static final String VM_CLASS = "classdiag.vm";
 	

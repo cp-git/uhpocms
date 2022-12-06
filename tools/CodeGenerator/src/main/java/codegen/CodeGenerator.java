@@ -101,10 +101,11 @@ public class CodeGenerator {
 			f1.mkdirs();
 			System.out.println("\t" + serviceName + Constants.PATH_IMPL + " - Directory Created!!!");
 
-			f1 = new File(props.getProperty("rootFolder") + Constants.PATH_DESIGN);
+			f1 = new File(props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN);
 			f1.mkdirs();
-			System.out.println(
-					"\t" + props.getProperty("rootFolder") + Constants.PATH_DESIGN + " - Directory Created!!!");
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + " - Directory Created!!!");
 
 		} catch (Exception exp) {
 			exp.printStackTrace();
@@ -539,12 +540,14 @@ public class CodeGenerator {
 		t.merge(context, writer);
 		try {
 
-			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + Constants.PATH_DESIGN
-					+ File.separatorChar + props.get("Cservice") + Constants.FILE_CLASS));
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice")
+					+ Constants.FILE_CLASS));
 			fw.write(writer.toString());
 			fw.close();
-			System.out.println("\t" + props.getProperty("rootFolder") + Constants.PATH_DESIGN + File.separatorChar
-					+ props.get("Cservice") + Constants.FILE_CLASS + " - file created !!!");
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_CLASS
+					+ " - file created !!!");
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}
@@ -566,12 +569,14 @@ public class CodeGenerator {
 		context.put("service", props.get("service"));
 		t.merge(context, writer);
 		try {
-			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + Constants.PATH_DESIGN
-					+ File.separatorChar + props.get("Cservice") + Constants.FILE_POST));
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice")
+					+ Constants.FILE_POST));
 			fw.write(writer.toString());
 			fw.close();
-			System.out.println("\t" + props.getProperty("rootFolder") + Constants.PATH_DESIGN + File.separatorChar
-					+ props.get("Cservice") + Constants.FILE_POST + " - file created !!!");
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_POST
+					+ " - file created !!!");
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}
@@ -596,12 +601,14 @@ public class CodeGenerator {
 		context.put("findBy", props.get("findBy"));
 		t.merge(context, writer);
 		try {
-			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + Constants.PATH_DESIGN
-					+ File.separatorChar + props.get("Cservice") + Constants.FILE_GET));
+			FileWriter fw = new FileWriter(
+					new File(props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+							+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_GET));
 			fw.write(writer.toString());
 			fw.close();
-			System.out.println("\t" + props.getProperty("rootFolder") + Constants.PATH_DESIGN + File.separatorChar
-					+ props.get("Cservice") + Constants.FILE_GET + " - file created !!!");
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_GET
+					+ " - file created !!!");
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}
@@ -627,12 +634,14 @@ public class CodeGenerator {
 		context.put("param", props.get("param"));
 		t.merge(context, writer);
 		try {
-			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + Constants.PATH_DESIGN
-					+ File.separatorChar + props.get("Cservice") + Constants.FILE_GETALL));
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice")
+					+ Constants.FILE_GETALL));
 			fw.write(writer.toString());
 			fw.close();
-			System.out.println("\t" + props.getProperty("rootFolder") + Constants.PATH_DESIGN + File.separatorChar
-					+ props.get("Cservice") + Constants.FILE_GETALL + " - file created !!!");
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_GETALL
+					+ " - file created !!!");
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}
@@ -658,11 +667,13 @@ public class CodeGenerator {
 		context.put("param", props.get("param"));
 		t.merge(context, writer);
 		try {
-			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + Constants.PATH_DESIGN
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN
 					+ File.separatorChar + props.get("Cservice") + Constants.FILE_UPDATE));
 			fw.write(writer.toString());
 			fw.close();
-			System.out.println("\t" + props.getProperty("rootFolder") + Constants.PATH_DESIGN + File.separatorChar
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN + File.separatorChar
 					+ props.get("Cservice") + Constants.FILE_UPDATE + " - file created !!!");
 		} catch (Exception exp) {
 			exp.printStackTrace();
@@ -689,11 +700,13 @@ public class CodeGenerator {
 		context.put("param", props.get("param"));
 		t.merge(context, writer);
 		try {
-			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + Constants.PATH_DESIGN
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder")  + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN
 					+ File.separatorChar + props.get("Cservice") + Constants.FILE_DELETE));
 			fw.write(writer.toString());
 			fw.close();
-			System.out.println("\t" + props.getProperty("rootFolder") + Constants.PATH_DESIGN + File.separatorChar
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") +  Constants.PATH_DESIGN + File.separatorChar
 					+ props.get("Cservice") + Constants.FILE_DELETE + " - file created !!!");
 		} catch (Exception exp) {
 			exp.printStackTrace();
