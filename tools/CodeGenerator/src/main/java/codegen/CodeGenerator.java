@@ -569,6 +569,7 @@ public class CodeGenerator {
 		StringWriter writer = new StringWriter();
 		context.put("Cservice", props.get("Cservice"));
 		context.put("service", props.get("service"));
+		context.put("findBy", props.get("findBy"));
 		t.merge(context, writer);
 		try {
 			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
@@ -756,12 +757,12 @@ public class CodeGenerator {
 //		generateException(velocityEngine);
 //		generateResponseHandler(velocityEngine);
 //		generateImpl(velocityEngine);
-//		generateClassDiagram(velocityEngine);
+		generateClassDiagram(velocityEngine);
 		generatePostSeqDiagram(velocityEngine);
 		generateGetSeqDiagram(velocityEngine);
-//		generateGetAllSeqDiagram(velocityEngine);
-//		generateUpdateSeqDiagram(velocityEngine);
-//		generateDeleteSeqDiagram(velocityEngine);
+		generateGetAllSeqDiagram(velocityEngine);
+		generateUpdateSeqDiagram(velocityEngine);
+		generateDeleteSeqDiagram(velocityEngine);
 		System.out.println(props.get("Cservice"));
 		System.out.println("Code Generated under " + rootFolder + serviceName + " ...");
 	}
