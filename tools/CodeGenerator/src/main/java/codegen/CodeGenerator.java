@@ -537,6 +537,8 @@ public class CodeGenerator {
 		StringWriter writer = new StringWriter();
 		context.put("Cservice", props.get("Cservice"));
 		context.put("service", props.get("service"));
+		context.put("findBy", props.get("findBy"));
+		context.put("entity", props.get("entity"));
 		t.merge(context, writer);
 		try {
 
@@ -599,6 +601,7 @@ public class CodeGenerator {
 		context.put("service", props.get("service"));
 		context.put("findbys", props.get("findbys"));
 		context.put("findBy", props.get("findBy"));
+		context.put("entity", props.get("entity"));
 		t.merge(context, writer);
 		try {
 			FileWriter fw = new FileWriter(
@@ -734,31 +737,31 @@ public class CodeGenerator {
 		velocityEngine.init(velocityProperties);
 
 		loadProperties(
-				"C:\\Moorthy\\GIT\\ms\\latest\\uhpocms\\tools\\CodeGenerator\\src\\main\\resources\\CodeGen.properties");
+				"E:\\Mayur Workspace\\_uhpocms\\uhpocms\\tools\\CodeGenerator\\src\\main\\resources\\CodeGen_Question.properties");
 
 		String rootFolder = props.getProperty("rootFolder");
 		String serviceName = props.getProperty("service");
 		String moduleName = props.getProperty("module");
 		String Cservice = props.getProperty("Cservice");
 		createDirectories(rootFolder + serviceName);
-		generatePomXML(velocityEngine, moduleName, serviceName, rootFolder + serviceName);
-		generateAppPackageFiles(velocityEngine, rootFolder + serviceName, Cservice);
-		generateAppYaml(velocityEngine, rootFolder + serviceName);
-		generateLog4j(velocityEngine, rootFolder + serviceName, serviceName, moduleName);
-		generateController(velocityEngine, rootFolder + serviceName, Cservice);
-		generateErrorMessageEnUSFile(velocityEngine, rootFolder + serviceName);
-		generateEntity(velocityEngine);
-		generateRepo(velocityEngine);
-		generateService(velocityEngine);
-		generateException(velocityEngine);
-		generateResponseHandler(velocityEngine);
-		generateImpl(velocityEngine);
-		generateClassDiagram(velocityEngine);
+//		generatePomXML(velocityEngine, moduleName, serviceName, rootFolder + serviceName);
+//		generateAppPackageFiles(velocityEngine, rootFolder + serviceName, Cservice);
+//		generateAppYaml(velocityEngine, rootFolder + serviceName);
+//		generateLog4j(velocityEngine, rootFolder + serviceName, serviceName, moduleName);
+//		generateController(velocityEngine, rootFolder + serviceName, Cservice);
+//		generateErrorMessageEnUSFile(velocityEngine, rootFolder + serviceName);
+//		generateEntity(velocityEngine);
+//		generateRepo(velocityEngine);
+//		generateService(velocityEngine);
+//		generateException(velocityEngine);
+//		generateResponseHandler(velocityEngine);
+//		generateImpl(velocityEngine);
+//		generateClassDiagram(velocityEngine);
 		generatePostSeqDiagram(velocityEngine);
 		generateGetSeqDiagram(velocityEngine);
-		generateGetAllSeqDiagram(velocityEngine);
-		generateUpdateSeqDiagram(velocityEngine);
-		generateDeleteSeqDiagram(velocityEngine);
+//		generateGetAllSeqDiagram(velocityEngine);
+//		generateUpdateSeqDiagram(velocityEngine);
+//		generateDeleteSeqDiagram(velocityEngine);
 		System.out.println(props.get("Cservice"));
 		System.out.println("Code Generated under " + rootFolder + serviceName + " ...");
 	}

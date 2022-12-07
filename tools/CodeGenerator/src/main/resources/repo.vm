@@ -21,13 +21,13 @@ import com.cpa.uhpocms.entity.${Cservice};
 @Repository
 public interface ${Cservice}Repo extends JpaRepository<${Cservice}, Integer> {
 
-	public ${Cservice} findBy${findBy}(String ${findbys});
+	public ${Cservice} findBy${entity}${findBy}(String ${findbys});
 
-	public List<Object> findByIsactiveTrue();
+	public List<Object> findBy${entity}IsActiveTrue();
 
 	@Transactional
 	@Modifying
-	@Query(value = "UPDATE  ${TableName} SET is_active=false WHERE ${findbys} = ?1", nativeQuery = true)
-	public int deleteBy${findBy}(String ${findbys});
+	@Query(value = "UPDATE ${TableName} SET is_active=false WHERE ${findbys} = ?1", nativeQuery = true)
+	public int delete${entity}By${entity}${findBy}(String ${findbys});
 
 }

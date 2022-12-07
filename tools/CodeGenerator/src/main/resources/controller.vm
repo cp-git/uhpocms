@@ -80,7 +80,7 @@ public class ${Cservice}Controller {
 	}
 
 	@GetMapping("/${uri}/{${param}}")
-	public ResponseEntity<Object> get${Cservice}By${param}(@PathVariable("${param}") String ${param})
+	public ResponseEntity<Object> get${Cservice}By${findBy}(@PathVariable("${param}") String ${param})
 			throws CPException {
 		logger.debug("Entering get${Cservice}By${param}");
 		logger.info("entered user name :" + ${param});
@@ -139,7 +139,7 @@ public class ${Cservice}Controller {
 	}
 
 	@DeleteMapping("/${uri}/{${param}}")
-	public ResponseEntity<Object> delete${Cservice}(@PathVariable("${param}") String ${param}) throws CPException {
+	public ResponseEntity<Object> delete${Cservice}By${findBy}(@PathVariable("${param}") String ${param}) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered delete${Cservice}  :" + ${param});
 		//TODO - implement the business logic
@@ -150,7 +150,7 @@ public class ${Cservice}Controller {
 			count = ${service}Service.delete${Cservice}By${findBy}(${param});
 			if (count >= 1) {
 				logger.info("deleted ${Cservice} : ${findBy} = " + ${param});
-				return ResponseHandler.generateResponse(HttpStatus.ACCEPTED);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
 				logger.info(resourceBunde.getString("err005"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
@@ -165,7 +165,7 @@ public class ${Cservice}Controller {
 	}
 
 	@PutMapping("/${uri}/{${param}}")
-	public ResponseEntity<Object> update${Cservice}(@RequestBody ${Cservice} ${service},
+	public ResponseEntity<Object> update${Cservice}By${findBy}(@RequestBody ${Cservice} ${service},
 			@PathVariable("${param}") String ${param}) throws CPException {
 		logger.debug("Entering update${Cservice}");
 		logger.info("entered  update${Cservice} :" + ${service});

@@ -16,18 +16,18 @@ activate user
     activate main
     main->cp : throws CPException
     activate cp
-    cp-> user : Get All ${service} Failed 
+    cp-> user : Get All ${service}s Failed 
     deactivate cp
     else  Case: If no exception occur
      alt#Gold If URI contain all
      uhpoc -> main : main()
-          main -> serv : getAll${Cservice}()
+          main -> serv : getAll${Cservice}s()
           activate serv
-          serv -> impl : getAll${Cservice}()
+          serv -> impl : getAll${Cservice}s()
           activate impl
           impl -> repo : findBy${Cservice}IsActiveTrue()
           activate repo
-          repo -> db : Fetching ${Cservice} which is Active True
+          repo -> db : Fetching ${Cservice}s which are Active True
           activate db
            db->db : Fetching data
           db --> repo : Data of ${Cservice} 
