@@ -53,7 +53,7 @@ public class ${Cservice}Controller {
 		${Cservice} created${Cservice} = null;
 		try {
 
-			${Cservice} toCheck${Cservice} = ${service}Service.get${Cservice}By${findBy}(${service}.get${findBy}());
+			${Cservice} toCheck${Cservice} = ${service}Service.get${Cservice}By${findBy}(${service}.get${entity}${findBy}());
 			logger.debug("existing ${service} :" + toCheck${Cservice});
 
 			if (toCheck${Cservice} == null) {

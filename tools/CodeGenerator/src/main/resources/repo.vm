@@ -28,6 +28,6 @@ public interface ${Cservice}Repo extends JpaRepository<${Cservice}, Integer> {
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE ${TableName} SET is_active=false WHERE ${findbys} = ?1", nativeQuery = true)
-	public int delete${entity}By${entity}${findBy}(String ${findbys});
+	public int delete${entity}By${findBy}(String ${findbys});
 
 }

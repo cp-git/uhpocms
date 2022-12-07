@@ -316,6 +316,7 @@ public class CodeGenerator {
 		context.put("TableName", props.get("TableName"));
 		context.put("findBy", props.get("findBy"));
 		context.put("findbys", props.get("findbys"));
+		context.put("entity", props.get("entity"));
 
 		StringWriter writer = new StringWriter();
 		t.merge(context, writer);
@@ -376,6 +377,7 @@ public class CodeGenerator {
 		context.put("param", props.get("param"));
 		context.put("findBy", props.get("findBy"));
 		context.put("findbys", props.get("findbys"));
+		context.put("entity", props.get("entity"));
 
 		StringWriter writer = new StringWriter();
 		t.merge(context, writer);
@@ -745,18 +747,18 @@ public class CodeGenerator {
 		String moduleName = props.getProperty("module");
 		String Cservice = props.getProperty("Cservice");
 		createDirectories(rootFolder + serviceName);
-//		generatePomXML(velocityEngine, moduleName, serviceName, rootFolder + serviceName);
-//		generateAppPackageFiles(velocityEngine, rootFolder + serviceName, Cservice);
-//		generateAppYaml(velocityEngine, rootFolder + serviceName);
-//		generateLog4j(velocityEngine, rootFolder + serviceName, serviceName, moduleName);
-//		generateController(velocityEngine, rootFolder + serviceName, Cservice);
-//		generateErrorMessageEnUSFile(velocityEngine, rootFolder + serviceName);
-//		generateEntity(velocityEngine);
-//		generateRepo(velocityEngine);
-//		generateService(velocityEngine);
-//		generateException(velocityEngine);
-//		generateResponseHandler(velocityEngine);
-//		generateImpl(velocityEngine);
+		generatePomXML(velocityEngine, moduleName, serviceName, rootFolder + serviceName);
+		generateAppPackageFiles(velocityEngine, rootFolder + serviceName, Cservice);
+		generateAppYaml(velocityEngine, rootFolder + serviceName);
+		generateLog4j(velocityEngine, rootFolder + serviceName, serviceName, moduleName);
+		generateController(velocityEngine, rootFolder + serviceName, Cservice);
+		generateErrorMessageEnUSFile(velocityEngine, rootFolder + serviceName);
+		generateEntity(velocityEngine);
+		generateRepo(velocityEngine);
+		generateService(velocityEngine);
+		generateException(velocityEngine);
+		generateResponseHandler(velocityEngine);
+		generateImpl(velocityEngine);
 		generateClassDiagram(velocityEngine);
 		generatePostSeqDiagram(velocityEngine);
 		generateGetSeqDiagram(velocityEngine);
