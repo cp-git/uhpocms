@@ -19,7 +19,7 @@ public interface ModuleService {
 
 	List<Object> getAllModules();
 
-	Module updateModule(Module module, String name);
+	Module updateModuleByName(Module module, String name);
 
 	int deleteModuleByName(String name);
 

@@ -171,7 +171,7 @@ public class ModuleController {
 		Module updatedModule = null;
 
 		try {
-			updatedModule = moduleService.updateModule(module, name);
+			updatedModule = moduleService.updateModuleByName(module, name);
 
 			if (updatedModule == null) {
 				logger.info(resourceBunde.getString("err004"));

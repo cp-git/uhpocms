@@ -64,7 +64,8 @@ public class ModuleServiceImpl implements ModuleService {
 
 	/**
 	 * @return : List<Object> module
-	 * @description : For fetching all module which are active state from teacher_module table
+	 * @description : For fetching all module which are active state from
+	 *              teacher_module table
 	 */
 	@Override
 	public List<Object> getAllModules() {
@@ -81,7 +82,7 @@ public class ModuleServiceImpl implements ModuleService {
 	 * @description : For updating module of teacher_module table
 	 */
 	@Override
-	public Module updateModule (Module module, String name) {
+	public Module updateModuleByName(Module module, String name) {
 		logger.debug("Entering updateModule");
 
 		Module toUpdatedModule = null;
@@ -92,7 +93,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 		if (toUpdatedModule != null) {
 			logger.debug("setting new data of Module to exisitng Module");
-			
+
 			toUpdatedModule.setModuleName(module.getModuleName());
 			toUpdatedModule.setModuleDescription(module.getModuleDescription());
 			toUpdatedModule.setModuleIsActive(module.isModuleIsActive());
@@ -121,7 +122,7 @@ public class ModuleServiceImpl implements ModuleService {
 	public int deleteModuleByName(String name) {
 		logger.debug("Entering deleteModuleByName");
 
-		int count =  moduleRepo.deleteModuleByName(name);
+		int count = moduleRepo.deleteModuleByName(name);
 		logger.info("deleted Module count : " + count);
 		return count;
 	}
