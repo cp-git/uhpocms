@@ -20,9 +20,9 @@ activate user
     deactivate cp
     else  Case: If no exception occur
      uhpoc -> main : main()
-          main -> serv : findBy${entity}${findBy}()
+          main -> serv : get${Cservice}By${findBy}()
           activate serv
-          serv -> impl : findBy${entity}${findBy}()
+          serv -> impl : get${Cservice}By${findBy}()
           activate impl
           impl -> repo : findBy${entity}${findBy}()
           activate repo

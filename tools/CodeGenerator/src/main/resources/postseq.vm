@@ -20,9 +20,9 @@ activate user
     deactivate cp
     else  Case: If no exception occur
      uhpoc -> main : main()
-          main -> serv : findBy${Cservice}${findBy}()
+          main -> serv : get${Cservice}By${findBy}()
           activate serv
-          serv -> impl : findBy${Cservice}${findBy}()
+          serv -> impl : get${Cservice}By${findBy}()
           activate impl
           impl -> repo : findBy${Cservice}${findBy}()
           activate repo
@@ -38,9 +38,9 @@ activate user
           serv --> main :  Data of ${service}
           deactivate serv
           alt#Gold If ${Cservice} is null
-          main-> serv : save${Cservice}()
+          main-> serv : create${Cservice}()
           activate serv
-          serv->impl : save${Cservice}()
+          serv->impl : create${Cservice}()
           activate impl
           impl->repo : save()
           activate repo
