@@ -316,6 +316,7 @@ public class CodeGenerator {
 		context.put("TableName", props.get("TableName"));
 		context.put("findBy", props.get("findBy"));
 		context.put("findbys", props.get("findbys"));
+		context.put("entity", props.get("entity"));
 
 		StringWriter writer = new StringWriter();
 		t.merge(context, writer);
@@ -376,6 +377,7 @@ public class CodeGenerator {
 		context.put("param", props.get("param"));
 		context.put("findBy", props.get("findBy"));
 		context.put("findbys", props.get("findbys"));
+		context.put("entity", props.get("entity"));
 
 		StringWriter writer = new StringWriter();
 		t.merge(context, writer);
@@ -537,6 +539,8 @@ public class CodeGenerator {
 		StringWriter writer = new StringWriter();
 		context.put("Cservice", props.get("Cservice"));
 		context.put("service", props.get("service"));
+		context.put("findBy", props.get("findBy"));
+		context.put("entity", props.get("entity"));
 		t.merge(context, writer);
 		try {
 
@@ -567,6 +571,7 @@ public class CodeGenerator {
 		StringWriter writer = new StringWriter();
 		context.put("Cservice", props.get("Cservice"));
 		context.put("service", props.get("service"));
+		context.put("findBy", props.get("findBy"));
 		t.merge(context, writer);
 		try {
 			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
@@ -599,6 +604,7 @@ public class CodeGenerator {
 		context.put("service", props.get("service"));
 		context.put("findbys", props.get("findbys"));
 		context.put("findBy", props.get("findBy"));
+		context.put("entity", props.get("entity"));
 		t.merge(context, writer);
 		try {
 			FileWriter fw = new FileWriter(
@@ -734,7 +740,7 @@ public class CodeGenerator {
 		velocityEngine.init(velocityProperties);
 
 		loadProperties(
-				"C:\\Moorthy\\GIT\\ms\\latest\\uhpocms\\tools\\CodeGenerator\\src\\main\\resources\\CodeGen.properties");
+				"E:\\Mayur Workspace\\_uhpocms\\uhpocms\\tools\\CodeGenerator\\src\\main\\resources\\CodeGen_Question.properties");
 
 		String rootFolder = props.getProperty("rootFolder");
 		String serviceName = props.getProperty("service");

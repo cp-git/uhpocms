@@ -40,7 +40,7 @@ public class ${Cservice}ServiceImpl implements ${Cservice}Service {
 		${Cservice} created${Cservice} = null;
 
 	//	${service}.set${Cservice}CreatedBy("admin");
-	//	${Cservice}.set${Cservice}ModifiedBy("admin");
+	//	${service}.set${Cservice}ModifiedBy("admin");
 
 		created${Cservice} = ${service}Repo.save(${service});
 		logger.info("created ${Cservice} :" + created${Cservice});
@@ -56,7 +56,7 @@ public class ${Cservice}ServiceImpl implements ${Cservice}Service {
 	public ${Cservice} get${Cservice}By${findBy}(String ${findbys}) {
 		logger.debug("Entering get${Cservice}By${findBy}");
 
-		${Cservice} ${service} = ${service}Repo.findBy${findBy}(${findbys});
+		${Cservice} ${service} = ${service}Repo.findBy${entity}${findBy}(${findbys});
 		logger.info("Founded ${service} :" + ${service});
 
 		return ${service};
@@ -70,7 +70,7 @@ public class ${Cservice}ServiceImpl implements ${Cservice}Service {
 	public List<Object> getAll${Cservice}s() {
 		logger.debug("Entering getAll${Cservice}s");
 
-		List<Object> ${service}s = ${service}Repo.findByIsactiveTrue();
+		List<Object> ${service}s = ${service}Repo.findBy${entity}IsActiveTrue();
 		logger.info("Fetched all active ${service} :" + ${service}s);
 		return ${service}s;
 	}
@@ -87,7 +87,7 @@ public class ${Cservice}ServiceImpl implements ${Cservice}Service {
 		${Cservice} toUpdated${Cservice} = null;
 		${Cservice} updated${Cservice} = null;
 
-		toUpdated${Cservice} = ${service}Repo.findBy${findBy}(${findbys});
+		toUpdated${Cservice} = ${service}Repo.findBy${entity}${findBy}(${findbys});
 		logger.info("exisitng ${Cservice} :: " + toUpdated${Cservice});
 
 		if (toUpdated${Cservice} != null) {
@@ -113,7 +113,7 @@ public class ${Cservice}ServiceImpl implements ${Cservice}Service {
 	public int delete${Cservice}By${findBy}(String ${findbys}) {
 		logger.debug("Entering delete${Cservice}By${findBy}");
 
-		int count =  ${service}Repo.deleteBy${findBy}(${findbys});
+		int count =  ${service}Repo.delete${entity}By${findBy}(${findbys});
 		logger.info("deleted ${Cservice} count : " + count);
 		return count;
 	}

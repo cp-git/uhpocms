@@ -20,13 +20,13 @@ activate user
     deactivate cp
     else  Case: If no exception occur
      uhpoc -> main : main()
-          main -> serv : findBy${Cservice}Name()
+          main -> serv : findBy${Cservice}${findBy}()
           activate serv
-          serv -> impl : findBy${Cservice}Name()
+          serv -> impl : findBy${Cservice}${findBy}()
           activate impl
-          impl -> repo : findBy${Cservice}Name()
+          impl -> repo : findBy${Cservice}${findBy}()
           activate repo
-          repo -> db : Fetching ${Cservice} by name
+          repo -> db : Fetching ${Cservice} by ${findBy}
           activate db
            db->db : Fetching data
           db --> repo : Data of ${service} 
@@ -35,7 +35,7 @@ activate user
           deactivate repo
           impl --> serv : Data of ${service} 
           deactivate impl
-          serv --> main :  Data of v 
+          serv --> main :  Data of ${service}
           deactivate serv
           alt#Gold If ${Cservice} is null
           main-> serv : save${Cservice}()
