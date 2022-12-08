@@ -109,7 +109,7 @@ public class ${Cservice}Controller {
 	}
 
 	@GetMapping("/${uri}")
-	public ResponseEntity<List<Object>> getAll${Cservice}(@RequestParam(name = "${param}") String ${param})
+	public ResponseEntity<List<Object>> getAll${Cservice}s(@RequestParam(name = "${param}") String ${param})
 			throws CPException {
 		logger.debug("Entering getAll${Cservice}");
 		logger.info("Parameter  :" + ${param});
