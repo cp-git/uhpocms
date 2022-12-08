@@ -82,7 +82,7 @@ public class QuestionServiceImpl implements QuestionService {
 	 * @description : For updating question of teacher_question table
 	 */
 	@Override
-	public Question updateQuestion(Question question, String figure) {
+	public Question updateQuestionByFigure(Question question, String figure) {
 		logger.debug("Entering updateQuestion");
 
 		Question toUpdatedQuestion = null;

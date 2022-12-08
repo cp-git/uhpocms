@@ -109,7 +109,7 @@ public class QuestionController {
 	}
 
 	@GetMapping("/question")
-	public ResponseEntity<List<Object>> getAllQuestion(@RequestParam(name = "figure") String figure)
+	public ResponseEntity<List<Object>> getAllQuestions(@RequestParam(name = "figure") String figure)
 			throws CPException {
 		logger.debug("Entering getAllQuestion");
 		logger.info("Parameter  :" + figure);
@@ -172,8 +172,8 @@ public class QuestionController {
 
 		Question updatedQuestion = null;
 
-		try {
-			updatedQuestion = questionService.updateQuestion(question, figure);
+		try { 
+			updatedQuestion = questionService.updateQuestionByFigure(question, figure);
 
 			if (updatedQuestion == null) {
 				logger.info(resourceBunde.getString("err004"));

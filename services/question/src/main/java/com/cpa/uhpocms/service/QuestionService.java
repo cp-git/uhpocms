@@ -19,7 +19,7 @@ public interface QuestionService {
 
 	List<Object> getAllQuestions();
 
-	Question updateQuestion(Question question, String figure);
+	Question updateQuestionByFigure(Question question, String figure);
 
 	int deleteQuestionByFigure(String figure);
 
