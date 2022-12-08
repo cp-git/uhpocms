@@ -141,7 +141,7 @@ public class EmailController {
 	}
 
 	@DeleteMapping("/email/{title}")
-	public ResponseEntity<Object> deleteEmail(@PathVariable("title") String title) throws CPException {
+	public ResponseEntity<Object> deleteEmailByTitle(@PathVariable("title") String title) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered deleteEmail  :" + title);
 		//TODO - implement the business logic
@@ -169,7 +169,7 @@ public class EmailController {
 	}
 
 	@PutMapping("/email/{title}")
-	public ResponseEntity<Object> updateEmail(@RequestBody Email email,
+	public ResponseEntity<Object> updateEmailByTitle(@RequestBody Email email,
 			@PathVariable("title") String title) throws CPException {
 		logger.debug("Entering updateEmail");
 		logger.info("entered  updateEmail :" + email);

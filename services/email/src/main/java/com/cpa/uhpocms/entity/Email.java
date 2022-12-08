@@ -30,41 +30,44 @@ public class Email {
 	@Column(name = "emailid")
 	private int emailId;
 	
-	@Column(name = "title" , unique = true)
+	@Column(name = "title")
 	private String title ;
 	
-	@Column(name = "subject", nullable = false)
+	@Column(name = "subject")
 	private String subject;
 	
-	@Column(name = "content", nullable = false)
+	@Column(name = "content")
 	private String content;
 	
 	@CreationTimestamp
 	@Column(name = "createdon")
 	private Date createdOn=new Date(System.currentTimeMillis());
 	
-	@Column(name = "createdby", nullable = false)
+	@Column(name = "createdby")
 	private String createdBy;
 	
 	@UpdateTimestamp
-	@Column(name="modifiedon", nullable = false)
+	@Column(name="modifiedon")
 	private Date modifiedOn=new Date(System.currentTimeMillis());
 	
 	
 	@Column(name = "modifiedby")
 	private String modifiedBy;
 	
-	@Column(name = "status", nullable = false)
+	@Column(name = "status")
 	private boolean status;
 	
-	@Column(name = "readstatus", nullable = false)
+	@Column(name = "readstatus")
 	private boolean readStatus;
 	
-	@Column(name = "attachfile", nullable = false)
+	@Column(name = "attachfile")
 	private String attachFile;
 
-	@Column(name = "isactive" , nullable = false)
+	@Column(name = "isactive")
 	private boolean emailIsActive;
+	
+	@Column(name = "email_from_id")
+	private int emailFormId;
 
 	/**
 	 * @param emailId
@@ -79,10 +82,21 @@ public class Email {
 	 * @param readStatus
 	 * @param attachFile
 	 * @param emailIsActive
+	
+
+	/**
+	 * 
 	 */
+	public Email() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+
 	public Email(int emailId, String title, String subject, String content, Date createdOn, String createdBy,
 			Date modifiedOn, String modifiedBy, boolean status, boolean readStatus, String attachFile,
-			boolean emailIsActive) {
+			boolean emailIsActive, int emailFormId) {
 		super();
 		this.emailId = emailId;
 		this.title = title;
@@ -96,15 +110,10 @@ public class Email {
 		this.readStatus = readStatus;
 		this.attachFile = attachFile;
 		this.emailIsActive = emailIsActive;
+		this.emailFormId = emailFormId;
 	}
 
-	/**
-	 * 
-	 */
-	public Email() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+
 
 	/**
 	 * @return the emailId
@@ -273,6 +282,21 @@ public class Email {
 	public void setEmailIsActive(boolean emailIsActive) {
 		this.emailIsActive = emailIsActive;
 	}
+	
+	
+
+	
+	public int getEmailFormId() {
+		return emailFormId;
+	}
+
+
+
+	public void setEmailFormId(int emailFormId) {
+		this.emailFormId = emailFormId;
+	}
+
+
 
 	@Override
 	public String toString() {

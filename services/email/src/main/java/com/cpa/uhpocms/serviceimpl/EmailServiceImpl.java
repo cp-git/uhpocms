@@ -37,10 +37,10 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public Email createEmail(Email email) {
 		logger.debug("Entering createEmail");
-		Email createdEmail = null;
+		Email createdEmail;
 
-	//	email.setEmailCreatedBy("admin");
-	//	Email.setEmailModifiedBy("admin");
+		email.setCreatedBy("admin");
+		email.setModifiedBy("admin");
 
 		createdEmail = emailRepo.save(email);
 		logger.info("created Email :" + createdEmail);
@@ -101,11 +101,13 @@ public class EmailServiceImpl implements EmailService {
 //			  userEmail.setEmailIsActive(email.isEmailIsActive());
 			
 			toUpdatedEmail.setTitle(email.getTitle());
+			toUpdatedEmail.setSubject(email.getSubject());
 			toUpdatedEmail.setContent(email.getContent());
 			toUpdatedEmail.setStatus(email.isStatus());
 			toUpdatedEmail.setReadStatus(email.isReadStatus());
 			toUpdatedEmail.setAttachFile(email.getAttachFile());
 			toUpdatedEmail.setEmailIsActive(email.isEmailIsActive());
+			toUpdatedEmail.setEmailFormId(email.getEmailFormId());
 			
 		
 						
