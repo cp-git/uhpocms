@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "ca508684-b63b-45f8-825a-63921a15e552",
+		"name": "TeacherQuestion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8090/uhpocms/question",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"questionFigure\" : \"pqr\",\r\n    \"questionContent\" : \"content\",\r\n    \"questionExplanation\" : \"expl\",\r\n    \"questionOrderNo\" : 1,\r\n    \"questionIsMCQ\" : true,\r\n    \"questionQuizId\" : 10,\r\n    \"questionCategoryId\" : 100,\r\n    \"questionIsActive\" : true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/uhpocms/question",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uhpocms",
+						"question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8090/uhpocms/teacherquestion/xy123",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/uhpocms/question/xyz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uhpocms",
+						"question",
+						"xyz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8090/uhpocms/teacherquestion/xyz",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"questionFigure\" : \"xyz\",\r\n    \"questionContent\" : \"content\",\r\n    \"questionExplanation\" : \"expl\",\r\n    \"questionOrderNo\" : 1,\r\n    \"questionIsMCQ\" : true,\r\n    \"questionQuizId\" : 10,\r\n    \"questionCategoryId\" : 100,\r\n    \"questionIsActive\" : true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/uhpocms/question/xyz",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uhpocms",
+						"question",
+						"xyz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8090/uhpocms/teacherquestion?figure=all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/uhpocms/question?figure=all1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uhpocms",
+						"question"
+					],
+					"query": [
+						{
+							"key": "figure",
+							"value": "all1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8090/uhpocms/teacherquestion/xy123",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/uhpocms/question/xy123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uhpocms",
+						"question",
+						"xy123"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
