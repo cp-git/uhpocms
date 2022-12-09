@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 @Entity
 @Table(name = "teacher_email")
@@ -93,6 +93,31 @@ public class Email {
 	}
 
 	
+
+	/**
+	 * @param title
+	 * @param subject
+	 * @param content
+	 * @param status
+	 * @param readStatus
+	 * @param attachFile
+	 * @param emailIsActive
+	 * @param emailFormId
+	 */
+	public Email(String title, String subject, String content, boolean status, boolean readStatus, String attachFile,
+			boolean emailIsActive, int emailFormId) {
+		super();
+		this.title = title;
+		this.subject = subject;
+		this.content = content;
+		this.status = status;
+		this.readStatus = readStatus;
+		this.attachFile = attachFile;
+		this.emailIsActive = emailIsActive;
+		this.emailFormId = emailFormId;
+	}
+
+
 
 	public Email(int emailId, String title, String subject, String content, Date createdOn, String createdBy,
 			Date modifiedOn, String modifiedBy, boolean status, boolean readStatus, String attachFile,

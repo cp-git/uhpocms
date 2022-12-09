@@ -1,6 +1,6 @@
 /**
  * @author  - Code Generator
- * @createdOn -  07-12-2022
+ * @createdOn -  06-12-2022
  * @Description Entity class for Email Service
  * 
  */
@@ -19,7 +19,7 @@ public interface EmailService {
 
 	List<Object> getAllEmails();
 
-	Email updateEmail(Email email, String title);
+	Email updateEmailByTitle(Email email, String title);
 
 	int deleteEmailByTitle(String title);
 

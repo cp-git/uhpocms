@@ -1,6 +1,6 @@
 /**
  * @author - Code Generator
- * @createdOn 07-12-2022
+ * @createdOn 06-12-2022
  * @Description Controller class for email
  * 
  */
@@ -59,10 +59,8 @@ public class EmailController {
 			if (toCheckEmail == null) {
 
 			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
-		
-		email.setCreatedBy("admin");
-		email.setModifiedBy("admin");
-			
+			//	email.setCreatedby("admin");
+			//	email.setUpdatedby("admin");
 
 				createdEmail = emailService.createEmail(email);
 				logger.info("Email created :" + createdEmail);
@@ -82,7 +80,7 @@ public class EmailController {
 	}
 
 	@GetMapping("/email/{title}")
-	public ResponseEntity<Object> getEmailBytitle(@PathVariable("title") String title)
+	public ResponseEntity<Object> getEmailByTitle(@PathVariable("title") String title)
 			throws CPException {
 		logger.debug("Entering getEmailBytitle");
 		logger.info("entered user name :" + title);
@@ -111,7 +109,7 @@ public class EmailController {
 	}
 
 	@GetMapping("/email")
-	public ResponseEntity<List<Object>> getAllEmail(@RequestParam(name = "title") String title)
+	public ResponseEntity<List<Object>> getAllEmails(@RequestParam(name = "title") String title)
 			throws CPException {
 		logger.debug("Entering getAllEmail");
 		logger.info("Parameter  :" + title);
@@ -146,13 +144,11 @@ public class EmailController {
 		logger.info("entered deleteEmail  :" + title);
 		//TODO - implement the business logic
 		
-		
-		try {
-			int count = 0;
-			count = emailService.deleteEmailByTitle(title);
+		int count = 0;
 
-			
-			if (count == 1) {
+		try {
+			count = emailService.deleteEmailByTitle(title);
+			if (count >= 1) {
 				logger.info("deleted Email : Title = " + title);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
@@ -176,8 +172,8 @@ public class EmailController {
 
 		Email updatedEmail = null;
 
-		try {
-			updatedEmail = emailService.updateEmail(email, title);
+		try { 
+			updatedEmail = emailService.updateEmailByTitle(email, title);
 
 			if (updatedEmail == null) {
 				logger.info(resourceBunde.getString("err004"));

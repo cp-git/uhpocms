@@ -1,6 +1,6 @@
 /**
  * @author - Code Generator
- * @createdOn 07-12-2022
+ * @createdOn 06-12-2022
  * @Description Controller class for email
  * 
  */
@@ -37,10 +37,11 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public Email createEmail(Email email) {
 		logger.debug("Entering createEmail");
-		Email createdEmail;
+		Email createdEmail = null;
 
 		email.setCreatedBy("admin");
 		email.setModifiedBy("admin");
+	
 
 		createdEmail = emailRepo.save(email);
 		logger.info("created Email :" + createdEmail);
@@ -81,7 +82,7 @@ public class EmailServiceImpl implements EmailService {
 	 * @description : For updating email of teacher_email table
 	 */
 	@Override
-	public Email updateEmail (Email email, String title) {
+	public Email updateEmailByTitle(Email email, String title) {
 		logger.debug("Entering updateEmail");
 
 		Email toUpdatedEmail = null;
@@ -92,14 +93,7 @@ public class EmailServiceImpl implements EmailService {
 
 		if (toUpdatedEmail != null) {
 			logger.debug("setting new data of Email to exisitng Email");
-
-//			 Email.setSubject(email.getSubject());
-//			  userEmail.setContent(email.getContent());	
-//			  userEmail.setStatus(email.isStatus());
-//			  userEmail.setReadStatus(email.isReadStatus());
-//			  userEmail.setAttachFile(email.getAttachFile());
-//			  userEmail.setEmailIsActive(email.isEmailIsActive());
-			
+		
 			toUpdatedEmail.setTitle(email.getTitle());
 			toUpdatedEmail.setSubject(email.getSubject());
 			toUpdatedEmail.setContent(email.getContent());
@@ -129,8 +123,9 @@ public class EmailServiceImpl implements EmailService {
 	public int deleteEmailByTitle(String title) {
 		logger.debug("Entering deleteEmailByTitle");
 
-		
-		return emailRepo.deleteByTitle(title);
+		int count =  emailRepo.deleteEmailByTitle(title);
+		logger.info("deleted Email count : " + count);
+		return count;
 	}
 
 }

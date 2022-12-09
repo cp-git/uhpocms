@@ -1,6 +1,6 @@
 /**
  * @author  - Code Generator
- * @createdOn -  07-12-2022
+ * @createdOn -  06-12-2022
  * @Description Entity class for Email
  * 
  */
@@ -28,6 +28,6 @@ public interface EmailRepo extends JpaRepository<Email, Integer> {
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE teacher_email SET isactive=false WHERE title = ?1", nativeQuery = true)
-	public int deleteByTitle(String title);
+	public int deleteEmailByTitle(String title);
 
 }
