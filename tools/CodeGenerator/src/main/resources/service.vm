@@ -19,7 +19,7 @@ public interface ${Cservice}Service {
 
 	List<Object> getAll${Cservice}s();
 
-	${Cservice} update${Cservice}(${Cservice} ${service}, String ${findbys});
+	${Cservice} update${Cservice}By${findBy}(${Cservice} ${service}, String ${findbys});
 
 	int delete${Cservice}By${findBy}(String ${findbys});
 

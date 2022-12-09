@@ -172,8 +172,8 @@ public class ${Cservice}Controller {
 
 		${Cservice} updated${Cservice} = null;
 
-		try {
-			updated${Cservice} = ${service}Service.update${Cservice}(${service}, ${param});
+		try { 
+			updated${Cservice} = ${service}Service.update${Cservice}By${findBy}(${service}, ${param});
 
 			if (updated${Cservice} == null) {
 				logger.info(resourceBunde.getString("err004"));

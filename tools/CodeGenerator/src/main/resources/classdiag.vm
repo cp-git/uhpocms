@@ -6,15 +6,15 @@ class ${Cservice}Controller {
   --
   +${Cservice}Controller() 
   +create${Cservice}(${Cservice}) : ResponseEntity<Object>
-  +getAll${Cservice}() : List<Object>
-  +get${Cservice}By${findBy}() : ResponseEntity<Object>
+  +getAll${Cservice}s() : List<Object>
+  +get${Cservice}By${findBy}(String) : ResponseEntity<Object>
   +delete${Cservice}By${findBy}(String) : ResponseEntity<Object>
   +update${Cservice}By${findBy}(${Cservice}, String) : ResponseEntity<Object>
 }
   interface ${Cservice}Service{
   +create${Cservice}(${Cservice}) : ${Cservice}
   +getAll${Cservice}s() : List<Object>
-  +get${Cservice}By${findBy}() : ${Cservice}
+  +get${Cservice}By${findBy}(String) : ${Cservice}
   +delete${Cservice}By${findBy}(String) : int
   +update${Cservice}By${findBy}(${Cservice}, String) : ${Cservice}
   }
@@ -26,7 +26,7 @@ class ${Cservice}Controller {
   +${Cservice}ServiceImpl()
   +create${Cservice}(${Cservice}) : ${Cservice}
   +getAll${Cservice}s() : List<Object>
-  +get${Cservice}By${findBy}() : ${Cservice}
+  +get${Cservice}By${findBy}(String) : ${Cservice}
   +delete${Cservice}By${findBy}(String) : int
   +update${Cservice}By${findBy}(${Cservice}, String) : ${Cservice}
   }

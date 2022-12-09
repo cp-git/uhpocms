@@ -81,7 +81,7 @@ public class ${Cservice}ServiceImpl implements ${Cservice}Service {
 	 * @description : For updating ${service} of ${TableName} table
 	 */
 	@Override
-	public ${Cservice} update${Cservice} (${Cservice} ${service}, String ${findbys}) {
+	public ${Cservice} update${Cservice}By${findBy}(${Cservice} ${service}, String ${findbys}) {
 		logger.debug("Entering update${Cservice}");
 
 		${Cservice} toUpdated${Cservice} = null;
