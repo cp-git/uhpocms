@@ -35,7 +35,7 @@ import com.cpa.uhpocms.service.ModuleService;
 public class ModuleController {
 
 	@Autowired
-	private ModuleService moduleService;
+	private ModuleService moduleService;;
 
 	private ResourceBundle resourceBunde;
 	private static Logger logger;

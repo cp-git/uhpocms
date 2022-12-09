@@ -108,20 +108,6 @@ public class Module {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Module(String moduleName, String moduleDescription, boolean moduleIsActive, Date moduleStartDate,
-			Date moduleEndDate, int moduleCourse, int moduleOrderNo, int courseId_id) {
-		// TODO Auto-generated constructor stub
-		super();
-		this.moduleName = moduleName;
-		this.moduleDescription = moduleDescription;
-		this.moduleIsActive = moduleIsActive;
-		this.moduleStartDate = moduleStartDate;
-		this.moduleEndDate = moduleEndDate;
-		this.moduleCourse = moduleCourse;
-		this.moduleOrderNo = moduleOrderNo;
-		this.courseId_id = courseId_id;
-	}
-
 	/**
 	 * @return the moduleId
 	 */
