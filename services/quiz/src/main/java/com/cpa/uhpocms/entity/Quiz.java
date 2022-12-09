@@ -466,6 +466,62 @@ public class Quiz {
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
+	
+	
+	
+
+	/**
+	 * @param quizId
+	 * @param title
+	 * @param description
+	 * @param url
+	 * @param randomOrder
+	 * @param maxQuestions
+	 * @param answersAtEnd
+	 * @param examPaper
+	 * @param singleAttempt
+	 * @param passMark
+	 * @param successText
+	 * @param failText
+	 * @param draft
+	 * @param quizOrderNo
+	 * @param courseId
+	 * @param moduleId
+	 * @param categoryId
+	 * @param isActive
+	 * @param modifiedBy
+	 * @param createdBy
+	 * @param createdOn
+	 * @param modifiedOn
+	 */
+	public Quiz(int quizId, String title, String description, String url, boolean randomOrder, int maxQuestions,
+			boolean answersAtEnd, boolean examPaper, boolean singleAttempt, int passMark, String successText,
+			String failText, boolean draft, int quizOrderNo, int courseId, int moduleId, int categoryId,
+			boolean isActive, String modifiedBy, String createdBy, Date createdOn, Date modifiedOn) {
+		super();
+		this.quizId = quizId;
+		this.title = title;
+		this.description = description;
+		this.url = url;
+		this.randomOrder = randomOrder;
+		this.maxQuestions = maxQuestions;
+		this.answersAtEnd = answersAtEnd;
+		this.examPaper = examPaper;
+		this.singleAttempt = singleAttempt;
+		this.passMark = passMark;
+		this.successText = successText;
+		this.failText = failText;
+		this.draft = draft;
+		this.quizOrderNo = quizOrderNo;
+		this.courseId = courseId;
+		this.moduleId = moduleId;
+		this.categoryId = categoryId;
+		this.isActive = isActive;
+		this.modifiedBy = modifiedBy;
+		this.createdBy = createdBy;
+		this.createdOn = createdOn;
+		this.modifiedOn = modifiedOn;
+	}
 
 	/*
 	 * (non-Javadoc)

@@ -78,7 +78,7 @@ public class QuizController {
 			}
 
 		} catch (NullPointerException e) {
-			e.printStackTrace();
+		
 			throw new CPException("err003", resourceBunde.getString("err003"));
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -65,7 +65,7 @@ public class QuizServiceImpl implements QuizService {
 				return quiz;
 			}
 		} catch (NullPointerException e) {
-			e.printStackTrace();
+		
 		}
 
 		return null;

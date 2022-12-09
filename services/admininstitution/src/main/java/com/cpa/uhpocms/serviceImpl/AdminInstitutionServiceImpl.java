@@ -4,7 +4,7 @@
  * @Description : This class is an implementation class for AdminInstitution
  * Last modified : None 
  */
-package com.cpa.uhpocms.serviceimpl;
+package com.cpa.uhpocms.serviceImpl;
 
 import java.util.List;
 
