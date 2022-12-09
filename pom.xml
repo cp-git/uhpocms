@@ -96,12 +96,12 @@
 	</dependencies>
 
 	<modules>
-		<module>services/authuser</module>
+<!-- 		<module>services/authuser</module>
 		<module>services/admininstitution</module>
 		<module>services/admindepartment</module>
 		<module>services/institituteadminprofile</module>
-		<module>services/adminrole</module>
+		<module>services/adminrole</module> -->
 			<module>services/quiz</module>
-		<module>tools/CodeGenerator</module>
+	<!-- 	<module>tools/CodeGenerator</module> -->
 	</modules>
 </project>
