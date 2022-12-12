@@ -1,9 +1,9 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/uhpocms
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: Pass1word
+    password: admin
 
   jpa:
     hibernate.ddl-auto: update

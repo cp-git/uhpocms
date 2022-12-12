@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "69a61440-ece1-45af-bca9-046f9555a29a",
+		"name": "InstituteAdmin_Profile",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/saveInstitituteAdmin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n    \"userRole\":\"admin\",\r\n    \"firstName\":\"mahesh\",\r\n    \"lastName\":\"shinde\",\r\n    \"adminEmail\":\"mahesh\",\r\n    \"dob\":\"12/04/2022\",\r\n    \"mobilePhone\":\"123\",\r\n    \"adminGender\":\"Male\",\r\n    \"adminDepartment\":1,\r\n    \"adminAddress1\":\"kharadi\",\r\n    \"adminAddress2\":\"Rakshak Nagar\",\r\n    \"adminCity\":\"Pune\",\r\n    \"adminState\":\"MH\",\r\n    \"adminZip\":\"123\",\r\n    \"profilePics\":\"ad\",\r\n    \"activeUser\":\"true\",\r\n    \"institutionId\":1,\r\n    \"userId\":2\r\n\r\n\r\n     \r\n    \r\n    \r\n    \r\n   \r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/uhpocms/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uhpocms",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/updateInstituteByName/pravin",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \r\n    \"userRole\":\"admin\",\r\n    \"firstName\":\"mahesh\",\r\n    \"lastName\":\"shinde\",\r\n    \"adminEmail\":\"maheshshinde\",\r\n    \"dob\":\"12/04/2022\",\r\n    \"mobilePhone\":\"123\",\r\n    \"adminGender\":\"Male\",\r\n    \"adminDepartment\":1,\r\n    \"adminAddress1\":\"kharadi\",\r\n    \"adminAddress2\":\"Rakshak Nagar\",\r\n    \"adminCity\":\"Pune\",\r\n    \"adminState\":\"MH\",\r\n    \"adminZip\":\"123\",\r\n    \"profilePics\":\"ad\",\r\n    \"activeUser\":\"true\",\r\n    \"institutionId\":1,\r\n    \"userId\":2\r\n\r\n\r\n     \r\n    \r\n    \r\n    \r\n   \r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/uhpocms/profile/mahesh234sd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uhpocms",
+						"profile",
+						"mahesh234sd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/getInstituteByname/pravin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/uhpocms/profile/ravi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uhpocms",
+						"profile",
+						"ravi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/GetAllInstitute?firstName=all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/uhpocms/profile?firstName=all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"uhpocms",
+						"profile"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "all"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/DeleteDepartmentByName/nagesh",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/uhpocms/profile/sagar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uhpocms",
+						"profile",
+						"sagar"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

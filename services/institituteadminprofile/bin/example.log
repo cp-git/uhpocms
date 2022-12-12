@@ -10,4 +10,3 @@
 2022-Dec-05 12:43:12 DEBUG [http-nio-8090-exec-5] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.getAllInstitute(InstituteAdminServiceImpl.java:64) - in GetAllInstituteAdmin method...
 2022-Dec-05 12:43:13 INFO [http-nio-8090-exec-5] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.getAllInstitute(InstituteAdminServiceImpl.java:67) - Fetching All List Data []
 2022-Dec-05 12:43:13 INFO [http-nio-8090-exec-5] com.cpa.uhpocms.controller.InstituteAdminController.getAllInstituteAdmin(InstituteAdminController.java:170) - GetAllIntituteAdminProfile Values[]
-2022-Dec-11 20:38:24 INFO [main      ] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:13) - in Main class
