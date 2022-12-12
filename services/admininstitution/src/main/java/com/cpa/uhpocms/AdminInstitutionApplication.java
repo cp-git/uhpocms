@@ -11,4 +11,4 @@ public class AdminInstitutionApplication {
 		System.out.println("hello");
 	}
 
-}
+} 

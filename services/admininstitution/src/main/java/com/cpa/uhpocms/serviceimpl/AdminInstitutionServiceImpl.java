@@ -4,7 +4,7 @@
  * @Description : This class is an implementation class for AdminInstitution
  * Last modified : None 
  */
-package com.cpa.uhpocms.serviceImpl;
+package com.cpa.uhpocms.serviceimpl;
 
 import java.util.List;
 
@@ -26,6 +26,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 	public AdminInstitutionServiceImpl() {
 		logger = Logger.getLogger(AdminInstitutionController.class);
+		
 
 	}
 
