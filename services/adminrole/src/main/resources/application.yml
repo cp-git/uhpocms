@@ -6,7 +6,7 @@ spring:
     show-sql: 'true'
   datasource:
     username: postgres
-    url: jdbc:postgresql://localhost:5432/uhpoc
+    url: jdbc:postgresql://localhost:5432/uhpocms
     password: Pass1word
 server:
   port: 8090
