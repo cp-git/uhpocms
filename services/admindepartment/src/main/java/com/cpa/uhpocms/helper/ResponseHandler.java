@@ -1,4 +1,4 @@
-package com.cpa.uhpocms.exception;
+package com.cpa.uhpocms.helper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
