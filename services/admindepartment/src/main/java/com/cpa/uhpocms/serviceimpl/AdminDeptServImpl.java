@@ -55,7 +55,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 		logger.debug("Entered getAdminDepartments()");
 		List<Object> adminDept = adminDeptRepo.findByIsActiveTrue();
 		logger.info("getting all AdminDepartment entries performed successfully!");
-		logger.debug(adminDept);
+		//logger.debug(adminDept);
 		return adminDept;
 	}
 
@@ -64,7 +64,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 		logger.debug("Entered getDeptByName()");
 		Object adminDepartment = adminDeptRepo.findByName(name);
 
-		logger.debug(adminDepartment);
+		//logger.debug(adminDepartment);
 		return adminDepartment;
 	}
 
