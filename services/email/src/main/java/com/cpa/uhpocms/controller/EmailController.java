@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.EmailService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/uhpocms")
 public class EmailController {
@@ -58,9 +60,10 @@ public class EmailController {
 
 			if (toCheckEmail == null) {
 
-			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
-			//	email.setCreatedby("admin");
-			//	email.setUpdatedby("admin");
+				// TODO: Uncomment below 2 lines and change the method name as per your Entity
+				// class
+				// email.setCreatedby("admin");
+				// email.setUpdatedby("admin");
 
 				createdEmail = emailService.createEmail(email);
 				logger.info("Email created :" + createdEmail);
@@ -80,11 +83,10 @@ public class EmailController {
 	}
 
 	@GetMapping("/email/{title}")
-	public ResponseEntity<Object> getEmailByTitle(@PathVariable("title") String title)
-			throws CPException {
+	public ResponseEntity<Object> getEmailByTitle(@PathVariable("title") String title) throws CPException {
 		logger.debug("Entering getEmailBytitle");
 		logger.info("entered user name :" + title);
-		
+
 		Email email = null;
 
 		try {
@@ -109,11 +111,10 @@ public class EmailController {
 	}
 
 	@GetMapping("/email")
-	public ResponseEntity<List<Object>> getAllEmails(@RequestParam(name = "title") String title)
-			throws CPException {
+	public ResponseEntity<List<Object>> getAllEmails(@RequestParam(name = "title") String title) throws CPException {
 		logger.debug("Entering getAllEmail");
 		logger.info("Parameter  :" + title);
-		
+
 		List<Object> emails = null;
 
 		try {
@@ -142,8 +143,8 @@ public class EmailController {
 	public ResponseEntity<Object> deleteEmailByTitle(@PathVariable("title") String title) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered deleteEmail  :" + title);
-		//TODO - implement the business logic
-		
+		// TODO - implement the business logic
+
 		int count = 0;
 
 		try {
@@ -160,19 +161,18 @@ public class EmailController {
 			logger.error("Failed to delete Email :" + ex.getMessage());
 			throw new CPException("err005", resourceBunde.getString("err005"));
 		}
-		
 
 	}
 
 	@PutMapping("/email/{title}")
-	public ResponseEntity<Object> updateEmailByTitle(@RequestBody Email email,
-			@PathVariable("title") String title) throws CPException {
+	public ResponseEntity<Object> updateEmailByTitle(@RequestBody Email email, @PathVariable("title") String title)
+			throws CPException {
 		logger.debug("Entering updateEmail");
 		logger.info("entered  updateEmail :" + email);
 
 		Email updatedEmail = null;
 
-		try { 
+		try {
 			updatedEmail = emailService.updateEmailByTitle(email, title);
 
 			if (updatedEmail == null) {

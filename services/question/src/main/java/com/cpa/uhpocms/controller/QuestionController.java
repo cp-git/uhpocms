@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.QuestionService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/uhpocms")
 public class QuestionController {
@@ -58,9 +60,10 @@ public class QuestionController {
 
 			if (toCheckQuestion == null) {
 
-			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
-			//	question.setCreatedby("admin");
-			//	question.setUpdatedby("admin");
+				// TODO: Uncomment below 2 lines and change the method name as per your Entity
+				// class
+				// question.setCreatedby("admin");
+				// question.setUpdatedby("admin");
 
 				createdQuestion = questionService.createQuestion(question);
 				logger.info("Question created :" + createdQuestion);
@@ -80,11 +83,10 @@ public class QuestionController {
 	}
 
 	@GetMapping("/question/{figure}")
-	public ResponseEntity<Object> getQuestionByFigure(@PathVariable("figure") String figure)
-			throws CPException {
+	public ResponseEntity<Object> getQuestionByFigure(@PathVariable("figure") String figure) throws CPException {
 		logger.debug("Entering getQuestionByfigure");
 		logger.info("entered user name :" + figure);
-		
+
 		Question question = null;
 
 		try {
@@ -113,7 +115,7 @@ public class QuestionController {
 			throws CPException {
 		logger.debug("Entering getAllQuestion");
 		logger.info("Parameter  :" + figure);
-		
+
 		List<Object> questions = null;
 
 		try {
@@ -142,8 +144,8 @@ public class QuestionController {
 	public ResponseEntity<Object> deleteQuestionByFigure(@PathVariable("figure") String figure) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered deleteQuestion  :" + figure);
-		//TODO - implement the business logic
-		
+		// TODO - implement the business logic
+
 		int count = 0;
 
 		try {
@@ -160,7 +162,6 @@ public class QuestionController {
 			logger.error("Failed to delete Question :" + ex.getMessage());
 			throw new CPException("err005", resourceBunde.getString("err005"));
 		}
-		
 
 	}
 
@@ -172,7 +173,7 @@ public class QuestionController {
 
 		Question updatedQuestion = null;
 
-		try { 
+		try {
 			updatedQuestion = questionService.updateQuestionByFigure(question, figure);
 
 			if (updatedQuestion == null) {
