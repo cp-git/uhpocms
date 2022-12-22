@@ -27,7 +27,7 @@ import com.cpa.uhpocms.service.AdminRoleService;
 public class AdminRoleController {
 
 	@Autowired
-	AdminRoleService adminroleService;
+	AdminRoleService adminRoleService;
 	ResourceBundle resourceBundle;
 
 	private static final Logger logger = Logger.getLogger(AdminRoleApplication.class);
@@ -36,13 +36,21 @@ public class AdminRoleController {
 		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 	}
 
-	@PostMapping("/uhpocms/role")
-	public ResponseEntity<Object> addAdminrole(@RequestBody AdminRole adminRole) throws CPException {
+	/**
+	 * @author : Kaushik
+	 * @param : AdminRole adminRole
+	 * @return : Response entity object
+	 * @description : adding admin role
+	 */
 
+	@PostMapping("/uhpocms/role")
+	public ResponseEntity<Object> addAdminRole(@RequestBody AdminRole adminRole) throws CPException {
+
+		logger.debug("Entering addAdminRole");
 		AdminRole createdRole = null;
 		logger.info("in POST Operation method");
 		try {
-			createdRole = adminroleService.saveAdminRole(adminRole);
+			createdRole = adminRoleService.saveAdminRole(adminRole);
 
 			if (createdRole == null) {
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err013");
@@ -51,88 +59,123 @@ public class AdminRoleController {
 			}
 		} catch (Exception e) {
 			// e.printStackTrace();
-			System.err.println(resourceBundle.getString("err013"));
-			throw new CPException("err003", resourceBundle.getString("err013"));
+			logger.error(resourceBundle.getString("err013"));
+			throw new CPException("err013", resourceBundle.getString("err013"));
 
 		}
 
 	}
 
+	/**
+	 * @author : Kaushik
+	 * @param : String roleName
+	 * @return : Response entity object
+	 * @description : get all roles
+	 */
 	@GetMapping("/uhpocms/role")
 	public ResponseEntity<List<Object>> getAllAdminRole(@RequestParam(name = "name") String roleName)
 			throws CPException {
+		try {
+			logger.info("in getAll method");
+			logger.debug("in getAllAdminRole method");
+			if (roleName.equals("all")) {
+				List<Object> adminRole = adminRoleService.getAllAdminRole();
 
-		logger.info("in getAll method");
-		if (roleName.equals("all")) {
-			List<Object> adminRole = adminroleService.fetchallAdminRole();
-			// System.out.println(adminRole);
-			if (adminRole != null) {
-				System.out.println(adminRole);
-				System.out.println("Inside the main..");
 				return ResponseHandler.generateListResponse(adminRole, HttpStatus.OK);
+			} else {
+				return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err022");
 			}
+
+		} catch (Exception e) {
+			logger.error("Exception in getAll: " + e.getMessage());
+			throw new CPException("err022", resourceBundle.getString("err022"));
 		}
-		logger.error("Exception in getAll");
-		return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err022");
 
 	}
+
+	/**
+	 * @author : Kaushik
+	 * @param : String roleName
+	 * @return : Response entity object
+	 * @description : getting role by roleName
+	 */
 
 	@GetMapping("uhpocms/role/{roleName}")
 	public ResponseEntity<Object> getRoleByRoleName(@PathVariable("roleName") String roleName) throws CPException {
 		logger.info("In GET method ");
+		logger.debug("Entering getRoleByRoleName");
 		AdminRole adminRole = null;
 		try {
 
-			adminRole = adminroleService.getRoleByRoleName(roleName);
+			adminRole = adminRoleService.getRoleByRoleName(roleName);
 			if (adminRole != null) {
 				return ResponseHandler.generateResponse(adminRole, HttpStatus.OK);
 
 			} else {
-				throw new CPException("err001", resourceBundle.getString("err001"));
 
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err041");
 			}
 		} catch (Exception e) {
-			System.err.println(resourceBundle.getString("err041"));
-			logger.error("Exception in GET Operation");
-			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err041");
+			logger.error(resourceBundle.getString("err041"));
+			throw new CPException("err041", resourceBundle.getString("err041"));
+
 		}
 
 	}
 
+	/**
+	 * @author : Kaushik
+	 * @param : String roleName
+	 * @return : Response entity object
+	 * @description : for soft deleting the record
+	 */
 	@DeleteMapping("uhpocms/role/{roleName}")
 	public ResponseEntity<Object> deleteRoleByRoleName(@PathVariable("roleName") String roleName) throws CPException {
 		logger.info("In DELETE Operaton ");
-		int adminRole = 0;
-		adminRole = adminroleService.deleteAdminRolebyRoleName(roleName);
-		if (adminRole > 0) {
-			return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+		logger.debug("In deleteRoleByRoleName");
+		try {
+			int adminRole = 0;
+			adminRole = adminRoleService.deleteAdminRoleByRoleName(roleName);
+			if (adminRole > 0) {
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 
-		} else {
-			System.err.println(resourceBundle.getString("err005"));
-			logger.error("Error in DELETE Operation");
-			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			} else {
+
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+		} catch (Exception e) {
+			logger.info(resourceBundle.getString("err005"));
+			logger.error("Error in DELETE Operation" + e.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+
 		}
 
 	}
 
+	/**
+	 * @author : Kaushik
+	 * @param : AdminRole adminRole
+	 * @return : Response entity object
+	 * @description : update the role details by role name
+	 */
 	@PutMapping("/uhpocms/role/{roleName}")
 	public ResponseEntity<Object> updateRoleByRoleName(@RequestBody AdminRole adminRole,
 			@PathVariable("roleName") String roleName) throws CPException {
 		logger.info("In Put Operaton ");
+		logger.debug("Entering in updateRoleByRoleName");
 		AdminRole updateRole = null;
 		try {
-			updateRole = adminroleService.updateRoleNamebyRoleName(adminRole, roleName);
+			updateRole = adminRoleService.updateRoleNameByRoleName(adminRole, roleName);
 
 			if (updateRole != null) {
 				return ResponseHandler.generateResponse(updateRole, HttpStatus.CREATED);
 			} else {
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err013");
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			}
 
 		} catch (Exception e) {
-			System.err.println(e.toString());
-			logger.error("Error in PUT Operation");
-			return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err013");
+			logger.error("Error in PUT Operation" + e.getMessage());
+			throw new CPException("err004", resourceBundle.getString("err004"));
 		}
 
 	}

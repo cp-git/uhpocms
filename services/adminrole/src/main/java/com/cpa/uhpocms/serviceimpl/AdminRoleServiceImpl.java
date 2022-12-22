@@ -2,11 +2,14 @@ package com.cpa.uhpocms.serviceimpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cpa.uhpocms.controller.AdminRoleController;
+import com.cpa.uhpocms.AdminRoleApplication;
 import com.cpa.uhpocms.entity.AdminRole;
 import com.cpa.uhpocms.repository.AdminRoleRepository;
 import com.cpa.uhpocms.service.AdminRoleService;
@@ -16,42 +19,44 @@ import com.cpa.uhpocms.service.AdminRoleService;
 public class AdminRoleServiceImpl implements AdminRoleService {
 
 	@Autowired
-	AdminRoleRepository adminroleRepository;
-	AdminRoleController adminrolecontroller;
+	AdminRoleRepository adminRoleRepository;
+	ResourceBundle resourceBundle;
+	private static final Logger logger = Logger.getLogger(AdminRoleApplication.class);
+
+	AdminRoleServiceImpl() {
+		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
+	}
 
 	/**
 	 * @author : Kaushik
 	 * @param : AdminRole
-	 * @return : AuthUser createdRole
+	 * @return :createdRole
 	 * @description : For creating/save entry in adminrole table
 	 */
 	@Override
 	public AdminRole saveAdminRole(AdminRole adminRole) {
 		// TODO Auto-generated method stub
-		ArrayList<String> Role = new ArrayList<String>();
-		Role.add("admin");
-		Role.add("coadmin");
-		Role.add("teacher");
-		Role.add("student");
-		// System.out.println(Role);
+		logger.debug("Entering createRole");
+		ArrayList<String> role = new ArrayList<String>();
+		role.add("admin");
+		role.add("coadmin");
+		role.add("teacher");
+		role.add("student");
 
 		AdminRole createdRole = null;
 
-		try {
+		if (role.contains(adminRole.getRoleName())) {
 
-			if (Role.contains(adminRole.getRoleName())) {
+			AdminRole checkAdminRole = adminRoleRepository.findByRoleName(adminRole.getRoleName());
 
-				AdminRole checkAdminRole = adminroleRepository.findByRoleName(adminRole.getRoleName());
-
-				if (checkAdminRole == null) {
-					adminRole.setCreatedBy("admin");
-					adminRole.setModifiedBy("admin");
-					createdRole = adminroleRepository.save(adminRole);
-				}
+			if (checkAdminRole == null) {
+				adminRole.setCreatedBy("admin");
+				adminRole.setModifiedBy("admin");
+				createdRole = adminRoleRepository.save(adminRole);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+
+		logger.info("created Role :" + createdRole);
 		return createdRole;
 	}
 
@@ -61,12 +66,13 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 	 * @description : For get all the roles info
 	 */
 	@Override
-	public List<Object> fetchallAdminRole() {
+	public List<Object> getAllAdminRole() {
 		// TODO Auto-generated method stub
-		List<Object> adminrole = new ArrayList<Object>(adminroleRepository.findAll());
+		logger.debug("Entering getAllAdminRole");
+		List<Object> adminRole = new ArrayList<Object>(adminRoleRepository.findByisActiveTrue());
 
-		// List<T> target = new ArrayList<>();
-		return adminrole;
+		logger.info("Fetched all active users :" + adminRole);
+		return adminRole;
 	}
 
 	/**
@@ -77,11 +83,13 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 	 */
 
 	@Override
-	public int deleteAdminRolebyRoleName(String roleName) {
+	public int deleteAdminRoleByRoleName(String roleName) {
 		// TODO Auto-generated method stub
+		logger.debug("Entering in delete role by role name");
 		int adminRole = 0;
 
-		adminRole = adminroleRepository.deleteByRoleName(roleName);
+		adminRole = adminRoleRepository.deleteByRoleName(roleName);
+		logger.info("Delete role by role name :" + adminRole);
 		return adminRole;
 	}
 
@@ -94,7 +102,11 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 	@Override
 	public AdminRole getRoleByRoleName(String roleName) {
 		// TODO Auto-generated method stub
-		return adminroleRepository.findByRoleName(roleName);
+		AdminRole adminRole = null;
+		logger.debug("getRoleByRoleName");
+		adminRole = adminRoleRepository.findByRoleName(roleName);
+		logger.info("Find Role by role name :" + adminRole);
+		return adminRole;
 	}
 
 	/**
@@ -104,34 +116,34 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 	 * @description : For updating entry in adminrole table
 	 */
 	@Override
-	public AdminRole updateRoleNamebyRoleName(AdminRole adminRole, String roleName) {
+	public AdminRole updateRoleNameByRoleName(AdminRole adminRole, String roleName) {
 		// TODO Auto-generated method stub
-		ArrayList<String> Role = new ArrayList<String>();
-		Role.add("admin");
-		Role.add("coadmin");
-		Role.add("teacher");
-		Role.add("student");
-		// System.out.println(Role);
+		logger.debug("update role by role name");
+		ArrayList<String> role = new ArrayList<String>();
+		role.add("admin");
+		role.add("coadmin");
+		role.add("teacher");
+		role.add("student");
 
 		AdminRole updateRole = null;
 		try {
 
-			if (Role.contains(roleName)) {
+			if (role.contains(roleName)) {
 
-				AdminRole existingAdminRole = adminroleRepository.findByRoleName(adminRole.getRoleName());
+				AdminRole existingAdminRole = adminRoleRepository.findByRoleName(adminRole.getRoleName());
 
 				if (existingAdminRole != null) {
-					System.out.println("=========" + adminRole);
 
 					existingAdminRole.setRoleName(adminRole.getRoleName());
 					existingAdminRole.setRoleDescription(adminRole.getRoleDescription());
 					existingAdminRole.setActive(adminRole.isActive());
-					updateRole = adminroleRepository.save(existingAdminRole);
+					updateRole = adminRoleRepository.save(existingAdminRole);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		logger.info("---update role :" + updateRole);
 		return updateRole;
 	}
 

@@ -30,28 +30,28 @@ public class AdminRole {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int roleId;
 
-	@Column(name = "isactive")
+	@Column(name = "isactive", nullable = false)
 	private boolean isActive;
 
-	@Column(name = "RoleName", unique = true)
+	@Column(name = "rolename", nullable = false, unique = true)
 	private String roleName;
 
-	@Column(name = "RoleDescription")
+	@Column(name = "roledescription", nullable = false)
 	private String roleDescription;
 
-	@Column(name = "CreatedBy")
+	@Column(name = "createdby", nullable = false)
 	private String createdBy;
 
 	@CreationTimestamp
-	@Column(name = "CreatedOn")
+	@Column(name = "createdon", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn = new Date(System.currentTimeMillis());
 
-	@Column(name = "ModifiedBy")
+	@Column(name = "modifiedby", nullable = false)
 	private String modifiedBy;
 
 	@UpdateTimestamp
-	@Column(name = "ModifiedOn")
+	@Column(name = "modifiedon", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedOn = new Date(System.currentTimeMillis());
 

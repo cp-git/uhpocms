@@ -1,5 +1,5 @@
 /**
- * @author Mayur
+ * @author Kaushik
  * @createdOn 21th Nov 2022
  * @Description This class is used to handle response	
  * 
@@ -25,7 +25,7 @@ public class ResponseHandler {
 	static ResourceBundle resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 
 	/**
-	 * @author : Mayur
+	 *
 	 * @param : HttpStatus status
 	 * @return : ResponseEntity<Object> (empty object)
 	 * @description : This method generating object of ResponseEntity and status
@@ -49,7 +49,7 @@ public class ResponseHandler {
 	}
 
 	/**
-	 * @author : Mayur
+	 *
 	 * @param : HttpStatus status, String code
 	 * @return : ResponseEntity<Object>
 	 * @description : This method generating object of ResponseEntity with a hashmap
@@ -66,7 +66,7 @@ public class ResponseHandler {
 	}
 
 	/**
-	 * @author : Mayur
+	 * 
 	 * @param : HttpStatus status, String code
 	 * @return : ResponseEntity<List<Object>>
 	 * @description : This method generating object of ResponseEntity with a list of
@@ -85,12 +85,13 @@ public class ResponseHandler {
 	}
 
 	/**
-	 * @author : Mayur
+	 * 
 	 * @param : HttpStatus status, String code
 	 * @return : ResponseEntity<List<Object>>
 	 * @description : This method generating object of ResponseEntity with a list of
 	 *              object and status code.
 	 */
+
 	public static ResponseEntity<List<Object>> generateListResponse(List<Object> list, HttpStatus status) {
 
 		return new ResponseEntity<List<Object>>(list, status);
