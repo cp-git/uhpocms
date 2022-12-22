@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "4e5ecb0b-d442-4fea-b3ad-a02dda4ffb18",
+		"name": "AdminRole",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/uhpocms/role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"roleName\" : \"teacher\",\r\n\t\"roleDescription\" : \"teacher role\",\r\n\t\"active\" : true\r\n\t\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/uhpocms/role",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uhpocms",
+						"role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/uhpocms/role/student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/uhpocms/role/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uhpocms",
+						"role",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/uhpocms/role?name=all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/uhpocms/role?name=all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uhpocms",
+						"role"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "all"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/uhpocms/role/student",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/uhpocms/role/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uhpocms",
+						"role",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/uhpocms/role/coadmin",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"roleName\" : \"codamin\",\r\n\t\"roleDescription\" : \"codamin roles\",\r\n\t\"active\" : true\r\n\t\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/uhpocms/role/coadmin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"uhpocms",
+						"role",
+						"coadmin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

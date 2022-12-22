@@ -8,11 +8,11 @@ public interface AdminRoleService {
 
 	AdminRole saveAdminRole(AdminRole adminRole);
 
-	List<Object> fetchallAdminRole();
+	List<Object> getAllAdminRole();
 
 	AdminRole getRoleByRoleName(String roleName);
 
-	int deleteAdminRolebyRoleName(String roleName);
+	int deleteAdminRoleByRoleName(String roleName);
 
-	AdminRole updateRoleNamebyRoleName(AdminRole adminRole, String roleName);
+	AdminRole updateRoleNameByRoleName(AdminRole adminRole, String roleName);
 }

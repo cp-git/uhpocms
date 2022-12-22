@@ -9,6 +9,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/uhpocms
     password: Pass1word
 server:
-  port: 8090
+  port: '8080'
 
 
