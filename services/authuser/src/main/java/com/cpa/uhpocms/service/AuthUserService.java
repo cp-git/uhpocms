@@ -20,5 +20,8 @@ public interface AuthUserService {
 	AuthUser updateAuthUser(AuthUser authUser, String authUserName);
 
 	int deleteAuthUserByUserName(String authUserName);
+	
+	AuthUser getDetailsByUserNameAndPassword(String authUserName, String authUserPassword);
+
 
 }
