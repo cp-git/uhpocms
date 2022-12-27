@@ -137,4 +137,13 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return authUser;
 	}
 
+	@Override
+	public AuthUser getDetailsByUserNameAndPassword(String authUserName, String authUserPassword) {
+		// TODO Auto-generated method stub
+		
+		AuthUser authUsers=null;
+		authUsers = authUserRepo.findByAuthUserNameAndAuthUserPassword(authUserName, authUserPassword);
+		 return	authUsers;
+	}
+
 }

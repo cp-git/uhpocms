@@ -49,5 +49,7 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	@Modifying
 	@Query(value = "UPDATE auth_user SET is_active=false WHERE username = ?1", nativeQuery = true)
 	public int deleteAuthUserByUserName(String authUserName);
+	
+	public AuthUser findByAuthUserNameAndAuthUserPassword(String authUserName,String authUserPassword);
 
 }
