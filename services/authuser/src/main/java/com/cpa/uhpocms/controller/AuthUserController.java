@@ -34,6 +34,7 @@ import com.cpa.uhpocms.service.AuthUserService;
 @CrossOrigin
 @RestController
 @RequestMapping("/uhpocms")
+@CrossOrigin
 public class AuthUserController {
 
 	@Autowired
