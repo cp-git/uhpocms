@@ -31,7 +31,7 @@ import com.cpa.uhpocms.helper.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.AuthUserService;
 
-@CrossOrigin
+
 @RestController
 @RequestMapping("/uhpocms")
 @CrossOrigin

@@ -41,13 +41,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>1.9.5</version>
 		</dependency>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -93,23 +91,13 @@
 			
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-          
-        </dependency>
+		
          <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-           
         </dependency>
-		<dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-slf4j-impl</artifactId>
-        <scope>runtime</scope>
-    </dependency>
+		
 	</dependencies>
-
 	<modules>
  		<module>services/authuser</module>
 		 <module>services/admininstitution</module>
@@ -123,3 +111,10 @@
 	    <module>tools/CodeGenerator</module>
 	</modules>
 </project>
+
+
+
+
+
+
+
