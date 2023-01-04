@@ -31,6 +31,7 @@ import com.cpa.uhpocms.helper.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.AuthUserService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/uhpocms")
 @CrossOrigin
@@ -106,6 +107,48 @@ public class AuthUserController {
 		}
 
 	}
+	
+	
+
+	@PostMapping("/login")
+	public AuthUser loginAuthUser(@RequestBody AuthUser authUser) throws CPException {
+		logger.debug("Entering createAuthUser");
+
+		String  authUserName=authUser.getAuthUserName();
+		String  authUserPassword=authUser.getAuthUserPassword();
+		AuthUser loginUser = null;
+		try {
+
+			if (authUserName !=null && authUserPassword !=null) {
+
+				loginUser = authUserService.getDetailsByUserNameAndPassword(authUserName, authUserPassword);
+				logger.info("user created :" + loginUser);
+
+			
+
+			} 
+			
+			if(loginUser==null){
+
+				throw new CPException("err003", resourceBundle.getString("err003"));
+				
+			}
+			
+			
+
+		} catch (Exception ex) {
+			logger.error("Failed auth user creation : " + ex.getMessage());
+			throw new CPException("err003", resourceBundle.getString("err003"));
+		}
+		return loginUser;
+		
+		
+
+	}
+	
+	
+	
+	
 
 	@GetMapping("/authuser")
 	public ResponseEntity<List<Object>> getAllAuthUsers(@RequestParam(name = "username") String authUserName)
