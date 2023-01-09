@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.CategoryService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/uhpocms")
 public class CategoryController {
 
@@ -58,9 +60,10 @@ public class CategoryController {
 
 			if (toCheckCategory == null) {
 
-			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
-			//	category.setCreatedby("admin");
-			//	category.setUpdatedby("admin");
+				// TODO: Uncomment below 2 lines and change the method name as per your Entity
+				// class
+				// category.setCreatedby("admin");
+				// category.setUpdatedby("admin");
 
 				createdCategory = categoryService.createCategory(category);
 				logger.info("Category created :" + createdCategory);
@@ -80,11 +83,10 @@ public class CategoryController {
 	}
 
 	@GetMapping("/category/{category}")
-	public ResponseEntity<Object> getCategoryByCategory(@PathVariable("category") String name)
-			throws CPException {
+	public ResponseEntity<Object> getCategoryByCategory(@PathVariable("category") String name) throws CPException {
 		logger.debug("Entering getCategoryBycategory");
 		logger.info("entered user name :" + name);
-		
+
 		Category category = null;
 
 		try {
@@ -113,7 +115,7 @@ public class CategoryController {
 			throws CPException {
 		logger.debug("Entering getAllCategory");
 		logger.info("Parameter  :" + name);
-		
+
 		List<Object> categorys = null;
 
 		try {
@@ -142,8 +144,8 @@ public class CategoryController {
 	public ResponseEntity<Object> deleteCategoryByCategory(@PathVariable("category") String name) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered deleteCategory  :" + name);
-		//TODO - implement the business logic
-		
+		// TODO - implement the business logic
+
 		int count = 0;
 
 		try {
@@ -160,7 +162,6 @@ public class CategoryController {
 			logger.error("Failed to delete Category :" + ex.getMessage());
 			throw new CPException("err005", resourceBunde.getString("err005"));
 		}
-		
 
 	}
 
@@ -172,7 +173,7 @@ public class CategoryController {
 
 		Category updatedCategory = null;
 
-		try { 
+		try {
 			updatedCategory = categoryService.updateCategoryByCategory(category, name);
 
 			if (updatedCategory == null) {
