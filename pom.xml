@@ -99,8 +99,8 @@
 
 	</dependencies>
 	<modules>
-	<module>services/course</module>
-	<!-- 	<module>services/category</module>
+		<module>services/course</module>
+		<module>services/category</module>
 		<module>services/authuser</module>
 		<module>services/admininstitution</module>
 		<module>services/admindepartment</module>
@@ -110,7 +110,7 @@
 		<module>services/email</module>
 		<module>services/question</module>
 		<module>services/module</module>
-		<module>tools/CodeGenerator</module>-->
+		<module>tools/CodeGenerator</module>
 	</modules>
 </project>
 
