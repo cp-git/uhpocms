@@ -99,6 +99,7 @@
 
 	</dependencies>
 	<modules>
+		<module>services/course</module>
 		<module>services/category</module>
 		<module>services/authuser</module>
 		<module>services/admininstitution</module>
