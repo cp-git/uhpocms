@@ -156,6 +156,7 @@ public class QuizController {
 			}
 
 		} catch (Exception ex) {
+			ex.printStackTrace();
 
 			logger.error("Failed getting all quizs : " + ex.getMessage());
 			throw new CPException("err002", resourceBunde.getString("err002"));
