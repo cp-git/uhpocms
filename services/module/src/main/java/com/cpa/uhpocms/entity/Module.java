@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "teacher_module")
 public class Module {
@@ -37,9 +39,11 @@ public class Module {
 	@Column(name = "isactive")
 	private boolean moduleIsActive;
 
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "startdate")
 	private Date moduleStartDate;
 
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "enddate")
 	private Date moduleEndDate;
 
