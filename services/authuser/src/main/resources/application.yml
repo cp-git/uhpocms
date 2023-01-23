@@ -1,24 +1,16 @@
-spring:
+spring.jpa:
+  database: POSTGRESQL
+  hibernate.ddl-auto: update
+  show-sql: true
+  hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
-  datasource:
-
-    url: jdbc:postgresql://localhost:5432/postgres
-
-    username: postgres
-    password: Pass1word
-
-  jpa:
-    generate-ddl: true
-    show-sql: true
-    properties:
-      hibernate:
-        '[check_nullability]': true
-        jdbc:
-          '[time_zone]': UTC
-      ddl-auto: update
-        
-        
+spring.datasource:
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5433/uhpocms
+  username: postgres
+  password: Pass1word
+  
 server:
-  port: 8090
+  port : 8090
     
    
