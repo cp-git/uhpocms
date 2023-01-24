@@ -26,25 +26,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class BasicAuthWebSecurityConfiguration {
 
-//	@Autowired
-//	 private AppBasicAuthenticationEntryPoint authenticationEntryPoint;
-//	
-//	
-//	
-//	
-//	@Bean
-//	  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//	    http.authorizeRequests()
-//	        .antMatchers("/public").permitAll()
-//	        .anyRequest().authenticated()
-//	        .and()
-//	        .httpBasic()
-//	        .authenticationEntryPoint(authenticationEntryPoint);
-//	    return http.build();
-//	  }
-//	
-//
-//	 
 
 	 
 	
@@ -63,12 +44,12 @@ public class BasicAuthWebSecurityConfiguration {
 	 
 	 @Autowired
 	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		 String password = "123456"; 
+		 String password = "P@55w0rd"; 
 		 PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); 
 		 String encodedPassword = passwordEncoder.encode(password);
 	        auth
 	          .inMemoryAuthentication()
-	          .withUser("user1")
+	          .withUser("uhpocadmin")
 	          .password(encodedPassword)
 	          .authorities("ROLE_USER");
 	    }
