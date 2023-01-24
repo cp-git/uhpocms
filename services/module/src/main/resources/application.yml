@@ -13,6 +13,3 @@ spring.datasource:
 server:
   port : 8080
 
-spring.security:
-  user.name: user  
-  user.password: password
