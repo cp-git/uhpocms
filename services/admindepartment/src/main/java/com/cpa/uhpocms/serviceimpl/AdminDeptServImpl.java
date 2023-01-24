@@ -40,7 +40,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 		AdminDepartment adminDepartment = adminDeptRepo.findByName(name);
 		adminDepartment.setActive(false);
 		AdminDepartment savedAdminDepartment = adminDeptRepo.save(adminDepartment);
-		logger.debug("AdminDepartment soft delete performed successfully");
+		logger.debug("AdminDepartment soft delete performed successfully"+savedAdminDepartment);
 
 	}
 
