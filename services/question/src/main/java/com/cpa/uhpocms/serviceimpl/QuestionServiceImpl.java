@@ -100,6 +100,7 @@ public class QuestionServiceImpl implements QuestionService {
 			toUpdatedQuestion.setQuestionExplanation(question.getQuestionExplanation());
 			toUpdatedQuestion.setQuestionOrderNo(question.getQuestionOrderNo());
 			toUpdatedQuestion.setQuestionIsMCQ(question.isQuestionIsMCQ());
+			toUpdatedQuestion.setQuestionQuizId(question.getQuestionQuizId());
 			toUpdatedQuestion.setQuestionCategoryId(question.getQuestionCategoryId());
 			toUpdatedQuestion.setQuestionIsActive(question.isQuestionIsActive());
 
