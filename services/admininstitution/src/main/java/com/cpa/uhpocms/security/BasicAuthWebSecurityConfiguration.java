@@ -36,9 +36,14 @@ public class BasicAuthWebSecurityConfiguration {
 	        .csrf().disable().authorizeHttpRequests()
 	        .antMatchers().permitAll()
 	        .anyRequest().authenticated()
-	        .and()
-	        .httpBasic();
-	         return http.build();
+//	        .and()
+//	        .formLogin();
+
+		        .and()
+		        .httpBasic();
+//			
+//				  
+		         return http.build();
 	    }
 	 
 	 

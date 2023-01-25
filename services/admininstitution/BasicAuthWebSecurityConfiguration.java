@@ -37,7 +37,7 @@ public class BasicAuthWebSecurityConfiguration {
 	        .antMatchers().permitAll()
 	        .anyRequest().authenticated()
 	        .and()
-	        .httpBasic();
+	        .formLogin();
 	         return http.build();
 	    }
 	 
