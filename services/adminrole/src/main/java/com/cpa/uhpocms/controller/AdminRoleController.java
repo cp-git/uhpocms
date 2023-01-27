@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cpa.uhpocms.AdminRoleApplication;
 import com.cpa.uhpocms.entity.AdminRole;
+import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.helper.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.AdminRoleService;
@@ -182,5 +183,10 @@ public class AdminRoleController {
 		}
 
 	}
+	
+	@GetMapping(path = "/basicauth")
+    public AuthenticationBean basicauth() {
+        return new AuthenticationBean("You are authenticated");
+    }
 
 }

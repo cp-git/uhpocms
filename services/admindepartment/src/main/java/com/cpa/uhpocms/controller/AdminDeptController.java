@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import com.cpa.uhpocms.entity.AdminDepartment;
+import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.AdminDeptService;
@@ -217,5 +218,10 @@ public class AdminDeptController {
 		logger.error(resourceBunde.getString("err004"));
 		return ResponseHandler.generateResponse("err004", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	@GetMapping(path = "/basicauth")
+    public AuthenticationBean basicauth() {
+        return new AuthenticationBean("You are authenticated");
+    }
 
 }
