@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.Category;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
@@ -191,5 +192,10 @@ public class CategoryController {
 		}
 
 	}
+	
+	@GetMapping(path = "/basicauth")
+    public AuthenticationBean basicauth() {
+        return new AuthenticationBean("You are authenticated");
+    }
 
 }
