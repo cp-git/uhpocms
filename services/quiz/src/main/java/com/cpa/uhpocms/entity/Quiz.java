@@ -22,7 +22,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "Teacher_quiz")
+@Table(name = "teacher_quiz")
 public class Quiz {
 
 //TODO - add attributed and genrate setters and getters
