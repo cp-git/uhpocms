@@ -184,4 +184,12 @@ public class Announcement {
 		this.announcementCreatedOn = announcementCreatedOn;
 	}
 
+	@Override
+	public String toString() {
+		return "Announcement [id=" + id + ", announcementTitle=" + announcementTitle + ", announcementMessage="
+				+ announcementMessage + ", announcementTo=" + announcementTo + ", announcementReadby="
+				+ announcementReadby + ", announcementCreatedBy=" + announcementCreatedBy + ", announcementCreatedOn="
+				+ announcementCreatedOn + "]";
+	}
+
 }

@@ -66,9 +66,9 @@ public class AnnouncementServiceImplTest {
 	@Test
 	public void testGetAllAnnouncements() {
 
-		List<Announcement> list = new ArrayList<Announcement>();
+		List<Object> list = new ArrayList<Object>();
 		list.add(this.announcement);
-		Mockito.when(announcementRepository.findAll()).thenReturn(list);
+		Mockito.when(announcementRepository.findByIdIsGreaterThan(0)).thenReturn(list);
 
 		System.out.println("expect " + expect.toString());
 		List<Object> result = announcementService.getAllAnnouncements();
@@ -131,9 +131,9 @@ public class AnnouncementServiceImplTest {
 
 	@Test
 	public void testDeleteAnnouncementByTitle() {
-		Mockito.when(announcementRepository.deleteByAnnouncementTitle("user")).thenReturn(1);
+		Mockito.when(announcementRepository.deleteByAnnouncementTitle("title")).thenReturn(1);
 
-		int count = announcementService.deleteAnnouncementByTitle("user");
+		int count = announcementService.deleteAnnouncementByTitle("title");
 
 		assertEquals(count, 1);
 
