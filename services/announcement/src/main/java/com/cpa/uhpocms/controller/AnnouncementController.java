@@ -194,6 +194,34 @@ public class AnnouncementController {
 
 	}
 
+	@PostMapping("/announcement/send/{id}")
+	public ResponseEntity<Object> sendAnnouncements(@RequestBody Integer[] profilesId,
+			@PathVariable("id") int announcementId) throws CPException {
+
+		logger.debug("Entering sendAnnouncements");
+		logger.info("data of send Announcement ID :" + announcementId);
+		logger.info("data of profiles ID :" + profilesId.toString());
+
+		List<Object> announcementsTo = null;
+		try {
+			if (profilesId.length > 0) {
+				announcementsTo = announcementService.sendAnnouncementToAll(announcementId, profilesId);
+				logger.info("Announcement To sent :" + announcementsTo);
+				return ResponseHandler.generateResponse(announcementsTo, HttpStatus.CREATED);
+
+			} else {
+
+				logger.error(resourceBunde.getString("err006"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err006");
+
+			}
+		} catch (Exception ex) {
+			logger.error("Failed Announcement sending : " + ex.getMessage());
+			throw new CPException("err006", resourceBunde.getString("err006"));
+		}
+
+	}
+
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {
 		return new AuthenticationBean("You are authenticated");

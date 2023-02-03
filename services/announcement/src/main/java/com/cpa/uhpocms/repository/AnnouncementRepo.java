@@ -27,4 +27,7 @@ public interface AnnouncementRepo extends JpaRepository<Announcement, Integer> {
 	@Modifying
 	public int deleteByAnnouncementTitle(String title);
 
+//	@Query(value = "INSERT INTO teacher_announcements_to_list VALUES(?,?,?)", nativeQuery = true)
+//	public List<AnnouncementTo> sendToAll();
+
 }

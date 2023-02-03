@@ -23,4 +23,6 @@ public interface AnnouncementService {
 
 	int deleteAnnouncementByTitle(String title);
 
+	List<Object> sendAnnouncementToAll(int announcementId, Integer[] profileIds);
+
 }

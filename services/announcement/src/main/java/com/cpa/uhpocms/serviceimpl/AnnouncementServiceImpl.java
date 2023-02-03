@@ -7,6 +7,7 @@
 
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -15,7 +16,9 @@ import org.springframework.stereotype.Service;
 
 //import com.cpa.uhpocms.controller.AnnouncementController;
 import com.cpa.uhpocms.entity.Announcement;
+import com.cpa.uhpocms.entity.AnnouncementTo;
 import com.cpa.uhpocms.repository.AnnouncementRepo;
+import com.cpa.uhpocms.repository.AnnouncementToRepo;
 import com.cpa.uhpocms.service.AnnouncementService;
 
 @Service
@@ -23,6 +26,10 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
 	@Autowired
 	private AnnouncementRepo announcementRepo;
+
+	@Autowired
+	private AnnouncementToRepo announcementToRepo;
+
 	private static Logger logger;
 
 	final int STARTFROM = 0;
@@ -102,7 +109,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 			toUpdatedAnnouncement.setAnnouncementTitle(announcement.getAnnouncementTitle());
 			toUpdatedAnnouncement.setAnnouncementMessage(announcement.getAnnouncementMessage());
 			toUpdatedAnnouncement.setAnnouncementTo(announcement.getAnnouncementTo());
-
+			toUpdatedAnnouncement.setAnnouncementReadby("uhpocadmin");
 			updatedAnnouncement = announcementRepo.save(toUpdatedAnnouncement);
 
 			logger.info("updated Announcement :" + updatedAnnouncement);
@@ -125,6 +132,34 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		int count = announcementRepo.deleteByAnnouncementTitle(title);
 		logger.info("deleted Announcement count : " + count);
 		return count;
+	}
+
+	@Override
+	public List<Object> sendAnnouncementToAll(int announcementId, Integer[] profileIds) {
+		logger.debug("Entering sendAnnouncementToAll");
+
+		List<AnnouncementTo> announcementsTo = new ArrayList<>();
+
+		for (int profileId : profileIds) {
+			AnnouncementTo announcementTo = new AnnouncementTo();
+			announcementTo.setAnnouncementId(announcementId);
+			announcementTo.setProfileId(profileId);
+			announcementsTo.add(announcementTo);
+		}
+
+		// List<AnnouncementTo> addedAnnouncementsTo =
+		// announcementToRepo.saveOrUpdateAll(announcementsTo);
+
+		for (AnnouncementTo to : announcementsTo) {
+			announcementToRepo.save(to);
+		}
+
+		List<Object> listAnnouncementTo = new ArrayList<Object>(announcementsTo);
+
+		logger.info("send announcement :" + listAnnouncementTo);
+
+		return listAnnouncementTo;
+
 	}
 
 }
