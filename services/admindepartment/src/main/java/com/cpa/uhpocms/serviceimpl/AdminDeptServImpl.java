@@ -23,7 +23,7 @@ import com.cpa.uhpocms.service.AdminDeptService;
 public class AdminDeptServImpl implements AdminDeptService {
 
 	private static final Logger logger = LogManager.getLogger(AdminDeptServImpl.class);
-
+	private static final boolean ISACTIVE = true;
 	@Autowired
 	AdminDeptRepo adminDeptRepo;
 
@@ -40,7 +40,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 		AdminDepartment adminDepartment = adminDeptRepo.findByName(name);
 		adminDepartment.setActive(false);
 		AdminDepartment savedAdminDepartment = adminDeptRepo.save(adminDepartment);
-		logger.debug("AdminDepartment soft delete performed successfully"+savedAdminDepartment);
+		logger.debug("AdminDepartment soft delete performed successfully" + savedAdminDepartment);
 
 	}
 
@@ -55,7 +55,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 		logger.debug("Entered getAdminDepartments()");
 		List<Object> adminDept = adminDeptRepo.findByIsActiveTrue();
 		logger.info("getting all AdminDepartment entries performed successfully!");
-		//logger.debug(adminDept);
+		// logger.debug(adminDept);
 		return adminDept;
 	}
 
@@ -64,7 +64,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 		logger.debug("Entered getDeptByName()");
 		Object adminDepartment = adminDeptRepo.findByName(name);
 
-		//logger.debug(adminDepartment);
+		// logger.debug(adminDepartment);
 		return adminDepartment;
 	}
 
@@ -109,12 +109,20 @@ public class AdminDeptServImpl implements AdminDeptService {
 		refAdminDepartment.setName(adminDepartment.getName());
 		refAdminDepartment.setDescription(adminDepartment.getDescription());
 		refAdminDepartment.setActive(adminDepartment.isActive());
-		refAdminDepartment.setInstitutionId_id(adminDepartment.getInstitutionId_id());
+		refAdminDepartment.setInstitutionId(adminDepartment.getInstitutionId());
 
 		refAdminDepartment.setModifiedOn(ts);
 
 		AdminDepartment updatedAdminDepartment = adminDeptRepo.save(refAdminDepartment);
 		logger.debug(updatedAdminDepartment);
 		return updatedAdminDepartment;
+	}
+
+	@Override
+	public List<Object> findByInstitutionId(int institutionId) {
+		// TODO Auto-generated method stub
+		List<Object> adminDept = adminDeptRepo.findByInstitutionIdAndIsActive(institutionId, ISACTIVE);
+
+		return adminDept;
 	}
 }

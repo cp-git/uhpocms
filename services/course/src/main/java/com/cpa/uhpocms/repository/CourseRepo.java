@@ -29,5 +29,8 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	@Modifying
 	@Query(value = "UPDATE teacher_course SET isactive=false WHERE name = ?1", nativeQuery = true)
 	public int deleteCourseByName(String name);
+	
+	@Query(value="select * from teacher_course where courseid IN (select courseid from public.\"teacher_course_institutionId\" where institutionid=?1)", nativeQuery=true)
+	public List<Course> findTeacherCourseByInstitutionId(int institutionid);
 
 }
