@@ -21,4 +21,9 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	// Method to find entry by giving name as parameter to function
 	public AdminDepartment findByName(String name);
 
+	// @Query(value = "SELECT * FROM admin_department WHERE institutionid_id=?1",
+	// nativeQuery = true)
+
+	public List<Object> findByInstitutionIdAndIsActive(int institutionid_id, boolean isActive);
+
 }

@@ -12,13 +12,6 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletResponse;
 
-
-import com.cpa.uhpocms.entity.AdminDepartment;
-import com.cpa.uhpocms.entity.AuthenticationBean;
-import com.cpa.uhpocms.exception.CPException;
-import com.cpa.uhpocms.helper.ResponseHandler;
-import com.cpa.uhpocms.service.AdminDeptService;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +28,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.cpa.uhpocms.entity.AdminDepartment;
+import com.cpa.uhpocms.entity.AuthenticationBean;
+import com.cpa.uhpocms.exception.CPException;
+import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.service.AdminDeptService;
 
 /*
  @author
@@ -218,10 +215,34 @@ public class AdminDeptController {
 		logger.error(resourceBunde.getString("err004"));
 		return ResponseHandler.generateResponse("err004", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	@GetMapping(path = "/basicauth")
-    public AuthenticationBean basicauth() {
-        return new AuthenticationBean("You are authenticated");
-    }
+	public AuthenticationBean basicauth() {
+		return new AuthenticationBean("You are authenticated");
+	}
+
+	@GetMapping(path = "department/institutionId/{id}", produces = { "application/json", "application/xml" })
+	public ResponseEntity<List<Object>> getDepartmentByInstitutionId(@PathVariable("id") int institutionId)
+			throws CPException {
+
+		try {
+			List<Object> adminDept = adminDeptService.findByInstitutionId(institutionId);
+			if (adminDept != null) {
+
+				logger.info("Getting AdminDepartment by " + institutionId + " performed successfully");
+				logger.info(adminDept);
+				return new ResponseEntity<List<Object>>(adminDept, HttpStatus.OK);
+			}
+		}
+
+		catch (Exception e) {
+
+			logger.error(resourceBunde.getString("err021"));
+			throw new CPException("err021", resourceBunde.getString("err021"));
+
+		}
+
+		return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err022");
+	}
 
 }

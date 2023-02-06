@@ -43,7 +43,7 @@ public class AdminDepartment {
 	private Date modifiedOn;
 
 	@Column(name = "institutionid_id")
-	private int institutionId_id;
+	private int institutionId;
 
 	public AdminDepartment() {
 		super();
@@ -56,13 +56,13 @@ public class AdminDepartment {
 	 * @param description
 	 * @param institutionId_id
 	 */
-	public AdminDepartment(boolean isactive, int id, String name, String description, int institutionId_id) {
+	public AdminDepartment(boolean isactive, int id, String name, String description, int institutionId) {
 		super();
 		this.isActive = isactive;
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.institutionId_id = institutionId_id;
+		this.institutionId = institutionId;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class AdminDepartment {
 	 * @param institutionId_id
 	 */
 	public AdminDepartment(boolean isactive, int id, String name, String description, String createdBy, Date createdOn,
-			String modifiedBy, Date modifiedOn, int institutionId_id) {
+			String modifiedBy, Date modifiedOn, int institutionId) {
 		super();
 		this.isActive = isactive;
 		this.id = id;
@@ -87,7 +87,7 @@ public class AdminDepartment {
 		this.createdOn = createdOn;
 		this.modifiedBy = modifiedBy;
 		this.modifiedOn = modifiedOn;
-		this.institutionId_id = institutionId_id;
+		this.institutionId = institutionId;
 	}
 
 	/**
@@ -121,8 +121,8 @@ public class AdminDepartment {
 	/**
 	 * @return the institutionId_id
 	 */
-	public int getInstitutionId_id() {
-		return institutionId_id;
+	public int getInstitutionId() {
+		return institutionId;
 	}
 
 	/**
@@ -191,8 +191,8 @@ public class AdminDepartment {
 	/**
 	 * @param institutionId_id the institutionId_id to set
 	 */
-	public void setInstitutionId_id(int institutionId_id) {
-		this.institutionId_id = institutionId_id;
+	public void setInstitutionId(int institutionId) {
+		this.institutionId = institutionId;
 	}
 
 	/**
@@ -225,7 +225,7 @@ public class AdminDepartment {
 	public String toString() {
 		return "AdminDepartment [isactive=" + isActive + ", id=" + id + ", name=" + name + ", description="
 				+ description + ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", modifiedBy=" + modifiedBy
-				+ ", modifiedOn=" + modifiedOn + ", institutionId_id=" + institutionId_id + "]";
+				+ ", modifiedOn=" + modifiedOn + ", institutionId_id=" + institutionId + "]";
 	}
 
 }

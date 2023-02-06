@@ -197,4 +197,36 @@ public class CourseController {
         return new AuthenticationBean("You are authenticated");
     }
 
+	@GetMapping(path = "course/institutionId/{id}")
+	public ResponseEntity<List<Object>> getCourseByInstitutionId(@PathVariable("id") int institutionId)
+			throws CPException {
+
+		logger.debug("Entering getAllCourse");
+		logger.info("Parameter  :" );
+
+		List<Object> courses = null;
+
+		try {
+
+			if (institutionId>=0) {
+
+				courses = courseService.findByInstitutionId(institutionId);
+				logger.info("Fetched all Course :" + courses);
+
+				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all courses : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
+
+	
 }

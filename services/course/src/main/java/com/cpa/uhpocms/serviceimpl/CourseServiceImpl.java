@@ -7,6 +7,9 @@
 
 package com.cpa.uhpocms.serviceimpl;
 
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -125,6 +128,20 @@ public class CourseServiceImpl implements CourseService {
 		int count = courseRepo.deleteCourseByName(name);
 		logger.info("deleted Course count : " + count);
 		return count;
+	}
+
+	@Override
+	public List<Object> findByInstitutionId(int institutionId) {
+		// TODO Auto-generated method stub
+		
+		List<Object> objectCourses=null;
+		
+		List<Course> courses = courseRepo.findTeacherCourseByInstitutionId(institutionId);
+		
+		logger.info("Fetched all active course :" + courses);
+		objectCourses=new ArrayList<Object>(courses);
+		return objectCourses;
+		
 	}
 
 }

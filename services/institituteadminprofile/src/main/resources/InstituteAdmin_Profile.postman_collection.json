@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/saveInstitituteAdmin",
+			"name": "http://localhost:8090/saveInstitituteAdmin",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -35,7 +35,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/updateInstituteByName/pravin",
+			"name": "http://localhost:8090/updateInstituteByName/pravin",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -65,7 +65,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/getInstituteByname/pravin",
+			"name": "http://localhost:8090/getInstituteByname/pravin",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -86,7 +86,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/GetAllInstitute?firstName=all",
+			"name": "http://localhost:8090/GetAllInstitute?firstName=all",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -112,17 +112,17 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/DeleteDepartmentByName/nagesh",
+			"name": "http://localhost:8090/DeleteDepartmentByName/nagesh",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/uhpocms/profile/sagar",
+					"raw": "http://localhost:8090/uhpocms/profile/sagar",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"uhpocms",
 						"profile",
