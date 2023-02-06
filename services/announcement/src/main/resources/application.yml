@@ -4,24 +4,11 @@ spring.jpa:
   show-sql: true
   hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
-
-
-
 spring.datasource:
   driverClassName: org.postgresql.Driver
   url: jdbc:postgresql://localhost:5432/uhpocms
   username: postgres
   password: Pass1word
-
-  jpa:
-    hibernate.ddl-auto: update
-    hibernate:
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    #generate-ddl: true
-    show-sql:  true
-    
-
-
+  
 server:
   port : 8090
