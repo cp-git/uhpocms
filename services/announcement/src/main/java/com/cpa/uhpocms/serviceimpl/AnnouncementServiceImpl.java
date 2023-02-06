@@ -48,6 +48,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		logger.debug("Entering createAnnouncement");
 		Announcement createdAnnouncement = null;
 
+		announcement.setAnnouncementReadby("uhpocadmin");
 		announcement.setAnnouncementCreatedBy("admin");
 
 		createdAnnouncement = announcementRepo.save(announcement);
