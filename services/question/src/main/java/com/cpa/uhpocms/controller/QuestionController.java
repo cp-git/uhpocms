@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -110,6 +111,32 @@ public class QuestionController {
 		}
 
 	}
+	
+	@GetMapping("/question/inactive")
+	public  ResponseEntity<List<Object>> getInactiveQuestions(@RequestParam(name = "inactivequestions") String inactivequestions) throws CPException 
+	{
+		List<Object> questions = null;
+		try {
+
+			if (inactivequestions.equalsIgnoreCase("all")) {
+
+				questions = questionService.getInActiveQuestions();
+				logger.info("Fetched all Inactive Question :" + questions);
+
+				return ResponseHandler.generateListResponse(questions, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all questions : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
 
 	@GetMapping("/question")
 	public ResponseEntity<List<Object>> getAllQuestions(@RequestParam(name = "figure") String figure)
@@ -140,6 +167,8 @@ public class QuestionController {
 
 		}
 	}
+	
+	
 
 	@DeleteMapping("/question/{figure}")
 	public ResponseEntity<Object> deleteQuestionByFigure(@PathVariable("figure") String figure) throws CPException {
@@ -194,9 +223,39 @@ public class QuestionController {
 
 	}
 	
+	
+	@PatchMapping("/question/{figure}")
+	public ResponseEntity<Object> updateActiveStatus(@PathVariable("figure") String figure) throws CPException{
+		
+		logger.debug("Entering updateActiveStatus");
+		
+
+		Object obj = null;
+
+		try { 
+			obj = questionService.updateActiveStatus(figure);
+
+			if (obj == null) {
+				logger.info(resourceBunde.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated question : " + obj);
+				return ResponseHandler.generateResponse(obj, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update Question : " + ex.getMessage());
+			throw new CPException("err004", resourceBunde.getString("err004"));
+
+		}
+	}
+	
+	
 	@GetMapping(path = "/basicauth")
     public AuthenticationBean basicauth() {
         return new AuthenticationBean("You are authenticated");
     }
+	
+	
 
 }

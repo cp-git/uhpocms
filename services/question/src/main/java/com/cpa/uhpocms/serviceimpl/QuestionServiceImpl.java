@@ -127,4 +127,53 @@ public class QuestionServiceImpl implements QuestionService {
 		return count;
 	}
 
+	
+	public Object updateActiveStatus(String figure)
+	{
+		
+		
+		logger.debug("Entering getInActiveQuestions ");
+		List<Object> questions = getInActiveQuestions();
+		
+		if(questions.size() >= 1)
+		{
+			Object object = questionRepo.findByQuestionFigure(figure);
+			
+			
+		        Question question = (Question) object;
+		        System.out.println(question);
+		        question.setQuestionIsActive(true);
+		        
+		        System.out.println(question);
+		        
+		        
+		    
+
+		    logger.info("question object"+ object);
+		    return question;
+		}
+		
+		
+		return null;
+	}
+	
+	
+	
+	
+	/**
+	 * @author Shradha
+	 * @return : Object
+	 * @description : Function to get all inactive questions whose active flag is false
+	 * 
+	 */
+	@Override
+	public List<Object> getInActiveQuestions() {
+		// TODO Auto-generated method stub
+		logger.debug("Entering getInActiveQuestions ");
+		List<Object> questions = questionRepo.findByQuestionIsActiveFalse();
+		
+		logger.info("In active questions : " + questions);
+		return questions;
+	}
+
 }

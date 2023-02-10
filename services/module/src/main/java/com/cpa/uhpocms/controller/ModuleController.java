@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -191,6 +192,70 @@ public class ModuleController {
 
 		}
 
+	}
+	
+	/**
+	 * @author Shradha
+	 * @description api to get all inactive modules 
+	 * @throws CPException
+	 * @createdOn 10 Feb 2023
+	 */
+	@GetMapping("/module/inactive")
+	public  ResponseEntity<List<Object>> getInactiveModules(@RequestParam(name = "inactivemodules") String inactivemodules) throws CPException 
+	{
+		List<Object> modules = null;
+		try {
+
+			if (inactivemodules.equalsIgnoreCase("all")) {
+
+				modules = moduleService.getAllInactiveModules();
+				logger.info("Fetched all Inactive  :" + modules);
+
+				return ResponseHandler.generateListResponse(modules, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all modules : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
+	
+	/**
+	 * @author Shradha
+	 * @description Api to update inactive status to active status
+	 * @return
+	 * @throws CPException
+	 */
+	@PatchMapping("/module/{name}")
+	public ResponseEntity<Object> updateActiveStatus(@PathVariable("name") String name) throws CPException{
+		
+		logger.debug("Entering updateActiveStatus");
+		
+
+		Object obj = null;
+
+		try { 
+			obj = moduleService.updateActiveStatus(name);
+
+			if (obj == null) {
+				logger.info(resourceBunde.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated module : " + obj);
+				return ResponseHandler.generateResponse(obj, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update module : " + ex.getMessage());
+			throw new CPException("err004", resourceBunde.getString("err004"));
+
+		}
 	}
 	
     @GetMapping(path = "/basicauth")

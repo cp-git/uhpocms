@@ -23,4 +23,9 @@ public interface QuizService {
 
 	int deleteQuizBytitle(String title);
 
+	
+	
+	Object updateActiveStatus(String figure);
+
+	List<Object> getInactiveQuizzes();
 }

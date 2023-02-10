@@ -23,4 +23,7 @@ public interface QuestionService {
 
 	int deleteQuestionByFigure(String figure);
 
+	List<Object> getInActiveQuestions();
+	
+	Object updateActiveStatus(String figure);
 }
