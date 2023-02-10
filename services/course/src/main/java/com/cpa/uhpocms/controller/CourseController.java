@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -126,6 +127,12 @@ public class CourseController {
 				logger.info("Fetched all Course :" + courses);
 
 				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
+			} else if (name.equalsIgnoreCase("inactive")) {
+
+				courses = courseService.getAllInactiveCourses();
+				logger.info("Fetched all inactive Course :" + courses);
+
+				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
 			} else {
 
 				logger.info(resourceBunde.getString("err002"));
@@ -191,24 +198,24 @@ public class CourseController {
 		}
 
 	}
-	
+
 	@GetMapping(path = "/basicauth")
-    public AuthenticationBean basicauth() {
-        return new AuthenticationBean("You are authenticated");
-    }
+	public AuthenticationBean basicauth() {
+		return new AuthenticationBean("You are authenticated");
+	}
 
 	@GetMapping(path = "course/institutionId/{id}")
 	public ResponseEntity<List<Object>> getCourseByInstitutionId(@PathVariable("id") int institutionId)
 			throws CPException {
 
 		logger.debug("Entering getAllCourse");
-		logger.info("Parameter  :" );
+		logger.info("Parameter  :");
 
 		List<Object> courses = null;
 
 		try {
 
-			if (institutionId>=0) {
+			if (institutionId >= 0) {
 
 				courses = courseService.findByInstitutionId(institutionId);
 				logger.info("Fetched all Course :" + courses);
@@ -228,5 +235,28 @@ public class CourseController {
 		}
 	}
 
-	
+	@PatchMapping(path = "/course/activate/{id}")
+	public ResponseEntity<Object> activateCourseById(@PathVariable("id") int courseId) throws CPException {
+		logger.debug("Entering activateCourseById");
+		logger.info("entered activateCourseById  :" + courseId);
+		// TODO - implement the business logic
+
+		int count = 0;
+
+		try {
+			count = courseService.activateCourseById(courseId);
+			if (count >= 1) {
+				logger.info("activated Course : Id = " + courseId);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBunde.getString("err006"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err006");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to activate Course :" + ex.getMessage());
+			throw new CPException("err006", resourceBunde.getString("err006"));
+		}
+	}
+
 }
