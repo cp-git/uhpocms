@@ -7,9 +7,7 @@ package com.cpa.uhpocms.serviceimpl;
  * 
  */
 
-
 import java.util.List;
-
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,62 +22,53 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 
 	@Autowired
 	private InstituteAdminRepository instituteAdminRepository;
-	
-	private static final Logger loggger = Logger.getLogger(InstituteAdminServiceImpl.class);
-	
-	
-	
+
+	private static final Logger logger = Logger.getLogger(InstituteAdminServiceImpl.class);
+
 	/**
 	 * @author : Anmesh
-	 * @param :  InstituteAdmin
-	 * @return : InstituteAdmin 
-	 * @description : For Saving All the data 
+	 * @param : InstituteAdmin
+	 * @return : InstituteAdmin
+	 * @description : For Saving All the data
 	 */
 	@Override
 	public InstituteAdmin saveInstituteAdmin(InstituteAdmin instituteAdmin) {
-		loggger.debug("In SaveInstituteAdmin Method...");
+		logger.debug("In SaveInstituteAdmin Method...");
 		instituteAdmin.setCreatedBy("admin");
 
 		instituteAdmin.setModifiedBy("admin");
 
-		InstituteAdmin createInstituteAdmin=null;
-		createInstituteAdmin =instituteAdminRepository.save(instituteAdmin);
-		loggger.info("The Values saveInstitute"+createInstituteAdmin);
+		InstituteAdmin createInstituteAdmin = null;
+		createInstituteAdmin = instituteAdminRepository.save(instituteAdmin);
+		logger.info("The Values saveInstitute" + createInstituteAdmin);
 		return createInstituteAdmin;
 	}
-	
-	
-	
-	
-	
 
-	
 	/**
 	 * @author : Anmesh
-	 * @return : List<InstituteAdmin> 
+	 * @return : List<InstituteAdmin>
 	 * @description : For getting All data using getAllInstitute
 	 */
 	@Override
 	public List<Object> getAllInstitute() {
-		loggger.debug("in GetAllInstituteAdmin method...");
-		List<Object> InstituteList ;
+		logger.debug("in GetAllInstituteAdmin method...");
+		List<Object> InstituteList;
 		InstituteList = instituteAdminRepository.findByActiveUserIsTrue();
-		loggger.info("Fetching All List Data "+InstituteList);
+		logger.info("Fetching All List Data " + InstituteList);
 		return InstituteList;
 	}
 
-	
 	/**
 	 * @author : Anmesh
-	 * @param :  InstituteAdmin,String
-	 * @return : InstituteAdmin 
+	 * @param : InstituteAdmin,String
+	 * @return : InstituteAdmin
 	 * @description : For updating data using firstName
 	 */
 	@Override
 	public InstituteAdmin updateInstituteAdmin(InstituteAdmin instituteAdmin, String firstName) {
-		loggger.debug("InSaveInstituteAdmin...");
+		logger.debug("InSaveInstituteAdmin...");
 		InstituteAdmin insAdmin = instituteAdminRepository.findByFirstName(firstName);
-		loggger.info("The Update Method is..."+insAdmin);
+		logger.info("The Update Method is..." + insAdmin);
 		insAdmin.setUserId(instituteAdmin.getAdminId());
 		insAdmin.setUserRole(instituteAdmin.getUserRole());
 		insAdmin.setFirstName(instituteAdmin.getFirstName());
@@ -103,37 +92,34 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return insAdmin;
 	}
 
-	
 	/**
 	 * @author : Anmesh
-	 * @param :  String
+	 * @param : String
 	 * @return : int
 	 * @description : For Soft Delete data using firstName
 	 */
 	@Override
-	public int deleteDepartmentByName(String firstName) {
-    loggger.debug("in deleteByInstituteAdmin Name");
-		return instituteAdminRepository.deleteDepartmentByName(firstName);
+	public int deleteInstitutionProfileByName(String firstName) {
+		logger.debug("in deleteByInstituteAdmin Name");
+		return instituteAdminRepository.deleteInstitutionProfileByName(firstName);
 	}
-	
-	
+
 	/**
 	 * @author : Anmesh
-	 * @param :  int
+	 * @param : int
 	 * @return : int UserId
-	 * @description : For fetching userId  using
+	 * @description : For fetching userId using
 	 */
 	@Override
 	public InstituteAdmin findByUserId(int userId) {
-		loggger.debug("in unique key constraint...");
+		logger.debug("in unique key constraint...");
 		return instituteAdminRepository.findByUserId(userId);
 	}
 
-
 	/**
 	 * @author : Anmesh
-	 * @param :  getInstituteByName
-	 * @return : InstituteAdmin 
+	 * @param : getInstituteByName
+	 * @return : InstituteAdmin
 	 * @description : For getting data using firstName
 	 */
 
@@ -143,4 +129,31 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return instituteAdminRepository.findByFirstName(firstName);
 	}
 
+	/**
+	 * @return : List<InstituteAdmin>
+	 * @description : For getting All institute admin profile data which are in
+	 *              inactive state
+	 */
+	@Override
+	public List<Object> getAllInactiveInstitute() {
+		logger.debug("in getAllInactiveInstitute method...");
+		List<Object> institutionProfiles;
+		institutionProfiles = instituteAdminRepository.findByActiveUserIsFalse();
+		logger.info("Fetching inactive profile Data " + institutionProfiles);
+		return institutionProfiles;
+	}
+
+	/**
+	 * @return : count of activated profiles
+	 * @description : For activating institute admin profile data which are in
+	 *              inactive state using profileId
+	 */
+	@Override
+	public int activateInstituteProfileById(int profileId) {
+		logger.debug("Entering activateInstitutionProfileById");
+
+		int count = instituteAdminRepository.activateInstituteProfileById(profileId);
+		logger.info("activated institutionProfile count : " + count);
+		return count;
+	}
 }

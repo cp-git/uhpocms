@@ -26,4 +26,8 @@ public interface AdminInstitutionService {
 
 	AdminInstitution findByAdminInstitutionName(String adminInstitutionName);
 
+	List<Object> getAllInactiveAdminInstitutions();
+
+	int activateAdminInstitutionById(int adminInstitutionId);
+
 }
