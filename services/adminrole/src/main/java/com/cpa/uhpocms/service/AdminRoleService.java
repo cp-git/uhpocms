@@ -15,4 +15,8 @@ public interface AdminRoleService {
 	int deleteAdminRoleByRoleName(String roleName);
 
 	AdminRole updateRoleNameByRoleName(AdminRole adminRole, String roleName);
+
+	int activateAdminRoleByRoleId(int roleId);
+
+	List<Object> getAllInactiveAdminRoles();
 }

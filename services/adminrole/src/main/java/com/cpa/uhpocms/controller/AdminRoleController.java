@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,7 +25,6 @@ import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.helper.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.AdminRoleService;
-
 
 @CrossOrigin
 @RestController
@@ -84,6 +84,10 @@ public class AdminRoleController {
 			logger.debug("in getAllAdminRole method");
 			if (roleName.equals("all")) {
 				List<Object> adminRole = adminRoleService.getAllAdminRole();
+
+				return ResponseHandler.generateListResponse(adminRole, HttpStatus.OK);
+			} else if (roleName.equals("inactive")) {
+				List<Object> adminRole = adminRoleService.getAllInactiveAdminRoles();
 
 				return ResponseHandler.generateListResponse(adminRole, HttpStatus.OK);
 			} else {
@@ -183,10 +187,37 @@ public class AdminRoleController {
 		}
 
 	}
-	
+
 	@GetMapping(path = "/basicauth")
-    public AuthenticationBean basicauth() {
-        return new AuthenticationBean("You are authenticated");
-    }
+	public AuthenticationBean basicauth() {
+		return new AuthenticationBean("You are authenticated");
+	}
+
+	/**
+	 * @author : Kaushik
+	 * @param : String roleName
+	 * @return : Response entity object
+	 * @description : for soft deleting the record
+	 */
+	@PatchMapping("uhpocms/role/activate/{id}")
+	public ResponseEntity<Object> activateRoleByRoleId(@PathVariable("id") int roleId) throws CPException {
+		logger.info("In activation Operaton ");
+		logger.debug("In activateRoleByRoleId");
+		try {
+			int adminRole = 0;
+			adminRole = adminRoleService.activateAdminRoleByRoleId(roleId);
+			if (adminRole > 0) {
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err006");
+			}
+		} catch (Exception e) {
+			logger.info(resourceBundle.getString("err006"));
+			logger.error("Error in activation" + e.getMessage());
+			throw new CPException("err006", resourceBundle.getString("err006"));
+
+		}
+
+	}
 
 }
