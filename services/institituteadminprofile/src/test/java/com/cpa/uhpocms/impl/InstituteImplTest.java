@@ -20,7 +20,6 @@ import com.cpa.uhpocms.entity.InstituteAdmin;
 import com.cpa.uhpocms.repository.InstituteAdminRepository;
 import com.cpa.uhpocms.service.InstituteAdminService;
 
-
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 class InstituteImplTest {
@@ -64,18 +63,18 @@ class InstituteImplTest {
 //		InstituteAdmin instituteAdmin = new InstituteAdmin(1, "admin", "ravi", "g", "ravi", "12-10-2022", "1223",
 //				"Male", 1, "khradi", "kharadi", "pune", "mh", "123", "ad", "admin", dt, "admin", dt1, false, 1, 1);
 //		InstituteAdmin instituteAdmin2 = new InstituteAdmin();
-		//System.out.println("expect " + admin.toString());
+		// System.out.println("expect " + admin.toString());
 		Mockito.when(instituteAdminRepository.findByFirstName("ravi")).thenReturn(this.admin);
-		//System.out.println("expect " + admin.toString());
+		// System.out.println("expect " + admin.toString());
 		InstituteAdmin adminResult = instituteAdminService.getInstituteByName("ravi");
-		//System.out.println("result " + adminResult.toString());
+		// System.out.println("result " + adminResult.toString());
 		assertEquals(this.admin1.toString(), adminResult.toString());
 	}
 
 	@Test
 	public void testDeleteInstituteAdminByUserName() {
-		Mockito.when(instituteAdminRepository.deleteDepartmentByName("ravi")).thenReturn(1);
-		int count = instituteAdminService.deleteDepartmentByName("ravi");
+		Mockito.when(instituteAdminRepository.deleteInstitutionProfileByName("ravi")).thenReturn(1);
+		int count = instituteAdminService.deleteInstitutionProfileByName("ravi");
 		assertEquals(count, 1);
 	}
 
@@ -84,16 +83,14 @@ class InstituteImplTest {
 		List<Object> list = new ArrayList<Object>();
 		list.add(this.admin);
 		Mockito.when(instituteAdminRepository.findByActiveUserIsTrue()).thenReturn(list);
-		//System.out.println("expect " + admin1.toString());
+		// System.out.println("expect " + admin1.toString());
 		List<Object> result = instituteAdminService.getAllInstitute();
-		//System.out.println("result " + result.toString());
+		// System.out.println("result " + result.toString());
 		assertEquals(this.admin1.toString(), result.get(0).toString());
 	}
-	
 
 	@Test
 	public void testCreateInstituteADminUser() {
-	
 
 		InstituteAdmin insAdmin = new InstituteAdmin(1, "admin", "ravi", "g", "ravi", "12-10-2022", "1223", "Male", 1,
 				"khradi", "kharadi", "pune", "mh", "123", "ad", false, 1, 1);
@@ -128,7 +125,7 @@ class InstituteImplTest {
 		Mockito.when(instituteAdminRepository.save(updatedAdmin)).thenReturn(expectAdmin);
 
 		InstituteAdmin insresult = instituteAdminService.updateInstituteAdmin(insAdmin, "ravi");
-		//System.out.println(insresult);
+		// System.out.println(insresult);
 		assertEquals(expectAdmin.toString(), insresult.toString());
 	}
 
