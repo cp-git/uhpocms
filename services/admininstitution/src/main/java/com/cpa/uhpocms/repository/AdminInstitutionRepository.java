@@ -50,4 +50,23 @@ public interface AdminInstitutionRepository extends JpaRepository<AdminInstituti
 	@Modifying
 	@Query(value = "UPDATE admin_institution SET isactive=false WHERE name=?1", nativeQuery = true)
 	public int deleteAdminInstitutionByInstitutionName(String adminInstitutionName);
+
+	/**
+	 * @return : List<AdminInstitution>
+	 * @description: To find the all data of institution where admin institution is
+	 *               in inactive state
+	 * 
+	 */
+	public List<Object> findByAdminInstitutionIsActiveFalse();
+
+	/**
+	 * @param : String adminInstitutionName
+	 * @return : AdminInstitution
+	 * @description: To reactivate admin institution by adminInstitutionName (by
+	 *               setting is_active to true)
+	 */
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE admin_institution SET isactive=true WHERE institutionid=?1", nativeQuery = true)
+	public int activateAdminInstitutionById(int adminInstitutionId);
 }

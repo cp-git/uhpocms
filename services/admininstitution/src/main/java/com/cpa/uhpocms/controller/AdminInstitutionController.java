@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -106,6 +107,10 @@ public class AdminInstitutionController {
 
 			if (adminInstitutionName.equals("all")) {
 				listAdminInstitution = adminInstitutionService.getAllAdminInstitution();
+
+				return ResponseHandler.generateListResponse(listAdminInstitution, HttpStatus.OK);
+			} else if (adminInstitutionName.equals("inactive")) {
+				listAdminInstitution = adminInstitutionService.getAllInactiveAdminInstitutions();
 
 				return ResponseHandler.generateListResponse(listAdminInstitution, HttpStatus.OK);
 			} else {
@@ -214,10 +219,34 @@ public class AdminInstitutionController {
 		}
 
 	}
-	
+
 	@GetMapping(path = "/basicauth")
-    public AuthenticationBean basicauth() {
-        return new AuthenticationBean("You are authenticated");
-    }
+	public AuthenticationBean basicauth() {
+		return new AuthenticationBean("You are authenticated");
+	}
+
+	@PatchMapping(path = "/institution/activate/{id}")
+	public ResponseEntity<Object> ActivateAdminInstitutionById(@PathVariable("id") int adminInstitutionId)
+			throws CPException {
+		logger.debug("activate institution by id " + adminInstitutionId);
+		int count = 0;
+
+		try {
+			count = adminInstitutionService.activateAdminInstitutionById(adminInstitutionId);
+
+			if (count >= 1) {
+				logger.info("activated admin institution : adminInstitutionId = " + adminInstitutionId);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err016"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err016");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to activate admin Institution :" + ex.getMessage());
+			throw new CPException("err016", resourceBundle.getString("err016"));
+		}
+
+	}
 
 }
