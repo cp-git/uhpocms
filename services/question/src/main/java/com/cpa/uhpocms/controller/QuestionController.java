@@ -40,11 +40,11 @@ public class QuestionController {
 	@Autowired
 	private QuestionService questionService;;
 
-	private ResourceBundle resourceBunde;
+	private ResourceBundle resourceBundle;
 	private static Logger logger;
 
 	QuestionController() {
-		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
+		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(QuestionController.class);
 	}
 
@@ -72,13 +72,13 @@ public class QuestionController {
 
 			} else {
 
-				logger.error(resourceBunde.getString("err003"));
+				logger.error(resourceBundle.getString("err003"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
 			}
 
 		} catch (Exception ex) {
 			logger.error("Failed Question creation : " + ex.getMessage());
-			throw new CPException("err003", resourceBunde.getString("err003"));
+			throw new CPException("err003", resourceBundle.getString("err003"));
 		}
 	}
 
@@ -106,7 +106,7 @@ public class QuestionController {
 		} catch (Exception ex) {
 
 			logger.error("Failed getting question : " + ex.getMessage());
-			throw new CPException("err001", resourceBunde.getString("err001"));
+			throw new CPException("err001", resourceBundle.getString("err001"));
 		}
 
 	}
@@ -129,14 +129,14 @@ public class QuestionController {
 				return ResponseHandler.generateListResponse(questions, HttpStatus.OK);
 			} else {
 
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
 
 		} catch (Exception ex) {
 
 			logger.error("Failed getting all questions : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 
 		}
 	}
@@ -155,13 +155,13 @@ public class QuestionController {
 				logger.info("deleted Question : Figure = " + figure);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
-				logger.info(resourceBunde.getString("err005"));
+				logger.info(resourceBundle.getString("err005"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
 			}
 
 		} catch (Exception ex) {
 			logger.error("Failed to delete Question :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
+			throw new CPException("err005", resourceBundle.getString("err005"));
 		}
 		
 
@@ -179,7 +179,7 @@ public class QuestionController {
 			updatedQuestion = questionService.updateQuestionByFigure(question, figure);
 
 			if (updatedQuestion == null) {
-				logger.info(resourceBunde.getString("err004"));
+				logger.info(resourceBundle.getString("err004"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			} else {
 				logger.info("updated question : " + updatedQuestion);
@@ -188,7 +188,7 @@ public class QuestionController {
 
 		} catch (Exception ex) {
 			logger.error("Failed update Question : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
+			throw new CPException("err004", resourceBundle.getString("err004"));
 
 		}
 

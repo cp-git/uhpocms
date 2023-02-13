@@ -40,11 +40,11 @@ public class AnnouncementController {
 	@Autowired
 	private AnnouncementService announcementService;;
 
-	private ResourceBundle resourceBunde;
+	private ResourceBundle resourceBundle;
 	private static Logger logger;
 
 	AnnouncementController() {
-		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
+		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(AnnouncementController.class);
 	}
 
@@ -74,13 +74,13 @@ public class AnnouncementController {
 
 			} else {
 
-				logger.error(resourceBunde.getString("err003"));
+				logger.error(resourceBundle.getString("err003"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
 			}
 
 		} catch (Exception ex) {
 			logger.error("Failed Announcement creation : " + ex.getMessage());
-			throw new CPException("err003", resourceBunde.getString("err003"));
+			throw new CPException("err003", resourceBundle.getString("err003"));
 		}
 	}
 
@@ -107,7 +107,7 @@ public class AnnouncementController {
 		} catch (Exception ex) {
 
 			logger.error("Failed getting announcement : " + ex.getMessage());
-			throw new CPException("err001", resourceBunde.getString("err001"));
+			throw new CPException("err001", resourceBundle.getString("err001"));
 		}
 
 	}
@@ -130,14 +130,14 @@ public class AnnouncementController {
 				return ResponseHandler.generateListResponse(announcements, HttpStatus.OK);
 			} else {
 
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
 
 		} catch (Exception ex) {
 
 			logger.error("Failed getting all announcements : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 
 		}
 	}
@@ -156,13 +156,13 @@ public class AnnouncementController {
 				logger.info("deleted Announcement : title = " + title);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
-				logger.info(resourceBunde.getString("err005"));
+				logger.info(resourceBundle.getString("err005"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
 			}
 
 		} catch (Exception ex) {
 			logger.error("Failed to delete Announcement :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
+			throw new CPException("err005", resourceBundle.getString("err005"));
 		}
 
 	}
@@ -179,7 +179,7 @@ public class AnnouncementController {
 			updatedAnnouncement = announcementService.updateAnnouncementByTitle(announcement, title);
 
 			if (updatedAnnouncement == null) {
-				logger.info(resourceBunde.getString("err004"));
+				logger.info(resourceBundle.getString("err004"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			} else {
 				logger.info("updated announcement : " + updatedAnnouncement);
@@ -188,7 +188,7 @@ public class AnnouncementController {
 
 		} catch (Exception ex) {
 			logger.error("Failed update Announcement : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
+			throw new CPException("err004", resourceBundle.getString("err004"));
 
 		}
 
@@ -211,13 +211,13 @@ public class AnnouncementController {
 
 			} else {
 
-				logger.error(resourceBunde.getString("err006"));
+				logger.error(resourceBundle.getString("err006"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err006");
 
 			}
 		} catch (Exception ex) {
 			logger.error("Failed Announcement sending : " + ex.getMessage());
-			throw new CPException("err006", resourceBunde.getString("err006"));
+			throw new CPException("err006", resourceBundle.getString("err006"));
 		}
 
 	}
