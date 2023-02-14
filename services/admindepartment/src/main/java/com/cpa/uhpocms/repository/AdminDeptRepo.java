@@ -8,7 +8,10 @@ package com.cpa.uhpocms.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cpa.uhpocms.entity.AdminDepartment;
 
@@ -25,5 +28,14 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	// nativeQuery = true)
 
 	public List<Object> findByInstitutionIdAndIsActive(int institutionid_id, boolean isActive);
+
+	// Method to find a list of entries with is active flag false
+	public List<Object> findByIsActiveFalse();
+
+	// method to activate department
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE admin_department SET isactive=true WHERE departmentid=?1", nativeQuery = true)
+	public int activateAdminDepartmentById(int departmentId);
 
 }

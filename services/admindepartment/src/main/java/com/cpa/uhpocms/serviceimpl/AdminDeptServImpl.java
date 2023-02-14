@@ -125,4 +125,35 @@ public class AdminDeptServImpl implements AdminDeptService {
 
 		return adminDept;
 	}
+
+	/**
+	 * @description: Method that get all departments present in database
+	 * @createdOn : 13-02-2023
+	 */
+	@Override
+	public List<Object> getAllInactiveDepartments() {
+		// TODO Auto-generated method stub
+		logger.debug("Entered getAllInactiveDepartments()");
+
+		List<Object> adminDept = adminDeptRepo.findByIsActiveFalse();
+		logger.info("getting all Inactive AdminDepartment entries performed successfully!");
+
+		return adminDept;
+	}
+
+	/**
+	 * @description: Method that performs activated department which sets active
+	 *               flag to true
+	 */
+
+	@Override
+	public int activateDepartment(int departmentId) {
+		logger.debug("Entered activateDepartment");
+
+		int updatedCount = adminDeptRepo.activateAdminDepartmentById(departmentId);
+		logger.debug("AdminDepartment activation performed successfully" + updatedCount);
+
+		return updatedCount;
+
+	}
 }

@@ -41,11 +41,11 @@ public class ModuleController {
 	@Autowired
 	private ModuleService moduleService;
 
-	private ResourceBundle resourceBunde;
+	private ResourceBundle resourceBundle;
 	private static Logger logger;
 
 	ModuleController() {
-		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
+		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(ModuleController.class);
 	}
 
@@ -74,14 +74,14 @@ public class ModuleController {
 
 			} else {
 
-				logger.error(resourceBunde.getString("err003"));
+				logger.error(resourceBundle.getString("err003"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
 			}
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			logger.error("Failed Module creation : " + ex.getMessage());
-			throw new CPException("err003", resourceBunde.getString("err003"));
+			throw new CPException("err003", resourceBundle.getString("err003"));
 		}
 	}
 
@@ -108,7 +108,7 @@ public class ModuleController {
 		} catch (Exception ex) {
 
 			logger.error("Failed getting module : " + ex.getMessage());
-			throw new CPException("err001", resourceBunde.getString("err001"));
+			throw new CPException("err001", resourceBundle.getString("err001"));
 		}
 
 	}
@@ -130,14 +130,14 @@ public class ModuleController {
 				return ResponseHandler.generateListResponse(modules, HttpStatus.OK);
 			} else {
 
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
 
 		} catch (Exception ex) {
 
 			logger.error("Failed getting all modules : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 
 		}
 	}
@@ -156,13 +156,13 @@ public class ModuleController {
 				logger.info("deleted Module : Name = " + name);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
-				logger.info(resourceBunde.getString("err005"));
+				logger.info(resourceBundle.getString("err005"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
 			}
 
 		} catch (Exception ex) {
 			logger.error("Failed to delete Module :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
+			throw new CPException("err005", resourceBundle.getString("err005"));
 		}
 
 	}
@@ -179,7 +179,7 @@ public class ModuleController {
 			updatedModule = moduleService.updateModuleByName(module, name);
 
 			if (updatedModule == null) {
-				logger.info(resourceBunde.getString("err004"));
+				logger.info(resourceBundle.getString("err004"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			} else {
 				logger.info("updated module : " + updatedModule);
@@ -188,7 +188,7 @@ public class ModuleController {
 
 		} catch (Exception ex) {
 			logger.error("Failed update Module : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
+			throw new CPException("err004", resourceBundle.getString("err004"));
 
 		}
 

@@ -42,11 +42,11 @@ public class QuizController {
 	@Autowired
 	private QuizService quizService;;
 
-	private ResourceBundle resourceBunde;
+	private ResourceBundle resourceBundle;
 	private static Logger logger;
 
 	QuizController() {
-		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
+		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(QuizController.class);
 	}
 
@@ -77,17 +77,17 @@ public class QuizController {
 
 			} else {
 
-				logger.error(resourceBunde.getString("err003"));
+				logger.error(resourceBundle.getString("err003"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
 			}
 
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-			throw new CPException("err003", resourceBunde.getString("err003"));
+			throw new CPException("err003", resourceBundle.getString("err003"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			logger.error("Failed Quiz creation : " + ex.getMessage());
-			throw new CPException("err003", resourceBunde.getString("err003"));
+			throw new CPException("err003", resourceBundle.getString("err003"));
 		}
 	}
 
@@ -123,7 +123,7 @@ public class QuizController {
 		} catch (Exception ex) {
 
 			logger.error("Failed getting quiz : " + ex.getMessage());
-			throw new CPException("err001", resourceBunde.getString("err001"));
+			throw new CPException("err001", resourceBundle.getString("err001"));
 		}
 
 	}
@@ -153,7 +153,7 @@ public class QuizController {
 				return ResponseHandler.generateListResponse(quizs, HttpStatus.OK);
 			} else {
 
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err002");
 			}
 
@@ -161,7 +161,7 @@ public class QuizController {
 			ex.printStackTrace();
 
 			logger.error("Failed getting all quizs : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 
 		}
 	}
@@ -188,14 +188,14 @@ public class QuizController {
 				logger.info("deleted Quiz : title = " + title);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
-				logger.info(resourceBunde.getString("err005"));
+				logger.info(resourceBundle.getString("err005"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
 			}
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			logger.error("Failed to delete Quiz :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
+			throw new CPException("err005", resourceBundle.getString("err005"));
 		}
 
 	}
@@ -221,7 +221,7 @@ public class QuizController {
 			updatedQuiz = quizService.updateQuiz(quiz, title);
 
 			if (updatedQuiz == null) {
-				logger.info(resourceBunde.getString("err004"));
+				logger.info(resourceBundle.getString("err004"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			} else {
 				logger.info("updated quiz : " + updatedQuiz);
@@ -231,7 +231,7 @@ public class QuizController {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			logger.error("Failed update Quiz : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
+			throw new CPException("err004", resourceBundle.getString("err004"));
 
 		}
 
