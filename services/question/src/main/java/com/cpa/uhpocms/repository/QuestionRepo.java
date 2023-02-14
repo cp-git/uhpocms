@@ -29,5 +29,8 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
 	@Modifying
 	@Query(value = "UPDATE teacher_question SET is_active=false WHERE figure = ?1", nativeQuery = true)
 	public int deleteQuestionByFigure(String figure);
+	
+	public List<Object> findByQuestionIsActiveFalse();
 
+	 
 }
