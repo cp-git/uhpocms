@@ -236,6 +236,13 @@ public class QuizController {
 		}
 
 	}
+	/**
+	 * 
+	 * @author Shradha
+	 * @param inactivequizzes
+	 * @return
+	 * @throws CPException
+	 */
 	
 	@GetMapping("/quiz/inactive")
 	public  ResponseEntity<List<Object>> getInactiveQuizzes(@RequestParam(name = "inactivequizzes") String inactivequizzes) throws CPException 
@@ -263,6 +270,12 @@ public class QuizController {
 		}
 	}
 	
+	/**
+	 * @author Shradha
+	 * @param title
+	 * @return
+	 * @throws CPException
+	 */
 	@PatchMapping("/quiz/{title}")
 	public ResponseEntity<Object> updateActiveStatus(@PathVariable("title") String title) throws CPException{
 		

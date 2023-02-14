@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 //import com.cpa.uhpocms.controller.CategoryController;
 import com.cpa.uhpocms.entity.Category;
+
 import com.cpa.uhpocms.repository.CategoryRepo;
 import com.cpa.uhpocms.service.CategoryService;
 
@@ -120,5 +121,54 @@ public class CategoryServiceImpl implements CategoryService {
 		logger.info("deleted Category count : " + count);
 		return count;
 	}
+	
+	/**
+	 * @author Shradha
+	 * @return : List<Object> question
+	 * @description : For fetching all question which are active state from
+	 *              teacher_question table
+	 */
+	@Override
+	public List<Object> getInActiveCategories() {
+		// TODO Auto-generated method stub
+		logger.debug("Entering getInActiveQuestions ");
+		List<Object> categories = categoryRepo.findByIsActiveFalse();
+		
+		logger.info("In active questions : " + categories);
+		return categories;
+	}
 
+	/**
+	 * @author Shradha
+	 * 
+	 */
+	public Object updateActiveStatus(String name)
+	{
+		
+		
+		logger.debug("Entering getInActiveCategories");
+		List<Object> categories = getInActiveCategories();
+		
+		if(categories.size() >= 1)
+		{
+			Object object = categoryRepo.findByCategoryName(name);
+			
+			
+		        Category category = (Category) object;
+		        System.out.println(category);
+		        category.setActive(true);
+		        
+		        System.out.println(category);
+		        
+		        
+		    
+
+		    logger.info("question object"+ category);
+		    return categoryRepo.save(category);
+		}
+		
+		
+		return null;
+	}
+	
 }

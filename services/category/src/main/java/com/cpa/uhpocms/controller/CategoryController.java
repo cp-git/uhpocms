@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -191,6 +192,65 @@ public class CategoryController {
 
 		}
 
+	}
+	
+	@GetMapping("/category/inactive")
+	public  ResponseEntity<List<Object>> getInactiveCategories(@RequestParam(name = "inactivecategories") String inactivecategories) throws CPException 
+	{
+		List<Object> categories = null;
+		try {
+
+			if (inactivecategories.equalsIgnoreCase("all")) {
+
+				categories = categoryService.getInActiveCategories();
+				logger.info("Fetched all Inactive Question :" + categories);
+
+				return ResponseHandler.generateListResponse(categories, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all questions : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
+	
+	
+	/**
+	 * @author Shradha
+	 * @param category
+	 * @return
+	 * @throws CPException
+	 */
+	@PatchMapping("/category/{category}")
+	public ResponseEntity<Object> updateActiveStatus(@PathVariable("category") String category) throws CPException{
+		
+		logger.debug("Entering updateActiveStatus");
+		
+
+		Object obj = null;
+
+		try { 
+			obj = categoryService.updateActiveStatus(category);
+
+			if (obj == null) {
+				logger.info(resourceBunde.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated question : " + obj);
+				return ResponseHandler.generateResponse(obj, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update Category : " + ex.getMessage());
+			throw new CPException("err004", resourceBunde.getString("err004"));
+
+		}
 	}
 	
 	@GetMapping(path = "/basicauth")

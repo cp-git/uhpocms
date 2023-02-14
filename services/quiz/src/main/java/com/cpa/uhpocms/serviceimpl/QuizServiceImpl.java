@@ -149,6 +149,11 @@ public class QuizServiceImpl implements QuizService {
 		return count;
 	}
 
+	/**
+	 * @author Shradha
+	 * 
+	 * 
+	 */
 	@Override
 	public List<Object> getInactiveQuizzes() {
 		// TODO Auto-generated method stub
@@ -159,6 +164,11 @@ public class QuizServiceImpl implements QuizService {
 		return quizzes;
 	}
 
+	
+	/**
+	 * @author Shradha
+	 * 
+	 */
 	@Override
 	public Object updateActiveStatus(String title) {
 		// TODO Auto-generated method stub
@@ -184,7 +194,7 @@ public class QuizServiceImpl implements QuizService {
 		    
 
 		    logger.info("question object"+ object);
-		    return quiz;
+		    return quizRepo.save(quiz);
 		}
 		
 		

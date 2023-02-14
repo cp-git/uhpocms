@@ -127,7 +127,11 @@ public class QuestionServiceImpl implements QuestionService {
 		return count;
 	}
 
-	
+    /**
+     * @author Shradha
+     * @param String
+     * @return Object	
+     */
 	public Object updateActiveStatus(String figure)
 	{
 		
@@ -149,8 +153,8 @@ public class QuestionServiceImpl implements QuestionService {
 		        
 		    
 
-		    logger.info("question object"+ object);
-		    return question;
+		    logger.info("question object"+ question);
+		    return questionRepo.save(question);
 		}
 		
 		

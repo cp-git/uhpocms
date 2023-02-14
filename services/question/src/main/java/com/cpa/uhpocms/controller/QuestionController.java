@@ -223,6 +223,12 @@ public class QuestionController {
 
 	}
 	
+	/**
+	 * @author Shradha
+	 * @param figure
+	 * @return
+	 * @throws CPException
+	 */
 	
 	@PatchMapping("/question/{figure}")
 	public ResponseEntity<Object> updateActiveStatus(@PathVariable("figure") String figure) throws CPException{

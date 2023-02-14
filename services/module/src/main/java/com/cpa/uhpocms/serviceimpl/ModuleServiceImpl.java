@@ -171,7 +171,7 @@ public class ModuleServiceImpl implements ModuleService {
 		    
 
 		    logger.info("question object"+ object);
-		    return module;
+		    return moduleRepo.save(module);
 		}
 		
 		

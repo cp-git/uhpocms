@@ -30,4 +30,5 @@ public interface CategoryRepo extends JpaRepository<Category, Integer> {
 	@Query(value = "UPDATE teacher_category SET isactive=false WHERE category = ?1", nativeQuery = true)
 	public int deleteCategoryByCategory(String name);
 
+	public List<Object> findByIsActiveFalse();
 }
