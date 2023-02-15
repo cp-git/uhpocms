@@ -1,5 +1,7 @@
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
+
 /**
  * @author Anmesh
  * @createdOn 30th Nov 2022
@@ -12,7 +14,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cpa.uhpocms.entity.InstituteAdmin;
 import com.cpa.uhpocms.repository.InstituteAdminRepository;
 import com.cpa.uhpocms.service.InstituteAdminService;
@@ -137,10 +138,15 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	@Override
 	public List<Object> getAllInactiveInstitute() {
 		logger.debug("in getAllInactiveInstitute method...");
-		List<Object> institutionProfiles;
-		institutionProfiles = instituteAdminRepository.findByActiveUserIsFalse();
+		List<Object> objectInstitutionProfiles = null;
+
+		List<InstituteAdmin> institutionProfiles = instituteAdminRepository.findInactiveProfileOfActiveInstitutions();
+
 		logger.info("Fetching inactive profile Data " + institutionProfiles);
-		return institutionProfiles;
+
+		objectInstitutionProfiles = new ArrayList<Object>(institutionProfiles);
+		
+		return objectInstitutionProfiles;
 	}
 
 	/**
