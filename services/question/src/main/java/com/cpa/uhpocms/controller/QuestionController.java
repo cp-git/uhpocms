@@ -126,14 +126,14 @@ public class QuestionController {
 				return ResponseHandler.generateListResponse(questions, HttpStatus.OK);
 			} else {
 
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
 
 		} catch (Exception ex) {
 
 			logger.error("Failed getting all questions : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 
 		}
 	}
@@ -242,7 +242,7 @@ public class QuestionController {
 			obj = questionService.updateActiveStatus(figure);
 
 			if (obj == null) {
-				logger.info(resourceBunde.getString("err004"));
+				logger.info(resourceBundle.getString("err004"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			} else {
 				logger.info("updated question : " + obj);
@@ -251,7 +251,7 @@ public class QuestionController {
 
 		} catch (Exception ex) {
 			logger.error("Failed update Question : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
+			throw new CPException("err004", resourceBundle.getString("err004"));
 
 		}
 	}
