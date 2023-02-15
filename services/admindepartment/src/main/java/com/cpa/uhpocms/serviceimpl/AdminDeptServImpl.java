@@ -7,6 +7,7 @@
 package com.cpa.uhpocms.serviceimpl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -134,11 +135,15 @@ public class AdminDeptServImpl implements AdminDeptService {
 	public List<Object> getAllInactiveDepartments() {
 		// TODO Auto-generated method stub
 		logger.debug("Entered getAllInactiveDepartments()");
+		List<Object> objectDepartments = null;
 
-		List<Object> adminDept = adminDeptRepo.findByIsActiveFalse();
-		logger.info("getting all Inactive AdminDepartment entries performed successfully!");
+		List<AdminDepartment> departments = adminDeptRepo.findInactiveDepartmentsOfActiveInstitutions();
 
-		return adminDept;
+		logger.info("Fetched all inactive departments :" + departments);
+		objectDepartments = new ArrayList<Object>(departments);
+
+
+		return objectDepartments;
 	}
 
 	/**

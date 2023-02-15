@@ -148,7 +148,7 @@ public class CourseServiceImpl implements CourseService {
 
 		List<Object> objectCourses = null;
 
-		List<Course> courses = courseRepo.findCourseIsActiveFalse();
+		List<Course> courses = courseRepo.findInactiveCoursesOfActiveInstitutions();
 
 		logger.info("Fetched all inactive course :" + courses);
 		objectCourses = new ArrayList<Object>(courses);
