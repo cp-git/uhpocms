@@ -258,14 +258,14 @@ public class QuizController {
 				return ResponseHandler.generateListResponse(quizzes, HttpStatus.OK);
 			} else {
 
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
 
 		} catch (Exception ex) {
 
 			logger.error("Failed getting all quizzes : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 
 		}
 	}
@@ -288,7 +288,7 @@ public class QuizController {
 			obj = quizService.updateActiveStatus(title);
 
 			if (obj == null) {
-				logger.info(resourceBunde.getString("err004"));
+				logger.info(resourceBundle.getString("err004"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			} else {
 				logger.info("updated quiz : " + obj);
@@ -297,7 +297,7 @@ public class QuizController {
 
 		} catch (Exception ex) {
 			logger.error("Failed update Quiz : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
+			throw new CPException("err004", resourceBundle.getString("err004"));
 
 		}
 	}

@@ -214,14 +214,14 @@ public class ModuleController {
 				return ResponseHandler.generateListResponse(modules, HttpStatus.OK);
 			} else {
 
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
 
 		} catch (Exception ex) {
 
 			logger.error("Failed getting all modules : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 
 		}
 	}
@@ -244,7 +244,7 @@ public class ModuleController {
 			obj = moduleService.updateActiveStatus(name);
 
 			if (obj == null) {
-				logger.info(resourceBunde.getString("err004"));
+				logger.info(resourceBundle.getString("err004"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			} else {
 				logger.info("updated module : " + obj);
@@ -253,7 +253,7 @@ public class ModuleController {
 
 		} catch (Exception ex) {
 			logger.error("Failed update module : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
+			throw new CPException("err004", resourceBundle.getString("err004"));
 
 		}
 	}
