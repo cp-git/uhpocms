@@ -54,7 +54,7 @@ public class AdminDepartment {
 	 * @param id
 	 * @param name
 	 * @param description
-	 * @param institutionId_id
+	 * @param institutionId
 	 */
 	public AdminDepartment(boolean isactive, int id, String name, String description, int institutionId) {
 		super();
@@ -74,7 +74,7 @@ public class AdminDepartment {
 	 * @param createdOn
 	 * @param modifiedBy
 	 * @param modifiedOn
-	 * @param institutionId_id
+	 * @param institutionId
 	 */
 	public AdminDepartment(boolean isactive, int id, String name, String description, String createdBy, Date createdOn,
 			String modifiedBy, Date modifiedOn, int institutionId) {
@@ -119,7 +119,7 @@ public class AdminDepartment {
 	}
 
 	/**
-	 * @return the institutionId_id
+	 * @return the institutionId
 	 */
 	public int getInstitutionId() {
 		return institutionId;
@@ -189,7 +189,7 @@ public class AdminDepartment {
 	}
 
 	/**
-	 * @param institutionId_id the institutionId_id to set
+	 * @param institutionId the institutionId to set
 	 */
 	public void setInstitutionId(int institutionId) {
 		this.institutionId = institutionId;
