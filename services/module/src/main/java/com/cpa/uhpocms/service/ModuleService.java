@@ -22,5 +22,8 @@ public interface ModuleService {
 	Module updateModuleByName(Module module, String name);
 
 	int deleteModuleByName(String name);
+	
+	List<Object> findByCourseId(int courseId);
+	
 
 }

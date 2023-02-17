@@ -30,4 +30,5 @@ public interface ModuleRepo extends JpaRepository<Module, Integer> {
 	@Query(value = "UPDATE teacher_module SET isactive=false WHERE name = ?1", nativeQuery = true)
 	public int deleteModuleByName(String name);
 
+	public List<Object> findByCourseIdAndModuleIsActive(int courseId,boolean isActive);
 }

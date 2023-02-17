@@ -25,5 +25,7 @@ public interface AdminInstitutionService {
 	AdminInstitution updateAdminInstitutionByName(AdminInstitution adminInstitution, String adminInstitutionName);
 
 	AdminInstitution findByAdminInstitutionName(String adminInstitutionName);
+	
+	
 
 }

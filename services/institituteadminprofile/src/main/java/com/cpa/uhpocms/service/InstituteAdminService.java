@@ -19,5 +19,8 @@ public interface InstituteAdminService {
 	
 	int deleteDepartmentByName(String firstName);
 	
+	List<Object> getProfileByDepartmentId(int department_id);
+	
+	
 	
 }

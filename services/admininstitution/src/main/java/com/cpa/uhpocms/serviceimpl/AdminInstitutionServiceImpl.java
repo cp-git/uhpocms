@@ -6,6 +6,7 @@
  */
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.cpa.uhpocms.controller.AdminInstitutionController;
 import com.cpa.uhpocms.entity.AdminInstitution;
+
 import com.cpa.uhpocms.repository.AdminInstitutionRepository;
 import com.cpa.uhpocms.service.AdminInstitutionService;
 
@@ -125,5 +127,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		logger.info("Fetched AdminInstitution data" + adminInstitution);
 		return adminInstitution;
 	}
+
+	
 
 }

@@ -1,5 +1,7 @@
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
+
 /**
  * @author Anmesh
  * @createdOn 30th Nov 2022
@@ -14,6 +16,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import com.cpa.uhpocms.entity.InstituteAdmin;
 import com.cpa.uhpocms.repository.InstituteAdminRepository;
@@ -141,6 +144,21 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	public InstituteAdmin getInstituteByName(String firstName) {
 
 		return instituteAdminRepository.findByFirstName(firstName);
+	}
+
+
+
+	@Override
+	public List<Object> getProfileByDepartmentId(int department_id) {
+		// TODO Auto-generated method stub
+		List<Object> profileObject = null;
+
+		List<Object> object = instituteAdminRepository.findProfileByDepartmentId(department_id);
+
+
+		profileObject = new ArrayList<Object>(object);
+		return profileObject;
+
 	}
 
 }

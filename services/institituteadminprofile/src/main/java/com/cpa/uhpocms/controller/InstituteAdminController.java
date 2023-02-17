@@ -222,6 +222,8 @@ public class InstituteAdminController {
 
 	}
 	
+	
+	
 	@GetMapping(path = "/basicauth")
     public AuthenticationBean basicauth() {
         return new AuthenticationBean("You are authenticated");

@@ -23,6 +23,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 	@Autowired
 	private ModuleRepo moduleRepo;
+	private static final boolean ISACTIVE = true;
 	private static Logger logger;
 
 	public ModuleServiceImpl() {
@@ -125,6 +126,14 @@ public class ModuleServiceImpl implements ModuleService {
 		int count = moduleRepo.deleteModuleByName(name);
 		logger.info("deleted Module count : " + count);
 		return count;
+	}
+
+	@Override
+	public List<Object> findByCourseId(int courseId) {
+		// TODO Auto-generated method stub
+		List<Object> moduleCourse = moduleRepo.findByCourseIdAndModuleIsActive(courseId, ISACTIVE);
+		return moduleCourse;
+		
 	}
 
 }
