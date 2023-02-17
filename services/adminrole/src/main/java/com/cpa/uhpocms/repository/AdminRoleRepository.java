@@ -48,7 +48,7 @@ public interface AdminRoleRepository extends JpaRepository<AdminRole, String> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "UPDATE admin_role SET isactive=true WHERE role_id=?1", nativeQuery = true)
+	@Query(value = "UPDATE admin_role SET isactive=true WHERE roleid=?1", nativeQuery = true)
 	int activateRoleById(int roleId);
 
 }
