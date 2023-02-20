@@ -28,6 +28,7 @@ public class AdminRole {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "roleid")
 	private int roleId;
 
 	@Column(name = "isactive", nullable = false)

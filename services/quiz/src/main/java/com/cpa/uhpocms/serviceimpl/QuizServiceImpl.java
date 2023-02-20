@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 //import com.cpa.uhpocms.controller.QuizController;
 import com.cpa.uhpocms.entity.Quiz;
 import com.cpa.uhpocms.repository.QuizRepo;
@@ -146,6 +147,58 @@ public class QuizServiceImpl implements QuizService {
 		int count = quizRepo.deleteBytitle(title);
 		logger.info("deleted Quiz count : " + count);
 		return count;
+	}
+
+	/**
+	 * @author Shradha
+	 * 
+	 * 
+	 */
+	@Override
+	public List<Object> getInactiveQuizzes() {
+		// TODO Auto-generated method stub
+		logger.debug("Entering getInActiveQuestions ");
+		List<Object> quizzes = quizRepo.findByIsActiveFalse();
+		
+		logger.info("In active quizzes : " + quizzes);
+		return quizzes;
+	}
+
+	
+	/**
+	 * @author Shradha
+	 * 
+	 */
+	@Override
+	public Object updateActiveStatus(String title) {
+		// TODO Auto-generated method stub
+
+		System.out.println(title);
+		logger.debug("Entering getInActiveQuestions ");
+		List<Object> quizzes = getInactiveQuizzes();
+		
+		if(quizzes.size() >= 1)
+		{
+			Object object = quizRepo.findBytitle(title);
+			
+			System.out.println(object);
+			
+		  	System.out.println("Entered  instanceof loop");
+		        Quiz quiz = (Quiz) object;
+		        System.out.println(quiz);
+		        quiz.setActive(true);
+		        
+		        System.out.println(quiz);
+		        
+		        
+		    
+
+		    logger.info("question object"+ object);
+		    return quizRepo.save(quiz);
+		}
+		
+		
+		return null;
 	}
 
 }

@@ -103,6 +103,7 @@
 		</dependency> 
 	</dependencies>
 	<modules>
+		<module>services/announcement</module>
 		<module>services/course</module>
 		<module>services/category</module>
 		<module>services/authuser</module>

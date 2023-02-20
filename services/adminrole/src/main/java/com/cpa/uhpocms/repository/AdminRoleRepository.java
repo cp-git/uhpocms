@@ -41,4 +41,14 @@ public interface AdminRoleRepository extends JpaRepository<AdminRole, String> {
 	 */
 	public AdminRole findByRoleName(String roleName);
 
+	/**
+	 * @description : For finding roles which are in inactive state
+	 */
+	public List<Object> findByisActiveFalse();
+
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE admin_role SET isactive=true WHERE roleid=?1", nativeQuery = true)
+	int activateRoleById(int roleId);
+
 }

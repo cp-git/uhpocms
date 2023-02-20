@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/uhpocms/role",
+			"name": "http://localhost:8090/uhpocms/role",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -20,12 +20,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/uhpocms/role",
+					"raw": "http://localhost:8090/uhpocms/role",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"uhpocms",
 						"role"
@@ -35,17 +35,17 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/uhpocms/role/student",
+			"name": "http://localhost:8090/uhpocms/role/student",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/uhpocms/role/student",
+					"raw": "http://localhost:8090/uhpocms/role/student",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"uhpocms",
 						"role",
@@ -56,7 +56,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/uhpocms/role?name=all",
+			"name": "http://localhost:8090/uhpocms/role?name=all",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -73,12 +73,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/uhpocms/role?name=all",
+					"raw": "http://localhost:8090/uhpocms/role?name=all",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"uhpocms",
 						"role"
@@ -94,17 +94,17 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/uhpocms/role/student",
+			"name": "http://localhost:8090/uhpocms/role/student",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/uhpocms/role/student",
+					"raw": "http://localhost:8090/uhpocms/role/student",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"uhpocms",
 						"role",
@@ -115,7 +115,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/uhpocms/role/coadmin",
+			"name": "http://localhost:8090/uhpocms/role/coadmin",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -129,12 +129,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/uhpocms/role/coadmin",
+					"raw": "http://localhost:8090/uhpocms/role/coadmin",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"uhpocms",
 						"role",

@@ -120,7 +120,7 @@ public class AdminDeptServImplTest {
 		assertThat(adminDepartment2.getName()).isEqualTo("Forensic");
 		assertThat(adminDepartment2.getDescription()).isEqualTo("Forensic");
 		assertThat(adminDepartment2.isActive()).isEqualTo(true);
-		assertThat(adminDepartment2.getInstitutionId_id()).isEqualTo(1);
+		assertThat(adminDepartment2.getInstitutionId()).isEqualTo(1);
 
 	}
 
@@ -157,7 +157,7 @@ public class AdminDeptServImplTest {
 		adminDepartment2.setActive(false);
 		adminDepartment2.setName("Micro");
 		adminDepartment2.setDescription("Micro");
-		adminDepartment2.setInstitutionId_id(1);
+		adminDepartment2.setInstitutionId(1);
 
 		System.out.println("test object");
 		System.out.println(adminDepartment);
@@ -167,7 +167,7 @@ public class AdminDeptServImplTest {
 		assertThat(updatedDepartment.getName()).isNotEqualTo("Forensic");
 		assertThat(updatedDepartment.getDescription()).isNotEqualTo("Forensic");
 		assertThat(updatedDepartment.isActive()).isNotEqualTo(true);
-		assertThat(updatedDepartment.getInstitutionId_id()).isEqualTo(1);
+		assertThat(updatedDepartment.getInstitutionId()).isEqualTo(1);
 
 	}
 

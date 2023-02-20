@@ -100,7 +100,7 @@ public class InstituteAdmin {
 		super();
 
 	}
-	
+
 	/**
 	 * @param adminId
 	 * @param userRole
@@ -154,9 +154,7 @@ public class InstituteAdmin {
 		this.institutionId = institutionId;
 		this.userId = userId;
 	}
-	
-	
-	
+
 	/**
 	 * @param adminId
 	 * @param userRole
@@ -201,8 +199,7 @@ public class InstituteAdmin {
 		this.institutionId = institutionId;
 		this.userId = userId;
 	}
-	
-	
+
 	/**
 	 * @return the adminId
 	 */
@@ -259,7 +256,6 @@ public class InstituteAdmin {
 		this.lastName = lastName;
 	}
 
-	
 	/**
 	 * @return the adminEmail
 	 */
@@ -274,7 +270,6 @@ public class InstituteAdmin {
 		this.adminEmail = adminEmail;
 	}
 
-	
 	/**
 	 * @return the dob
 	 */
@@ -288,7 +283,6 @@ public class InstituteAdmin {
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
-
 
 	/**
 	 * @return the mobilePhone
@@ -311,7 +305,6 @@ public class InstituteAdmin {
 		return adminGender;
 	}
 
-	
 	/**
 	 * @param adminGender the adminGender to set
 	 */
@@ -319,7 +312,6 @@ public class InstituteAdmin {
 		this.adminGender = adminGender;
 	}
 
-	
 	/**
 	 * @return the adminDepartment
 	 */
@@ -334,7 +326,6 @@ public class InstituteAdmin {
 		this.adminDepartment = adminDepartment;
 	}
 
-	
 	/**
 	 * @return the adminAddress1
 	 */
@@ -348,8 +339,6 @@ public class InstituteAdmin {
 	public void setAdminAddress1(String adminAddress1) {
 		this.adminAddress1 = adminAddress1;
 	}
-
-	
 
 	/**
 	 * @return the adminAddress2
@@ -371,7 +360,6 @@ public class InstituteAdmin {
 	public String getAdminCity() {
 		return adminCity;
 	}
-
 
 	/**
 	 * @param adminCity the adminCity to set
@@ -414,7 +402,6 @@ public class InstituteAdmin {
 	public String getProfilePics() {
 		return profilePics;
 	}
-
 
 	/**
 	 * @param profilePics the profilePics to set
@@ -486,7 +473,6 @@ public class InstituteAdmin {
 		return activeUser;
 	}
 
-
 	/**
 	 * @param activeUser the activeUser to set
 	 */
@@ -500,7 +486,7 @@ public class InstituteAdmin {
 	public int getInstitutionId() {
 		return institutionId;
 	}
-	
+
 	/**
 	 * @param institutionalId the institutionalId to set
 	 */

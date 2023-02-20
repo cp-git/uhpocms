@@ -26,4 +26,15 @@ public interface ModuleService {
 	List<Object> findByCourseId(int courseId);
 	
 
+	/*
+	 * @author:Shradha
+	 * @createdOn:10 Feb 2023
+	 */
+	List<Object> getAllInactiveModules();
+	
+	/**
+	 * @author Shradha
+	 * @createdOn:10 Feb 2023
+	 */
+	Object updateActiveStatus(String name);
 }

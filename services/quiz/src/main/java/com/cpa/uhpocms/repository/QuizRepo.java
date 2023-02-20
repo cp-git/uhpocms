@@ -30,4 +30,5 @@ public interface QuizRepo extends JpaRepository<Quiz, Integer> {
 	@Query(value = "UPDATE  Teacher_quiz SET isactive=false WHERE title = ?1", nativeQuery = true)
 	public int deleteBytitle(String title);
 
+	public List<Object> findByIsActiveFalse();
 }

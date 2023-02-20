@@ -12,13 +12,6 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletResponse;
 
-
-import com.cpa.uhpocms.entity.AdminDepartment;
-import com.cpa.uhpocms.entity.AuthenticationBean;
-import com.cpa.uhpocms.exception.CPException;
-import com.cpa.uhpocms.helper.ResponseHandler;
-import com.cpa.uhpocms.service.AdminDeptService;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,7 +29,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.cpa.uhpocms.entity.AdminDepartment;
+import com.cpa.uhpocms.entity.AuthenticationBean;
+import com.cpa.uhpocms.exception.CPException;
+import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.service.AdminDeptService;
 
 /*
  @author
@@ -52,10 +50,10 @@ public class AdminDeptController {
 	@Autowired
 	AdminDeptService adminDeptService;
 
-	private ResourceBundle resourceBunde;
+	private ResourceBundle resourceBundle;
 
 	AdminDeptController() {
-		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
+		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 	}
 
 	/**
@@ -83,10 +81,10 @@ public class AdminDeptController {
 
 		} catch (Exception e) {
 			logger.info("Unable to perform delete operation due to exception occurence");
-			throw new CPException("err005", resourceBunde.getString("err005"));
+			throw new CPException("err005", resourceBundle.getString("err005"));
 
 		}
-		logger.error(resourceBunde.getString("err005"));
+		logger.error(resourceBundle.getString("err005"));
 		return ResponseHandler.generateResponse("err005", HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
@@ -103,25 +101,29 @@ public class AdminDeptController {
 	public ResponseEntity<List<Object>> getDepartment(@RequestParam("name") String name) throws CPException {
 
 		try {
-			List<Object> adminDept = adminDeptService.getAdminDepartments();
+			List<Object> adminDept = null;
 
 			if (name.equalsIgnoreCase("all")) {
+				adminDept = adminDeptService.getAdminDepartments();
 				if (adminDept.isEmpty() == false) {
 
 					logger.info("getting all AdminDepartment entries performed successfully!");
 					logger.info(adminDept);
 					return ResponseHandler.generateListResponse(adminDept, HttpStatus.OK);
 				}
+			} else if (name.equalsIgnoreCase("inactive")) {
+				adminDept = adminDeptService.getAllInactiveDepartments();
+				return ResponseHandler.generateListResponse(adminDept, HttpStatus.OK);
 			}
 		} catch (Exception e) {
 
 			logger.info("Unable to fetch all data due to exception occurence");
 
-			throw new CPException("err022", resourceBunde.getString("err022"));
+			throw new CPException("err022", resourceBundle.getString("err022"));
 
 		}
 
-		logger.error(resourceBunde.getString("err022"));
+		logger.error(resourceBundle.getString("err022"));
 		return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err022");
 
 	}
@@ -148,8 +150,8 @@ public class AdminDeptController {
 
 		catch (Exception e) {
 
-			logger.error(resourceBunde.getString("err021"));
-			throw new CPException("err021", resourceBunde.getString("err021"));
+			logger.error(resourceBundle.getString("err021"));
+			throw new CPException("err021", resourceBundle.getString("err021"));
 
 		}
 		logger.info("Unable to fetch data belonging to name" + name + "due to exception occurence");
@@ -171,7 +173,6 @@ public class AdminDeptController {
 		logger.info("Entered insertDepartment() ");
 		try {
 			AdminDepartment refAdminDepartment = null;
-			int status;
 
 			refAdminDepartment = adminDeptService.insertDept(adminDepartment);
 			if (refAdminDepartment != null) {
@@ -182,10 +183,10 @@ public class AdminDeptController {
 		} catch (Exception e) {
 
 			logger.info("Unable to create entry due to exception occurence");
-			throw new CPException("err013", resourceBunde.getString("err013"));
+			throw new CPException("err013", resourceBundle.getString("err013"));
 
 		}
-		logger.error(resourceBunde.getString("err013"));
+		logger.error(resourceBundle.getString("err013"));
 		return ResponseHandler.generateResponse("err013", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -212,16 +213,67 @@ public class AdminDeptController {
 		} catch (Exception e) {
 
 			logger.info("Unable to update entry in Admin_Department table due to exception occurence");
-			throw new CPException("err004", resourceBunde.getString("err004"));
+			throw new CPException("err004", resourceBundle.getString("err004"));
 
 		}
-		logger.error(resourceBunde.getString("err004"));
+		logger.error(resourceBundle.getString("err004"));
 		return ResponseHandler.generateResponse("err004", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	@GetMapping(path = "/basicauth")
-    public AuthenticationBean basicauth() {
-        return new AuthenticationBean("You are authenticated");
-    }
+	public AuthenticationBean basicauth() {
+		return new AuthenticationBean("You are authenticated");
+	}
+
+	@GetMapping(path = "department/institutionId/{id}", produces = { "application/json", "application/xml" })
+	public ResponseEntity<List<Object>> getDepartmentByInstitutionId(@PathVariable("id") int institutionId)
+			throws CPException {
+
+		try {
+			List<Object> adminDept = adminDeptService.findByInstitutionId(institutionId);
+			if (adminDept != null) {
+
+				logger.info("Getting AdminDepartment by " + institutionId + " performed successfully");
+				logger.info(adminDept);
+				return new ResponseEntity<List<Object>>(adminDept, HttpStatus.OK);
+			}
+		}
+
+		catch (Exception e) {
+
+			logger.error(resourceBundle.getString("err021"));
+			throw new CPException("err021", resourceBundle.getString("err021"));
+
+		}
+
+		return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err022");
+	}
+
+	/**
+	 * @description: for activating deactivated department by using department id
+	 *
+	 */
+	@PatchMapping(path = "/department/activate/{id}")
+	public ResponseEntity<Object> ActivateAdminDepartmentById(@PathVariable("id") int departmentId) throws CPException {
+		logger.debug("activate institution by id " + departmentId);
+		int count = 0;
+
+		try {
+			count = adminDeptService.activateDepartment(departmentId);
+
+			if (count >= 1) {
+				logger.info("activated admin deaprtment : adminDepartmentId = " + departmentId);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err016"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err006");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to activate admin department :" + ex.getMessage());
+			throw new CPException("err006", resourceBundle.getString("err006"));
+		}
+
+	}
 
 }

@@ -23,4 +23,7 @@ public interface CategoryService {
 
 	int deleteCategoryByCategory(String category);
 
+    Object updateActiveStatus(String name);
+    
+    List<Object> getInActiveCategories();
 }

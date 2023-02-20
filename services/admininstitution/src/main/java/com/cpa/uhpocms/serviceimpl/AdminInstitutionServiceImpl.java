@@ -28,7 +28,6 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 	public AdminInstitutionServiceImpl() {
 		logger = Logger.getLogger(AdminInstitutionController.class);
-		
 
 	}
 
@@ -128,6 +127,38 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		return adminInstitution;
 	}
 
-	
+
+	/**
+	 * @return : adminInstitutions - list of institution which are in inactive state
+	 * @description : For retrieving the all entries in admin_institution table
+	 *              which are in inactive state
+	 */
+	@Override
+	public List<Object> getAllInactiveAdminInstitutions() {
+		logger.debug("Entering getAllInactiveAdminInstitutions");
+
+		List<Object> objectList = adminInstitutionRepository.findByAdminInstitutionIsActiveFalse();
+
+		logger.info("Fetched all inactive institution :" + objectList);
+
+		return objectList;
+	}
+
+	/**
+	 * @param: int adminInstitutionId - id of institution we want to update
+	 * @return : int count - how many rows updated
+	 * @description : For activating the specific entry in admin_institution table
+	 *              by id
+	 */
+	@Override
+	public int activateAdminInstitutionById(int adminInstitutionId) {
+		logger.debug("Entering getAllInactiveAdminInstitutions");
+		int count = adminInstitutionRepository.activateAdminInstitutionById(adminInstitutionId);
+
+		logger.info("activated institutions count :" + count);
+
+		return count;
+	}
+
 
 }

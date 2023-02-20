@@ -6,12 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class InstituteAdminApplication extends SpringBootServletInitializer{
-	  private static final Logger loggger = Logger.getLogger(InstituteAdminApplication.class);
+public class InstituteAdminApplication extends SpringBootServletInitializer {
+	private static final Logger logger = Logger.getLogger(InstituteAdminApplication.class);
+
 	public static void main(String[] args) {
 		SpringApplication.run(InstituteAdminApplication.class, args);
 		System.out.println("Welcome to spring boot");
-		loggger.info("in Main class");
+		logger.info("in Main class");
 	}
 
 }

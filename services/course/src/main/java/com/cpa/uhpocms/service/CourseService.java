@@ -27,4 +27,10 @@ public interface CourseService {
 	
 	List<Object> findCoursesByDepartmentId(int department_id);
 
+	List<Object> findByInstitutionId(int institutionId);
+
+	List<Object> getAllInactiveCourses();
+
+	int activateCourseById(int courseId);
+
 }

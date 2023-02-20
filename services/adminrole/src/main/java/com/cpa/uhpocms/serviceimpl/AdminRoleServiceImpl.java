@@ -147,4 +147,35 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 		return updateRole;
 	}
 
+	/**
+	 * @param : int roleId
+	 * @return : int - count of updated /activated roles
+	 * @description : For soft deleting entry
+	 */
+
+	@Override
+	public int activateAdminRoleByRoleId(int roleId) {
+
+		logger.debug("Entering in activateAdminRoleByRoleId");
+		int adminRole = 0;
+
+		adminRole = adminRoleRepository.activateRoleById(roleId);
+		logger.info("activate role by role id :" + roleId);
+		return adminRole;
+	}
+
+	/**
+	 * @return : adminrole list
+	 * @description : For get all the roles info
+	 */
+	@Override
+	public List<Object> getAllInactiveAdminRoles() {
+		// TODO Auto-generated method stub
+		logger.debug("Entering getAllInactiveAdminRoles");
+		List<Object> adminRole = new ArrayList<Object>(adminRoleRepository.findByisActiveFalse());
+
+		logger.info("Fetched all inactive admin roles:" + adminRole);
+		return adminRole;
+	}
+
 }

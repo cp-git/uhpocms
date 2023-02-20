@@ -23,7 +23,7 @@ public class ResponseHandler {
 	/**
 	 * creating object of ResourceBundle
 	 */
-	static ResourceBundle resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
+	static ResourceBundle resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 
 	/**
 	 * @author : Akash
@@ -61,7 +61,7 @@ public class ResponseHandler {
 		Map<String, Object> response = new HashMap<String, Object>();
 
 		response.put("errorCode", code);
-		response.put("errorMessage", resourceBunde.getObject(code));
+		response.put("errorMessage", resourceBundle.getObject(code));
 
 		return new ResponseEntity<Object>(response, status);
 	}
@@ -78,7 +78,7 @@ public class ResponseHandler {
 		List<Object> list = new ArrayList<Object>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("errorCode", code);
-		map.put("errorMessage", resourceBunde.getObject(code));
+		map.put("errorMessage", resourceBundle.getObject(code));
 
 		list.add(map);
 

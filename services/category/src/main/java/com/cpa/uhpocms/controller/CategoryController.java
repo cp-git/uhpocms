@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,11 +41,11 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;;
 
-	private ResourceBundle resourceBunde;
+	private ResourceBundle resourceBundle;
 	private static Logger logger;
 
 	CategoryController() {
-		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
+		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(CategoryController.class);
 	}
 
@@ -73,13 +74,13 @@ public class CategoryController {
 
 			} else {
 
-				logger.error(resourceBunde.getString("err003"));
+				logger.error(resourceBundle.getString("err003"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
 			}
 
 		} catch (Exception ex) {
 			logger.error("Failed Category creation : " + ex.getMessage());
-			throw new CPException("err003", resourceBunde.getString("err003"));
+			throw new CPException("err003", resourceBundle.getString("err003"));
 		}
 	}
 
@@ -106,7 +107,7 @@ public class CategoryController {
 		} catch (Exception ex) {
 
 			logger.error("Failed getting category : " + ex.getMessage());
-			throw new CPException("err001", resourceBunde.getString("err001"));
+			throw new CPException("err001", resourceBundle.getString("err001"));
 		}
 
 	}
@@ -129,14 +130,14 @@ public class CategoryController {
 				return ResponseHandler.generateListResponse(categorys, HttpStatus.OK);
 			} else {
 
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
 
 		} catch (Exception ex) {
 
 			logger.error("Failed getting all categorys : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 
 		}
 	}
@@ -155,13 +156,13 @@ public class CategoryController {
 				logger.info("deleted Category : Category = " + name);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
-				logger.info(resourceBunde.getString("err005"));
+				logger.info(resourceBundle.getString("err005"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
 			}
 
 		} catch (Exception ex) {
 			logger.error("Failed to delete Category :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
+			throw new CPException("err005", resourceBundle.getString("err005"));
 		}
 
 	}
@@ -178,7 +179,7 @@ public class CategoryController {
 			updatedCategory = categoryService.updateCategoryByCategory(category, name);
 
 			if (updatedCategory == null) {
-				logger.info(resourceBunde.getString("err004"));
+				logger.info(resourceBundle.getString("err004"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			} else {
 				logger.info("updated category : " + updatedCategory);
@@ -187,10 +188,69 @@ public class CategoryController {
 
 		} catch (Exception ex) {
 			logger.error("Failed update Category : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
+			throw new CPException("err004", resourceBundle.getString("err004"));
 
 		}
 
+	}
+	
+	@GetMapping("/category/inactive")
+	public  ResponseEntity<List<Object>> getInactiveCategories(@RequestParam(name = "inactivecategories") String inactivecategories) throws CPException 
+	{
+		List<Object> categories = null;
+		try {
+
+			if (inactivecategories.equalsIgnoreCase("all")) {
+
+				categories = categoryService.getInActiveCategories();
+				logger.info("Fetched all Inactive Question :" + categories);
+
+				return ResponseHandler.generateListResponse(categories, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all questions : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+		}
+	}
+	
+	
+	/**
+	 * @author Shradha
+	 * @param category
+	 * @return
+	 * @throws CPException
+	 */
+	@PatchMapping("/category/{category}")
+	public ResponseEntity<Object> updateActiveStatus(@PathVariable("category") String category) throws CPException{
+		
+		logger.debug("Entering updateActiveStatus");
+		
+
+		Object obj = null;
+
+		try { 
+			obj = categoryService.updateActiveStatus(category);
+
+			if (obj == null) {
+				logger.info(resourceBundle.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated question : " + obj);
+				return ResponseHandler.generateResponse(obj, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update Category : " + ex.getMessage());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
 	}
 	
 	@GetMapping(path = "/basicauth")
