@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.cpa.uhpocms.entity.InstituteAdmin;
 
 @Repository
@@ -70,4 +71,7 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	@Query(value = "UPDATE instituteadmin_profile SET isactive=true WHERE id= ?1", nativeQuery = true)
 	public int activateInstituteProfileById(int profileId);
 
+	@Query(value="SELECT profile.* FROM instituteadmin_profile profile JOIN teacher_course_enrolltostudent enroll ON  profile.id = enroll.profile_id where profile.isactive=true and enroll.course_id IN SELECT deptid.course_id FROM teacher_course_departmentid deptid WHERE deptid.department_id = ?1", nativeQuery =true)
+	public List<Object> findProfileByDepartmentId(int department_id);
+	 
 }

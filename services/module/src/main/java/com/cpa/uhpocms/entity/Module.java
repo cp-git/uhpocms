@@ -54,7 +54,7 @@ public class Module {
 	private int moduleOrderNo;
 
 	@Column(name = "courseid_id")
-	private int courseId_id;
+	private int courseId;
 
 	@Column(name = "createdby")
 	private String moduleCreatedBy;
@@ -97,7 +97,7 @@ public class Module {
 		this.moduleEndDate = moduleEndDate;
 		this.moduleCourse = moduleCourse;
 		this.moduleOrderNo = moduleOrderNo;
-		this.courseId_id = courseId_id;
+		this.courseId = courseId_id;
 		this.moduleCreatedBy = moduleCreatedBy;
 		this.moduleCreatedDate = moduleCreatedDate;
 		this.moduleUpdatedBy = moduleUpdatedBy;
@@ -123,7 +123,7 @@ public class Module {
 		this.moduleEndDate = moduleEndDate;
 		this.moduleCourse = moduleCourse;
 		this.moduleOrderNo = moduleOrderNo;
-		this.courseId_id = courseId_id;
+		this.courseId = courseId_id;
 	}
 
 	/**
@@ -242,14 +242,14 @@ public class Module {
 	 * @return the courseId_id
 	 */
 	public int getCourseId_id() {
-		return courseId_id;
+		return courseId;
 	}
 
 	/**
 	 * @param courseId_id the courseId_id to set
 	 */
 	public void setCourseId_id(int courseId_id) {
-		this.courseId_id = courseId_id;
+		this.courseId = courseId_id;
 	}
 
 	/**
@@ -313,7 +313,7 @@ public class Module {
 		return "Module [moduleId=" + moduleId + ", moduleName=" + moduleName + ", moduleDescription="
 				+ moduleDescription + ", moduleIsActive=" + moduleIsActive + ", moduleStartDate=" + moduleStartDate
 				+ ", moduleEndDate=" + moduleEndDate + ", moduleCourse=" + moduleCourse + ", moduleOrderNo="
-				+ moduleOrderNo + ", courseId_id=" + courseId_id + ", moduleCreatedBy=" + moduleCreatedBy
+				+ moduleOrderNo + ", courseId_id=" + courseId + ", moduleCreatedBy=" + moduleCreatedBy
 				+ ", moduleCreatedDate=" + moduleCreatedDate + ", moduleUpdatedBy=" + moduleUpdatedBy
 				+ ", moduleUpdatedDate=" + moduleUpdatedDate + "]";
 	}
