@@ -136,6 +136,11 @@ public class CourseServiceImpl implements CourseService {
 
 		List<Course> courses = courseRepo.findTeacherProfileId(profile_id);
 
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+	}
+	
 	public List<Object> findByInstitutionId(int institutionId) {
 		// TODO Auto-generated method stub
 
@@ -158,10 +163,10 @@ public class CourseServiceImpl implements CourseService {
 		List<Course> courses = courseRepo.findCourseByDepartmentId(department_id);
 
 		logger.info("Fetched all active course :" + courses);
-
-
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
 	}
-
+	
 	@Override
 	public List<Object> getAllInactiveCourses() {
 		logger.debug("Entering getAllInactiveCourses");
