@@ -264,21 +264,20 @@ public class ModuleController {
     }
     
     @GetMapping(path = "module/courseId/{id}", produces = { "application/json", "application/xml" })
-	public ResponseEntity<List<Object>> getModuleByCourseId(@PathVariable("id") int courseId)
-			throws CPException {
-		try {
-			List<Object> moduleCourse = moduleService.findByCourseId(courseId);
-			if (moduleCourse != null) {
-				logger.info("Getting Module by " + courseId + " performed successfully");
-				logger.info(moduleCourse);
-				return new ResponseEntity<List<Object>>(moduleCourse, HttpStatus.OK);
-			}
-		}
-		catch (Exception e) {
-			logger.error(resourceBunde.getString("err021"));
-			throw new CPException("err021", resourceBunde.getString("err021"));
-		}
-		return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err022");
-	}
-
+   	public ResponseEntity<List<Object>> getModuleByCourseId(@PathVariable("id") int courseId)
+   			throws CPException {
+   		try {
+   			List<Object> moduleCourse = moduleService.findByCourseId(courseId);
+   			if (moduleCourse != null) {
+   				logger.info("Getting Module by " + courseId + " performed successfully");
+   				logger.info(moduleCourse);
+   				return new ResponseEntity<List<Object>>(moduleCourse, HttpStatus.OK);
+   			}
+   		}
+   		catch (Exception e) {
+   			logger.error(resourceBundle.getString("err021"));
+   			throw new CPException("err021", resourceBundle.getString("err021"));
+   		}
+   		return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err022");
+   	}
 }

@@ -212,12 +212,12 @@ public class CourseController {
 				logger.info("Fetched all Course :" + courses);
 				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
 			} else {
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
 		} catch (Exception ex) {
 			logger.error("Failed getting all courses : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 		}
 	}
 	
@@ -233,12 +233,12 @@ public class CourseController {
 				logger.info("Fetched all Course :" + courses);
 				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
 			} else {
-				logger.info(resourceBunde.getString("err002"));
+				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
 		} catch (Exception ex) {
 			logger.error("Failed getting all courses : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
+			throw new CPException("err002", resourceBundle.getString("err002"));
 		}
 	}
 	
