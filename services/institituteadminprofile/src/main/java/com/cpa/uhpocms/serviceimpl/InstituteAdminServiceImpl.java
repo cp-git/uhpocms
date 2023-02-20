@@ -14,6 +14,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.cpa.uhpocms.entity.InstituteAdmin;
 import com.cpa.uhpocms.repository.InstituteAdminRepository;
 import com.cpa.uhpocms.service.InstituteAdminService;
@@ -130,6 +131,23 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return instituteAdminRepository.findByFirstName(firstName);
 	}
 
+
+
+
+	@Override
+	public List<Object> getProfileByDepartmentId(int department_id) {
+		// TODO Auto-generated method stub
+		List<Object> profileObject = null;
+
+		List<Object> object = instituteAdminRepository.findProfileByDepartmentId(department_id);
+
+
+		profileObject = new ArrayList<Object>(object);
+		return profileObject;
+
+	}
+
+
 	/**
 	 * @return : List<InstituteAdmin>
 	 * @description : For getting All institute admin profile data which are in
@@ -162,4 +180,5 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		logger.info("activated institutionProfile count : " + count);
 		return count;
 	}
+
 }

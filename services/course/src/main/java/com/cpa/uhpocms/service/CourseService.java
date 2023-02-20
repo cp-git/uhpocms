@@ -22,6 +22,10 @@ public interface CourseService {
 	Course updateCourseByName(Course course, String name);
 
 	int deleteCourseByName(String name);
+	
+	List<Object> findCourseByProfileId(int profile_id);
+	
+	List<Object> findCoursesByDepartmentId(int department_id);
 
 	List<Object> findByInstitutionId(int institutionId);
 

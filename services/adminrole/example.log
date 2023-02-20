@@ -36,6 +36,7 @@
 2023-Jan-05 15:06:57 DEBUG [http-nio-8090-exec-2] com.cpa.uhpocms.controller.AdminRoleController.getAllAdminRole(AdminRoleController.java:83) - in getAllAdminRole method
 2023-Jan-05 15:06:57 DEBUG [http-nio-8090-exec-2] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.getAllAdminRole(AdminRoleServiceImpl.java:71) - Entering getAllAdminRole
 2023-Jan-05 15:06:57 INFO [http-nio-8090-exec-2] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.getAllAdminRole(AdminRoleServiceImpl.java:74) - Fetched all active users :[AdminRole [roleId=1, isActive=true, roleName=teacher, roleDescription=vhvghvgh, createdBy=admin, createdOn=2023-01-05 06:57:00.497, modifiedBy=admin, modifiedOn=2023-01-05 06:57:00.497]]
+
 2023-Feb-10 13:01:06 INFO [restartedMain] com.cpa.uhpocms.AdminRoleApplication.main(AdminRoleApplication.java:15) - in main class 
 2023-Feb-10 13:01:57 INFO [restartedMain] com.cpa.uhpocms.AdminRoleApplication.main(AdminRoleApplication.java:15) - in main class 
 2023-Feb-10 13:02:20 INFO [restartedMain] com.cpa.uhpocms.AdminRoleApplication.main(AdminRoleApplication.java:15) - in main class 
@@ -76,3 +77,4 @@
 2023-Feb-10 13:08:47 DEBUG [http-nio-8080-exec-7] com.cpa.uhpocms.controller.AdminRoleController.getAllAdminRole(AdminRoleController.java:84) - in getAllAdminRole method
 2023-Feb-10 13:08:47 DEBUG [http-nio-8080-exec-7] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.getAllInactiveAdminRoles(AdminRoleServiceImpl.java:174) - Entering getAllInactiveAdminRoles
 2023-Feb-10 13:08:47 INFO [http-nio-8080-exec-7] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.getAllInactiveAdminRoles(AdminRoleServiceImpl.java:177) - Fetched all inactive admin roles:[AdminRole [roleId=1, isActive=false, roleName=student, roleDescription=student, createdBy=admin, createdOn=2023-01-04 16:54:06.018, modifiedBy=admin, modifiedOn=2023-01-05 11:49:25.856]]
+

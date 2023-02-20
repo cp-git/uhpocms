@@ -199,6 +199,52 @@ public class CourseController {
 
 	}
 
+	
+	@GetMapping(path = "course/profileId/{id}")
+	public ResponseEntity<List<Object>> getCourseByProfileId(@PathVariable("id") int profile_id)
+			throws CPException {
+		logger.debug("Entering getAllCourse");
+		logger.info("Parameter  :" );
+		List<Object> courses = null;
+		try {
+			if (profile_id>=0) {
+				courses = courseService.findCourseByProfileId(profile_id);
+				logger.info("Fetched all Course :" + courses);
+				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
+			} else {
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+		} catch (Exception ex) {
+			logger.error("Failed getting all courses : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+		}
+	}
+	
+	@GetMapping(path = "course/deptId/{id}")
+	public ResponseEntity<List<Object>> getCoursesByDepartmentId(@PathVariable("id") int department_id)
+			throws CPException {
+		logger.debug("Entering getAllCourse");
+		logger.info("Parameter  :" );
+		List<Object> courses = null;
+		try {
+			if (department_id>=0) {
+				courses = courseService.findCoursesByDepartmentId(department_id);
+				logger.info("Fetched all Course :" + courses);
+				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
+			} else {
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+		} catch (Exception ex) {
+			logger.error("Failed getting all courses : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+		}
+	}
+	
+
+	
+
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {
 		return new AuthenticationBean("You are authenticated");
