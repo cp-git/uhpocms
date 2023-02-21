@@ -309,15 +309,14 @@ public class CourseController {
 		logger.debug("Entering getAllCourse");
 		logger.info("Parameter  :");
 
-		List<Object> courses = null;
+		List<Object> courses=null;
 
 		try {
+			courses = courseService.findByInstitutionId(institutionId);
+			System.out.println(courses);
+			logger.info("Fetched all Course :" + courses);
 
 			if (institutionId >= 0) {
-
-				courses = courseService.findByInstitutionId(institutionId);
-				logger.info("Fetched all Course :" + courses);
-
 				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
 			} else {
 

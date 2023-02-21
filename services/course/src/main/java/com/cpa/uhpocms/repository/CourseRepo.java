@@ -50,7 +50,9 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	
 	
 
+
 	@Query(value = "SELECT * FROM teacher_course JOIN public.teacher_course_institutionid ON teacher_course.courseid = public.teacher_course_institutionid.course_id WHERE public.teacher_course_institutionid.institution_id= ?1", nativeQuery = true)
+
 	public List<Course> findTeacherCourseByInstitutionId(int institutionid);
 
 	@Query(value = "SELECT tc.* FROM teacher_course tc JOIN teacher_course_institutionid tci ON tc.courseid = tci.course_id JOIN admin_institution inst ON tci.institution_id = inst.institutionid WHERE inst.isactive = true AND tc.isactive = false", nativeQuery = true)
