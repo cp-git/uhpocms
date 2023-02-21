@@ -191,4 +191,28 @@ public class CourseServiceImpl implements CourseService {
 		return count;
 	}
 
-}
+	@Override
+	public Course getCourseByCourseId(int courseid) {
+		// TODO Auto-generated method stub
+	
+			logger.debug("Entering getCourseByCourseId");
+
+			Course course = courseRepo.findByCourseId(courseid);
+			logger.info("Founded course :" + course);
+
+			return course;
+		}
+
+	@Override
+	public int deleteCourseByCourseId(int courseid) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering deleteCourseByCourseId");
+
+		int count = courseRepo.deleteCourseByCourseId(courseid);
+		logger.info("deleted Course count : " + count);
+		return count;
+	}
+
+	}
+
+

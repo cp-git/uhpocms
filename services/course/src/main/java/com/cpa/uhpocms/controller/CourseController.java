@@ -111,6 +111,34 @@ public class CourseController {
 		}
 
 	}
+	
+	@GetMapping("/course/courseId/{id}")
+	public ResponseEntity<Object> getCourseByCourseId(@PathVariable("id") int courseid) throws CPException {
+		logger.debug("Entering getCourseByCourseId");
+		
+
+		Course course = null;
+
+		try {
+
+			course = courseService.getCourseByCourseId(courseid);
+			logger.info("fetched Course :" + course);
+
+			if (course != null) {
+				logger.debug("Course fetched generating response");
+				return ResponseHandler.generateResponse(course, HttpStatus.OK);
+			} else {
+				logger.debug("Course not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting course : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
 
 	@GetMapping("/course")
 	public ResponseEntity<List<Object>> getAllCourses(@RequestParam(name = "name") String name) throws CPException {
@@ -159,6 +187,30 @@ public class CourseController {
 			count = courseService.deleteCourseByName(name);
 			if (count >= 1) {
 				logger.info("deleted Course : Name = " + name);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete Course :" + ex.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+		}
+
+	}
+	
+	@DeleteMapping("/course/courseId/{id}")
+	public ResponseEntity<Object> deleteCourseByCourseId(@PathVariable("id") int courseid) throws CPException {
+		logger.debug("Entering deleteAuthUser");
+	
+
+		int count = 0;
+
+		try {
+			count = courseService.deleteCourseByCourseId(courseid);
+			if (count >= 1) {
+				
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
 				logger.info(resourceBundle.getString("err005"));
@@ -257,15 +309,14 @@ public class CourseController {
 		logger.debug("Entering getAllCourse");
 		logger.info("Parameter  :");
 
-		List<Object> courses = null;
+		List<Object> courses=null;
 
 		try {
+			courses = courseService.findByInstitutionId(institutionId);
+			System.out.println(courses);
+			logger.info("Fetched all Course :" + courses);
 
 			if (institutionId >= 0) {
-
-				courses = courseService.findByInstitutionId(institutionId);
-				logger.info("Fetched all Course :" + courses);
-
 				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
 			} else {
 
