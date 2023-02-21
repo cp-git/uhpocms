@@ -16,12 +16,14 @@ public interface CourseService {
 	Course createCourse(Course course);
 
 	Course getCourseByName(String name);
+	Course getCourseByCourseId(int courseid);
 
 	List<Object> getAllCourses();
 
 	Course updateCourseByName(Course course, String name);
 
 	int deleteCourseByName(String name);
+	int deleteCourseByCourseId(int courseid);
 	
 	List<Object> findCourseByProfileId(int profile_id);
 	
