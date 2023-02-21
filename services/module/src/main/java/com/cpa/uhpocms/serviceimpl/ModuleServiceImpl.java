@@ -24,6 +24,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 	@Autowired
 	private ModuleRepo moduleRepo;
+	private static final boolean ISACTIVE = true;
 	private static Logger logger;
 
 	public ModuleServiceImpl() {
@@ -129,6 +130,12 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	@Override
+	public List<Object> findByCourseId(int courseId) {
+		// TODO Auto-generated method stub
+		List<Object> moduleCourse = moduleRepo.findByCourseIdAndModuleIsActive(courseId, ISACTIVE);
+		return moduleCourse;
+
+	}
 	public List<Object> getAllInactiveModules() {
 		// TODO Auto-generated method stub
 		logger.debug("Entering getAllInActiveQuestions ");
@@ -176,6 +183,7 @@ public class ModuleServiceImpl implements ModuleService {
 		
 		
 		return null;
+
 	}
 
 }

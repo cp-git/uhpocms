@@ -111,6 +111,34 @@ public class CourseController {
 		}
 
 	}
+	
+	@GetMapping("/course/courseId/{id}")
+	public ResponseEntity<Object> getCourseByCourseId(@PathVariable("id") int courseid) throws CPException {
+		logger.debug("Entering getCourseByCourseId");
+		
+
+		Course course = null;
+
+		try {
+
+			course = courseService.getCourseByCourseId(courseid);
+			logger.info("fetched Course :" + course);
+
+			if (course != null) {
+				logger.debug("Course fetched generating response");
+				return ResponseHandler.generateResponse(course, HttpStatus.OK);
+			} else {
+				logger.debug("Course not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting course : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
 
 	@GetMapping("/course")
 	public ResponseEntity<List<Object>> getAllCourses(@RequestParam(name = "name") String name) throws CPException {
@@ -171,6 +199,30 @@ public class CourseController {
 		}
 
 	}
+	
+	@DeleteMapping("/course/courseId/{id}")
+	public ResponseEntity<Object> deleteCourseByCourseId(@PathVariable("id") int courseid) throws CPException {
+		logger.debug("Entering deleteAuthUser");
+	
+
+		int count = 0;
+
+		try {
+			count = courseService.deleteCourseByCourseId(courseid);
+			if (count >= 1) {
+				
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete Course :" + ex.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+		}
+
+	}
 
 	@PutMapping("/course/{name}")
 	public ResponseEntity<Object> updateCourseByName(@RequestBody Course course, @PathVariable("name") String name)
@@ -198,6 +250,52 @@ public class CourseController {
 		}
 
 	}
+
+	
+	@GetMapping(path = "course/profileId/{id}")
+	public ResponseEntity<List<Object>> getCourseByProfileId(@PathVariable("id") int profile_id)
+			throws CPException {
+		logger.debug("Entering getAllCourse");
+		logger.info("Parameter  :" );
+		List<Object> courses = null;
+		try {
+			if (profile_id>=0) {
+				courses = courseService.findCourseByProfileId(profile_id);
+				logger.info("Fetched all Course :" + courses);
+				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
+			} else {
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+		} catch (Exception ex) {
+			logger.error("Failed getting all courses : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+		}
+	}
+	
+	@GetMapping(path = "course/deptId/{id}")
+	public ResponseEntity<List<Object>> getCoursesByDepartmentId(@PathVariable("id") int department_id)
+			throws CPException {
+		logger.debug("Entering getAllCourse");
+		logger.info("Parameter  :" );
+		List<Object> courses = null;
+		try {
+			if (department_id>=0) {
+				courses = courseService.findCoursesByDepartmentId(department_id);
+				logger.info("Fetched all Course :" + courses);
+				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
+			} else {
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+		} catch (Exception ex) {
+			logger.error("Failed getting all courses : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+		}
+	}
+	
+
+	
 
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {

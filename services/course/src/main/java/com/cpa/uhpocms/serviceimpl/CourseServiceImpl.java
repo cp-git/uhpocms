@@ -129,6 +129,18 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	@Override
+
+	public List<Object> findCourseByProfileId(int profile_id) {
+
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findTeacherProfileId(profile_id);
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+	}
+	
 	public List<Object> findByInstitutionId(int institutionId) {
 		// TODO Auto-generated method stub
 
@@ -136,12 +148,25 @@ public class CourseServiceImpl implements CourseService {
 
 		List<Course> courses = courseRepo.findTeacherCourseByInstitutionId(institutionId);
 
+
 		logger.info("Fetched all active course :" + courses);
 		objectCourses = new ArrayList<Object>(courses);
 		return objectCourses;
 
 	}
 
+	@Override
+	public List<Object> findCoursesByDepartmentId(int department_id) {
+		// TODO Auto-generated method stub
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findCourseByDepartmentId(department_id);
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+	}
+	
 	@Override
 	public List<Object> getAllInactiveCourses() {
 		logger.debug("Entering getAllInactiveCourses");
@@ -151,9 +176,11 @@ public class CourseServiceImpl implements CourseService {
 		List<Course> courses = courseRepo.findInactiveCoursesOfActiveInstitutions();
 
 		logger.info("Fetched all inactive course :" + courses);
+
 		objectCourses = new ArrayList<Object>(courses);
 		return objectCourses;
 	}
+
 
 	@Override
 	public int activateCourseById(int courseId) {
@@ -164,4 +191,28 @@ public class CourseServiceImpl implements CourseService {
 		return count;
 	}
 
-}
+	@Override
+	public Course getCourseByCourseId(int courseid) {
+		// TODO Auto-generated method stub
+	
+			logger.debug("Entering getCourseByCourseId");
+
+			Course course = courseRepo.findByCourseId(courseid);
+			logger.info("Founded course :" + course);
+
+			return course;
+		}
+
+	@Override
+	public int deleteCourseByCourseId(int courseid) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering deleteCourseByCourseId");
+
+		int count = courseRepo.deleteCourseByCourseId(courseid);
+		logger.info("deleted Course count : " + count);
+		return count;
+	}
+
+	}
+
+
