@@ -140,14 +140,13 @@ public class CourseServiceImpl implements CourseService {
 		objectCourses = new ArrayList<Object>(courses);
 		return objectCourses;
 	}
-	
+
 	public List<Object> findByInstitutionId(int institutionId) {
 		// TODO Auto-generated method stub
 
 		List<Object> objectCourses = null;
 
 		List<Course> courses = courseRepo.findTeacherCourseByInstitutionId(institutionId);
-
 
 		logger.info("Fetched all active course :" + courses);
 		objectCourses = new ArrayList<Object>(courses);
@@ -166,7 +165,7 @@ public class CourseServiceImpl implements CourseService {
 		objectCourses = new ArrayList<Object>(courses);
 		return objectCourses;
 	}
-	
+
 	@Override
 	public List<Object> getAllInactiveCourses() {
 		logger.debug("Entering getAllInactiveCourses");
@@ -181,7 +180,6 @@ public class CourseServiceImpl implements CourseService {
 		return objectCourses;
 	}
 
-
 	@Override
 	public int activateCourseById(int courseId) {
 		logger.debug("Entering activateCourseByName");
@@ -194,14 +192,14 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public Course getCourseByCourseId(int courseid) {
 		// TODO Auto-generated method stub
-	
-			logger.debug("Entering getCourseByCourseId");
 
-			Course course = courseRepo.findByCourseId(courseid);
-			logger.info("Founded course :" + course);
+		logger.debug("Entering getCourseByCourseId");
 
-			return course;
-		}
+		Course course = courseRepo.findByCourseId(courseid);
+		logger.info("Founded course :" + course);
+
+		return course;
+	}
 
 	@Override
 	public int deleteCourseByCourseId(int courseid) {
@@ -213,6 +211,4 @@ public class CourseServiceImpl implements CourseService {
 		return count;
 	}
 
-	}
-
-
+}

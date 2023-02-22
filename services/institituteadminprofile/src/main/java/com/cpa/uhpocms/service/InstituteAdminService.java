@@ -12,19 +12,20 @@ public interface InstituteAdminService {
 
 	public InstituteAdmin findByUserId(int userId);
 
-	List<Object> getAllInstitute(); 
-	
-	InstituteAdmin updateInstituteAdmin(InstituteAdmin instituteAdmin, String  firstName);
-	
-	
-	
+	List<Object> getAllInstitute();
+
+	InstituteAdmin updateInstituteAdmin(InstituteAdmin instituteAdmin, String firstName);
+
 	List<Object> getProfileByDepartmentId(int department_id);
-	
+
 	int deleteInstitutionProfileByName(String firstName);
 
 	List<Object> getAllInactiveInstitute();
 
 	int activateInstituteProfileById(int profileId);
 
+	InstituteAdmin updateProfileByAuthUserId(InstituteAdmin instituteAdmin, int userId);
+
+	InstituteAdmin getProfileByAuthUserId(int userId);
 
 }

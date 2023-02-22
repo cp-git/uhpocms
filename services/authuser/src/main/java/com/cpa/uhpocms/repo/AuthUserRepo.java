@@ -24,7 +24,6 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	boolean authUserIsActive = true;
 
 	/**
-	 * @author Mayur
 	 * @param String authUserName
 	 * @return AuthUser
 	 * @description To find the all data using username from auth_user table
@@ -32,7 +31,6 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	public AuthUser findByAuthUserName(String authUserName);
 
 	/**
-	 * @author Mayur
 	 * @return List<AuthUser>
 	 * @description To find the all data of users where auth user is in active state
 	 * 
@@ -40,7 +38,6 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	public List<Object> findByAuthUserIsActiveTrue();
 
 	/**
-	 * @author Mayur
 	 * @return AuthUser
 	 * @description To soft delete auth user by username (by setting is_active to
 	 *              false)
@@ -52,5 +49,17 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 
 	@Query(value = "select * from public.auth_user where username = ?1 AND password = ?2 AND is_active = true", nativeQuery = true)
 	public AuthUser findByUsernameAndPassword(String authUserName, String authUserPassword);
+
+	/**
+	 * @return List<AuthUser>
+	 * @description To find the all data of users where auth user is in inactive
+	 *              state
+	 */
+	public List<Object> findByAuthUserIsActiveFalse();
+
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE auth_user SET is_active=true WHERE id = ?1", nativeQuery = true)
+	public int activateAuthUserById(int authUserId);
 
 }

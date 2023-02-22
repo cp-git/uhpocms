@@ -65,7 +65,9 @@ public class InstituteAdminController {
 
 			if (institutionAdmin == null) {
 				institueAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
-				logger.info("Post Values" + institueAdminProfile);
+
+				logger.info("created profile :" + institueAdminProfile);
+
 				return ResponseHandler.generateResponse(institueAdminProfile, HttpStatus.CREATED);
 			} else {
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
@@ -111,40 +113,40 @@ public class InstituteAdminController {
 
 	}
 
-	/**
-	 * @author : Anmesh
-	 * @param : updateInstituteAdmin
-	 * @return : ResponseEntity<Object>
-	 * @description : For Updating Data using firstName
-	 */
-
-	@PutMapping("/profile/{firstName}")
-	public ResponseEntity<Object> updateInstituteAdmin(@RequestBody InstituteAdmin instituteAdmin,
-			@PathVariable("firstName") String firstName) throws CPException {
-
-		logger.info("inside the put method..");
-		InstituteAdmin adminProfileFirstName = null;
-		try {
-			adminProfileFirstName = instituteAdminService.getInstituteByName(firstName);
-			logger.info("updateInstituteAdmin Values" + adminProfileFirstName);
-
-			if (adminProfileFirstName == null) {
-				logger.info("Update Operation is failed...");
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-			} else {
-				adminProfileFirstName = instituteAdminService.updateInstituteAdmin(instituteAdmin, firstName);
-				return ResponseHandler.generateResponse(adminProfileFirstName, HttpStatus.CREATED);
-
-			}
-
-		} catch (Exception ee) {
-
-			logger.error(ee.toString());
-			throw new CPException("err004", resourceBundle.getString("err004"));
-
-		}
-
-	}
+//	/**
+//	 * @author : Anmesh
+//	 * @param : updateInstituteAdmin
+//	 * @return : ResponseEntity<Object>
+//	 * @description : For Updating Data using firstName
+//	 */
+//
+//	@PutMapping("/profile/{firstName}")
+//	public ResponseEntity<Object> updateInstituteAdmin(@RequestBody InstituteAdmin instituteAdmin,
+//			@PathVariable("firstName") String firstName) throws CPException {
+//
+//		logger.info("inside the put method..");
+//		InstituteAdmin adminProfileFirstName = null;
+//		try {
+//			adminProfileFirstName = instituteAdminService.getInstituteByName(firstName);
+//			logger.info("updateInstituteAdmin Values" + adminProfileFirstName);
+//
+//			if (adminProfileFirstName == null) {
+//				logger.info("Update Operation is failed...");
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+//			} else {
+//				adminProfileFirstName = instituteAdminService.updateInstituteAdmin(instituteAdmin, firstName);
+//				return ResponseHandler.generateResponse(adminProfileFirstName, HttpStatus.CREATED);
+//
+//			}
+//
+//		} catch (Exception ee) {
+//
+//			logger.error(ee.toString());
+//			throw new CPException("err004", resourceBundle.getString("err004"));
+//
+//		}
+//
+//	}
 
 	/**
 	 * @author : Anmesh
@@ -245,6 +247,38 @@ public class InstituteAdminController {
 			logger.error("Failed to activate profile :" + ex.getMessage());
 			throw new CPException("err006", resourceBundle.getString("err006"));
 		}
+	}
+
+	@PutMapping("/profile/{id}")
+	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestBody InstituteAdmin instituteAdmin,
+			@PathVariable("id") int authUserId) throws CPException {
+
+		logger.info("inside the put method..");
+		InstituteAdmin instituteAdminProfile = null;
+		try {
+
+			instituteAdminProfile = instituteAdminService.getProfileByAuthUserId(authUserId);
+			logger.info("updateInstituteAdmin Values" + instituteAdminProfile);
+
+			if (instituteAdminProfile == null) {
+				instituteAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
+
+				logger.info("created profile :" + instituteAdminProfile);
+
+				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
+//				logger.info("Update profile is failed...");
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
+				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ee) {
+			logger.error(ee.toString());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+
 	}
 
 }
