@@ -188,6 +188,21 @@ public class CourseServiceImpl implements CourseService {
 		logger.info("activated Course count : " + count);
 		return count;
 	}
+	
+	@Override
+	public List<Object> findCoursesByDepartmentId(int departmentId) {
+		// TODO Auto-generated method stub
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findCourseByDepartmentId(departmentId);
+		
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+
+
+	}
 
 	@Override
 	public Course getCourseByCourseId(int courseid) {
