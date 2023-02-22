@@ -131,9 +131,6 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return instituteAdminRepository.findByFirstName(firstName);
 	}
 
-
-
-
 	@Override
 	public List<Object> getProfileByDepartmentId(int department_id) {
 		// TODO Auto-generated method stub
@@ -141,12 +138,10 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 
 		List<Object> object = instituteAdminRepository.findProfileByDepartmentId(department_id);
 
-
 		profileObject = new ArrayList<Object>(object);
 		return profileObject;
 
 	}
-
 
 	/**
 	 * @return : List<InstituteAdmin>
@@ -163,7 +158,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		logger.info("Fetching inactive profile Data " + institutionProfiles);
 
 		objectInstitutionProfiles = new ArrayList<Object>(institutionProfiles);
-		
+
 		return objectInstitutionProfiles;
 	}
 
@@ -181,5 +176,54 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return count;
 	}
 
-	
+	/**
+	 * @param : InstituteAdmin, int
+	 * @return : InstituteAdmin
+	 * @description : For updating data using auth user id
+	 */
+	@Override
+	public InstituteAdmin updateProfileByAuthUserId(InstituteAdmin instituteAdmin, int userId) {
+		logger.debug("updateProfileByAuthUserId...");
+		InstituteAdmin existingProfile = instituteAdminRepository.findByUserId(userId);
+		logger.info("exisiting profile found " + existingProfile);
+		existingProfile.setUserId(instituteAdmin.getAdminId());
+		existingProfile.setUserRole(instituteAdmin.getUserRole());
+		existingProfile.setFirstName(instituteAdmin.getFirstName());
+		existingProfile.setLastName(instituteAdmin.getLastName());
+		existingProfile.setAdminEmail(instituteAdmin.getAdminEmail());
+		existingProfile.setDob(instituteAdmin.getDob());
+		existingProfile.setMobilePhone(instituteAdmin.getMobilePhone());
+		existingProfile.setAdminGender(instituteAdmin.getAdminGender());
+		existingProfile.setAdminDepartment(instituteAdmin.getAdminDepartment());
+		existingProfile.setAdminAddress1(instituteAdmin.getAdminAddress1());
+		existingProfile.setAdminAddress2(instituteAdmin.getAdminAddress2());
+		existingProfile.setAdminCity(instituteAdmin.getAdminCity());
+		existingProfile.setAdminState(instituteAdmin.getAdminState());
+		existingProfile.setAdminZip(instituteAdmin.getAdminZip());
+		existingProfile.setProfilePics(instituteAdmin.getProfilePics());
+		existingProfile.setActiveUser(instituteAdmin.isActiveUser());
+		existingProfile.setInstitutionId(instituteAdmin.getInstitutionId());
+		existingProfile.setUserId(instituteAdmin.getUserId());
+
+		instituteAdminRepository.save(existingProfile);
+		return existingProfile;
+	}
+
+	/**
+	 * @param : authuser id
+	 * @return : InstituteAdmin
+	 * @description : For getting data using authuser id
+	 */
+
+	@Override
+	public InstituteAdmin getProfileByAuthUserId(int userId) {
+
+		logger.debug("Entering getProfileByAuthUserId");
+
+		InstituteAdmin instituteAdmin = instituteAdminRepository.findByUserId(userId);
+		logger.info("Founded instituteAdmin :" + instituteAdmin);
+
+		return instituteAdmin;
+	}
+
 }
