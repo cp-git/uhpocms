@@ -213,6 +213,30 @@ public class CourseServiceImpl implements CourseService {
 		return count;
 	}
 
+	@Override
+	public List<Object> findCoursesAssignToTeacher(int profile_id) {
+		// TODO Auto-generated method stub
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findCourseAssigntoTeacherByProfileId(profile_id);
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+	}
+
+	@Override
+	public List<Object> findInactiveCoursesAssignToTeacher(int profile_id) {
+		// TODO Auto-generated method stub
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findInactiveCourseAssigntoTeacherByProfileId(profile_id);
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+	}
+
 	}
 
 

@@ -33,6 +33,8 @@ public interface CourseService {
 
 	List<Object> getAllInactiveCourses();
 
+	List<Object> findCoursesAssignToTeacher(int profile_id);
+	List<Object> findInactiveCoursesAssignToTeacher(int profile_id);
 	int activateCourseById(int courseId);
 
 }
