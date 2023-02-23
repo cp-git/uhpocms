@@ -35,6 +35,6 @@ public interface CourseService {
 
 	int activateCourseById(int courseId);
 	
-	List<Object> findCoursesByDepartmentId(int departmentId);
+	
 
 }
