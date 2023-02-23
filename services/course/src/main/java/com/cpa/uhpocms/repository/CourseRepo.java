@@ -22,6 +22,7 @@ import com.cpa.uhpocms.entity.Course;
 public interface CourseRepo extends JpaRepository<Course, Integer> {
 
 	public Course findByCourseName(String name);
+
 	public Course findByCourseId(int courseid);
 
 	public List<Object> findByCourseIsActiveTrue();
@@ -30,25 +31,19 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	@Modifying
 	@Query(value = "UPDATE teacher_course SET isactive=false WHERE name = ?1", nativeQuery = true)
 	public int deleteCourseByName(String name);
-	
+
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE teacher_course SET isactive=false WHERE courseid= ?1", nativeQuery = true)
 	public int deleteCourseByCourseId(int courseid);
-	
-	//Finding Courses of student by profile id
-	@Query(value="SELECT tc.* FROM teacher_course tc JOIN teacher_course_enrolltostudent enroll ON tc.courseid = enroll.course_id WHERE enroll.profile_id = ?1", nativeQuery =true)
+
+	// Finding Courses of student by profile id
+	@Query(value = "SELECT tc.* FROM teacher_course tc JOIN teacher_course_enrolltostudent enroll ON tc.courseid = enroll.course_id WHERE enroll.profile_id = ?1", nativeQuery = true)
 	public List<Course> findTeacherProfileId(int profileid);
-	
-	
-	//Finding Courses of department by id
-	@Query(value="SELECT tc.* FROM teacher_course tc JOIN teacher_course_departmentid deptCourse ON  tc.courseid = deptCourse.course_id WHERE deptCourse.department_id = ?1", nativeQuery =true)
+
+	// Finding Courses of department by id
+	@Query(value = "SELECT tc.* FROM teacher_course tc JOIN teacher_course_departmentid deptCourse ON  tc.courseid = deptCourse.course_id WHERE deptCourse.department_id = ?1", nativeQuery = true)
 	public List<Course> findCourseByDepartmentId(int department_id);
-	
-	
-	
-	
-	
 
 	@Query(value = "SELECT * FROM teacher_course JOIN public.teacher_course_institutionid ON teacher_course.courseid = public.teacher_course_institutionid.course_id WHERE public.teacher_course_institutionid.institution_id= ?1", nativeQuery = true)
 	public List<Course> findTeacherCourseByInstitutionId(int institutionid);

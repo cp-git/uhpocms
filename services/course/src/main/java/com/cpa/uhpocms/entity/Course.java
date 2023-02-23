@@ -28,7 +28,7 @@ public class Course {
 	@Column(name = "courseid", nullable = false)
 	private int courseId;
 
-	@Column(name = "name", unique = true, nullable = false)
+	@Column(name = "name", nullable = false)
 	private String courseName;
 
 	@Column(name = "description", nullable = false)
