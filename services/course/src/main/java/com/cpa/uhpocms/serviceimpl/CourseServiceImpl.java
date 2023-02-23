@@ -134,7 +134,7 @@ public class CourseServiceImpl implements CourseService {
 
 		List<Object> objectCourses = null;
 
-		List<Course> courses = courseRepo.findTeacherProfileId(profile_id);
+		List<Course> courses = courseRepo.findCourseByProfileId(profile_id);
 
 		logger.info("Fetched all active course :" + courses);
 		objectCourses = new ArrayList<Object>(courses);
