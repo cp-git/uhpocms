@@ -357,38 +357,7 @@ public class CourseController {
 	}
 	
 	
-	@GetMapping(path="course/departmentId/{id}")
-	public ResponseEntity<List<Object>> getCoursesByDepartmentId(@PathVariable("id") int departmentId)
-			throws CPException {
-		logger.debug("Entering getAllCourse");
-		logger.debug("Entering getAllCourse");
-		logger.info("Parameter  :");
-
-		List<Object> courses;
-
-		try {
-			System.out.println("in try catch");
-			
-			
-
-			if (departmentId >= 0) {
-				courses = courseService.findCoursesByDepartmentId(departmentId);
-				System.out.println(courses);
-				logger.info("Fetched all Course :" + courses);
-				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
-			} else {
-
-				logger.info(resourceBundle.getString("err002"));
-				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting all courses : " + ex.getMessage());
-			throw new CPException("err002", resourceBundle.getString("err002"));
-
-		}
-	}
+	
 	
 
 }

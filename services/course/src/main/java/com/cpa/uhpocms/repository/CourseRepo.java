@@ -65,8 +65,4 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	
 	
 
-	//Finding Courses of department by id
-	@Query(value="SELECT tc.* FROM teacher_course tc JOIN teacher_course_departmentid deptCourse ON  tc.courseid = deptCourse.course_id WHERE deptCourse.department_id = ?1", nativeQuery =true)
-	public List<Course> findCourseByDepartmentId(int department_id);
-
 }
