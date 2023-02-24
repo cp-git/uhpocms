@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cpa.uhpocms.entity.AuthenticationBean;
@@ -246,5 +247,46 @@ public class InstituteAdminController {
 			throw new CPException("err006", resourceBundle.getString("err006"));
 		}
 	}
-
+	
+	
+	/**
+	 * @author Shradha
+	 * @return : List of Institute_Admin_Profile Objects
+	 * @param : institution Id and userRole
+	 * @description : returns a sorted list of profiles based on institution id and userRole provided
+	 */
+	@GetMapping("/profile/{userRole}/{institutionId}")
+	@ResponseBody
+	public ResponseEntity<List<Object>> getAllProfilesByRoleAndInstId(@PathVariable("institutionId") Integer institutionId, @PathVariable("userRole") String userRole) throws CPException
+	{
+			List<Object> instituteadminProfile = null;
+		try {
+			instituteadminProfile = instituteAdminService.getProfileByInstitutionIdAndUserRole(institutionId, userRole);
+			logger.info("getAllProfilesByRoleAndInstId Values" + instituteadminProfile);
+			return ResponseHandler.generateListResponse(instituteadminProfile, HttpStatus.OK);
+			}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			logger.error("Exception Occured in getAllProfilesByRoleAndInstId Method");
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+			
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

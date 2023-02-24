@@ -26,5 +26,5 @@ public interface InstituteAdminService {
 
 	int activateInstituteProfileById(int profileId);
 
-
+	List<Object> getProfileByInstitutionIdAndUserRole(Integer institutionId, String userRole);
 }

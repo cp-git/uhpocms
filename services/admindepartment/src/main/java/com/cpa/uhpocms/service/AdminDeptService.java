@@ -24,6 +24,8 @@ public interface AdminDeptService {
 	List<Object> findByInstitutionId(int institutionId);
 
 	public List<Object> getAllInactiveDepartments();
+	
+
 
 	public int activateDepartment(int departmentId);
 }

@@ -33,6 +33,8 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	@Query(value = "SELECT dept.* FROM admin_department dept JOIN admin_institution inst ON dept.institutionid_id= inst.institutionid where inst.isactive=true and dept.isactive=false", nativeQuery = true)
 	List<AdminDepartment> findInactiveDepartmentsOfActiveInstitutions();
 
+	
+	
 	// method to activate department
 	@Transactional
 	@Modifying

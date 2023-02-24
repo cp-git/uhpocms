@@ -128,7 +128,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 	}
 
 	/**
-	 * @description: Method that get all departments present in database
+	 * @description: Method that get all inactive departments present in database
 	 * @createdOn : 13-02-2023
 	 */
 	@Override
@@ -145,6 +145,8 @@ public class AdminDeptServImpl implements AdminDeptService {
 
 		return objectDepartments;
 	}
+	
+	
 
 	/**
 	 * @description: Method that performs activated department which sets active
