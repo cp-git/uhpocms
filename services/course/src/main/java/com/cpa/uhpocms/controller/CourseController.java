@@ -307,15 +307,14 @@ public class CourseController {
 		logger.debug("Entering getAllCourse");
 		logger.info("Parameter  :");
 
-		List<Object> courses = null;
+		List<Object> courses;
 
 		try {
+			courses = courseService.findByInstitutionId(institutionId);
+			System.out.println(courses);
+			logger.info("Fetched all Course :" + courses);
 
 			if (institutionId >= 0) {
-
-				courses = courseService.findByInstitutionId(institutionId);
-				logger.info("Fetched all Course :" + courses);
-
 				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
 			} else {
 
@@ -354,6 +353,10 @@ public class CourseController {
 			throw new CPException("err006", resourceBundle.getString("err006"));
 		}
 	}
+	
+	
+	
+	
 
 	@PostMapping(path = "/course/department")
 	public ResponseEntity<Object> assignCourseToDepartment(@RequestBody CourseDepartment courseDepartment)

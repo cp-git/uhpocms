@@ -205,6 +205,8 @@ public class CourseServiceImpl implements CourseService {
 		logger.info("activated Course count : " + count);
 		return count;
 	}
+	
+	
 
 	@Override
 	public Course getCourseByCourseId(int courseid) {
@@ -228,6 +230,7 @@ public class CourseServiceImpl implements CourseService {
 		logger.info("deleted Course count : " + count);
 		return count;
 	}
+
 
 	@Override
 	public CourseDepartment assignCourseToDepartment(CourseDepartment courseDepartment) {

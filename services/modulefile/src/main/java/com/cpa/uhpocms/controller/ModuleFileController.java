@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.ModuleFile;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
@@ -191,4 +192,34 @@ public class ModuleFileController {
 
 	}
 
+	@GetMapping(path = "/basicauth")
+	public AuthenticationBean basicauth() {
+		return new AuthenticationBean("You are authenticated");
+	}
+
+	@GetMapping(path = "/modulefile/student")
+	public ResponseEntity<List<Object>> getModuleFilesByStudentId(@RequestParam(name = "id") int studentId)
+			throws CPException {
+		logger.debug("Entering getModuleFilesByStudentId");
+		logger.info("student id  :" + studentId);
+
+		List<Object> modulefiles = null;
+
+		try {
+			modulefiles = modulefileService.getModuleFileByStudentId(studentId);
+			if (modulefiles != null) {
+				logger.info("Fetched all ModuleFile :" + modulefiles);
+				return ResponseHandler.generateListResponse(modulefiles, HttpStatus.OK);
+			} else {
+				logger.info(resourceBunde.getString("err006"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err006");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all modulefiles by student id : " + ex.getMessage());
+			throw new CPException("err006", resourceBunde.getString("err006"));
+
+		}
+	}
 }

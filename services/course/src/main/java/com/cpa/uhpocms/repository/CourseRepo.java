@@ -45,7 +45,9 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	@Query(value = "SELECT tc.* FROM teacher_course tc JOIN teacher_course_departmentid deptCourse ON  tc.courseid = deptCourse.course_id WHERE deptCourse.department_id = ?1", nativeQuery = true)
 	public List<Course> findCourseByDepartmentId(int department_id);
 
+
 	@Query(value = "SELECT * FROM teacher_course JOIN public.teacher_course_institutionid ON teacher_course.courseid = public.teacher_course_institutionid.course_id WHERE public.teacher_course_institutionid.institution_id= ?1", nativeQuery = true)
+
 	public List<Course> findTeacherCourseByInstitutionId(int institutionid);
 
 	@Query(value = "SELECT tc.* FROM teacher_course tc JOIN teacher_course_institutionid tci ON tc.courseid = tci.course_id JOIN admin_institution inst ON tci.institution_id = inst.institutionid WHERE inst.isactive = true AND tc.isactive = false", nativeQuery = true)
@@ -55,5 +57,7 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	@Modifying
 	@Query(value = "UPDATE teacher_course SET isactive=true WHERE courseid = ?1", nativeQuery = true)
 	public int activateCourseById(int courseId);
+	
+	
 
 }
