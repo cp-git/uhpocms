@@ -29,8 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.Course;
+import com.cpa.uhpocms.entity.CourseDepartment;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.service.CourseDepartmentService;
 import com.cpa.uhpocms.service.CourseService;
 
 @CrossOrigin
@@ -39,7 +41,10 @@ import com.cpa.uhpocms.service.CourseService;
 public class CourseController {
 
 	@Autowired
-	private CourseService courseService;;
+	private CourseService courseService;
+
+	@Autowired
+	private CourseDepartmentService courseDepartmentService;
 
 	private ResourceBundle resourceBundle;
 	private static Logger logger;
@@ -111,11 +116,10 @@ public class CourseController {
 		}
 
 	}
-	
+
 	@GetMapping("/course/courseId/{id}")
 	public ResponseEntity<Object> getCourseByCourseId(@PathVariable("id") int courseid) throws CPException {
 		logger.debug("Entering getCourseByCourseId");
-		
 
 		Course course = null;
 
@@ -199,18 +203,17 @@ public class CourseController {
 		}
 
 	}
-	
+
 	@DeleteMapping("/course/courseId/{id}")
 	public ResponseEntity<Object> deleteCourseByCourseId(@PathVariable("id") int courseid) throws CPException {
 		logger.debug("Entering deleteAuthUser");
-	
 
 		int count = 0;
 
 		try {
 			count = courseService.deleteCourseByCourseId(courseid);
 			if (count >= 1) {
-				
+
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
 				logger.info(resourceBundle.getString("err005"));
@@ -251,15 +254,13 @@ public class CourseController {
 
 	}
 
-	
 	@GetMapping(path = "course/profileId/{id}")
-	public ResponseEntity<List<Object>> getCourseByProfileId(@PathVariable("id") int profile_id)
-			throws CPException {
+	public ResponseEntity<List<Object>> getCourseByProfileId(@PathVariable("id") int profile_id) throws CPException {
 		logger.debug("Entering getAllCourse");
-		logger.info("Parameter  :" );
+		logger.info("Parameter  :");
 		List<Object> courses = null;
 		try {
-			if (profile_id>=0) {
+			if (profile_id >= 0) {
 				courses = courseService.findCourseByProfileId(profile_id);
 				logger.info("Fetched all Course :" + courses);
 				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
@@ -272,15 +273,15 @@ public class CourseController {
 			throw new CPException("err002", resourceBundle.getString("err002"));
 		}
 	}
-	
+
 	@GetMapping(path = "course/deptId/{id}")
 	public ResponseEntity<List<Object>> getCoursesByDepartmentId(@PathVariable("id") int department_id)
 			throws CPException {
 		logger.debug("Entering getAllCourse");
-		logger.info("Parameter  :" );
+		logger.info("Parameter  :");
 		List<Object> courses = null;
 		try {
-			if (department_id>=0) {
+			if (department_id >= 0) {
 				courses = courseService.findCoursesByDepartmentId(department_id);
 				logger.info("Fetched all Course :" + courses);
 				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
@@ -293,9 +294,6 @@ public class CourseController {
 			throw new CPException("err002", resourceBundle.getString("err002"));
 		}
 	}
-	
-
-	
 
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {
@@ -309,7 +307,7 @@ public class CourseController {
 		logger.debug("Entering getAllCourse");
 		logger.info("Parameter  :");
 
-		List<Object> courses=null;
+		List<Object> courses;
 
 		try {
 			courses = courseService.findByInstitutionId(institutionId);
@@ -356,6 +354,7 @@ public class CourseController {
 		}
 	}
 	
+
 	@GetMapping(path = "course/teacherid/{id}")
 	public ResponseEntity<List<Object>> getCourseAssignToTeacher(@PathVariable("id") int profile_id)
 			throws CPException {
@@ -395,6 +394,100 @@ public class CourseController {
 		} catch (Exception ex) {
 			logger.error("Failed getting all courses : " + ex.getMessage());
 			throw new CPException("err002", resourceBundle.getString("err002"));
+      }
+ }
+	
+	
+	
+
+	@PostMapping(path = "/course/department")
+	public ResponseEntity<Object> assignCourseToDepartment(@RequestBody CourseDepartment courseDepartment)
+			throws CPException {
+		logger.debug("Entering assignCourseToDepartment");
+
+		CourseDepartment assignedCourseDepartment = null;
+		try {
+
+			assignedCourseDepartment = courseService.assignCourseToDepartment(courseDepartment);
+			logger.debug("assigned course :" + assignedCourseDepartment);
+
+			if (assignedCourseDepartment != null) {
+
+				return ResponseHandler.generateResponse(assignedCourseDepartment, HttpStatus.CREATED);
+
+			} else {
+
+				logger.error(resourceBundle.getString("err006"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err006");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed Course assign : " + ex.getMessage());
+			throw new CPException("err006", resourceBundle.getString("err006"));
+		}
+	}
+
+	@PutMapping("/course/courseID/{id}")
+	public ResponseEntity<Object> updateCourseById(@RequestBody Course course, @PathVariable("id") int courseid)
+			throws CPException {
+		logger.debug("Entering updateCourse");
+		logger.info("entered  updateCourse :" + course);
+
+		Course updatedCourse = null;
+
+		try {
+			updatedCourse = courseService.updateCourseById(course, courseid);
+
+			if (updatedCourse == null) {
+				logger.info(resourceBundle.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated course : " + updatedCourse);
+				return ResponseHandler.generateResponse(updatedCourse, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update Course : " + ex.getMessage());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+
+	}
+
+	@GetMapping("/course/department")
+	public ResponseEntity<List<Object>> getAllCoursesDepartmentId(@RequestParam(name = "id") String name)
+			throws CPException {
+		logger.debug("Entering getAllCoursesDepartmentId");
+//		logger.info("Parameter  :" + name);
+
+		List<Object> courseDepartmentIds = null;
+
+		try {
+
+			if (name.equalsIgnoreCase("all")) {
+
+				courseDepartmentIds = courseDepartmentService.getAllCoursesDepartmentIds();
+//				logger.info("Fetched all Course :" + courses);
+
+				return ResponseHandler.generateListResponse(courseDepartmentIds, HttpStatus.OK);
+			} else if (name.equalsIgnoreCase("inactive")) {
+
+				courseDepartmentIds = courseService.getAllInactiveCourses();
+				logger.info("Fetched all inactive Course :" + courseDepartmentIds);
+
+				return ResponseHandler.generateListResponse(courseDepartmentIds, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all courses : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+
 		}
 	}
 

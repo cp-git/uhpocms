@@ -23,4 +23,5 @@ public interface ModuleFileService {
 
 	int deleteModuleFileByFile(String file);
 
+	List<Object> getModuleFileByStudentId(int studentId);
 }
