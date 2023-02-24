@@ -7,6 +7,7 @@
 
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -121,6 +122,16 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		int count = modulefileRepo.deleteModuleFileByFile(file);
 		logger.info("deleted ModuleFile count : " + count);
 		return count;
+	}
+
+	@Override
+	public List<Object> getModuleFileByStudentId(int studentId) {
+
+		logger.debug("Entering getModuleFileByStudentId");
+		List<ModuleFile> moduleFiles = modulefileRepo.findModuleFileByStudentId(studentId);
+		List<Object> objectModulefiles = new ArrayList<>(moduleFiles);
+		logger.info("Fetched all modulefile of student id " + studentId + " : " + objectModulefiles);
+		return objectModulefiles;
 	}
 
 }

@@ -30,4 +30,6 @@ public interface ModuleFileRepo extends JpaRepository<ModuleFile, Integer> {
 	@Query(value = "UPDATE teacher_modulefile SET isactive=false WHERE file = ?1", nativeQuery = true)
 	public int deleteModuleFileByFile(String file);
 
+	@Query(value = "SELECT tmf.* FROM teacher_modulefile tmf JOIN teacher_module tm ON tmf.moduleid_id=tm.moduleid JOIN teacher_course_enrolltostudent enroll ON tm.courseid_id=enroll.course_id where enroll.profile_id=?1", nativeQuery = true)
+	public List<ModuleFile> findModuleFileByStudentId(int studentId);
 }
