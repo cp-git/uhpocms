@@ -354,6 +354,48 @@ public class CourseController {
 		}
 	}
 	
+
+	@GetMapping(path = "course/teacherid/{id}")
+	public ResponseEntity<List<Object>> getCourseAssignToTeacher(@PathVariable("id") int profile_id)
+			throws CPException {
+		logger.debug("Entering getAllCourse");
+		logger.info("Parameter  :" );
+		List<Object> courses = null;
+		try {
+			if (profile_id>=0) {
+				courses = courseService.findCoursesAssignToTeacher(profile_id);
+				logger.info("Fetched all Course :" + courses);
+				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
+			} else {
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+		} catch (Exception ex) {
+			logger.error("Failed getting all courses : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+		}
+	}
+	
+	@GetMapping(path = "course/inactive/teacherid/{id}")
+	public ResponseEntity<List<Object>> getInactiveCourseAssignToTeacher(@PathVariable("id") int profile_id)
+			throws CPException {
+		logger.debug("Entering getAllCourse");
+		logger.info("Parameter  :" );
+		List<Object> courses = null;
+		try {
+			if (profile_id>=0) {
+				courses = courseService.findInactiveCoursesAssignToTeacher(profile_id);
+				logger.info("Fetched all Course :" + courses);
+				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
+			} else {
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+		} catch (Exception ex) {
+			logger.error("Failed getting all courses : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+      }
+ }
 	
 	
 	
@@ -444,6 +486,7 @@ public class CourseController {
 
 			logger.error("Failed getting all courses : " + ex.getMessage());
 			throw new CPException("err002", resourceBundle.getString("err002"));
+
 
 		}
 	}

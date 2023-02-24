@@ -151,7 +151,7 @@ public class CourseServiceImpl implements CourseService {
 
 		List<Object> objectCourses = null;
 
-		List<Course> courses = courseRepo.findTeacherProfileId(profile_id);
+		List<Course> courses = courseRepo.findCourseByProfileId(profile_id);
 
 		logger.info("Fetched all active course :" + courses);
 		objectCourses = new ArrayList<Object>(courses);
@@ -233,11 +233,37 @@ public class CourseServiceImpl implements CourseService {
 
 
 	@Override
+	public List<Object> findCoursesAssignToTeacher(int profile_id) {
+		// TODO Auto-generated method stub
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findCourseAssigntoTeacherByProfileId(profile_id);
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+	}
+
+	@Override
+	public List<Object> findInactiveCoursesAssignToTeacher(int profile_id) {
+		// TODO Auto-generated method stub
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findInactiveCourseAssigntoTeacherByProfileId(profile_id);
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+	}
+
+
+	@Override
 	public CourseDepartment assignCourseToDepartment(CourseDepartment courseDepartment) {
 
 		logger.debug("Entering assignCourseToDepartment");
 
 		return courseDepartmentRepo.save(courseDepartment);
+
 
 	}
 
