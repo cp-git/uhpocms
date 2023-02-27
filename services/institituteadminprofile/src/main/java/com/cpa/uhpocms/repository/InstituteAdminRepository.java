@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.cpa.uhpocms.entity.InstituteAdmin;
 
 @Repository
@@ -59,7 +58,7 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	 * @return : InstituteAdmin list
 	 * @description : For Retrieving All the data of inactive status.
 	 */
-	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN admin_institution inst ON inst.institutionid=profile.institutionid_id JOIN auth_user users ON users.id=profile.user_id where users.is_active=true and inst.isactive=true and profile.isactive=false\r\n", nativeQuery = true)
+	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN admin_institution inst ON inst.institutionid=profile.institutionid_id JOIN auth_user users ON users.id=profile.user_id where users.is_active=false and inst.isactive=true and profile.isactive=false\r\n", nativeQuery = true)
 	public List<InstituteAdmin> findInactiveProfileOfActiveInstitutions();
 
 	/**
@@ -71,8 +70,9 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	@Query(value = "UPDATE instituteadmin_profile SET isactive=true WHERE id= ?1", nativeQuery = true)
 	public int activateInstituteProfileById(int profileId);
 
-	@Query(value="SELECT profile.* FROM instituteadmin_profile profile JOIN teacher_course_enrolltostudent enroll ON  profile.id = enroll.profile_id where profile.isactive=true and enroll.course_id IN SELECT deptid.course_id FROM teacher_course_departmentid deptid WHERE deptid.department_id = ?1", nativeQuery =true)
+	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN teacher_course_enrolltostudent enroll ON  profile.id = enroll.profile_id where profile.isactive=true and enroll.course_id IN SELECT deptid.course_id FROM teacher_course_departmentid deptid WHERE deptid.department_id = ?1", nativeQuery = true)
 	public List<Object> findProfileByDepartmentId(int department_id);
+
 	 
 	
 	/**
@@ -83,4 +83,5 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	 * @description Function basically returns list of profiles based on institution id and user role provided in function parameter
 	 */
 	public List<Object> findByInstitutionIdAndUserRole(int institutionId, String userRole);
+
 }

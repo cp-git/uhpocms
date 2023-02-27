@@ -16,6 +16,10 @@ import org.springframework.stereotype.Service;
 
 //import com.cpa.uhpocms.controller.CourseController;
 import com.cpa.uhpocms.entity.Course;
+import com.cpa.uhpocms.entity.CourseDepartment;
+import com.cpa.uhpocms.entity.CourseInstitution;
+import com.cpa.uhpocms.repository.CourseDepartmentRepo;
+import com.cpa.uhpocms.repository.CourseInstitutionRepo;
 import com.cpa.uhpocms.repository.CourseRepo;
 import com.cpa.uhpocms.service.CourseService;
 
@@ -24,6 +28,12 @@ public class CourseServiceImpl implements CourseService {
 
 	@Autowired
 	private CourseRepo courseRepo;
+
+	@Autowired
+	private CourseDepartmentRepo courseDepartmentRepo;
+
+	@Autowired
+	private CourseInstitutionRepo courseInstitutionRepo;
 	private static Logger logger;
 
 	public CourseServiceImpl() {
@@ -39,11 +49,18 @@ public class CourseServiceImpl implements CourseService {
 	public Course createCourse(Course course) {
 		logger.debug("Entering createCourse");
 		Course createdCourse = null;
+		CourseInstitution createdCourseInstitution = null;
 
 		course.setCourseCreatedBy("admin");
 		course.setCourseUpdatedBy("admin");
 
 		createdCourse = courseRepo.save(course);
+
+		CourseInstitution courseInstitution = new CourseInstitution();
+		courseInstitution.setInstitutionId(createdCourse.getInstId());
+		courseInstitution.setCourseId(createdCourse.getCourseId());
+		createdCourseInstitution = courseInstitutionRepo.save(courseInstitution);
+
 		logger.info("created Course :" + createdCourse);
 		return createdCourse;
 	}
@@ -134,20 +151,19 @@ public class CourseServiceImpl implements CourseService {
 
 		List<Object> objectCourses = null;
 
-		List<Course> courses = courseRepo.findTeacherProfileId(profile_id);
+		List<Course> courses = courseRepo.findCourseByProfileId(profile_id);
 
 		logger.info("Fetched all active course :" + courses);
 		objectCourses = new ArrayList<Object>(courses);
 		return objectCourses;
 	}
-	
+
 	public List<Object> findByInstitutionId(int institutionId) {
 		// TODO Auto-generated method stub
 
 		List<Object> objectCourses = null;
 
 		List<Course> courses = courseRepo.findTeacherCourseByInstitutionId(institutionId);
-
 
 		logger.info("Fetched all active course :" + courses);
 		objectCourses = new ArrayList<Object>(courses);
@@ -166,7 +182,7 @@ public class CourseServiceImpl implements CourseService {
 		objectCourses = new ArrayList<Object>(courses);
 		return objectCourses;
 	}
-	
+
 	@Override
 	public List<Object> getAllInactiveCourses() {
 		logger.debug("Entering getAllInactiveCourses");
@@ -181,7 +197,6 @@ public class CourseServiceImpl implements CourseService {
 		return objectCourses;
 	}
 
-
 	@Override
 	public int activateCourseById(int courseId) {
 		logger.debug("Entering activateCourseByName");
@@ -189,6 +204,100 @@ public class CourseServiceImpl implements CourseService {
 		int count = courseRepo.activateCourseById(courseId);
 		logger.info("activated Course count : " + count);
 		return count;
+	}
+	
+	
+
+	@Override
+	public Course getCourseByCourseId(int courseid) {
+		// TODO Auto-generated method stub
+
+		logger.debug("Entering getCourseByCourseId");
+
+		Course course = courseRepo.findByCourseId(courseid);
+		logger.info("Founded course :" + course);
+
+		return course;
+	}
+
+	@Override
+	public int deleteCourseByCourseId(int courseid) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering deleteCourseByCourseId");
+
+		int count = courseRepo.deleteCourseByCourseId(courseid);
+//		courseInstitutionRepo.deleteByCourseId(courseid);
+		logger.info("deleted Course count : " + count);
+		return count;
+	}
+
+
+	@Override
+	public List<Object> findCoursesAssignToTeacher(int profile_id) {
+		// TODO Auto-generated method stub
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findCourseAssigntoTeacherByProfileId(profile_id);
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+	}
+
+	@Override
+	public List<Object> findInactiveCoursesAssignToTeacher(int profile_id) {
+		// TODO Auto-generated method stub
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findInactiveCourseAssigntoTeacherByProfileId(profile_id);
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+	}
+
+
+	@Override
+	public CourseDepartment assignCourseToDepartment(CourseDepartment courseDepartment) {
+
+		logger.debug("Entering assignCourseToDepartment");
+
+		return courseDepartmentRepo.save(courseDepartment);
+
+
+	}
+
+	@Override
+	public Course updateCourseById(Course course, int courseid) {
+		// TODO Auto-generated method stub
+
+		logger.debug("Entering updateCourse");
+
+		Course toUpdatedCourse = null;
+		Course updatedCourse = null;
+
+		toUpdatedCourse = courseRepo.findByCourseId(courseid);
+		logger.info("exisitng Course :: " + toUpdatedCourse);
+
+		if (toUpdatedCourse != null) {
+			logger.debug("setting new data of Course to exisitng Course");
+
+//				course.setModifiedBy("admin");
+
+			toUpdatedCourse.setCourseName(course.getCourseName());
+			toUpdatedCourse.setCourseDescription(course.getCourseDescription());
+			toUpdatedCourse.setCourseIsActive(course.isCourseIsActive());
+			toUpdatedCourse.setCourseCode(course.getCourseCode());
+			toUpdatedCourse.setCourseType(course.getCourseType());
+			toUpdatedCourse.setPassingScore(course.getPassingScore());
+			toUpdatedCourse.setInstId(course.getInstId());
+
+			updatedCourse = courseRepo.save(toUpdatedCourse);
+
+			logger.info("updated Course :" + updatedCourse);
+		}
+
+		return updatedCourse;
 	}
 
 	

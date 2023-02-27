@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -146,15 +147,16 @@ public class AuthUserController {
 		List<Object> authUsers = null;
 
 		try {
-
 			if (authUserName.equalsIgnoreCase("all")) {
-
 				authUsers = authUserService.getAllAuthUsers();
-				logger.info("Fetched all auth users :" + authUsers);
+				logger.info("Fetched all active auth users :" + authUsers);
+				return ResponseHandler.generateListResponse(authUsers, HttpStatus.OK);
 
+			} else if (authUserName.equalsIgnoreCase("inactive")) {
+				authUsers = authUserService.getAllInactiveAuthUsers();
+				logger.info("Fetched all inactive auth users :" + authUsers);
 				return ResponseHandler.generateListResponse(authUsers, HttpStatus.OK);
 			} else {
-
 				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}
@@ -217,14 +219,34 @@ public class AuthUserController {
 		}
 
 	}
-	
-	
-	 @GetMapping(path = "/basicauth")
-	    public AuthenticationBean basicauth() {
-	        return new AuthenticationBean("You are authenticated");
-	    }
-	
-	
-	
+
+	@GetMapping(path = "/basicauth")
+	public AuthenticationBean basicauth() {
+		return new AuthenticationBean("You are authenticated");
+	}
+
+	@PatchMapping(path = "/authuser/activate/{id}")
+	public ResponseEntity<Object> activateAuthUserById(@PathVariable("id") int authUserId) throws CPException {
+		logger.debug("Entering activateAuthUserById");
+		logger.info("entered activateAuthUserById  :" + authUserId);
+		// TODO - implement the business logic
+
+		int count = 0;
+
+		try {
+			count = authUserService.activateAuthUserById(authUserId);
+			if (count >= 1) {
+				logger.info("activated authuser : Id = " + authUserId);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err007"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err007");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to activate authuser :" + ex.getMessage());
+			throw new CPException("err007", resourceBundle.getString("err007"));
+		}
+	}
 
 }

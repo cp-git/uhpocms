@@ -146,4 +146,27 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return authUsers;
 	}
 
+	/**
+	 * @author : Mayur
+	 * @return : List<Object> authUsers
+	 * @description : For fetching all user which are in active state from auth_user
+	 *              table
+	 */
+	@Override
+	public List<Object> getAllInactiveAuthUsers() {
+		logger.debug("Entering getAllInactiveAuthUsers");
+
+		List<Object> authUsers = authUserRepo.findByAuthUserIsActiveFalse();
+		logger.info("Fetched all inactive users :" + authUsers);
+		return authUsers;
+	}
+
+	@Override
+	public int activateAuthUserById(int authUserId) {
+		logger.debug("Entering activateAuthUserById");
+
+		int count = authUserRepo.activateAuthUserById(authUserId);
+		logger.info("activated authuser count : " + count);
+		return count;
+	}
 }
