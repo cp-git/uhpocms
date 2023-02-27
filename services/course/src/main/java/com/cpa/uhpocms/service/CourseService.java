@@ -42,8 +42,9 @@ public interface CourseService {
 	List<Object> findInactiveCoursesAssignToTeacher(int profile_id);
 	int activateCourseById(int courseId);
 	
-	
+
 
 	CourseDepartment assignCourseToDepartment(CourseDepartment courseDepartment);
+
 
 }

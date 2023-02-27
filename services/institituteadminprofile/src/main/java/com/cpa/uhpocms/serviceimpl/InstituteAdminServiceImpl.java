@@ -176,6 +176,34 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return count;
 	}
 
+
+
+	/**
+	 * @author Shradha
+	 * @return : List of Institute_Admin_Profile Objects
+	 * @param : institution Id and userRole
+	 * @description : returns a sorted list of profiles based on institution id and userRole provided
+	 */
+	public List<Object> getProfileByInstitutionIdAndUserRole(Integer institutionId, String userRole) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering getProfileByUserRole");
+
+		List<Object> institutionProfilesList = null;
+		
+	    
+	    	institutionProfilesList = instituteAdminRepository.findByInstitutionIdAndUserRole(institutionId, userRole);
+	    	logger.info("activated institutionProfile count : " + institutionProfilesList);
+			return institutionProfilesList;
+	    
+				
+		
+		
+	}
+
+	
+
+	
+
 	/**
 	 * @param : InstituteAdmin, int
 	 * @return : InstituteAdmin
@@ -225,5 +253,6 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 
 		return instituteAdmin;
 	}
+
 
 }

@@ -24,8 +24,12 @@ public interface InstituteAdminService {
 
 	int activateInstituteProfileById(int profileId);
 
+
+	List<Object> getProfileByInstitutionIdAndUserRole(Integer institutionId, String userRole);
+
 	InstituteAdmin updateProfileByAuthUserId(InstituteAdmin instituteAdmin, int userId);
 
 	InstituteAdmin getProfileByAuthUserId(int userId);
+
 
 }
