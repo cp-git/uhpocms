@@ -29,5 +29,7 @@ public interface AnnouncementRepo extends JpaRepository<Announcement, Integer> {
 
 //	@Query(value = "INSERT INTO teacher_announcements_to_list VALUES(?,?,?)", nativeQuery = true)
 //	public List<AnnouncementTo> sendToAll();
+	
+	public List<Object> findAllByIdIn(List<Integer> profileIds);
 
 }

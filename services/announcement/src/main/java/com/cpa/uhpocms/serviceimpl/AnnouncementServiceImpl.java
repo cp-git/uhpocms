@@ -163,4 +163,42 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
 	}
 
+	@Override
+	public List<Object> getAnnouncementsByProfiledId(int profileId) {
+		logger.debug("Enterign getAnnouncementsByProfiledId");
+		List<Integer> announcementsIds = null;
+		List<Object> announcements = null;
+		try {
+			announcementsIds = getAnnouncementIdsByProfileId(profileId);
+			logger.info("Announcement ids object : " + announcementsIds);
+			if (announcementsIds != null) {
+				announcements = announcementRepo.findAllByIdIn(announcementsIds);
+				logger.info("Announcements  : " + announcements);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		return announcements;
+	}
+
+	private List<Integer> getAnnouncementIdsByProfileId(int profileId) {
+		logger.debug("Enterign getAnnouncementIdsByProfileId");
+		List<AnnouncementTo> objAnnouncementsIds = null;
+		List<Integer> announcementsIds = null;
+		try {
+			announcementsIds = new ArrayList<Integer>();
+			objAnnouncementsIds = announcementToRepo.findByProfileId(profileId);
+			logger.info("Announcement ids object : " + objAnnouncementsIds);
+			for (AnnouncementTo obj : objAnnouncementsIds) {
+				announcementsIds.add(obj.getAnnouncementId());
+			}
+			logger.info("Announcement ids : " + announcementsIds);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return announcementsIds;
+	}
 }
