@@ -109,7 +109,7 @@ public class AuthUserController {
 
 	}
 
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public AuthUser loginAuthUser(@RequestBody AuthUser authUser) throws CPException {
 		logger.debug("Entering loginAuthUser");
 
