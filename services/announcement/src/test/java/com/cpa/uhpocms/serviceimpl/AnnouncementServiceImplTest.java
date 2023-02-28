@@ -130,10 +130,10 @@ public class AnnouncementServiceImplTest {
 	}
 
 	@Test
-	public void testDeleteAnnouncementByTitle() {
-		Mockito.when(announcementRepository.deleteByAnnouncementTitle("title")).thenReturn(1);
+	public void testDeleteAnnouncementById() {
+		Mockito.when(announcementRepository.deleteByAnnouncementId(1)).thenReturn(1);
 
-		int count = announcementService.deleteAnnouncementByTitle("title");
+		int count = announcementService.deleteAnnouncementById(1);
 
 		assertEquals(count, 1);
 

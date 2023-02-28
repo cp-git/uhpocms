@@ -142,18 +142,18 @@ public class AnnouncementController {
 		}
 	}
 
-	@DeleteMapping("/announcement/{title}")
-	public ResponseEntity<Object> deleteAnnouncementByTitle(@PathVariable("title") String title) throws CPException {
+	@DeleteMapping("/announcement/{id}")
+	public ResponseEntity<Object> deleteAnnouncementById(@PathVariable("id") int announcementId) throws CPException {
 		logger.debug("Entering deleteAuthUser");
-		logger.info("entered deleteAnnouncement  :" + title);
+		logger.info("entered deleteAnnouncement  :" + announcementId);
 		// TODO - implement the business logic
 
 		int count = 0;
 
 		try {
-			count = announcementService.deleteAnnouncementByTitle(title);
+			count = announcementService.deleteAnnouncementById(announcementId);
 			if (count >= 1) {
-				logger.info("deleted Announcement : title = " + title);
+				logger.info("deleted Announcement : id = " + announcementId);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
 				logger.info(resourceBundle.getString("err005"));

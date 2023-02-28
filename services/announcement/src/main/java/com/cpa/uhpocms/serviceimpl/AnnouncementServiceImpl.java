@@ -122,15 +122,15 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	/**
 	 * @param : String title
 	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of
+	 * @description : This is function is used to delete the record of
 	 *              Announcement
 	 * 
 	 */
 	@Override
-	public int deleteAnnouncementByTitle(String title) {
-		logger.debug("Entering deleteAnnouncementBytitle");
+	public int deleteAnnouncementById(int announcementid) {
+		logger.info("Entering deleteAnnouncementById" + announcementid);
 
-		int count = announcementRepo.deleteByAnnouncementTitle(title);
+		int count = announcementRepo.deleteByAnnouncementId(announcementid);
 		logger.info("deleted Announcement count : " + count);
 		return count;
 	}
