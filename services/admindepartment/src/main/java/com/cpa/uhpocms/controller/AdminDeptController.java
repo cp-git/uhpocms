@@ -226,7 +226,7 @@ public class AdminDeptController {
 	}
 
 	@GetMapping(path = "department/institutionId/{id}", produces = { "application/json", "application/xml" })
-	public ResponseEntity<List<Object>> getDepartmentByInstitutionId(@PathVariable("id") int institutionId)
+	public ResponseEntity<List<Object>> getInactiveDepartmentByInstitutionId(@PathVariable("id") int institutionId)
 			throws CPException {
 
 		try {

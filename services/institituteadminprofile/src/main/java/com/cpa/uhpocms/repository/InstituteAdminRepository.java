@@ -73,4 +73,15 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN teacher_course_enrolltostudent enroll ON  profile.id = enroll.profile_id where profile.isactive=true and enroll.course_id IN SELECT deptid.course_id FROM teacher_course_departmentid deptid WHERE deptid.department_id = ?1", nativeQuery = true)
 	public List<Object> findProfileByDepartmentId(int department_id);
 
+	 
+	
+	/**
+	 * 
+	 * @param institutionId
+	 * @param userRole
+	 * @return List of Profiles
+	 * @description Function basically returns list of profiles based on institution id and user role provided in function parameter
+	 */
+	public List<Object> findByInstitutionIdAndUserRole(int institutionId, String userRole);
+
 }

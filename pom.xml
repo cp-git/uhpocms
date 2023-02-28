@@ -115,6 +115,12 @@
 		<module>services/email</module>
 		<module>services/question</module>
 		<module>services/module</module>
+
+		<module>services/modulefile</module>
+		
+
+		<module>services/enrolltostudent</module>
+
 		<module>tools/CodeGenerator</module>
 	</modules>
 </project>

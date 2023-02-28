@@ -1,0 +1,78 @@
+@startuml
+actor user
+participant ${Cservice}Application as uhpoc
+participant ${Cservice}Controller as main
+participant CPException as cp
+participant ResponseHandler as rh
+participant ${Cservice}Service as serv
+participant ${Cservice}ServiceImpl as impl
+participant ${Cservice}Repository as repo
+database DATABASE as db
+activate uhpoc
+activate user
+  user-->uhpoc : Enter URL-[http://localhost:8090/uhpocms/${service}]\n and Enter data
+    alt#Gold Case:If any Exception occur
+    uhpoc-> main : 
+    activate main
+    main->cp : throws CPException
+    activate cp
+    cp-> user : ${Cservice} Creation Failed 
+    deactivate cp
+    else  Case: If no exception occur
+     uhpoc -> main : main()
+          main -> serv : get${Cservice}By${findBy}()
+          activate serv
+          serv -> impl : get${Cservice}By${findBy}()
+          activate impl
+          impl -> repo : findBy${Cservice}${findBy}()
+          activate repo
+          repo -> db : Fetching ${Cservice} by ${findBy}
+          activate db
+           db->db : Fetching data
+          db --> repo : Data of ${service} 
+          deactivate db
+          repo --> impl :  Data of ${service} 
+          deactivate repo
+          impl --> serv : Data of ${service} 
+          deactivate impl
+          serv --> main :  Data of ${service}
+          deactivate serv
+          alt#Gold If ${Cservice} is null
+          main-> serv : create${Cservice}()
+          activate serv
+          serv->impl : create${Cservice}()
+          activate impl
+          impl->repo : save()
+          activate repo
+          repo->db : Inserting data into db
+          activate db
+          db->db : store data into db
+          db->repo : created ${Cservice}
+          deactivate db
+          repo->impl : created ${Cservice}
+          deactivate repo
+          impl->serv : created ${Cservice}
+          deactivate impl
+          serv->main : created ${Cservice}
+          deactivate serv
+          main->rh : generateResponse()
+          activate rh
+          rh->rh : generating response
+          rh->main : response with HttpStatus code 201
+          deactivate rh
+          main --> uhpoc :  Return inserted data and return HttpStatus code 201
+          uhpoc--> user :  Return inserted data and return HttpStatus code 201
+          else If ${Cservice} is not Null
+           main->rh : generateResponse()
+          activate rh
+          rh->rh : generating response
+          rh->main : response with HttpStatus code 500
+          deactivate rh
+          main->uhpoc : Return ${Cservice} creation failed with HttpStatus Code 500
+          deactivate main
+          uhpoc->user : Return ${Cservice} creation failed with HttpStatus Code 500
+          deactivate uhpoc
+          deactivate user
+      end
+      end
+@enduml
