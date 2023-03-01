@@ -142,18 +142,18 @@ public class AnnouncementController {
 		}
 	}
 
-	@DeleteMapping("/announcement/{title}")
-	public ResponseEntity<Object> deleteAnnouncementByTitle(@PathVariable("title") String title) throws CPException {
+	@DeleteMapping("/announcement/{id}")
+	public ResponseEntity<Object> deleteAnnouncementById(@PathVariable("id") int announcementId) throws CPException {
 		logger.debug("Entering deleteAuthUser");
-		logger.info("entered deleteAnnouncement  :" + title);
+		logger.info("entered deleteAnnouncement  :" + announcementId);
 		// TODO - implement the business logic
 
 		int count = 0;
 
 		try {
-			count = announcementService.deleteAnnouncementByTitle(title);
+			count = announcementService.deleteAnnouncementById(announcementId);
 			if (count >= 1) {
-				logger.info("deleted Announcement : title = " + title);
+				logger.info("deleted Announcement : id = " + announcementId);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
 				logger.info(resourceBundle.getString("err005"));
@@ -225,6 +225,32 @@ public class AnnouncementController {
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {
 		return new AuthenticationBean("You are authenticated");
+	}
+	
+	@GetMapping(path = "/announcement/profileid")
+	public ResponseEntity<List<Object>> getAnnouncementsByProfileId(@RequestParam(name = "id") int profileId)
+			throws CPException {
+
+		logger.debug("Entering getAnnouncementsByProfileId");
+		logger.info("parameter : " + profileId);
+
+		List<Object> announcements = null;
+
+		try {
+			announcements = announcementService.getAnnouncementsByProfiledId(profileId);
+			logger.info("Announcements Data : " + announcements);
+			if (announcements != null) {
+				return ResponseHandler.generateListResponse(announcements, HttpStatus.OK);
+			} else {
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+		} catch (Exception ex) {
+
+			logger.error("Failed getting announcements by profile id : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+		}
+
 	}
 
 }

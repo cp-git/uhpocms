@@ -122,15 +122,15 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	/**
 	 * @param : String title
 	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of
+	 * @description : This is function is used to delete the record of
 	 *              Announcement
 	 * 
 	 */
 	@Override
-	public int deleteAnnouncementByTitle(String title) {
-		logger.debug("Entering deleteAnnouncementBytitle");
+	public int deleteAnnouncementById(int announcementid) {
+		logger.info("Entering deleteAnnouncementById" + announcementid);
 
-		int count = announcementRepo.deleteByAnnouncementTitle(title);
+		int count = announcementRepo.deleteByAnnouncementId(announcementid);
 		logger.info("deleted Announcement count : " + count);
 		return count;
 	}
@@ -163,4 +163,42 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
 	}
 
+	@Override
+	public List<Object> getAnnouncementsByProfiledId(int profileId) {
+		logger.debug("Enterign getAnnouncementsByProfiledId");
+		List<Integer> announcementsIds = null;
+		List<Object> announcements = null;
+		try {
+			announcementsIds = getAnnouncementIdsByProfileId(profileId);
+			logger.info("Announcement ids object : " + announcementsIds);
+			if (announcementsIds != null) {
+				announcements = announcementRepo.findAllByIdIn(announcementsIds);
+				logger.info("Announcements  : " + announcements);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		return announcements;
+	}
+
+	private List<Integer> getAnnouncementIdsByProfileId(int profileId) {
+		logger.debug("Enterign getAnnouncementIdsByProfileId");
+		List<AnnouncementTo> objAnnouncementsIds = null;
+		List<Integer> announcementsIds = null;
+		try {
+			announcementsIds = new ArrayList<Integer>();
+			objAnnouncementsIds = announcementToRepo.findByProfileId(profileId);
+			logger.info("Announcement ids object : " + objAnnouncementsIds);
+			for (AnnouncementTo obj : objAnnouncementsIds) {
+				announcementsIds.add(obj.getAnnouncementId());
+			}
+			logger.info("Announcement ids : " + announcementsIds);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return announcementsIds;
+	}
 }
