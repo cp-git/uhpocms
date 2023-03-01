@@ -26,4 +26,6 @@ public interface AnnouncementService {
 	List<Object> sendAnnouncementToAll(int announcementId, Integer[] profileIds);
 
 	List<Object> getAnnouncementsByProfiledId(int profileId);
+
+	List<Object> getProfileIdsByAnnouncementId(int announcementId);
 }
