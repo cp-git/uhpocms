@@ -201,4 +201,22 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		}
 		return announcementsIds;
 	}
+
+	@Override
+	public List<Object> getProfileIdsByAnnouncementId(int announcementId) {
+		logger.debug("Enterign getProfileIdsByAnnouncementId");
+		List<AnnouncementTo> objAnnouncementsIds = null;
+		List<Object> announcementsIds = null;
+		try {
+			
+			objAnnouncementsIds = announcementToRepo.findByAnnouncementId(announcementId);
+			logger.info("AnnouncementTo profile ids object : " + objAnnouncementsIds);
+			announcementsIds = new ArrayList<Object>(objAnnouncementsIds);
+			logger.info("AnnouncementTo profile ids object : " + announcementsIds);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return announcementsIds;
+	}
 }

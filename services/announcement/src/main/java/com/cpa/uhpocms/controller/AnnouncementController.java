@@ -84,33 +84,33 @@ public class AnnouncementController {
 		}
 	}
 
-	@GetMapping("/announcement/{title}")
-	public ResponseEntity<Object> getAnnouncementByTitle(@PathVariable("title") String title) throws CPException {
-		logger.debug("Entering getAnnouncementBytitle");
-		logger.info("entered user name :" + title);
-
-		Announcement announcement = null;
-
-		try {
-
-			announcement = announcementService.getAnnouncementByTitle(title);
-			logger.info("fetched Announcement :" + announcement);
-
-			if (announcement != null) {
-				logger.debug("Announcement fetched generating response");
-				return ResponseHandler.generateResponse(announcement, HttpStatus.OK);
-			} else {
-				logger.debug("Announcement not found");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting announcement : " + ex.getMessage());
-			throw new CPException("err001", resourceBundle.getString("err001"));
-		}
-
-	}
+//	@GetMapping("/announcement/{title}")
+//	public ResponseEntity<Object> getAnnouncementByTitle(@PathVariable("title") String title) throws CPException {
+//		logger.debug("Entering getAnnouncementBytitle");
+//		logger.info("entered user name :" + title);
+//
+//		Announcement announcement = null;
+//
+//		try {
+//
+//			announcement = announcementService.getAnnouncementByTitle(title);
+//			logger.info("fetched Announcement :" + announcement);
+//
+//			if (announcement != null) {
+//				logger.debug("Announcement fetched generating response");
+//				return ResponseHandler.generateResponse(announcement, HttpStatus.OK);
+//			} else {
+//				logger.debug("Announcement not found");
+//				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+//			}
+//
+//		} catch (Exception ex) {
+//
+//			logger.error("Failed getting announcement : " + ex.getMessage());
+//			throw new CPException("err001", resourceBundle.getString("err001"));
+//		}
+//
+//	}
 
 	@GetMapping("/announcement")
 	public ResponseEntity<List<Object>> getAllAnnouncements(@RequestParam(name = "title") String title)
@@ -251,6 +251,35 @@ public class AnnouncementController {
 			throw new CPException("err002", resourceBundle.getString("err002"));
 		}
 
+		
+	}
+
+	
+	@GetMapping(path = "/announcement/profileid/{id}")
+	public ResponseEntity<List<Object>> getProfileIdsByAnnouncementId(@PathVariable("id") int announcementId)
+			throws CPException {
+
+		logger.debug("Entering getAnnouncementsByProfileId");
+		logger.info("parameter : " + announcementId);
+
+		List<Object> profileIds = null;
+
+		try {
+			profileIds = announcementService.getProfileIdsByAnnouncementId(announcementId);
+			logger.info("AnnouncementsTo Data : " + profileIds);
+			if (profileIds != null) {
+				return ResponseHandler.generateListResponse(profileIds, HttpStatus.OK);
+			} else {
+				logger.info(resourceBundle.getString("err007"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err007");
+			}
+		} catch (Exception ex) {
+
+			logger.error("Failed getting profile id by announcement id : " + ex.getMessage());
+			throw new CPException("err007", resourceBundle.getString("err007"));
+		}
+
+		
 	}
 
 }

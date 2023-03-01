@@ -11,5 +11,6 @@ import com.cpa.uhpocms.entity.AnnouncementTo;
 public interface AnnouncementToRepo extends JpaRepository<AnnouncementTo, Integer> {
 	
 	public List<AnnouncementTo> findByProfileId(int profileId);
+	public List<AnnouncementTo> findByAnnouncementId(int announcementId);
 	
 }
