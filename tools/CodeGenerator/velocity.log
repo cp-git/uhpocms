@@ -518,3 +518,147 @@
 2023-02-23 11:16:22,617 - ResourceManager : found getall.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
 2023-02-23 11:16:22,618 - ResourceManager : found updateseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
 2023-02-23 11:16:22,619 - ResourceManager : found deleteseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:16,839 - Log4JLogChute initialized using file 'velocity.log'
+2023-03-02 10:22:16,850 - Initializing Velocity, Calling init()...
+2023-03-02 10:22:16,850 - Starting Apache Velocity v1.7 (compiled: 2010-11-19 12:14:37)
+2023-03-02 10:22:16,850 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2023-03-02 10:22:16,850 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2023-03-02 10:22:16,850 - Target log system for org.apache.velocity.runtime.log.AvalonLogChute is not available (java.lang.NoClassDefFoundError: org/apache/log/format/Formatter).  Falling back to next log system...
+2023-03-02 10:22:16,850 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2023-03-02 10:22:16,850 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2023-03-02 10:22:16,856 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:16,879 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl) with class java.util.Collections$SynchronizedMap cache map.
+2023-03-02 10:22:16,882 - Loaded System Directive: org.apache.velocity.runtime.directive.Stop
+2023-03-02 10:22:16,883 - Loaded System Directive: org.apache.velocity.runtime.directive.Define
+2023-03-02 10:22:16,883 - Loaded System Directive: org.apache.velocity.runtime.directive.Break
+2023-03-02 10:22:16,884 - Loaded System Directive: org.apache.velocity.runtime.directive.Evaluate
+2023-03-02 10:22:16,885 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2023-03-02 10:22:16,887 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2023-03-02 10:22:16,889 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2023-03-02 10:22:16,894 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2023-03-02 10:22:16,897 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2023-03-02 10:22:16,935 - Created '20' parsers.
+2023-03-02 10:22:16,943 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2023-03-02 10:22:16,944 - Could not load resource 'VM_global_library.vm' from ResourceLoader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader: ClasspathResourceLoader Error: cannot find resource VM_global_library.vm
+2023-03-02 10:22:16,944 - Velocimacro : Default library not found.
+2023-03-02 10:22:16,944 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2023-03-02 10:22:16,944 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2023-03-02 10:22:16,944 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2023-03-02 10:22:16,945 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2023-03-02 10:22:17,071 - ResourceManager : found pom.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,146 - ResourceManager : found servletinit.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,180 - ResourceManager : found uhpocapp.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,190 - ResourceManager : found appyaml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,201 - ResourceManager : found log4j.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,262 - ResourceManager : found controller.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,275 - ResourceManager : found errmsg.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,286 - ResourceManager : found entity.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,296 - ResourceManager : found repo.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,307 - ResourceManager : found service.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,314 - ResourceManager : found exception.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,318 - ResourceManager : found response.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,321 - Null reference [template 'response.vm', line 3, column 15] : ${genDate} cannot be resolved.
+2023-03-02 10:22:17,321 - Null reference [template 'response.vm', line 4, column 47] : ${Cservice} cannot be resolved.
+2023-03-02 10:22:17,331 - ResourceManager : found impl.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,339 - ResourceManager : found classdiag.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,359 - ResourceManager : found postseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,366 - ResourceManager : found getseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,372 - ResourceManager : found getall.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,376 - ResourceManager : found updateseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:22:17,381 - ResourceManager : found deleteseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,310 - Log4JLogChute initialized using file 'velocity.log'
+2023-03-02 10:26:53,312 - Initializing Velocity, Calling init()...
+2023-03-02 10:26:53,312 - Starting Apache Velocity v1.7 (compiled: 2010-11-19 12:14:37)
+2023-03-02 10:26:53,312 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2023-03-02 10:26:53,312 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2023-03-02 10:26:53,312 - Target log system for org.apache.velocity.runtime.log.AvalonLogChute is not available (java.lang.NoClassDefFoundError: org/apache/log/format/Formatter).  Falling back to next log system...
+2023-03-02 10:26:53,312 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2023-03-02 10:26:53,312 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2023-03-02 10:26:53,321 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,356 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl) with class java.util.Collections$SynchronizedMap cache map.
+2023-03-02 10:26:53,363 - Loaded System Directive: org.apache.velocity.runtime.directive.Stop
+2023-03-02 10:26:53,366 - Loaded System Directive: org.apache.velocity.runtime.directive.Define
+2023-03-02 10:26:53,367 - Loaded System Directive: org.apache.velocity.runtime.directive.Break
+2023-03-02 10:26:53,370 - Loaded System Directive: org.apache.velocity.runtime.directive.Evaluate
+2023-03-02 10:26:53,371 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2023-03-02 10:26:53,374 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2023-03-02 10:26:53,377 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2023-03-02 10:26:53,379 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2023-03-02 10:26:53,381 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2023-03-02 10:26:53,420 - Created '20' parsers.
+2023-03-02 10:26:53,428 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2023-03-02 10:26:53,430 - Could not load resource 'VM_global_library.vm' from ResourceLoader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader: ClasspathResourceLoader Error: cannot find resource VM_global_library.vm
+2023-03-02 10:26:53,430 - Velocimacro : Default library not found.
+2023-03-02 10:26:53,430 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2023-03-02 10:26:53,430 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2023-03-02 10:26:53,430 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2023-03-02 10:26:53,430 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2023-03-02 10:26:53,462 - ResourceManager : found pom.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,468 - ResourceManager : found servletinit.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,479 - ResourceManager : found uhpocapp.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,483 - ResourceManager : found appyaml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,487 - ResourceManager : found log4j.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,502 - ResourceManager : found controller.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,507 - ResourceManager : found errmsg.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,511 - ResourceManager : found entity.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,515 - ResourceManager : found repo.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,518 - ResourceManager : found service.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,521 - ResourceManager : found exception.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,524 - ResourceManager : found response.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,526 - Null reference [template 'response.vm', line 3, column 15] : ${genDate} cannot be resolved.
+2023-03-02 10:26:53,526 - Null reference [template 'response.vm', line 4, column 47] : ${Cservice} cannot be resolved.
+2023-03-02 10:26:53,533 - ResourceManager : found impl.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,538 - ResourceManager : found classdiag.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,546 - ResourceManager : found postseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,551 - ResourceManager : found getseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,556 - ResourceManager : found getall.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,562 - ResourceManager : found updateseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:26:53,571 - ResourceManager : found deleteseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,436 - Log4JLogChute initialized using file 'velocity.log'
+2023-03-02 10:28:37,437 - Initializing Velocity, Calling init()...
+2023-03-02 10:28:37,438 - Starting Apache Velocity v1.7 (compiled: 2010-11-19 12:14:37)
+2023-03-02 10:28:37,438 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2023-03-02 10:28:37,438 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2023-03-02 10:28:37,438 - Target log system for org.apache.velocity.runtime.log.AvalonLogChute is not available (java.lang.NoClassDefFoundError: org/apache/log/format/Formatter).  Falling back to next log system...
+2023-03-02 10:28:37,438 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2023-03-02 10:28:37,438 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2023-03-02 10:28:37,445 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,473 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl) with class java.util.Collections$SynchronizedMap cache map.
+2023-03-02 10:28:37,478 - Loaded System Directive: org.apache.velocity.runtime.directive.Stop
+2023-03-02 10:28:37,479 - Loaded System Directive: org.apache.velocity.runtime.directive.Define
+2023-03-02 10:28:37,481 - Loaded System Directive: org.apache.velocity.runtime.directive.Break
+2023-03-02 10:28:37,482 - Loaded System Directive: org.apache.velocity.runtime.directive.Evaluate
+2023-03-02 10:28:37,484 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2023-03-02 10:28:37,486 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2023-03-02 10:28:37,489 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2023-03-02 10:28:37,491 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2023-03-02 10:28:37,493 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2023-03-02 10:28:37,529 - Created '20' parsers.
+2023-03-02 10:28:37,538 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2023-03-02 10:28:37,538 - Could not load resource 'VM_global_library.vm' from ResourceLoader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader: ClasspathResourceLoader Error: cannot find resource VM_global_library.vm
+2023-03-02 10:28:37,538 - Velocimacro : Default library not found.
+2023-03-02 10:28:37,539 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2023-03-02 10:28:37,539 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2023-03-02 10:28:37,539 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2023-03-02 10:28:37,539 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2023-03-02 10:28:37,580 - ResourceManager : found pom.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,588 - ResourceManager : found servletinit.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,593 - ResourceManager : found uhpocapp.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,598 - ResourceManager : found appyaml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,603 - ResourceManager : found log4j.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,628 - ResourceManager : found controller.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,634 - ResourceManager : found errmsg.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,639 - ResourceManager : found entity.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,643 - ResourceManager : found repo.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,647 - ResourceManager : found service.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,650 - ResourceManager : found exception.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,655 - ResourceManager : found response.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,656 - Null reference [template 'response.vm', line 3, column 15] : ${genDate} cannot be resolved.
+2023-03-02 10:28:37,656 - Null reference [template 'response.vm', line 4, column 47] : ${Cservice} cannot be resolved.
+2023-03-02 10:28:37,664 - ResourceManager : found impl.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,670 - ResourceManager : found classdiag.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,676 - ResourceManager : found postseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,682 - ResourceManager : found getseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,687 - ResourceManager : found getall.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,690 - ResourceManager : found updateseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-03-02 10:28:37,694 - ResourceManager : found deleteseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
