@@ -38,7 +38,7 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 	 * @description : For creating/inserting entry in teacher_course_enrollToStudent table
 	 */
 	@Override
-	public EnrollToStudent createEnrollToStudent(EnrollToStudent enrolltostudent) {
+	public EnrollToStudent createEnrollToStudent(EnrollToStudent enrolltostudent)  {
 		logger.debug("Entering createEnrollToStudent in serviceimpl");
 		EnrollToStudent createdEnrollToStudent = null;
 
@@ -50,7 +50,7 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 		
 		EnrollToStudent enrStudentSecond = getEnrollToStudentBycourseId(courseIdNew);
 		
-			if(enrStudentSecond.getProfileId() != profileIdNew)
+			if((enrStudentSecond == null) || (enrStudentSecond.getProfileId() != profileIdNew) )
 			{
 			createdEnrollToStudent = enrolltostudentRepo.save(enrolltostudent);
 			
@@ -61,9 +61,10 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 		
 		logger.error("Course Id "+ courseIdNew +" already assigned to profile Id " +profileIdNew );
 		return null;
+		
 	}
 
-	/**
+	/*
 	 * @param : String courseid
 	 * @return : EnrollToStudent enrolltostudent
 	 * @description : For get entry in teacher_course_enrollToStudent table
