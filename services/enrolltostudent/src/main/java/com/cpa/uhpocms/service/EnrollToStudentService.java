@@ -15,13 +15,13 @@ public interface EnrollToStudentService {
 
 	EnrollToStudent createEnrollToStudent(EnrollToStudent enrolltostudent);
 
-	EnrollToStudent getEnrollToStudentBycourseId(String courseid);
+	EnrollToStudent getEnrollToStudentBycourseId(int courseid);
 
 //	List<Object> getAllEnrollToStudents();
 
-	EnrollToStudent updateEnrollToStudentBycourseId(EnrollToStudent enrolltostudent, String courseid);
+	EnrollToStudent updateEnrollToStudentBycourseId(EnrollToStudent enrolltostudent, int courseid);
 
-	int deleteEnrollToStudentBycourseId(String courseid);
+	int deleteEnrollToStudentBycourseId(int courseid);
 	
 //	void insertCourseAndProfile(int courseId,int profileId);
 

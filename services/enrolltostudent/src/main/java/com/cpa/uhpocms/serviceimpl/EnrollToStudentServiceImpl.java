@@ -7,6 +7,8 @@
 
 package com.cpa.uhpocms.serviceimpl;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,15 +39,28 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 	 */
 	@Override
 	public EnrollToStudent createEnrollToStudent(EnrollToStudent enrolltostudent) {
-		logger.debug("Entering createEnrollToStudent");
+		logger.debug("Entering createEnrollToStudent in serviceimpl");
 		EnrollToStudent createdEnrollToStudent = null;
 
 	//	enrolltostudent.setEnrollToStudentCreatedBy("admin");
 	//	enrolltostudent.setEnrollToStudentModifiedBy("admin");
 
-		createdEnrollToStudent = enrolltostudentRepo.save(enrolltostudent);
-		logger.info("created EnrollToStudent :" + createdEnrollToStudent);
-		return createdEnrollToStudent;
+		int courseIdNew = enrolltostudent.getCourseId();
+		int profileIdNew = enrolltostudent.getProfileId();
+		
+		EnrollToStudent enrStudentSecond = getEnrollToStudentBycourseId(courseIdNew);
+		
+			if(enrStudentSecond.getProfileId() != profileIdNew)
+			{
+			createdEnrollToStudent = enrolltostudentRepo.save(enrolltostudent);
+			
+			logger.info("created EnrollToStudent :" + createdEnrollToStudent);
+			
+			return createdEnrollToStudent;
+			}
+		
+		logger.error("Course Id "+ courseIdNew +" already assigned to profile Id " +profileIdNew );
+		return null;
 	}
 
 	/**
@@ -54,7 +69,7 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 	 * @description : For get entry in teacher_course_enrollToStudent table
 	 */
 	@Override
-	public EnrollToStudent getEnrollToStudentBycourseId(String courseid) {
+	public EnrollToStudent getEnrollToStudentBycourseId(int courseid) {
 		logger.debug("Entering getEnrollToStudentBycourseId");
 
 		EnrollToStudent enrolltostudent = enrolltostudentRepo.findByCourseId(courseid);
@@ -83,7 +98,7 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 	 * @description : For updating enrolltostudent of teacher_course_enrollToStudent table
 	 */
 	@Override
-	public EnrollToStudent updateEnrollToStudentBycourseId(EnrollToStudent enrolltostudent, String courseid) {
+	public EnrollToStudent updateEnrollToStudentBycourseId(EnrollToStudent enrolltostudent, int courseid) {
 		logger.debug("Entering updateEnrollToStudent");
 
 		EnrollToStudent toUpdatedEnrollToStudent = null;
@@ -112,7 +127,7 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 	 * 
 	 */
 	@Override
-	public int deleteEnrollToStudentBycourseId(String courseid) {
+	public int deleteEnrollToStudentBycourseId(int courseid) {
 		logger.debug("Entering deleteEnrollToStudentBycourseId");
 
 		int count =  enrolltostudentRepo.deleteEnrollToStudentBycourseId(courseid);

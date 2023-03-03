@@ -86,7 +86,7 @@ public class EnrollToStudentController {
 	}
 
 	@GetMapping("/enrollstudent/{courseId}")
-	public ResponseEntity<Object> getEnrollToStudentBycourseId(@PathVariable("courseId") String courseId)
+	public ResponseEntity<Object> getEnrollToStudentBycourseId(@PathVariable("courseId") int courseId)
 			throws CPException {
 		logger.debug("Entering getEnrollToStudentBycourseId");
 		logger.info("entered user name :" + courseId);
@@ -145,7 +145,7 @@ public class EnrollToStudentController {
 //	}
 
 	@DeleteMapping("/enrollstudent/{courseId}")
-	public ResponseEntity<Object> deleteEnrollToStudentBycourseId(@PathVariable("courseId") String courseId) throws CPException {
+	public ResponseEntity<Object> deleteEnrollToStudentBycourseId(@PathVariable("courseId") int courseId) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered deleteEnrollToStudent  :" + courseId);
 		//TODO - implement the business logic
@@ -172,7 +172,7 @@ public class EnrollToStudentController {
 
 	@PutMapping("/enrollstudent/{courseId}")
 	public ResponseEntity<Object> updateEnrollToStudentBycourseId(@RequestBody EnrollToStudent enrolltostudent,
-			@PathVariable("courseId") String courseId) throws CPException {
+			@PathVariable("courseId") int courseId) throws CPException {
 		logger.debug("Entering updateEnrollToStudent");
 		logger.info("entered  updateEnrollToStudent :" + enrolltostudent);
 

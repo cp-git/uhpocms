@@ -21,14 +21,14 @@ import com.cpa.uhpocms.entity.EnrollToStudent;
 @Repository
 public interface EnrollToStudentRepo extends JpaRepository<EnrollToStudent, Integer> {
 
-	public EnrollToStudent findByCourseId(String courseid);
+	public EnrollToStudent findByCourseId(int courseid);
 
 //	public List<Object> findByEnrollToStudentIsActiveTrue();
 
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE teacher_course_enrollToStudent SET is_active=false WHERE courseid = ?1", nativeQuery = true)
-	public int deleteEnrollToStudentBycourseId(String courseid);
+	public int deleteEnrollToStudentBycourseId(int courseid);
 
 	
 	@Query(value = "INSERT INTO teacher_course_enrolltostudent(course_id, profile_id) VALUES (?1,?2)", nativeQuery = true)
