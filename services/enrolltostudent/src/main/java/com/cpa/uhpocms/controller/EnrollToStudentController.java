@@ -69,16 +69,27 @@ public class EnrollToStudentController {
 			//	enrolltostudent.setUpdatedby("admin");
 
 				createdEnrollToStudent = enrolltostudentService.createEnrollToStudent(enrolltostudent);
+				
+				if(createdEnrollToStudent !=null )
+				{
 				logger.info("EnrollToStudent created :" + createdEnrollToStudent);
 
 				return ResponseHandler.generateResponse(createdEnrollToStudent, HttpStatus.CREATED);
+				}
+				
+				else{
 
-			} else {
+					logger.error(resourceBunde.getString("err003"));
+					return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
+				}	
+			} 
+			else{
 
-				logger.error(resourceBunde.getString("err003"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
-			}
+					logger.error(resourceBunde.getString("err003"));
+					return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
+				}
 
+			
 		} catch (Exception ex) {
 			logger.error("Failed EnrollToStudent creation : " + ex.getMessage());
 			throw new CPException("err003", resourceBunde.getString("err003"));
