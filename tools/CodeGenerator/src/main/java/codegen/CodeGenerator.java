@@ -740,8 +740,9 @@ public class CodeGenerator {
 		velocityEngine.init(velocityProperties);
 
 		loadProperties(
-				"E:\\Mayur Workspace\\_uhpocms\\uhpocms\\tools\\CodeGenerator\\src\\main\\resources\\CodeGen_Question.properties");
-
+				"E:\\BE\\uhpocms\\tools\\CodeGenerator\\src\\main\\resources\\CodeGen.properties");
+		
+		
 		String rootFolder = props.getProperty("rootFolder");
 		String serviceName = props.getProperty("service");
 		String moduleName = props.getProperty("module");

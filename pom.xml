@@ -103,7 +103,7 @@
 		</dependency> 
 	</dependencies>
 	<modules>
-		<module>services/announcement</module>
+		<!--<module>services/announcement</module>
 		<module>services/course</module>
 		<module>services/category</module>
 		<module>services/authuser</module>
@@ -114,7 +114,8 @@
 		<module>services/quiz</module>
 		<module>services/email</module>
 		<module>services/question</module>
-		<module>services/module</module>
+		<module>services/module</module>-->
+		<module>services/courseSyllabus</module>
 		<module>tools/CodeGenerator</module>
 	</modules>
 </project>
