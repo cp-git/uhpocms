@@ -21,8 +21,12 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	// Method to find a list of entries with is active flag true
 	public List<Object> findByIsActiveTrue();
 
+	public AdminDepartment findByInstitutionIdAndName(int institutionId, String name);
+
 	// Method to find entry by giving name as parameter to function
 	public AdminDepartment findByName(String name);
+
+	public AdminDepartment findById(int departmentid);
 
 	// @Query(value = "SELECT * FROM admin_department WHERE institutionid_id=?1",
 	// nativeQuery = true)
@@ -33,8 +37,11 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	@Query(value = "SELECT dept.* FROM admin_department dept JOIN admin_institution inst ON dept.institutionid_id= inst.institutionid where inst.isactive=true and dept.isactive=false", nativeQuery = true)
 	List<AdminDepartment> findInactiveDepartmentsOfActiveInstitutions();
 
-	
-	
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE admin_department SET isactive=false WHERE departmentid= ?1", nativeQuery = true)
+	public int deleteDepartmentById(int departmentid);
+
 	// method to activate department
 	@Transactional
 	@Modifying
