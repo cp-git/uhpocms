@@ -89,6 +89,28 @@ public class AdminDeptController {
 
 	}
 
+	@DeleteMapping("/department/deptId/{id}")
+	public ResponseEntity<Object> deleteDepartmentById(@PathVariable("id") int departmentid) throws CPException {
+
+		int count = 0;
+
+		try {
+
+			count = adminDeptService.deleteDeptById(departmentid);
+			if (count >= 1) {
+
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete Course :" + ex.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+		}
+	}
+
 	/**
 	 * @author Shradha
 	 * @description: Method that provides mapping for getting all departments in
@@ -158,6 +180,33 @@ public class AdminDeptController {
 		return ResponseHandler.generateResponse("err021", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	@GetMapping("/department/deptId/{id}")
+	public ResponseEntity<Object> getDepartmentById(@PathVariable("id") int departmentid) throws CPException {
+		logger.debug("Entering getDepartmentById");
+
+		AdminDepartment adminDepartment = null;
+
+		try {
+
+			adminDepartment = adminDeptService.getDepartmentById(departmentid);
+			logger.info("fetched Department :" + adminDepartment);
+
+			if (adminDepartment != null) {
+				logger.debug("Department fetched generating response");
+				return ResponseHandler.generateResponse(adminDepartment, HttpStatus.OK);
+			} else {
+				logger.debug("Department not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting course : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
+
 	/**
 	 * @author Shradha
 	 * @throws CPException
@@ -190,6 +239,44 @@ public class AdminDeptController {
 		return ResponseHandler.generateResponse("err013", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
+	@PostMapping("/dept")
+	public ResponseEntity<Object> createDepartment(@RequestBody AdminDepartment adminDepartment) throws CPException {
+		logger.debug("Entering createDepartment");
+		logger.info("data of creating Department  :" + adminDepartment.toString());
+
+		AdminDepartment createdDepartment = null;
+		try {
+
+			AdminDepartment toCheckDepartment = adminDeptService
+					.getDepartmentByInstitutionIdAndName(adminDepartment.getInstitutionId(), adminDepartment.getName());
+
+			logger.debug("existing admindepartment :" + toCheckDepartment);
+
+			if (toCheckDepartment == null) {
+
+				// TODO: Uncomment below 2 lines and change the method name as per your Entity
+				// class
+				adminDepartment.setModifiedBy("admin");
+				adminDepartment.setCreatedBy("admin");
+
+				createdDepartment = adminDeptService.createDepartment(adminDepartment);
+
+				logger.info("Department created :" + createdDepartment);
+
+				return ResponseHandler.generateResponse(createdDepartment, HttpStatus.CREATED);
+
+			} else {
+
+				logger.error(resourceBundle.getString("err003"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed Course creation : " + ex.getMessage());
+			throw new CPException("err003", resourceBundle.getString("err003"));
+		}
+	}
+
 	/**
 	 * @author Shradha
 	 * @description: Method that provides mapping for updating a departments in
@@ -218,6 +305,33 @@ public class AdminDeptController {
 		}
 		logger.error(resourceBundle.getString("err004"));
 		return ResponseHandler.generateResponse("err004", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@PutMapping("/department/departmentID/{id}")
+	public ResponseEntity<Object> updateDepartmentById(@RequestBody AdminDepartment adminDepartment,
+			@PathVariable("id") int departmentid) throws CPException {
+		logger.debug("Entering updateDepartment");
+		logger.info("entered  updateDepartment :" + adminDepartment);
+
+		AdminDepartment updateDepartment = null;
+
+		try {
+			updateDepartment = adminDeptService.updateDepartmentById(adminDepartment, departmentid);
+
+			if (updateDepartment == null) {
+				logger.info(resourceBundle.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated adminDepartment : " + updateDepartment);
+				return ResponseHandler.generateResponse(updateDepartment, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update Department : " + ex.getMessage());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+
 	}
 
 	@GetMapping(path = "/basicauth")

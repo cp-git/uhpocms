@@ -12,8 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 @Entity
 @Table(name = "admin_department")
+
 public class AdminDepartment {
 
 	@Column(name = "isactive")
@@ -33,12 +37,14 @@ public class AdminDepartment {
 	@Column(name = "createdby")
 	private String createdBy;
 
+	@CreationTimestamp
 	@Column(name = "createdon")
 	private Date createdOn;
 
 	@Column(name = "modifiedby")
 	private String modifiedBy;
 
+	@UpdateTimestamp
 	@Column(name = "modifiedon")
 	private Date modifiedOn;
 

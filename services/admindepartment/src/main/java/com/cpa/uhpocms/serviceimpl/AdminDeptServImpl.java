@@ -142,11 +142,8 @@ public class AdminDeptServImpl implements AdminDeptService {
 		logger.info("Fetched all inactive departments :" + departments);
 		objectDepartments = new ArrayList<Object>(departments);
 
-
 		return objectDepartments;
 	}
-	
-	
 
 	/**
 	 * @description: Method that performs activated department which sets active
@@ -162,5 +159,82 @@ public class AdminDeptServImpl implements AdminDeptService {
 
 		return updatedCount;
 
+	}
+
+	@Override
+	public AdminDepartment updateDepartmentById(AdminDepartment adminDepartment, int departmentid) {
+		// TODO Auto-generated method stub
+
+		logger.debug("Entering updateDepartment");
+
+		AdminDepartment toUpdatedDepartment = null;
+		AdminDepartment updatedDepartment = null;
+
+		toUpdatedDepartment = adminDeptRepo.findById(departmentid);
+		logger.info("exisitng Department :: " + toUpdatedDepartment);
+		logger.info("cooming Department :: " + adminDepartment);
+
+		if (toUpdatedDepartment != null) {
+			logger.debug("setting new data of Department to exisitng Department");
+
+			toUpdatedDepartment.setName(adminDepartment.getName());
+
+			toUpdatedDepartment.setDescription(adminDepartment.getDescription());
+			toUpdatedDepartment.setActive(adminDepartment.isActive());
+
+			toUpdatedDepartment.setInstitutionId(adminDepartment.getInstitutionId());
+
+			updatedDepartment = adminDeptRepo.save(toUpdatedDepartment);
+
+			logger.info("updated Department :" + updatedDepartment);
+		}
+
+		return updatedDepartment;
+	}
+
+	@Override
+	public int deleteDeptById(int departmentid) {
+		// TODO Auto-generated method stub
+
+		logger.debug("Entering deleteDepartmentById");
+
+		int count = adminDeptRepo.deleteDepartmentById(departmentid);
+
+		logger.info("deleted department count : " + count);
+		return count;
+	}
+
+	@Override
+	public AdminDepartment getDepartmentById(int departmentid) {
+		// TODO Auto-generated method stub
+
+		logger.debug("Entering getDepartmentById");
+
+		AdminDepartment adminDepartment = adminDeptRepo.findById(departmentid);
+		logger.info("Founded adminDepartment :" + adminDepartment);
+
+		return adminDepartment;
+	}
+
+	@Override
+	public AdminDepartment createDepartment(AdminDepartment adminDepartment) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering createDepartment");
+		AdminDepartment createdDepartment = null;
+
+		adminDepartment.setCreatedBy("admin");
+		adminDepartment.setModifiedBy("admin");
+
+		createdDepartment = adminDeptRepo.save(adminDepartment);
+
+		logger.info("created AdminDepartment :" + createdDepartment);
+		return createdDepartment;
+	}
+
+	@Override
+	public AdminDepartment getDepartmentByInstitutionIdAndName(int institutionId, String name) {
+		// TODO Auto-generated method stub
+		AdminDepartment adminDepartment = adminDeptRepo.findByInstitutionIdAndName(institutionId, name);
+		return adminDepartment;
 	}
 }

@@ -19,13 +19,21 @@ public interface AdminDeptService {
 
 	public void deleteDept(String name);
 
+	int deleteDeptById(int departmentid);
+
 	public Object getDeptByName(String name);
+
+	AdminDepartment getDepartmentById(int departmentid);
 
 	List<Object> findByInstitutionId(int institutionId);
 
 	public List<Object> getAllInactiveDepartments();
-	
-
 
 	public int activateDepartment(int departmentId);
+
+	public AdminDepartment updateDepartmentById(AdminDepartment adminDepartment, int departmentid);
+
+	AdminDepartment createDepartment(AdminDepartment adminDepartment);
+
+	AdminDepartment getDepartmentByInstitutionIdAndName(int institutionId, String name);
 }
