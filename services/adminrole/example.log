@@ -78,3 +78,16 @@
 2023-Feb-10 13:08:47 DEBUG [http-nio-8080-exec-7] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.getAllInactiveAdminRoles(AdminRoleServiceImpl.java:174) - Entering getAllInactiveAdminRoles
 2023-Feb-10 13:08:47 INFO [http-nio-8080-exec-7] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.getAllInactiveAdminRoles(AdminRoleServiceImpl.java:177) - Fetched all inactive admin roles:[AdminRole [roleId=1, isActive=false, roleName=student, roleDescription=student, createdBy=admin, createdOn=2023-01-04 16:54:06.018, modifiedBy=admin, modifiedOn=2023-01-05 11:49:25.856]]
 
+2023-Mar-10 15:55:45 INFO [restartedMain] com.cpa.uhpocms.AdminRoleApplication.main(AdminRoleApplication.java:15) - in main class 
+2023-Mar-10 15:56:15 DEBUG [http-nio-8080-exec-3] com.cpa.uhpocms.controller.AdminRoleController.addAdminRole(AdminRoleController.java:53) - Entering addAdminRole
+2023-Mar-10 15:56:15 INFO [http-nio-8080-exec-3] com.cpa.uhpocms.controller.AdminRoleController.addAdminRole(AdminRoleController.java:55) - in POST Operation method
+2023-Mar-10 15:56:15 DEBUG [http-nio-8080-exec-3] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.saveAdminRole(AdminRoleServiceImpl.java:39) - Entering createRole
+2023-Mar-10 15:56:15 INFO [http-nio-8080-exec-3] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.saveAdminRole(AdminRoleServiceImpl.java:59) - created Role :AdminRole [roleId=2, isActive=true, roleName=teacher, roleDescription=teacher role, createdBy=admin, createdOn=Fri Mar 10 15:56:15 IST 2023, modifiedBy=admin, modifiedOn=Fri Mar 10 15:56:15 IST 2023]
+2023-Mar-10 15:56:29 DEBUG [http-nio-8080-exec-4] com.cpa.uhpocms.controller.AdminRoleController.addAdminRole(AdminRoleController.java:53) - Entering addAdminRole
+2023-Mar-10 15:56:29 INFO [http-nio-8080-exec-4] com.cpa.uhpocms.controller.AdminRoleController.addAdminRole(AdminRoleController.java:55) - in POST Operation method
+2023-Mar-10 15:56:29 DEBUG [http-nio-8080-exec-4] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.saveAdminRole(AdminRoleServiceImpl.java:39) - Entering createRole
+2023-Mar-10 15:56:29 INFO [http-nio-8080-exec-4] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.saveAdminRole(AdminRoleServiceImpl.java:59) - created Role :AdminRole [roleId=3, isActive=true, roleName=coadmin, roleDescription=teacher role, createdBy=admin, createdOn=Fri Mar 10 15:56:29 IST 2023, modifiedBy=admin, modifiedOn=Fri Mar 10 15:56:29 IST 2023]
+2023-Mar-10 15:56:40 DEBUG [http-nio-8080-exec-5] com.cpa.uhpocms.controller.AdminRoleController.addAdminRole(AdminRoleController.java:53) - Entering addAdminRole
+2023-Mar-10 15:56:40 INFO [http-nio-8080-exec-5] com.cpa.uhpocms.controller.AdminRoleController.addAdminRole(AdminRoleController.java:55) - in POST Operation method
+2023-Mar-10 15:56:40 DEBUG [http-nio-8080-exec-5] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.saveAdminRole(AdminRoleServiceImpl.java:39) - Entering createRole
+2023-Mar-10 15:56:41 INFO [http-nio-8080-exec-5] com.cpa.uhpocms.serviceimpl.AdminRoleServiceImpl.saveAdminRole(AdminRoleServiceImpl.java:59) - created Role :AdminRole [roleId=4, isActive=true, roleName=student, roleDescription=teacher role, createdBy=admin, createdOn=Fri Mar 10 15:56:40 IST 2023, modifiedBy=admin, modifiedOn=Fri Mar 10 15:56:40 IST 2023]
