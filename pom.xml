@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.cpa.uhpoc.ms</groupId>
 	<artifactId>uhpocms</artifactId>
@@ -97,10 +99,10 @@
 			<artifactId>spring-context</artifactId>
 		</dependency>
 
-		<dependency>  
-		<groupId>org.springframework.boot</groupId>  
-		<artifactId>spring-boot-starter-security</artifactId>  
-		</dependency> 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 	</dependencies>
 	<modules>
 		<module>services/announcement</module>
@@ -114,16 +116,10 @@
 		<module>services/quiz</module>
 		<module>services/email</module>
 		<module>services/question</module>
-
+		<module>services/assigntoteacher</module>
 		<module>services/module</module>
-
 		<module>services/modulefile</module>
-		
-
 		<module>services/enrolltostudent</module>
-
-
-		
 		<module>services/courseSyllabus</module>
 
 	</modules>
