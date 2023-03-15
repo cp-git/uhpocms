@@ -21,6 +21,7 @@
 	</properties>
 
 	<build>
+		<finalName>courseSyllabus</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
