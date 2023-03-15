@@ -28,31 +28,31 @@ public class AdminRole {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "roleid")
+	@Column(name = "role_id")
 	private int roleId;
 
 	@Column(name = "isactive", nullable = false)
 	private boolean isActive;
 
-	@Column(name = "rolename", nullable = false, unique = true)
+	@Column(name = "role_name", nullable = false, unique = true)
 	private String roleName;
 
-	@Column(name = "roledescription", nullable = false)
+	@Column(name = "role_description", nullable = false)
 	private String roleDescription;
 
-	@Column(name = "createdby", nullable = false)
+	@Column(name = "created_by", nullable = false)
 	private String createdBy;
 
 	@CreationTimestamp
-	@Column(name = "createdon", nullable = false)
+	@Column(name = "created_on", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn = new Date(System.currentTimeMillis());
 
-	@Column(name = "modifiedby", nullable = false)
+	@Column(name = "modified_by", nullable = false)
 	private String modifiedBy;
 
 	@UpdateTimestamp
-	@Column(name = "modifiedon", nullable = false)
+	@Column(name = "modified_on", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedOn = new Date(System.currentTimeMillis());
 
