@@ -83,13 +83,13 @@ public class CategoryServiceImpl implements CategoryService {
 	 * @description : For updating category of teacher_category table
 	 */
 	@Override
-	public Category updateCategoryByCategory(Category category, String name) {
+	public Category updateCategoryByCategoryId(Category category, int categoryId) {
 		logger.debug("Entering updateCategory");
 
 		Category toUpdatedCategory = null;
 		Category updatedCategory = null;
 
-		toUpdatedCategory = categoryRepo.findByCategoryName(name);
+		toUpdatedCategory = categoryRepo.findByCategoryId(categoryId);
 		logger.info("exisitng Category :: " + toUpdatedCategory);
 
 		if (toUpdatedCategory != null) {
@@ -170,5 +170,7 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		return null;
 	}
+
+
 	
 }

@@ -23,6 +23,7 @@ public interface CategoryRepo extends JpaRepository<Category, Integer> {
 
 	public Category findByCategoryName(String name);
 
+	public Category findByCategoryId(int categoryId);
 	public List<Object> findByIsActiveTrue();
 
 	@Transactional

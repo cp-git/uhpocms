@@ -19,7 +19,7 @@ public interface CategoryService {
 
 	List<Object> getAllCategorys();
 
-	Category updateCategoryByCategory(Category category, String name);
+	Category updateCategoryByCategoryId(Category category, int categoryId);
 
 	int deleteCategoryByCategory(String category);
 
