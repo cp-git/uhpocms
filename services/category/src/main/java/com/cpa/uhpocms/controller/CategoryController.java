@@ -167,16 +167,16 @@ public class CategoryController {
 
 	}
 
-	@PutMapping("/category/{category}")
+	@PutMapping("/category/{categoryId}")
 	public ResponseEntity<Object> updateCategoryByCategory(@RequestBody Category category,
-			@PathVariable("category") String name) throws CPException {
+			@PathVariable("categoryId") int categoryId ) throws CPException {
 		logger.debug("Entering updateCategory");
 		logger.info("entered  updateCategory :" + category);
 
 		Category updatedCategory = null;
 
 		try {
-			updatedCategory = categoryService.updateCategoryByCategory(category, name);
+			updatedCategory = categoryService.updateCategoryByCategoryId(category, categoryId);
 
 			if (updatedCategory == null) {
 				logger.info(resourceBundle.getString("err004"));
