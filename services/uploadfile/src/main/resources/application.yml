@@ -1,5 +1,8 @@
 spring:
-  
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
   jpa:
     database: POSTGRESQL
     hibernate:
@@ -16,5 +19,6 @@ spring:
 server:
   port: 8090
   
-
+file:
+  base-path: H:/uhpocmsUpload/course
 
