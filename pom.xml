@@ -121,6 +121,7 @@
 		<module>services/modulefile</module>
 		<module>services/enrolltostudent</module>
 		<module>services/courseSyllabus</module>
+		<module>services/uploadfile</module>
 
 	</modules>
 </project>
