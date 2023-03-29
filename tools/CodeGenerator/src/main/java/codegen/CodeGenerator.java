@@ -488,6 +488,38 @@ public class CodeGenerator {
 	}
 
 	/**
+	 * To generate class diagram plantuml text file
+	 * 
+	 * @param velocityEngine
+	 */
+	public static void generateClassDiagram(VelocityEngine velocityEngine) {
+		System.out.println(
+				"generateClassDiagram started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
+		Template t = velocityEngine.getTemplate(Constants.VM_CLASS);
+		VelocityContext context = new VelocityContext();
+		StringWriter writer = new StringWriter();
+		context.put("Cservice", props.get("Cservice"));
+		context.put("service", props.get("service"));
+		context.put("findBy", props.get("findBy"));
+		context.put("entity", props.get("entity"));
+		t.merge(context, writer);
+		try {
+	
+			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
+					+ props.getProperty("Cservice") + Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice")
+					+ Constants.FILE_CLASS));
+			fw.write(writer.toString());
+			fw.close();
+			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
+					+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_CLASS
+					+ " - file created !!!");
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+		System.out.println("generateClassDiagram Ended.");
+	}
+
+	/**
 	 * To generate Service IMPL class
 	 * 
 	 * @param velocityEngine
@@ -524,38 +556,6 @@ public class CodeGenerator {
 		}
 		System.out.println("generateResponseHandler Ended.");
 
-	}
-
-	/**
-	 * To generate class diagram plantuml text file
-	 * 
-	 * @param velocityEngine
-	 */
-	public static void generateClassDiagram(VelocityEngine velocityEngine) {
-		System.out.println(
-				"generateClassDiagram started. The Parameters are :\n\tvelocityEngine :: " + velocityEngine + "\n");
-		Template t = velocityEngine.getTemplate(Constants.VM_CLASS);
-		VelocityContext context = new VelocityContext();
-		StringWriter writer = new StringWriter();
-		context.put("Cservice", props.get("Cservice"));
-		context.put("service", props.get("service"));
-		context.put("findBy", props.get("findBy"));
-		context.put("entity", props.get("entity"));
-		t.merge(context, writer);
-		try {
-
-			FileWriter fw = new FileWriter(new File(props.getProperty("rootFolder") + File.separator
-					+ props.getProperty("Cservice") + Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice")
-					+ Constants.FILE_CLASS));
-			fw.write(writer.toString());
-			fw.close();
-			System.out.println("\t" + props.getProperty("rootFolder") + File.separator + props.getProperty("Cservice")
-					+ Constants.PATH_DESIGN + File.separatorChar + props.get("Cservice") + Constants.FILE_CLASS
-					+ " - file created !!!");
-		} catch (Exception exp) {
-			exp.printStackTrace();
-		}
-		System.out.println("generateClassDiagram Ended.");
 	}
 
 	/**
@@ -740,7 +740,7 @@ public class CodeGenerator {
 		velocityEngine.init(velocityProperties);
 
 		loadProperties(
-				"F:\\uhpocms_project\\BE\\main_branch\\uhpocms\\tools\\CodeGenerator\\src\\main\\resources\\CodeGen.properties");
+				"D:\\UHPOCMS\\BE\\uhpocms\\tools\\CodeGenerator\\src\\main\\resources\\CodeGenAccessControl.properties");
 
 		String rootFolder = props.getProperty("rootFolder");
 		String serviceName = props.getProperty("service");

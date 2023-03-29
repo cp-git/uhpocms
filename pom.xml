@@ -122,7 +122,8 @@
 		<module>services/enrolltostudent</module>
 		<module>services/courseSyllabus</module>
 		<module>services/uploadfile</module>
-
+		<module>services/accesscontrol</module>
+	    <module>tools/CodeGenerator</module>
 	</modules>
 </project>
 
