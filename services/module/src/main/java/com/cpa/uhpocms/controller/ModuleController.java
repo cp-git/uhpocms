@@ -263,6 +263,7 @@ public class ModuleController {
         return new AuthenticationBean("You are authenticated");
     }
     
+    //get module by courseid
     @GetMapping(path = "module/courseId/{id}", produces = { "application/json", "application/xml" })
    	public ResponseEntity<List<Object>> getModuleByCourseId(@PathVariable("id") int courseId)
    			throws CPException {
