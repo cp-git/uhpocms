@@ -1,0 +1,61 @@
+@startuml
+actor user
+participant AnswerApplication as uhpoc
+participant AnswerController as main
+participant CPException as cp
+participant ResponseHandler as rh
+participant AnswerService as serv
+participant AnswerServiceImpl as impl
+participant AnswerRepository as repo
+database DATABASE as db
+activate uhpoc
+activate user
+  user-->uhpoc : Enter URL-[http://localhost:8090/uhpocms/answer/{id}]
+    alt#Gold Case:If any Exception occur
+    uhpoc-> main : 
+    activate main
+    main->cp : throws CPException
+    activate cp
+    cp-> user : Answer deletion Failed 
+    deactivate cp
+    else  Case: If no exception occur
+     uhpoc -> main : main()
+          main -> serv : deleteAnswerById()
+          activate serv
+          serv -> impl : deleteAnswerById()
+          activate impl
+          impl -> repo : deleteAnswerById()
+          activate repo
+          repo -> db : updating by and SET isActive=false
+          activate db
+           db->db : Data updated
+          db --> repo : updated data 
+          deactivate db
+          repo --> impl : updated data  
+          deactivate repo
+          impl --> serv : updated data 
+          deactivate impl
+          serv --> main : updated data 
+          deactivate serv
+          alt#Gold If count>=1
+          main->rh : generateResponse()
+          activate rh
+          rh->rh : generating response
+          rh->main : response with HttpStatus code 204
+          deactivate rh
+          main --> uhpoc :  Return updated data and return HttpStatus code 204
+          uhpoc--> user :  Return updated data and return HttpStatus code 204
+          else If count<1
+           main->rh : generateResponse()
+          activate rh
+          rh->rh : generating response
+          rh->main : response with HttpStatus code 500
+          deactivate rh
+          main->uhpoc : Answer deletion failed with HttpStatus Code 500
+          deactivate main
+          uhpoc->user : Answer deletion failed with HttpStatus Code 500
+          deactivate uhpoc
+          deactivate user
+      end
+      end
+@enduml

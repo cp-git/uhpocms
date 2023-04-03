@@ -6,10 +6,9 @@ spring.jpa:
 
 spring.datasource:
   driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5433/uhpocms
+  url: jdbc:postgresql://localhost:5433/postgres
   username: postgres
-  password: Pass1word
+  password: admin
   
 server:
   port : 8090
-
