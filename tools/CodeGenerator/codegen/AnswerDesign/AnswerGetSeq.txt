@@ -1,0 +1,61 @@
+@startuml
+actor user
+participant AnswerApplication as uhpoc
+participant AnswerController as main
+participant CPException as cp
+participant ResponseHandler as rh
+participant AnswerService as serv
+participant AnswerServiceImpl as impl
+participant AnswerRepository as repo
+database DATABASE as db
+activate uhpoc
+activate user
+  user-->uhpoc : Enter URL-[http://localhost:8090/uhpocms/answer/{id}]
+    alt#Gold Case:If any Exception occur
+    uhpoc-> main : 
+    activate main
+    main->cp : throws CPException
+    activate cp
+    cp-> user : Get answer Failed 
+    deactivate cp
+    else  Case: If no exception occur
+     uhpoc -> main : main()
+          main -> serv : getAnswerById()
+          activate serv
+          serv -> impl : getAnswerById()
+          activate impl
+          impl -> repo : findByAnswerId()
+          activate repo
+          repo -> db : Fetching Answer data by id
+          activate db
+           db->db : Fetching data
+          db --> repo : Data of Answer by id
+          deactivate db
+          repo --> impl :  Data of Answer by id
+          deactivate repo
+          impl --> serv : Data of Answer by id
+          deactivate impl
+          serv --> main :  Data of Answer by id
+          deactivate serv
+          alt#Gold If data of Answer is not null
+          main->rh : generateResponse()
+          activate rh
+          rh->rh : generating response
+          rh->main : response with HttpStatus code 200
+          deactivate rh
+          main --> uhpoc :  Return answer data by id and return HttpStatus code 200
+          uhpoc--> user :  Return answer data by id and return HttpStatus code 200
+          else If data of Answer is null
+           main->rh : generateResponse()
+          activate rh
+          rh->rh : generating response
+          rh->main : response with HttpStatus code 500
+          deactivate rh
+          main->uhpoc : Getting Answer failed with HttpStatus Code 500
+          deactivate main
+          uhpoc->user : Getting Answer failed with HttpStatus Code 500
+          deactivate uhpoc
+          deactivate user
+      end
+      end
+@enduml
