@@ -82,14 +82,78 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 	 * @return : modulefile
 	 * @description : For updating modulefile of teacher_modulefile table
 	 */
+//	@Override
+//	public ModuleFile updateModuleFileByFile(ModuleFile modulefile, String file) {
+//		logger.debug("Entering updateModuleFile");
+//
+//		ModuleFile toUpdatedModuleFile = null;
+//		ModuleFile updatedModuleFile = null;
+//
+//		toUpdatedModuleFile = modulefileRepo.findByModuleFile(file);
+//		logger.info("exisitng ModuleFile :: " + toUpdatedModuleFile);
+//
+//		if (toUpdatedModuleFile != null) {
+//			logger.debug("setting new data of ModuleFile to exisitng ModuleFile");
+//
+//			toUpdatedModuleFile.setModuleFile(modulefile.getModuleFile());
+//			toUpdatedModuleFile.setModuleFileOrderNo(modulefile.getModuleFileOrderNo());
+//			toUpdatedModuleFile.setModuleFileIsActive(modulefile.isModuleFileIsActive());
+//			toUpdatedModuleFile.setModuleId(modulefile.getModuleId());
+//
+//			updatedModuleFile = modulefileRepo.save(toUpdatedModuleFile);
+//
+//			logger.info("updated ModuleFile :" + updatedModuleFile);
+//		}
+//
+//		return updatedModuleFile;
+//	}
+
+	/**
+	 * @param : String file
+	 * @return : int (count of record updated)
+	 * @description : This is function is used to soft delete the record of
+	 *              ModuleFile
+	 * 
+	 */
+//	@Override
+//	public int deleteModuleFileByFile(String file) {
+//		logger.debug("Entering deleteModuleFileByFile");
+//
+//		int count = modulefileRepo.deleteModuleFileByFile(file);
+//		logger.info("deleted ModuleFile count : " + count);
+//		return count;
+//	}
+
 	@Override
-	public ModuleFile updateModuleFileByFile(ModuleFile modulefile, String file) {
+	public List<Object> getModuleFileByStudentId(int studentId) {
+
+		logger.debug("Entering getModuleFileByStudentId");
+		List<ModuleFile> moduleFiles = modulefileRepo.findModuleFileByStudentId(studentId);
+		List<Object> objectModulefiles = new ArrayList<>(moduleFiles);
+		logger.info("Fetched all modulefile of student id " + studentId + " : " + objectModulefiles);
+		return objectModulefiles;
+	}
+
+	@Override
+	public int deleteModuleFileBymoduleFileId(int id) {
+		// TODO Auto-generated method stub
+
+		logger.debug("Entering deleteModuleFileByModuleFileId");
+
+		int count = modulefileRepo.deleteModuleFileByModuleFileId(id);
+		logger.info("deleted ModuleFile count : " + count);
+		return count;
+	}
+
+	@Override
+	public ModuleFile updateModuleFileBymoduleFileId(ModuleFile modulefile, int id) {
+		// TODO Auto-generated method stub
 		logger.debug("Entering updateModuleFile");
 
 		ModuleFile toUpdatedModuleFile = null;
 		ModuleFile updatedModuleFile = null;
 
-		toUpdatedModuleFile = modulefileRepo.findByModuleFile(file);
+		toUpdatedModuleFile = modulefileRepo.findByModuleFileId(id);
 		logger.info("exisitng ModuleFile :: " + toUpdatedModuleFile);
 
 		if (toUpdatedModuleFile != null) {
@@ -108,30 +172,24 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		return updatedModuleFile;
 	}
 
-	/**
-	 * @param : String file
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of
-	 *              ModuleFile
-	 * 
-	 */
 	@Override
-	public int deleteModuleFileByFile(String file) {
-		logger.debug("Entering deleteModuleFileByFile");
+	public List<Object> getAllInactiveModuleFiles() {
+		// TODO Auto-generated method stub
+		logger.debug("Entering getAllModuleFiles");
 
-		int count = modulefileRepo.deleteModuleFileByFile(file);
-		logger.info("deleted ModuleFile count : " + count);
-		return count;
+		List<Object> modulefiles = modulefileRepo.findByModuleFileIsActiveFalse();
+		logger.info("Fetched all active modulefile :" + modulefiles);
+		return modulefiles;
 	}
 
 	@Override
-	public List<Object> getModuleFileByStudentId(int studentId) {
+	public int activateModuleFileBymoduleFileId(int id) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering activate ModuleFile By moduleFileId");
 
-		logger.debug("Entering getModuleFileByStudentId");
-		List<ModuleFile> moduleFiles = modulefileRepo.findModuleFileByStudentId(studentId);
-		List<Object> objectModulefiles = new ArrayList<>(moduleFiles);
-		logger.info("Fetched all modulefile of student id " + studentId + " : " + objectModulefiles);
-		return objectModulefiles;
+		int count = modulefileRepo.activateModuleFileByModuleFileId(id);
+		logger.info("activated module file count : " + count);
+		return count;
 	}
 
 }

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 //import com.cpa.uhpocms.controller.ModuleController;
 import com.cpa.uhpocms.entity.Module;
-
 import com.cpa.uhpocms.repository.ModuleRepo;
 import com.cpa.uhpocms.service.ModuleService;
 
@@ -136,21 +135,20 @@ public class ModuleServiceImpl implements ModuleService {
 		return moduleCourse;
 
 	}
+
 	public List<Object> getAllInactiveModules() {
 		// TODO Auto-generated method stub
 		logger.debug("Entering getAllInActiveQuestions ");
 		List<Object> modules = moduleRepo.findByModuleIsActiveFalse();
-		
+
 		logger.info("In active modules : " + modules);
 		return modules;
 	}
 
-	
-	
 	/**
 	 * @author Shradha
 	 * @createdOn Feb 10 2023
-	 * @description function updates active status of module object to true 
+	 * @description function updates active status of module object to true
 	 * @param accepts module name as parameter
 	 * @return return module object
 	 */
@@ -160,30 +158,40 @@ public class ModuleServiceImpl implements ModuleService {
 		System.out.println(name);
 		logger.debug("Entering getInActiveQuestions ");
 		List<Object> modules = getAllInactiveModules();
-		
-		if(modules.size() >= 1)
-		{
-			Object object = moduleRepo.findByModuleName(name);
-			
-			
-			
-		  	System.out.println("Entered  instanceof loop");
-		        Module module = (Module) object;
-		       
-		        module.setModuleIsActive(true);
-		        
-		        
-		        
-		        
-		    
 
-		    logger.info("question object"+ object);
-		    return moduleRepo.save(module);
+		if (modules.size() >= 1) {
+			Object object = moduleRepo.findByModuleName(name);
+
+			System.out.println("Entered  instanceof loop");
+			Module module = (Module) object;
+
+			module.setModuleIsActive(true);
+
+			logger.info("question object" + object);
+			return moduleRepo.save(module);
 		}
-		
-		
+
 		return null;
 
 	}
+
+//	@Override
+//	public int deleteModuleBymoduleId(int moduleid) {
+//		// TODO Auto-generated method stub
+//		
+//				return count;
+//	}
+//
+//	@Override
+//	public Module updateModuleBymoduleId(Module module, int moduleid) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public int activateModuleBymoduleId(int moduleid) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
 
 }
