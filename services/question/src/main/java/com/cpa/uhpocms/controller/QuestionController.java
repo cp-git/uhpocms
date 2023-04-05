@@ -195,6 +195,32 @@ public class QuestionController {
 		
 
 	}
+	
+	@DeleteMapping("/question/deletebyid/{questionId}")
+	public ResponseEntity<Object> deleteQuestionById(@PathVariable("questionId") int questionId) throws CPException {
+		logger.debug("Entering deleteAuthUser");
+		//logger.info("entered deleteQuestion  :" + figure);
+		//TODO - implement the business logic
+		
+		int count = 0;
+
+		try {
+			count = questionService.deleteQuestionById(questionId);
+			if (count >= 1) {
+				//logger.info("deleted Question : Figure = " + figure);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete Question :" + ex.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+		}
+		
+
+	}
 
 	@PutMapping("/question/{figure}")
 	public ResponseEntity<Object> updateQuestionByFigure(@RequestBody Question question,
@@ -206,6 +232,33 @@ public class QuestionController {
 
 		try { 
 			updatedQuestion = questionService.updateQuestionByFigure(question, figure);
+
+			if (updatedQuestion == null) {
+				logger.info(resourceBundle.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated question : " + updatedQuestion);
+				return ResponseHandler.generateResponse(updatedQuestion, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update Question : " + ex.getMessage());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+
+	}
+	
+	@PutMapping("/question/byid/{questionId}")
+	public ResponseEntity<Object> updateQuestionById(@RequestBody Question question,
+			@PathVariable("questionId") int questionId) throws CPException {
+		logger.debug("Entering updateQuestion");
+		logger.info("entered  updateQuestion :" + question);
+
+		Question updatedQuestion = null;
+
+		try { 
+			updatedQuestion = questionService.updateQuestionById(question, questionId);
 
 			if (updatedQuestion == null) {
 				logger.info(resourceBundle.getString("err004"));
@@ -262,6 +315,31 @@ public class QuestionController {
         return new AuthenticationBean("You are authenticated");
     }
 	
-	
+	@GetMapping("/question/id/{questionId}")
+	public ResponseEntity<Object> getQuestionById(@PathVariable("questionId") int  questionId)
+			throws CPException {
+		logger.debug("Entering getQuestionByfigure");
+		//logger.info("entered user name :" + question);
+		Question question = null;
+		try {
+
+			question = questionService.getQuestionById(questionId);
+			logger.info("fetched Question :" + question);
+
+			if (question != null) {
+				logger.debug("Question fetched generating response");
+				return ResponseHandler.generateResponse(question, HttpStatus.OK);
+			} else {
+				logger.debug("Question not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting question : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
 
 }
