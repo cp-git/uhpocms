@@ -112,6 +112,37 @@ public class QuestionServiceImpl implements QuestionService {
 		return updatedQuestion;
 	}
 
+	
+	@Override
+	public Question updateQuestionById(Question question, int questionId) {
+		logger.debug("Entering updateQuestion");
+
+		Question toUpdatedQuestion = null;
+		Question updatedQuestion = null;
+
+		toUpdatedQuestion = questionRepo.findByQuestionId(questionId);
+//		logger.info("exisitng Question :: " + toUpdatedQuestion);
+
+		if (toUpdatedQuestion != null) {
+			logger.debug("setting new data of Question to exisitng Question");
+			toUpdatedQuestion.setQuestionId(questionId);
+			toUpdatedQuestion.setQuestionModifiedBy("admin");
+			toUpdatedQuestion.setQuestionFigure(question.getQuestionFigure());
+			toUpdatedQuestion.setQuestionContent(question.getQuestionContent());
+			toUpdatedQuestion.setQuestionExplanation(question.getQuestionExplanation());
+			toUpdatedQuestion.setQuestionOrderNo(question.getQuestionOrderNo());
+			toUpdatedQuestion.setQuestionIsMCQ(question.isQuestionIsMCQ());
+			toUpdatedQuestion.setQuestionQuizId(question.getQuestionQuizId());
+			toUpdatedQuestion.setQuestionCategoryId(question.getQuestionCategoryId());
+			toUpdatedQuestion.setQuestionIsActive(question.isQuestionIsActive());
+
+			updatedQuestion = questionRepo.save(toUpdatedQuestion);
+
+			logger.info("updated Question :" + updatedQuestion);
+		}
+
+		return updatedQuestion;
+	}
 	/**
 	 * @param : String figure
 	 * @return : int (count of record updated)
@@ -127,6 +158,12 @@ public class QuestionServiceImpl implements QuestionService {
 		return count;
 	}
 
+	@Override
+	public int deleteQuestionById(int questionId) {
+		int count = questionRepo.deleteQuestionByQuestionId(questionId);
+		logger.info("deleted Question count : " + count);
+		return count;
+	}
     /**
      * @author Shradha
      * @param String
@@ -134,36 +171,22 @@ public class QuestionServiceImpl implements QuestionService {
      */
 	public Object updateActiveStatus(String figure)
 	{
-		
-		
 		logger.debug("Entering getInActiveQuestions ");
 		List<Object> questions = getInActiveQuestions();
 		
 		if(questions.size() >= 1)
 		{
 			Object object = questionRepo.findByQuestionFigure(figure);
-			
-			
 		        Question question = (Question) object;
 		        System.out.println(question);
 		        question.setQuestionIsActive(true);
 		        
 		        System.out.println(question);
-		        
-		        
-		    
-
 		    logger.info("question object"+ question);
 		    return questionRepo.save(question);
 		}
-		
-		
 		return null;
 	}
-	
-	
-	
-	
 	/**
 	 * @author Shradha
 	 * @return : Object
@@ -179,5 +202,17 @@ public class QuestionServiceImpl implements QuestionService {
 		logger.info("In active questions : " + questions);
 		return questions;
 	}
+
+	@Override
+	public Question getQuestionById(int questionId) {
+		logger.debug("Entering getQuestionByFigure");
+
+		Question question = questionRepo.findByQuestionId(questionId);
+		logger.info("Founded question :" + question);
+
+		return question;
+	}
+
+	
 
 }

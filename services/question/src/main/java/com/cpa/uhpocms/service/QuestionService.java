@@ -16,12 +16,18 @@ public interface QuestionService {
 	Question createQuestion(Question question);
 
 	Question getQuestionByFigure(String figure);
+	
+	Question getQuestionById(int questionId);
 
 	List<Object> getAllQuestions();
 
 	Question updateQuestionByFigure(Question question, String figure);
+	
+	Question updateQuestionById(Question question , int questionId);
 
 	int deleteQuestionByFigure(String figure);
+	
+	int deleteQuestionById(int questionId);
 
 	List<Object> getInActiveQuestions();
 	

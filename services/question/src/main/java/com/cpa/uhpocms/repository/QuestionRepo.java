@@ -22,6 +22,8 @@ import com.cpa.uhpocms.entity.Question;
 public interface QuestionRepo extends JpaRepository<Question, Integer> {
 
 	public Question findByQuestionFigure(String figure);
+	
+	public Question findByQuestionId(int questionId);
 
 	public List<Object> findByQuestionIsActiveTrue();
 
@@ -30,7 +32,11 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
 	@Query(value = "UPDATE teacher_question SET is_active=false WHERE figure = ?1", nativeQuery = true)
 	public int deleteQuestionByFigure(String figure);
 	
+	@Query(value = "UPDATE teacher_question SET is_active=false WHERE id = ?1", nativeQuery = true)
+	public int deleteQuestionByQuestionId(int questionId);
+	
 	public List<Object> findByQuestionIsActiveFalse();
 
 	 
+
 }
