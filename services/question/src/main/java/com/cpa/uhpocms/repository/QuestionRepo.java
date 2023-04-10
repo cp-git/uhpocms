@@ -37,6 +37,9 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
 	
 	public List<Object> findByQuestionIsActiveFalse();
 
+	@Query(value="SELECT quiz.* FROM teacher_quiz quiz JOIN teacher_question question ON quiz.quizid = question.quizid_id WHERE quiz.quizid = ?1", nativeQuery =true)
+	public List<Question> findQuestionsByQuizId(int questionQuizId);
 	 
+	public List<Object> findAllByQuestionQuizIdAndQuestionIsActive(int quizId, boolean isActive);
 
 }

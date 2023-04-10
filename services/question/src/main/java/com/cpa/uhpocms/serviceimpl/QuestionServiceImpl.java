@@ -213,6 +213,13 @@ public class QuestionServiceImpl implements QuestionService {
 		return question;
 	}
 
+	@Override
+	public List<Object> getAllQuestionsByQuizId(int quizId) {
+		logger.debug("Entering getAllQuestionsByQuizId");
+		List<Object> questions = questionRepo.findAllByQuestionQuizIdAndQuestionIsActive(quizId, true);
+		logger.info("Fetched all active question :" + questions.size());
+		return questions;
+	} 
 	
 
 }
