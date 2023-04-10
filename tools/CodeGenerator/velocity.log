@@ -1,3 +1,214 @@
+
+2023-04-04 17:16:57,091 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2023-04-04 17:16:57,091 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2023-04-04 17:16:57,091 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2023-04-04 17:16:57,114 - ResourceManager : found pom.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,117 - ResourceManager : found servletinit.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,121 - ResourceManager : found uhpocapp.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,124 - ResourceManager : found appyaml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,127 - ResourceManager : found log4j.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,135 - ResourceManager : found controller.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,138 - ResourceManager : found errmsg.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,142 - ResourceManager : found entity.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,147 - ResourceManager : found repo.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,152 - ResourceManager : found service.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,161 - ResourceManager : found exception.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,166 - ResourceManager : found response.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,168 - Null reference [template 'response.vm', line 3, column 15] : ${genDate} cannot be resolved.
+2023-04-04 17:16:57,168 - Null reference [template 'response.vm', line 4, column 47] : ${Cservice} cannot be resolved.
+2023-04-04 17:16:57,175 - ResourceManager : found impl.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,178 - ResourceManager : found classdiag.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,184 - ResourceManager : found postseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,189 - ResourceManager : found getseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,193 - ResourceManager : found getall.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,197 - ResourceManager : found updateseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-04 17:16:57,200 - ResourceManager : found deleteseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,589 - Log4JLogChute initialized using file 'velocity.log'
+2023-04-05 12:29:46,590 - Initializing Velocity, Calling init()...
+2023-04-05 12:29:46,590 - Starting Apache Velocity v1.7 (compiled: 2010-11-19 12:14:37)
+2023-04-05 12:29:46,590 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2023-04-05 12:29:46,590 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2023-04-05 12:29:46,590 - Target log system for org.apache.velocity.runtime.log.AvalonLogChute is not available (java.lang.NoClassDefFoundError: org/apache/log/format/Formatter).  Falling back to next log system...
+2023-04-05 12:29:46,590 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2023-04-05 12:29:46,590 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2023-04-05 12:29:46,595 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,613 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl) with class java.util.Collections$SynchronizedMap cache map.
+2023-04-05 12:29:46,617 - Loaded System Directive: org.apache.velocity.runtime.directive.Stop
+2023-04-05 12:29:46,618 - Loaded System Directive: org.apache.velocity.runtime.directive.Define
+2023-04-05 12:29:46,619 - Loaded System Directive: org.apache.velocity.runtime.directive.Break
+2023-04-05 12:29:46,619 - Loaded System Directive: org.apache.velocity.runtime.directive.Evaluate
+2023-04-05 12:29:46,620 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2023-04-05 12:29:46,621 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2023-04-05 12:29:46,622 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2023-04-05 12:29:46,624 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2023-04-05 12:29:46,625 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2023-04-05 12:29:46,651 - Created '20' parsers.
+2023-04-05 12:29:46,656 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2023-04-05 12:29:46,657 - Could not load resource 'VM_global_library.vm' from ResourceLoader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader: ClasspathResourceLoader Error: cannot find resource VM_global_library.vm
+2023-04-05 12:29:46,657 - Velocimacro : Default library not found.
+2023-04-05 12:29:46,657 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2023-04-05 12:29:46,657 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2023-04-05 12:29:46,658 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2023-04-05 12:29:46,658 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2023-04-05 12:29:46,679 - ResourceManager : found pom.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,681 - Null reference [template 'pom.vm', line 14, column 21] : ${service} cannot be resolved.
+2023-04-05 12:29:46,681 - Null reference [template 'pom.vm', line 16, column 15] : ${service} cannot be resolved.
+2023-04-05 12:29:46,682 - Null reference [template 'pom.vm', line 18, column 40] : ${service} cannot be resolved.
+2023-04-05 12:29:46,685 - ResourceManager : found servletinit.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,689 - ResourceManager : found uhpocapp.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,693 - ResourceManager : found appyaml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,695 - ResourceManager : found log4j.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,695 - Null reference [template 'log4j.vm', line 8, column 48] : ${service} cannot be resolved.
+2023-04-05 12:29:46,703 - ResourceManager : found controller.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,703 - Null reference [template 'controller.vm', line 4, column 38] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 38, column 36] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 49, column 82] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 51, column 65] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 56, column 58] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 56, column 102] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 57, column 48] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 62, column 33] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 63, column 33] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 65, column 54] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 65, column 90] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 88, column 29] : ${service} cannot be resolved.
+2023-04-05 12:29:46,704 - Null reference [template 'controller.vm', line 92, column 25] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 92, column 38] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 93, column 63] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 95, column 29] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 97, column 73] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 105, column 54] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 117, column 30] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 123, column 33] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 123, column 47] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 124, column 75] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 126, column 77] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 135, column 58] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 150, column 33] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 168, column 93] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 171, column 62] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 176, column 46] : ${service} cannot be resolved.
+2023-04-05 12:29:46,705 - Null reference [template 'controller.vm', line 176, column 93] : ${service} cannot be resolved.
+2023-04-05 12:29:46,706 - Null reference [template 'controller.vm', line 182, column 54] : ${service} cannot be resolved.
+2023-04-05 12:29:46,709 - ResourceManager : found errmsg.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,712 - ResourceManager : found entity.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,714 - ResourceManager : found repo.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,718 - ResourceManager : found service.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,718 - Null reference [template 'service.vm', line 16, column 51] : ${service} cannot be resolved.
+2023-04-05 12:29:46,718 - Null reference [template 'service.vm', line 22, column 62] : ${service} cannot be resolved.
+2023-04-05 12:29:46,720 - ResourceManager : found exception.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,722 - ResourceManager : found response.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,722 - Null reference [template 'response.vm', line 3, column 15] : ${genDate} cannot be resolved.
+2023-04-05 12:29:46,722 - Null reference [template 'response.vm', line 4, column 47] : ${Cservice} cannot be resolved.
+2023-04-05 12:29:46,726 - ResourceManager : found impl.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 4, column 38] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 25, column 33] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 33, column 33] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 38, column 58] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 42, column 17] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 43, column 17] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 45, column 38] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 45, column 58] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 52, column 34] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 59, column 29] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 59, column 42] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 60, column 38] : ${service} cannot be resolved.
+2023-04-05 12:29:46,726 - Null reference [template 'impl.vm', line 60, column 54] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 62, column 24] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 66, column 35] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 67, column 44] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 73, column 30] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 73, column 44] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 74, column 49] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 74, column 65] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 75, column 24] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 80, column 22] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 81, column 40] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 84, column 69] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 90, column 40] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 96, column 25] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 98, column 46] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 98, column 66] : ${service} cannot be resolved.
+2023-04-05 12:29:46,727 - Null reference [template 'impl.vm', line 116, column 30] : ${service} cannot be resolved.
+2023-04-05 12:29:46,730 - ResourceManager : found classdiag.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,730 - Null reference [template 'classdiag.vm', line 3, column 22] : ${service} cannot be resolved.
+2023-04-05 12:29:46,730 - Null reference [template 'classdiag.vm', line 23, column 26] : ${service} cannot be resolved.
+2023-04-05 12:29:46,730 - Null reference [template 'classdiag.vm', line 56, column 4] : ${service} cannot be resolved.
+2023-04-05 12:29:46,730 - Null reference [template 'classdiag.vm', line 57, column 4] : ${service} cannot be resolved.
+2023-04-05 12:29:46,730 - Null reference [template 'classdiag.vm', line 58, column 4] : ${service} cannot be resolved.
+2023-04-05 12:29:46,730 - Null reference [template 'classdiag.vm', line 59, column 4] : ${service} cannot be resolved.
+2023-04-05 12:29:46,730 - Null reference [template 'classdiag.vm', line 60, column 4] : ${service} cannot be resolved.
+2023-04-05 12:29:46,730 - Null reference [template 'classdiag.vm', line 61, column 4] : ${service} cannot be resolved.
+2023-04-05 12:29:46,730 - Null reference [template 'classdiag.vm', line 62, column 4] : ${service} cannot be resolved.
+2023-04-05 12:29:46,735 - ResourceManager : found postseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,735 - Null reference [template 'postseq.vm', line 13, column 59] : ${service} cannot be resolved.
+2023-04-05 12:29:46,736 - Null reference [template 'postseq.vm', line 32, column 33] : ${service} cannot be resolved.
+2023-04-05 12:29:46,736 - Null reference [template 'postseq.vm', line 34, column 36] : ${service} cannot be resolved.
+2023-04-05 12:29:46,736 - Null reference [template 'postseq.vm', line 36, column 35] : ${service} cannot be resolved.
+2023-04-05 12:29:46,736 - Null reference [template 'postseq.vm', line 38, column 36] : ${service} cannot be resolved.
+2023-04-05 12:29:46,740 - ResourceManager : found getseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,740 - Null reference [template 'getseq.vm', line 13, column 59] : ${service} cannot be resolved.
+2023-04-05 12:29:46,740 - Null reference [template 'getseq.vm', line 19, column 21] : ${service} cannot be resolved.
+2023-04-05 12:29:46,740 - Null reference [template 'getseq.vm', line 46, column 36] : ${service} cannot be resolved.
+2023-04-05 12:29:46,741 - Null reference [template 'getseq.vm', line 47, column 35] : ${service} cannot be resolved.
+2023-04-05 12:29:46,745 - ResourceManager : found getall.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,745 - Null reference [template 'getall.vm', line 13, column 59] : ${service} cannot be resolved.
+2023-04-05 12:29:46,745 - Null reference [template 'getall.vm', line 19, column 25] : ${service} cannot be resolved.
+2023-04-05 12:29:46,745 - Null reference [template 'getall.vm', line 46, column 40] : ${service} cannot be resolved.
+2023-04-05 12:29:46,746 - Null reference [template 'getall.vm', line 47, column 39] : ${service} cannot be resolved.
+2023-04-05 12:29:46,748 - ResourceManager : found updateseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,748 - Null reference [template 'updateseq.vm', line 13, column 59] : ${service} cannot be resolved.
+2023-04-05 12:29:46,753 - ResourceManager : found deleteseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:29:46,753 - Null reference [template 'deleteseq.vm', line 13, column 59] : ${service} cannot be resolved.
+2023-04-05 12:33:49,055 - Log4JLogChute initialized using file 'velocity.log'
+2023-04-05 12:33:49,057 - Initializing Velocity, Calling init()...
+2023-04-05 12:33:49,057 - Starting Apache Velocity v1.7 (compiled: 2010-11-19 12:14:37)
+2023-04-05 12:33:49,057 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2023-04-05 12:33:49,057 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogChute
+2023-04-05 12:33:49,057 - Target log system for org.apache.velocity.runtime.log.AvalonLogChute is not available (java.lang.NoClassDefFoundError: org/apache/log/format/Formatter).  Falling back to next log system...
+2023-04-05 12:33:49,057 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
+2023-04-05 12:33:49,057 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
+2023-04-05 12:33:49,061 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,085 - ResourceCache: initialized (class org.apache.velocity.runtime.resource.ResourceCacheImpl) with class java.util.Collections$SynchronizedMap cache map.
+2023-04-05 12:33:49,088 - Loaded System Directive: org.apache.velocity.runtime.directive.Stop
+2023-04-05 12:33:49,089 - Loaded System Directive: org.apache.velocity.runtime.directive.Define
+2023-04-05 12:33:49,090 - Loaded System Directive: org.apache.velocity.runtime.directive.Break
+2023-04-05 12:33:49,090 - Loaded System Directive: org.apache.velocity.runtime.directive.Evaluate
+2023-04-05 12:33:49,091 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2023-04-05 12:33:49,092 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2023-04-05 12:33:49,093 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2023-04-05 12:33:49,094 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2023-04-05 12:33:49,095 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2023-04-05 12:33:49,121 - Created '20' parsers.
+2023-04-05 12:33:49,128 - Velocimacro : "velocimacro.library" is not set.  Trying default library: VM_global_library.vm
+2023-04-05 12:33:49,129 - Could not load resource 'VM_global_library.vm' from ResourceLoader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader: ClasspathResourceLoader Error: cannot find resource VM_global_library.vm
+2023-04-05 12:33:49,129 - Velocimacro : Default library not found.
+2023-04-05 12:33:49,129 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2023-04-05 12:33:49,129 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2023-04-05 12:33:49,129 - Velocimacro : allowInlineLocal = false : VMs defined inline will be global in scope if allowed.
+2023-04-05 12:33:49,129 - Velocimacro : autoload off : VM system will not automatically reload global library macros
+2023-04-05 12:33:49,157 - ResourceManager : found pom.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,162 - ResourceManager : found servletinit.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,166 - ResourceManager : found uhpocapp.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,171 - ResourceManager : found appyaml.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,174 - ResourceManager : found log4j.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,185 - ResourceManager : found controller.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,190 - ResourceManager : found errmsg.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,194 - ResourceManager : found entity.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,197 - ResourceManager : found repo.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,201 - ResourceManager : found service.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,204 - ResourceManager : found exception.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,206 - ResourceManager : found response.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,207 - Null reference [template 'response.vm', line 3, column 15] : ${genDate} cannot be resolved.
+2023-04-05 12:33:49,207 - Null reference [template 'response.vm', line 4, column 47] : ${Cservice} cannot be resolved.
+2023-04-05 12:33:49,212 - ResourceManager : found impl.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,217 - ResourceManager : found classdiag.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,221 - ResourceManager : found postseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,224 - ResourceManager : found getseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,232 - ResourceManager : found getall.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,235 - ResourceManager : found updateseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+2023-04-05 12:33:49,240 - ResourceManager : found deleteseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+
 2023-03-13 11:57:40,507 - Trying to use logger class org.apache.velocity.runtime.log.Log4JLogChute
 2023-03-13 11:57:40,507 - Using logger class org.apache.velocity.runtime.log.Log4JLogChute
 2023-03-13 11:57:40,514 - ResourceLoader instantiated: org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
@@ -664,3 +875,4 @@
 2023-04-03 15:10:25,230 - ResourceManager : found getall.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
 2023-04-03 15:10:25,272 - ResourceManager : found updateseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
 2023-04-03 15:10:25,282 - ResourceManager : found deleteseq.vm with loader org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+

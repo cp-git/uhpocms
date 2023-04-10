@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/uhpocms")
 public class UploadController {
 
-	private String basePath = "H:/uhpocmsUpload/course";
+	@Value("${file.base-path}")
+	private String basePath;
 
 	@PostMapping("/file/upload")
 	public ResponseEntity<List<String>> uploadFile(@RequestParam("files") List<MultipartFile> files)
