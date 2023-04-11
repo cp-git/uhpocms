@@ -46,38 +46,65 @@ public class AnswerController {
 		logger = Logger.getLogger(AnswerController.class);
 	}
 
+//	@PostMapping("/answer")
+//	public ResponseEntity<Object> createAnswer(@RequestBody Answer answer) throws CPException {
+//		logger.debug("Entering createAnswer");
+//		logger.info("data of creating Answer  :" + answer.toString());
+//
+//		Answer createdAnswer = null;
+//		try {
+//
+//			Answer toCheckAnswer = answerService.getAnswerById(answer.getId());
+//			logger.debug("existing answer :" + toCheckAnswer);
+//
+//			if (toCheckAnswer == null) {
+//
+//			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
+//			//	answer.setCreatedby("admin");
+//			//	answer.setUpdatedby("admin");
+//
+//				createdAnswer = answerService.createAnswer(answer);
+//				logger.info("Answer created :" + createdAnswer);
+//
+//				return ResponseHandler.generateResponse(createdAnswer, HttpStatus.CREATED);
+//
+//			} else {
+//
+//				logger.error(resourceBunde.getString("err003"));
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
+//			}
+//
+//		} catch (Exception ex) {
+//			logger.error("Failed Answer creation : " + ex.getMessage());
+//			throw new CPException("err003", resourceBunde.getString("err003"));
+//		}
+//	}
+	
 	@PostMapping("/answer")
-	public ResponseEntity<Object> createAnswer(@RequestBody Answer answer) throws CPException {
-		logger.debug("Entering createAnswer");
-		logger.info("data of creating Answer  :" + answer.toString());
-
-		Answer createdAnswer = null;
-		try {
-
-			Answer toCheckAnswer = answerService.getAnswerById(answer.getId());
-			logger.debug("existing answer :" + toCheckAnswer);
-
-			if (toCheckAnswer == null) {
-
-			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
-			//	answer.setCreatedby("admin");
-			//	answer.setUpdatedby("admin");
-
-				createdAnswer = answerService.createAnswer(answer);
-				logger.info("Answer created :" + createdAnswer);
-
-				return ResponseHandler.generateResponse(createdAnswer, HttpStatus.CREATED);
-
-			} else {
-
-				logger.error(resourceBunde.getString("err003"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed Answer creation : " + ex.getMessage());
-			throw new CPException("err003", resourceBunde.getString("err003"));
-		}
+	public ResponseEntity<Object> addOrUpdateAnswer(@RequestBody Answer answer) throws CPException {
+	    logger.debug("Entering addOrUpdateAnswer");
+	    logger.info("Data for adding/updating Answer: " + answer.toString());
+	    Answer savedAnswer = null;
+	    try {
+	        Answer existingAnswer = answerService.getAnswerById(answer.getId());
+	        logger.debug("Existing answer: " + existingAnswer);
+	        if (existingAnswer != null) {
+	            // Update existing answer
+	            savedAnswer = answerService.updateAnswerById(answer, answer.getId());
+	            logger.info("Answer updated: " + savedAnswer);
+	        } else {
+	            // Create new answer
+	            // TODO: Uncomment below 2 lines and change the method name as per your Entity class
+	            // answer.setCreatedby("admin");
+	            // answer.setUpdatedby("admin");
+	            savedAnswer = answerService.createAnswer(answer);
+	            logger.info("Answer created: " + savedAnswer);
+	        }
+	        return ResponseHandler.generateResponse(savedAnswer, HttpStatus.CREATED);
+	    } catch (Exception ex) {
+	        logger.error("Failed to add/update Answer: " + ex.getMessage());
+	        throw new CPException("err005", resourceBunde.getString("err005"));
+	    }
 	}
 
 	@GetMapping("/answer/{id}")

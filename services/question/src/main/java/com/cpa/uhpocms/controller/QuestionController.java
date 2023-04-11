@@ -84,11 +84,10 @@ public class QuestionController {
 //	}
 
 	@GetMapping("/question/{figure}")
-	public ResponseEntity<Object> getQuestionByFigure(@PathVariable("figure") String figure)
-			throws CPException {
+	public ResponseEntity<Object> getQuestionByFigure(@PathVariable("figure") String figure) throws CPException {
 		logger.debug("Entering getQuestionByfigure");
 		logger.info("entered user name :" + figure);
-		
+
 		Question question = null;
 
 		try {
@@ -111,10 +110,10 @@ public class QuestionController {
 		}
 
 	}
-	
+
 	@GetMapping("/question/inactive")
-	public  ResponseEntity<List<Object>> getInactiveQuestions(@RequestParam(name = "inactivequestions") String inactivequestions) throws CPException 
-	{
+	public ResponseEntity<List<Object>> getInactiveQuestions(
+			@RequestParam(name = "inactivequestions") String inactivequestions) throws CPException {
 		List<Object> questions = null;
 		try {
 
@@ -143,7 +142,7 @@ public class QuestionController {
 			throws CPException {
 		logger.debug("Entering getAllQuestion");
 		logger.info("Parameter  :" + figure);
-		
+
 		List<Object> questions = null;
 
 		try {
@@ -167,15 +166,13 @@ public class QuestionController {
 
 		}
 	}
-	
-	
 
 	@DeleteMapping("/question/{figure}")
 	public ResponseEntity<Object> deleteQuestionByFigure(@PathVariable("figure") String figure) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered deleteQuestion  :" + figure);
-		//TODO - implement the business logic
-		
+		// TODO - implement the business logic
+
 		int count = 0;
 
 		try {
@@ -192,22 +189,21 @@ public class QuestionController {
 			logger.error("Failed to delete Question :" + ex.getMessage());
 			throw new CPException("err005", resourceBundle.getString("err005"));
 		}
-		
 
 	}
-	
+
 	@DeleteMapping("/question/deletebyid/{questionId}")
 	public ResponseEntity<Object> deleteQuestionById(@PathVariable("questionId") int questionId) throws CPException {
 		logger.debug("Entering deleteAuthUser");
-		//logger.info("entered deleteQuestion  :" + figure);
-		//TODO - implement the business logic
-		
+		// logger.info("entered deleteQuestion :" + figure);
+		// TODO - implement the business logic
+
 		int count = 0;
 
 		try {
 			count = questionService.deleteQuestionById(questionId);
 			if (count >= 1) {
-				//logger.info("deleted Question : Figure = " + figure);
+				// logger.info("deleted Question : Figure = " + figure);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
 				logger.info(resourceBundle.getString("err005"));
@@ -218,7 +214,6 @@ public class QuestionController {
 			logger.error("Failed to delete Question :" + ex.getMessage());
 			throw new CPException("err005", resourceBundle.getString("err005"));
 		}
-		
 
 	}
 
@@ -230,7 +225,7 @@ public class QuestionController {
 
 		Question updatedQuestion = null;
 
-		try { 
+		try {
 			updatedQuestion = questionService.updateQuestionByFigure(question, figure);
 
 			if (updatedQuestion == null) {
@@ -248,7 +243,7 @@ public class QuestionController {
 		}
 
 	}
-	
+
 	@PutMapping("/question/byid/{questionId}")
 	public ResponseEntity<Object> updateQuestionById(@RequestBody Question question,
 			@PathVariable("questionId") int questionId) throws CPException {
@@ -257,7 +252,7 @@ public class QuestionController {
 
 		Question updatedQuestion = null;
 
-		try { 
+		try {
 			updatedQuestion = questionService.updateQuestionById(question, questionId);
 
 			if (updatedQuestion == null) {
@@ -275,53 +270,44 @@ public class QuestionController {
 		}
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@PostMapping("/question")
 	public ResponseEntity<Object> createOrUpdateQuestion(@RequestBody Question question) throws CPException {
-	    logger.debug("Entering createOrUpdateQuestion");
-	    logger.info("data of creating/updating Question  :" + question.toString());
+		logger.debug("Entering createOrUpdateQuestion");
+		logger.info("data of creating/updating Question  :" + question.toString());
 
-	    try {
-	        Question toCheckQuestion = questionService.getQuestionById(question.getQuestionId());
-	        logger.debug("existing question :" + toCheckQuestion);
+		try {
+			Question toCheckQuestion = questionService.getQuestionById(question.getQuestionId());
+			logger.debug("existing question :" + toCheckQuestion);
 
-	        Question createdOrUpdateQuestion;
-	        HttpStatus httpStatus;
+			Question createdOrUpdateQuestion;
+			HttpStatus httpStatus;
 
-	        if (toCheckQuestion == null) {
-	            // Create a new question
-	            // TODO: Uncomment below 2 lines and change the method name as per your Entity class
-	            // question.setCreatedby("admin");
-	            // question.setUpdatedby("admin");
+			if (toCheckQuestion == null) {
+				// Create a new question
+				// TODO: Uncomment below 2 lines and change the method name as per your Entity
+				// class
+				// question.setCreatedby("admin");
+				// question.setUpdatedby("admin");
 
-	            createdOrUpdateQuestion = questionService.createQuestion(question);
-	            logger.info("Question created :" + createdOrUpdateQuestion);
+				createdOrUpdateQuestion = questionService.createQuestion(question);
+				logger.info("Question created :" + createdOrUpdateQuestion);
 
-	            httpStatus = HttpStatus.CREATED;
-	        } else {
-	            // Update an existing question
-	            createdOrUpdateQuestion = questionService.updateQuestionById(question, toCheckQuestion.getQuestionId());
-	            logger.info("Question updated :" + createdOrUpdateQuestion);
+				httpStatus = HttpStatus.CREATED;
+			} else {
+				// Update an existing question
+				createdOrUpdateQuestion = questionService.updateQuestionById(question, toCheckQuestion.getQuestionId());
+				logger.info("Question updated :" + createdOrUpdateQuestion);
 
-	            httpStatus = HttpStatus.OK;
-	        }
+				httpStatus = HttpStatus.OK;
+			}
 
-	        return ResponseHandler.generateResponse(createdOrUpdateQuestion, httpStatus);
+			return ResponseHandler.generateResponse(createdOrUpdateQuestion, httpStatus);
 
-	    } catch (Exception ex) {
-	        logger.error("Failed Question creation/updation : " + ex.getMessage());
-	        throw new CPException("err003", resourceBundle.getString("err003"));
-	    }
+		} catch (Exception ex) {
+			logger.error("Failed Question creation/updation : " + ex.getMessage());
+			throw new CPException("err003", resourceBundle.getString("err003"));
+		}
 	}
 
 	/**
@@ -330,16 +316,15 @@ public class QuestionController {
 	 * @return
 	 * @throws CPException
 	 */
-	
+
 	@PatchMapping("/question/{figure}")
-	public ResponseEntity<Object> updateActiveStatus(@PathVariable("figure") String figure) throws CPException{
-		
+	public ResponseEntity<Object> updateActiveStatus(@PathVariable("figure") String figure) throws CPException {
+
 		logger.debug("Entering updateActiveStatus");
-		
 
 		Object obj = null;
 
-		try { 
+		try {
 			obj = questionService.updateActiveStatus(figure);
 
 			if (obj == null) {
@@ -356,18 +341,16 @@ public class QuestionController {
 
 		}
 	}
-	
-	
+
 	@GetMapping(path = "/basicauth")
-    public AuthenticationBean basicauth() {
-        return new AuthenticationBean("You are authenticated");
-    }
-	
+	public AuthenticationBean basicauth() {
+		return new AuthenticationBean("You are authenticated");
+	}
+
 	@GetMapping("/question/id/{questionId}")
-	public ResponseEntity<Object> getQuestionById(@PathVariable("questionId") int  questionId)
-			throws CPException {
+	public ResponseEntity<Object> getQuestionById(@PathVariable("questionId") int questionId) throws CPException {
 		logger.debug("Entering getQuestionByfigure");
-		//logger.info("entered user name :" + question);
+		// logger.info("entered user name :" + question);
 		Question question = null;
 		try {
 
@@ -389,7 +372,7 @@ public class QuestionController {
 		}
 
 	}
-	
+
 	@GetMapping("/questions")
 	public ResponseEntity<List<Object>> getQuestionByQuizId(@RequestParam(name = "quizId") int quizId)
 			throws CPException {
@@ -409,6 +392,6 @@ public class QuestionController {
 			logger.error("Failed getting all questions : " + ex.getMessage());
 			throw new CPException("err002", resourceBundle.getString("err002"));
 		}
-	} 
+	}
 
 }
