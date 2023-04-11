@@ -32,4 +32,6 @@ public interface AnswerRepo extends JpaRepository<Answer, Integer> {
 
 	@Query(value = "SELECT* FROM teacher_answer WHERE teacher_answer.questionid = ?1", nativeQuery = true)
 	public List<Answer> findAnswerByQuestionId(int questionid);
+	
+	
 }
