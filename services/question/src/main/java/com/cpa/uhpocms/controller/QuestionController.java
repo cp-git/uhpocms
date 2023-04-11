@@ -49,39 +49,39 @@ public class QuestionController {
 		logger = Logger.getLogger(QuestionController.class);
 	}
 
-	@PostMapping("/question")
-	public ResponseEntity<Object> createQuestion(@RequestBody Question question) throws CPException {
-		logger.debug("Entering createQuestion");
-		logger.info("data of creating Question  :" + question.toString());
-
-		Question createdQuestion = null;
-		try {
-
-			Question toCheckQuestion = questionService.getQuestionByFigure(question.getQuestionFigure());
-			logger.debug("existing question :" + toCheckQuestion);
-
-			if (toCheckQuestion == null) {
-
-			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
-			//	question.setCreatedby("admin");
-			//	question.setUpdatedby("admin");
-
-				createdQuestion = questionService.createQuestion(question);
-				logger.info("Question created :" + createdQuestion);
-
-				return ResponseHandler.generateResponse(createdQuestion, HttpStatus.CREATED);
-
-			} else {
-
-				logger.error(resourceBundle.getString("err003"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed Question creation : " + ex.getMessage());
-			throw new CPException("err003", resourceBundle.getString("err003"));
-		}
-	}
+//	@PostMapping("/question")
+//	public ResponseEntity<Object> createQuestion(@RequestBody Question question) throws CPException {
+//		logger.debug("Entering createQuestion");
+//		logger.info("data of creating Question  :" + question.toString());
+//
+//		Question createdQuestion = null;
+//		try {
+//
+//			Question toCheckQuestion = questionService.getQuestionByFigure(question.getQuestionFigure());
+//			logger.debug("existing question :" + toCheckQuestion);
+//
+//			if (toCheckQuestion == null) {
+//
+//			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
+//			//	question.setCreatedby("admin");
+//			//	question.setUpdatedby("admin");
+//
+//				createdQuestion = questionService.createQuestion(question);
+//				logger.info("Question created :" + createdQuestion);
+//
+//				return ResponseHandler.generateResponse(createdQuestion, HttpStatus.CREATED);
+//
+//			} else {
+//
+//				logger.error(resourceBundle.getString("err003"));
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
+//			}
+//
+//		} catch (Exception ex) {
+//			logger.error("Failed Question creation : " + ex.getMessage());
+//			throw new CPException("err003", resourceBundle.getString("err003"));
+//		}
+//	}
 
 	@GetMapping("/question/{figure}")
 	public ResponseEntity<Object> getQuestionByFigure(@PathVariable("figure") String figure)
@@ -276,6 +276,54 @@ public class QuestionController {
 
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@PostMapping("/question")
+	public ResponseEntity<Object> createOrUpdateQuestion(@RequestBody Question question) throws CPException {
+	    logger.debug("Entering createOrUpdateQuestion");
+	    logger.info("data of creating/updating Question  :" + question.toString());
+
+	    try {
+	        Question toCheckQuestion = questionService.getQuestionById(question.getQuestionId());
+	        logger.debug("existing question :" + toCheckQuestion);
+
+	        Question createdOrUpdateQuestion;
+	        HttpStatus httpStatus;
+
+	        if (toCheckQuestion == null) {
+	            // Create a new question
+	            // TODO: Uncomment below 2 lines and change the method name as per your Entity class
+	            // question.setCreatedby("admin");
+	            // question.setUpdatedby("admin");
+
+	            createdOrUpdateQuestion = questionService.createQuestion(question);
+	            logger.info("Question created :" + createdOrUpdateQuestion);
+
+	            httpStatus = HttpStatus.CREATED;
+	        } else {
+	            // Update an existing question
+	            createdOrUpdateQuestion = questionService.updateQuestionById(question, toCheckQuestion.getQuestionId());
+	            logger.info("Question updated :" + createdOrUpdateQuestion);
+
+	            httpStatus = HttpStatus.OK;
+	        }
+
+	        return ResponseHandler.generateResponse(createdOrUpdateQuestion, httpStatus);
+
+	    } catch (Exception ex) {
+	        logger.error("Failed Question creation/updation : " + ex.getMessage());
+	        throw new CPException("err003", resourceBundle.getString("err003"));
+	    }
+	}
+
 	/**
 	 * @author Shradha
 	 * @param figure

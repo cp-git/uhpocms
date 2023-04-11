@@ -28,7 +28,7 @@ public class Question {
 	@Column(name = "id")
 	private int questionId;
 
-	@Column(name = "figure", nullable = false, unique = true)
+	@Column(name = "figure")
 	private String questionFigure;
 
 	@Column(name = "content", nullable = false)
