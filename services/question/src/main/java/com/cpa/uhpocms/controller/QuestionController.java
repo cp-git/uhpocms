@@ -27,8 +27,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cpa.uhpocms.entity.Answer;
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.Question;
+import com.cpa.uhpocms.entity.QuestionAnswer;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.QuestionService;
@@ -276,6 +278,8 @@ public class QuestionController {
 		logger.debug("Entering createOrUpdateQuestion");
 		logger.info("data of creating/updating Question  :" + question.toString());
 
+		Integer value = 0;
+
 		try {
 			Question toCheckQuestion = questionService.getQuestionById(question.getQuestionId());
 			logger.debug("existing question :" + toCheckQuestion);
@@ -290,19 +294,22 @@ public class QuestionController {
 				// question.setCreatedby("admin");
 				// question.setUpdatedby("admin");
 
-				createdOrUpdateQuestion = questionService.createQuestion(question);
-				logger.info("Question created :" + createdOrUpdateQuestion);
+				value = questionService.addQuestionWithAnswers(question);
+				System.out.println("here is value " + value);
+//				createdOrUpdateQuestion = questionService.createQuestion(question);
+				logger.info("Question created :" + value);
 
 				httpStatus = HttpStatus.CREATED;
 			} else {
 				// Update an existing question
-				createdOrUpdateQuestion = questionService.updateQuestionById(question, toCheckQuestion.getQuestionId());
-				logger.info("Question updated :" + createdOrUpdateQuestion);
+				value = questionService.addQuestionWithAnswers(question);
+//				createdOrUpdateQuestion = questionService.updateQuestionById(question, toCheckQuestion.getQuestionId());
+				logger.info("Question updated :" + value);
 
 				httpStatus = HttpStatus.OK;
 			}
 
-			return ResponseHandler.generateResponse(createdOrUpdateQuestion, httpStatus);
+			return ResponseHandler.generateResponse(value, httpStatus);
 
 		} catch (Exception ex) {
 			logger.error("Failed Question creation/updation : " + ex.getMessage());
@@ -392,6 +399,37 @@ public class QuestionController {
 			logger.error("Failed getting all questions : " + ex.getMessage());
 			throw new CPException("err002", resourceBundle.getString("err002"));
 		}
+	}
+
+	@PostMapping("/question/add")
+	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestBody QuestionAnswer request) throws CPException {
+		// Extract questions and answers arrays from the request
+		System.out.println(request.getAnswers());
+		Question question = request.getQuestion();
+		Answer[] answers = request.getAnswers();
+
+		boolean status = false;
+		try {
+
+			logger.info("fetched Question :" + question);
+			logger.info("fetched answers :" + answers);
+			status = questionService.addQuestionsAndAnswers(question, answers);
+
+			if (status == true) {
+				logger.debug("added question and answers successfully");
+				return ResponseHandler.generateResponse(HttpStatus.OK);
+			} else {
+				logger.debug("Failed to add question and answers");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err006");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting question : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+//		return ResponseHandler.generateResponse(HttpStatus.OK);
+
 	}
 
 }
