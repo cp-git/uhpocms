@@ -38,5 +38,5 @@ public interface QuestionService {
 
 	int addQuestionWithAnswers(Question question);
 
-	boolean addQuestionsAndAnswers(Question question, Answer[] answers);
+	Integer addQuestionsAndAnswers(Question question, Answer[] answers);
 }

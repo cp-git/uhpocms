@@ -7,6 +7,7 @@
 
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -27,6 +28,8 @@ public class QuestionServiceImpl implements QuestionService {
 	@Autowired
 	private QuestionRepo questionRepo;
 	private static Logger logger;
+
+	private final int ANSWER_LENGTH = 4;
 
 	public QuestionServiceImpl() {
 		logger = Logger.getLogger(QuestionServiceImpl.class);
@@ -246,27 +249,44 @@ public class QuestionServiceImpl implements QuestionService {
 //		return value;
 //	}
 
+	// for additing question and answers
 	@Override
-	public boolean addQuestionsAndAnswers(Question question, Answer[] answers) {
+	public Integer addQuestionsAndAnswers(Question question, Answer[] answers) {
 
-		boolean value = false;
+		Integer value = 0;
+
 		ObjectMapper objectMapper = new ObjectMapper();
+
 		question.setQuestionCreatedBy("admin");
 		question.setQuestionModifiedBy("admin");
+
 		String questionJson = null;
-		String answersJson = null;
+		List<String> answersJson = new ArrayList<String>();
+
 		try {
 			questionJson = objectMapper.writeValueAsString(question);
-			answersJson = objectMapper.writeValueAsString(answers);
+
+			for (Answer answer : answers) {
+				answersJson.add(objectMapper.writeValueAsString(answer));
+			}
+
+			// inserting null values
+			for (int i = answers.length; i < ANSWER_LENGTH; i++) {
+				answersJson.add(null);
+			}
+
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		System.out.println("json array " + questionJson);
-		System.out.println("answer json " + answersJson);
-		value = questionRepo.addQuestionWithAnswers(questionJson, answersJson, value);
+//		System.out.println("json array " + questionJson);
+//		System.out.println("answer json " + answersJson);
 
+		value = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
+				answersJson.get(2), answersJson.get(3), value);
+
+		logger.info("generated ID" + value.toString());
 		return value;
 
 	}

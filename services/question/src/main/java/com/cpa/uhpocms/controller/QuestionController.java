@@ -401,23 +401,26 @@ public class QuestionController {
 		}
 	}
 
+	// for inserting question and answers
 	@PostMapping("/question/add")
 	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestBody QuestionAnswer request) throws CPException {
 		// Extract questions and answers arrays from the request
-		System.out.println(request.getAnswers());
+
 		Question question = request.getQuestion();
 		Answer[] answers = request.getAnswers();
 
-		boolean status = false;
+		Integer questionId = 0;
 		try {
 
 			logger.info("fetched Question :" + question);
-			logger.info("fetched answers :" + answers);
-			status = questionService.addQuestionsAndAnswers(question, answers);
+			logger.info("fetched answers :" + answers.length);
 
-			if (status == true) {
+			questionId = questionService.addQuestionsAndAnswers(question, answers);
+
+			logger.info("generated value in controller :" + questionId);
+			if (questionId > 0) {
 				logger.debug("added question and answers successfully");
-				return ResponseHandler.generateResponse(HttpStatus.OK);
+				return ResponseHandler.generateResponse(questionId, HttpStatus.OK);
 			} else {
 				logger.debug("Failed to add question and answers");
 				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err006");
