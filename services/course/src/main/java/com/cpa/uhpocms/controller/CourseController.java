@@ -62,18 +62,19 @@ public class CourseController {
 		Course createdCourse = null;
 		try {
 
-			Course toCheckCourse = courseService.getCourseByName(course.getCourseName());
-			logger.debug("existing course :" + toCheckCourse);
+//			Course toCheckCourse = courseService.getCourseByName(course.getCourseName());
+//			logger.debug("existing course :" + toCheckCourse);
+			
+			course.setCourseCreatedBy("admin");
+			course.setCourseUpdatedBy("admin");
 
-			if (toCheckCourse == null) {
+			createdCourse = courseService.createCourse(course);
+			logger.info("Course created :" + createdCourse);
+			if (createdCourse != null) {
 
 				// TODO: Uncomment below 2 lines and change the method name as per your Entity
 				// class
-				course.setCourseCreatedBy("admin");
-				course.setCourseUpdatedBy("admin");
-
-				createdCourse = courseService.createCourse(course);
-				logger.info("Course created :" + createdCourse);
+			
 
 				return ResponseHandler.generateResponse(createdCourse, HttpStatus.CREATED);
 
