@@ -7,12 +7,14 @@
 
 package com.cpa.uhpocms.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,6 +33,7 @@ import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.Module;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.repository.ModuleRepo;
 import com.cpa.uhpocms.service.ModuleService;
 
 @CrossOrigin
@@ -40,6 +43,14 @@ public class ModuleController {
 
 	@Autowired
 	private ModuleService moduleService;
+	
+	
+	@Autowired
+	private ModuleRepo moduleRepo;
+	
+	
+	@Value("${file.base-path}")
+	private String basePath;
 
 	private ResourceBundle resourceBundle;
 	private static Logger logger;
@@ -59,6 +70,7 @@ public class ModuleController {
 
 			Module toCheckModule = moduleService.getModuleByName(module.getModuleName());
 			logger.debug("existing module :" + toCheckModule);
+			
 
 			if (toCheckModule == null) {
 
@@ -69,7 +81,26 @@ public class ModuleController {
 
 				createdModule = moduleService.createModule(module);
 				logger.info("Module created :" + createdModule);
+				
 
+				String courseName=moduleRepo.finByCourseByCourseId(module.getModuleId());
+				System.out.println(courseName);
+
+				
+				String departmentName=moduleRepo.finByAdminInstitutionId(module.getCourseId_id());
+				System.out.println(departmentName);
+				
+				
+				String instituteName=moduleRepo.finByAdminInstitutionNameAndId(module.getCourseId_id());
+				System.out.println(instituteName);
+				
+				File theDir = new File(basePath+"/institute/"+instituteName+"/"+departmentName+"/"+courseName+"/"+module.getModuleName());
+				System.out.println(theDir);
+				if (!theDir.exists()){
+				    theDir.mkdirs();
+				}
+				
+				
 				return ResponseHandler.generateResponse(createdModule, HttpStatus.CREATED);
 
 			} else {

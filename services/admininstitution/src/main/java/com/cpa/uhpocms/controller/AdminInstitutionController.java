@@ -7,12 +7,14 @@
 
 package com.cpa.uhpocms.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -45,6 +47,11 @@ public class AdminInstitutionController {
 	private ResourceBundle resourceBundle;
 
 	private static Logger logger;
+	
+	
+	@Value("${file.base-path}")
+	private String basePath;
+
 
 	AdminInstitutionController() {
 		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
@@ -73,6 +80,11 @@ public class AdminInstitutionController {
 			if (toCheckAdminInstitution == null) {
 				addInstitution = adminInstitutionService.saveAdminInstitution(adminInstitution);
 				logger.info("institution created :" + addInstitution);
+				
+				File theDir = new File(basePath+"/institute/"+adminInstitution.getAdminInstitutionName()+"/logo/");
+				if (!theDir.exists()){
+				    theDir.mkdirs();
+				}
 				return ResponseHandler.generateResponse(addInstitution, HttpStatus.CREATED);
 
 			} else {

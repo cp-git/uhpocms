@@ -7,12 +7,14 @@
 
 package com.cpa.uhpocms.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,6 +34,8 @@ import com.cpa.uhpocms.entity.Course;
 import com.cpa.uhpocms.entity.CourseDepartment;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.repository.CourseDepartmentRepo;
+import com.cpa.uhpocms.repository.CourseRepo;
 import com.cpa.uhpocms.service.CourseDepartmentService;
 import com.cpa.uhpocms.service.CourseService;
 
@@ -45,6 +49,24 @@ public class CourseController {
 
 	@Autowired
 	private CourseDepartmentService courseDepartmentService;
+	
+	
+	@Autowired
+	private CourseDepartmentRepo courseDeptRepo;
+	
+	
+	@Autowired
+	private CourseRepo courseRepo;
+	
+	
+	@Value("${file.base-path}")
+	private String basePath;
+	
+	
+	
+	
+	
+	
 
 	private ResourceBundle resourceBundle;
 	private static Logger logger;
@@ -70,6 +92,8 @@ public class CourseController {
 
 			createdCourse = courseService.createCourse(course);
 			logger.info("Course created :" + createdCourse);
+			
+			
 			if (createdCourse != null) {
 
 				// TODO: Uncomment below 2 lines and change the method name as per your Entity
@@ -184,7 +208,6 @@ public class CourseController {
 	public ResponseEntity<Object> deleteCourseByName(@PathVariable("name") String name) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered deleteCourse  :" + name);
-		// TODO - implement the business logic
 
 		int count = 0;
 
@@ -411,6 +434,28 @@ public class CourseController {
 
 			assignedCourseDepartment = courseService.assignCourseToDepartment(courseDepartment);
 			logger.debug("assigned course :" + assignedCourseDepartment);
+			
+			String departmentName=courseDeptRepo.finByAdminInstitutionId(courseDepartment.getDepartment_id());
+				System.out.println(departmentName);
+				
+				
+				
+				String instituteName=courseDeptRepo.finByAdminInstitutionByCourseId(courseDepartment.getCourseId());
+				System.out.println(instituteName);
+				
+				
+				String courseName=courseDeptRepo.finByCourseByCourseId(courseDepartment.getCourseId());
+				System.out.println(courseName);
+				
+				
+				File theDir = new File(basePath+"/institute/"+instituteName+"/"+departmentName+"/"+courseName);
+				System.out.println(theDir);
+				if (!theDir.exists()){
+				    theDir.mkdirs();
+				}
+				
+				
+				
 
 			if (assignedCourseDepartment != null) {
 

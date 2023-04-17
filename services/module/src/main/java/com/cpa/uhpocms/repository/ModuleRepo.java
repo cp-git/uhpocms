@@ -42,4 +42,16 @@ public interface ModuleRepo extends JpaRepository<Module, Integer> {
 	
 	
 
+	@Query(value="Select dp.name from teacher_course dp JOIN teacher_module tc  ON tc.courseid_id = dp.courseid where tc.moduleid=?1",nativeQuery=true)
+	public String finByCourseByCourseId(int moduleId);
+	
+	
+	@Query(value="Select dp.name from admin_department dp JOIN teacher_course_departmentid tc  ON tc.department_id = dp.departmentid where tc.course_id=?1",nativeQuery=true)
+	public String finByAdminInstitutionId(int courseId);
+	
+	
+	@Query(value="Select dp.name from admin_institution dp JOIN teacher_course tc  ON tc.instid = dp.institutionid where tc.courseid=?1",nativeQuery=true)
+	public String finByAdminInstitutionNameAndId(int courseId);
+	
+
 }

@@ -46,4 +46,28 @@ public interface ModuleFileRepo extends JpaRepository<ModuleFile, Integer> {
 	@Modifying
 	@Query(value = "UPDATE teacher_modulefile SET isactive=true WHERE id = ?1", nativeQuery = true)
 	public int activateModuleFileByModuleFileId(int id);
+	
+	
+	
+	//Find Module Name by Using ModuleFielId
+	@Query(value="Select dp.name from teacher_module dp JOIN teacher_modulefile tc  ON tc.moduleid_id = dp.moduleid where tc.id=?1",nativeQuery=true)
+	public String finByModuleByModuleId(int moduleFileId);
+	
+	
+	//Find Course Name By ModuleId
+	@Query(value="Select dp.name from teacher_course dp JOIN teacher_module tc  ON tc.courseid_id = dp.courseid where tc.moduleid=?1",nativeQuery=true)
+	public String finByCourseByModuleId(int moduleId);
+	
+	
+	//Find Department Name using Teacher_course_department
+	@Query(value="Select  admin_department.name FROM teacher_course,teacher_module,admin_institution,admin_department,teacher_course_departmentid,teacher_modulefile  WHERE admin_department.departmentid = teacher_course_departmentid.department_id AND 	teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_modulefile.moduleid_id AND teacher_modulefile.id=?1",nativeQuery=true)
+	public String finByAdminDepartmentByCourseDepartmentId(int moduleFileId);
+	
+	
+	//Find Institute Name
+	
+	@Query(value="Select  admin_institution.name FROM teacher_course,teacher_module,admin_institution,admin_department,teacher_course_departmentid,teacher_modulefile  WHERE admin_department.departmentid = teacher_course_departmentid.department_id AND 	teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_modulefile.moduleid_id AND teacher_modulefile.id=?1",nativeQuery=true)
+	public String finByAdminInstitutionByCourseDepartmentId(int moduleFileId);
 }
+
+

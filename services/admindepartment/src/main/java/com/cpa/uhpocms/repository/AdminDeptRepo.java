@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cpa.uhpocms.entity.AdminDepartment;
+import com.cpa.uhpocms.entity.AdminInstitution;
 
 @Repository
 public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
@@ -47,5 +48,11 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	@Modifying
 	@Query(value = "UPDATE admin_department SET isactive=true WHERE departmentid=?1", nativeQuery = true)
 	public int activateAdminDepartmentById(int departmentId);
+
+	
+	@Query(value="Select dp.name from admin_institution dp JOIN admin_department tc  ON tc.institutionid = dp.institutionid where tc.departmentid=?1",nativeQuery=true)
+	public String finByAdminInstitutionId(int id);
+	
+	
 
 }

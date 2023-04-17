@@ -14,3 +14,7 @@ spring.datasource:
   
 server:
   port : 8090
+  
+  
+file:
+  base-path: D:/UHPOCMS

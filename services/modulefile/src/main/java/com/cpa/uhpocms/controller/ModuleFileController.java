@@ -7,12 +7,14 @@
 
 package com.cpa.uhpocms.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,6 +33,7 @@ import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.ModuleFile;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.repository.ModuleFileRepo;
 import com.cpa.uhpocms.service.ModuleFileService;
 
 @RestController
@@ -43,6 +46,14 @@ public class ModuleFileController {
 
 	private ResourceBundle resourceBunde;
 	private static Logger logger;
+	
+	
+	@Autowired
+	private ModuleFileRepo moduleRepo;
+	
+	
+	@Value("${file.base-path}")
+	private String basePath;
 
 	ModuleFileController() {
 		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
@@ -59,6 +70,9 @@ public class ModuleFileController {
 
 			ModuleFile toCheckModuleFile = modulefileService.getModuleFileByFile(modulefile.getModuleFile());
 			logger.debug("existing modulefile :" + toCheckModuleFile);
+			
+			
+			
 
 			if (toCheckModuleFile == null) {
 
@@ -69,8 +83,32 @@ public class ModuleFileController {
 
 				createdModuleFile = modulefileService.createModuleFile(modulefile);
 				logger.info("ModuleFile created :" + createdModuleFile);
+				
+				String moduleName=moduleRepo.finByModuleByModuleId(modulefile.getModuleFileId());
+				System.out.println(moduleName);
+				
+				
+				String courseName=moduleRepo.finByCourseByModuleId(modulefile.getModuleId());
+				System.out.println(courseName);
+				
+				
+				String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(modulefile.getModuleFileId());
+				System.out.println(departmentName);
+				
+				
+				String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(modulefile.getModuleFileId());
+				System.out.println(InstituteName);
+				
+				File theDir = new File(basePath+"/institute/"+InstituteName+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+modulefile.getModuleFile());
+				System.out.println(theDir);
+				if (!theDir.exists()){
+				    theDir.mkdirs();
+				}
+				
 
 				return ResponseHandler.generateResponse(createdModuleFile, HttpStatus.CREATED);
+				
+				
 
 			} else {
 
