@@ -267,11 +267,15 @@ public class QuestionServiceImpl implements QuestionService {
 			questionJson = objectMapper.writeValueAsString(question);
 
 			for (Answer answer : answers) {
-				answersJson.add(objectMapper.writeValueAsString(answer));
+				System.out.println(answer.getContent());
+				if (answer.getContent() != null) {
+					answersJson.add(objectMapper.writeValueAsString(answer));
+				}
 			}
 
 			// inserting null values
-			for (int i = answers.length; i < ANSWER_LENGTH; i++) {
+			System.out.println(answersJson.size());
+			for (int i = answersJson.size(); i < ANSWER_LENGTH; i++) {
 				answersJson.add(null);
 			}
 
