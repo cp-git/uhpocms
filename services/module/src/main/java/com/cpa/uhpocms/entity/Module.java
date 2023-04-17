@@ -30,7 +30,7 @@ public class Module {
 	@Column(name = "moduleid", nullable = false)
 	private int moduleId;
 
-	@Column(name = "name", unique = true, nullable = false)
+	@Column(name = "name", nullable = false)
 	private String moduleName;
 
 	@Column(name = "description", nullable = false)

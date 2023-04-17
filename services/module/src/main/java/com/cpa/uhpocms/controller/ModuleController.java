@@ -166,6 +166,30 @@ public class ModuleController {
 		}
 
 	}
+	
+	@DeleteMapping("/module/moduleId/{id}")
+	public ResponseEntity<Object> deleteModuleById(@PathVariable("id") int moduleId) throws CPException {
+		logger.debug("Entering deleteAuthUser");
+		logger.info("entered deleteModule  :" + moduleId);
+		// TODO - implement the business logic
+
+		int count = 0;
+
+		try {
+			count = moduleService.deleteModuleBymoduleId(moduleId);
+			if (count >= 1) {
+				logger.info("deleted Module : Name = " + moduleId);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete Module :" + ex.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+		}
+	}
 
 	@PutMapping("/module/{name}")
 	public ResponseEntity<Object> updateModuleByName(@RequestBody Module module, @PathVariable("name") String name)
@@ -177,6 +201,33 @@ public class ModuleController {
 
 		try {
 			updatedModule = moduleService.updateModuleByName(module, name);
+
+			if (updatedModule == null) {
+				logger.info(resourceBundle.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated module : " + updatedModule);
+				return ResponseHandler.generateResponse(updatedModule, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update Module : " + ex.getMessage());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+
+	}
+	
+	@PutMapping("/module/moduleId/{id}")
+	public ResponseEntity<Object> updateModuleById(@RequestBody Module module, @PathVariable("id") int moduleId)
+			throws CPException {
+		logger.debug("Entering updateModule");
+		logger.info("entered  updateModule :" + module);
+
+		Module updatedModule = null;
+
+		try {
+			updatedModule = moduleService.updateModuleBymoduleId(module, moduleId);
 
 			if (updatedModule == null) {
 				logger.info(resourceBundle.getString("err004"));
