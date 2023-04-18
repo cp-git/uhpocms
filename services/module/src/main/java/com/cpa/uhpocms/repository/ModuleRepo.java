@@ -23,7 +23,7 @@ public interface ModuleRepo extends JpaRepository<Module, Integer> {
 
 	public Module findByModuleName(String name);
 
-	public List<Object> findByModuleIsActiveTrue();
+//	public List<Object> findByModuleIsActiveTrue();
 
 	@Transactional
 	@Modifying
@@ -52,6 +52,8 @@ public interface ModuleRepo extends JpaRepository<Module, Integer> {
 	
 	@Query(value="Select dp.name from admin_institution dp JOIN teacher_course tc  ON tc.instid = dp.institutionid where tc.courseid=?1",nativeQuery=true)
 	public String finByAdminInstitutionNameAndId(int courseId);
+	
+	public List<Object> findByModuleIsActiveTrue();
 	
 
 }

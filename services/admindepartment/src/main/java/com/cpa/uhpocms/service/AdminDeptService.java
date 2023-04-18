@@ -21,7 +21,7 @@ public interface AdminDeptService {
 
 	int deleteDeptById(int departmentid);
 
-	public Object getDeptByName(String name);
+	public AdminDepartment getDeptByName(String name);
 
 	AdminDepartment getDepartmentById(int departmentid);
 

@@ -172,7 +172,9 @@ public class AdminDeptController {
 	public ResponseEntity<Object> getDepartmentByName(@PathVariable("name") String name) throws CPException {
 
 		try {
-			Object adminDept = adminDeptService.getDeptByName(name);
+			System.out.println("in controller...");
+			AdminDepartment adminDept = adminDeptService.getDeptByName(name);
+			System.out.println(adminDept);
 			if (adminDept != null) {
 
 				logger.info("Getting AdminDepartment by " + name + " performed successfully");

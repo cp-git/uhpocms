@@ -2,12 +2,16 @@ package com.cpa.uhpocms.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Table(name = "teacher_course_departmentid")
@@ -24,7 +28,8 @@ public class CourseDepartment {
 	private int courseId;
 	
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name="department_id",insertable=false,updatable=false)
 	private AdminDepartment dept;
 

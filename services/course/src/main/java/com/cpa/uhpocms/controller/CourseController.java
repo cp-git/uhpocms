@@ -93,6 +93,25 @@ public class CourseController {
 			createdCourse = courseService.createCourse(course);
 			logger.info("Course created :" + createdCourse);
 			
+			String departmentName=courseDeptRepo.finByDepartmentInstitutionId(course.getCourseId());
+			System.out.println(departmentName);
+			
+			
+			
+			String instituteName=courseDeptRepo.finByAdminInstitutionByCourseId(course.getCourseId());
+			System.out.println(instituteName);
+			
+			
+			
+			System.out.println(course.getCourseName());
+			
+			
+			File theDir = new File(basePath+"/institute/"+instituteName+"/"+departmentName+"/"+course.getCourseName());
+			System.out.println(theDir);
+			if (!theDir.exists()){
+			    theDir.mkdirs();
+			}
+			
 			
 			if (createdCourse != null) {
 
@@ -435,7 +454,13 @@ public class CourseController {
 			assignedCourseDepartment = courseService.assignCourseToDepartment(courseDepartment);
 			logger.debug("assigned course :" + assignedCourseDepartment);
 			
-			String departmentName=courseDeptRepo.finByAdminInstitutionId(courseDepartment.getDepartment_id());
+			
+				
+				
+
+			if (assignedCourseDepartment != null) {
+				
+				String departmentName=courseDeptRepo.finByAdminInstitutionId(courseDepartment.getDepartment_id());
 				System.out.println(departmentName);
 				
 				
@@ -454,10 +479,6 @@ public class CourseController {
 				    theDir.mkdirs();
 				}
 				
-				
-				
-
-			if (assignedCourseDepartment != null) {
 
 				return ResponseHandler.generateResponse(assignedCourseDepartment, HttpStatus.CREATED);
 

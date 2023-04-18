@@ -34,6 +34,11 @@ public interface CourseDepartmentRepo extends JpaRepository<CourseDepartment, In
 	
 	
 	
+	@Query(value="Select dp.name from admin_department dp JOIN teacher_course tc  ON tc.instid = dp.institutionid where tc.courseid=?1",nativeQuery=true)
+	public String finByDepartmentInstitutionId(int courseId);
+	
+	
+	
 	
 	
 	
