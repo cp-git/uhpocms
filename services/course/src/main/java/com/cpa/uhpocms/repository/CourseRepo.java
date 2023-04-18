@@ -87,4 +87,7 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	@Query(value = "INSERT INTO teacher_course_enrolltostudent(course_id, profile_id) VALUES (?1,?2)", nativeQuery = true)
 	public void insertCourseAndProfile(int courseId, int profileId);
 	
+	@Query(value = "SELECT tc.* FROM teacher_course tc JOIN teacher_course_institutionid tci ON tc.courseid = tci.course_id JOIN admin_institution inst ON tci.institution_id = inst.institutionid WHERE inst.isactive = true AND tc.isactive = true", nativeQuery = true)
+	public List<Course> findActiveCoursesOfActiveInstitutions();
+	
 }

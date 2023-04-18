@@ -84,4 +84,10 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	 */
 	public List<Object> findByInstitutionIdAndUserRole(int institutionId, String userRole);
 
+	/**
+	 * @return : InstituteAdmin list
+	 * @description : For Retrieving All the data of active profile of active institute.
+	 */
+	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN admin_institution inst ON inst.institutionid=profile.institutionid_id JOIN auth_user users ON users.id=profile.user_id where users.is_active=true and inst.isactive=true and profile.isactive=true", nativeQuery = true)
+	public List<InstituteAdmin> findActiveProfileOfActiveInstitutions();
 }
