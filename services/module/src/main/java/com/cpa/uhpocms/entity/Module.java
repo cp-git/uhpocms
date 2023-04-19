@@ -15,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -39,11 +41,11 @@ public class Module {
 	@Column(name = "isactive")
 	private boolean moduleIsActive;
 
-	@JsonFormat(pattern = "dd-MM-yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd")
 	@Column(name = "startdate")
 	private Date moduleStartDate;
 
-	@JsonFormat(pattern = "dd-MM-yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd")
 	@Column(name = "enddate")
 	private Date moduleEndDate;
 
