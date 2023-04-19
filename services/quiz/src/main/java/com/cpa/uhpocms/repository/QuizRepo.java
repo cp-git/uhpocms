@@ -31,4 +31,7 @@ public interface QuizRepo extends JpaRepository<Quiz, Integer> {
 	public int deleteBytitle(String title);
 
 	public List<Object> findByIsActiveFalse();
+
+	@Query(value = "SELECT quiz.* FROMT public.teacher_quiz quiz JOIN public.teacher_course_enrolltostudent enrollcourses ON quiz.courseid_id=enrollcourses.course_id WHERE enrollcourses.profile_id=?1 AND quiz.isactive=true", nativeQuery = true)
+	public List<Object> getAllQuizzesByStudentId(int studentId);
 }

@@ -33,15 +33,13 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 	/**
 	 * @param : Quizprogress quizprogress
 	 * @return : Quizprogress createdQuizprogress
-	 * @description : For creating/inserting entry in Teacher_studentquizprogress table
+	 * @description : For creating/inserting entry in Teacher_studentquizprogress
+	 *              table
 	 */
 	@Override
 	public Quizprogress createQuizprogress(Quizprogress quizprogress) {
 		logger.debug("Entering createQuizprogress");
 		Quizprogress createdQuizprogress = null;
-
-	//	quizprogress.setQuizprogressCreatedBy("admin");
-	//	quizprogress.setQuizprogressModifiedBy("admin");
 
 		createdQuizprogress = quizprogressRepo.save(quizprogress);
 		logger.info("created Quizprogress :" + createdQuizprogress);
@@ -54,10 +52,10 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 	 * @description : For get entry in Teacher_studentquizprogress table
 	 */
 	@Override
-	public Quizprogress getQuizprogressBystudentId(int studentId) {
+	public Quizprogress getQuizprogressByStudentIdAndQuizId(int studentId, int quizId) {
 		logger.debug("Entering getQuizprogressBystudentId");
 
-		Quizprogress quizprogress = quizprogressRepo.findByStudentId(studentId);
+		Quizprogress quizprogress = quizprogressRepo.getQuizprogressByStudentIdAndQuizId(studentId, quizId);
 		logger.info("Founded quizprogress :" + quizprogress);
 
 		return quizprogress;
@@ -65,16 +63,18 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 
 	/**
 	 * @return : List<Object> quizprogress
-	 * @description : For fetching all quizprogress which are active state from Teacher_studentquizprogress table
+	 * @description : For fetching all quizprogress which are active state from
+	 *              Teacher_studentquizprogress table
 	 */
 	@Override
-	public List<Object> getAllQuizprogresss() {
+	public List<Object> getAllQuizprogress() {
 		logger.debug("Entering getAllQuizprogresss");
 
 		List<Object> quizProgressList = null;
 		List<Quizprogress> quizProgress = quizprogressRepo.findAll();
+
 		quizProgressList = new ArrayList<Object>(quizProgress);
-		//List<Object> quizprogresss = quizprogressRepo.findByQuizProgressIsActiveTrue();
+
 		logger.info("Fetched all active quizprogress :" + quizProgress);
 		return quizProgressList;
 	}
@@ -85,25 +85,23 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 	 * @description : For updating quizprogress of Teacher_studentquizprogress table
 	 */
 	@Override
-	public Quizprogress updateQuizprogressBystudentId(Quizprogress quizprogress, int studentId) {
+	public Quizprogress updateQuizprogressByStudentIdAndQuizId(Quizprogress quizprogress, int studentId, int quizId) {
 		logger.debug("Entering updateQuizprogress");
 
 		Quizprogress toUpdatedQuizprogress = null;
 		Quizprogress updatedQuizprogress = null;
 
-		
-		toUpdatedQuizprogress = quizprogressRepo.findByStudentId(studentId);
+		toUpdatedQuizprogress = quizprogressRepo.getQuizprogressByStudentIdAndQuizId(studentId, quizId);
+
 		logger.info("exisitng Quizprogress :: " + toUpdatedQuizprogress);
 
 		if (toUpdatedQuizprogress != null) {
 			logger.debug("setting new data of Quizprogress to exisitng Quizprogress");
 
-//			quizprogress.setModifiedBy("admin");
 			toUpdatedQuizprogress.setScore(quizprogress.getScore());
 			toUpdatedQuizprogress.setCompleted(quizprogress.isCompleted());
 			toUpdatedQuizprogress.setNumberOfAttempts(quizprogress.getNumberOfAttempts());
-			toUpdatedQuizprogress.setQuizid(quizprogress.getQuizid());
-			toUpdatedQuizprogress.setStudentId(quizprogress.getStudentId());
+
 			updatedQuizprogress = quizprogressRepo.save(toUpdatedQuizprogress);
 
 			logger.info("updated Quizprogress :" + toUpdatedQuizprogress);
@@ -115,16 +113,30 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 	/**
 	 * @param : String studentid
 	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of Quizprogress
+	 * @description : This is function is used to soft delete the record of
+	 *              Quizprogress
 	 * 
 	 */
 	@Override
-	public int deleteQuizprogressBystudentId(int studentId) {
+	public int deleteQuizprogressByStudentIdAndQuizId(int studentId, int quizId) {
 		logger.debug("Entering deleteQuizprogressBystudentId");
 
-		int count =  quizprogressRepo.deleteQuizProgressBystudentId(studentId);
+		int count = quizprogressRepo.deleteQuizprogressByStudentIdAndQuizId(studentId, quizId);
 		logger.info("deleted Quizprogress count : " + count);
 		return count;
+	}
+
+	/**
+	 * @param : String studentid
+	 * @return : Quizprogress quizprogress
+	 * @description : For get entry in Teacher_studentquizprogress table
+	 */
+	@Override
+	public List<Object> getQuizprogressBystudentId(int studentId) {
+		logger.debug("Entering getQuizprogressBystudentId");
+		List<Object> quizprogress = quizprogressRepo.findAllByStudentId(studentId);
+		logger.info("Founded quizprogress :" + quizprogress.size());
+		return quizprogress;
 	}
 
 }

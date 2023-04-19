@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,7 @@ import com.cpa.uhpocms.service.QuizprogressService;
 
 @RestController
 @RequestMapping("/uhpocms")
+@CrossOrigin
 public class QuizprogressController {
 
 	@Autowired
@@ -40,27 +42,28 @@ public class QuizprogressController {
 	private ResourceBundle resourceBunde;
 	private static Logger logger;
 
+	// controller
 	QuizprogressController() {
 		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(QuizprogressController.class);
 	}
 
+	// For adding quiz progress data in table
 	@PostMapping("/quizprogress")
 	public ResponseEntity<Object> createQuizprogress(@RequestBody Quizprogress quizprogress) throws CPException {
+
 		logger.debug("Entering createQuizprogress");
 		logger.info("data of creating Quizprogress  :" + quizprogress.toString());
 
 		Quizprogress createdQuizprogress = null;
+
 		try {
 
-			Quizprogress toCheckQuizprogress = quizprogressService.getQuizprogressBystudentId(quizprogress.getStudentId());
+			Quizprogress toCheckQuizprogress = quizprogressService
+					.getQuizprogressByStudentIdAndQuizId(quizprogress.getStudentId(), quizprogress.getQuizId());
 			logger.debug("existing quizprogress :" + toCheckQuizprogress);
 
 			if (toCheckQuizprogress == null) {
-
-			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
-			//	quizprogress.setCreatedby("admin");
-			//	quizprogress.setUpdatedby("admin");
 
 				createdQuizprogress = quizprogressService.createQuizprogress(quizprogress);
 				logger.info("Quizprogress created :" + createdQuizprogress);
@@ -79,17 +82,19 @@ public class QuizprogressController {
 		}
 	}
 
-	@GetMapping("/quizprogress/{studentId}")
-	public ResponseEntity<Object> getQuizprogressBystudentId(@PathVariable("studentId") int studentId)
-			throws CPException {
+	// For getting quiz progress data from table using student id and quizId
+	@GetMapping("/quizprogress/{quizId}/{studentId}")
+	public ResponseEntity<Object> getQuizprogressByStudentIdAndQuizId(@PathVariable("studentId") int studentId,
+			@PathVariable("quizId") int quizId) throws CPException {
+
 		logger.debug("Entering getQuizprogressBystudentId");
-		logger.info("entered user name :" + studentId);
-		
+		logger.info("entered user name : " + studentId + " quizid : " + quizId);
+
 		Quizprogress quizprogress = null;
 
 		try {
 
-			quizprogress = quizprogressService.getQuizprogressBystudentId(studentId);
+			quizprogress = quizprogressService.getQuizprogressByStudentIdAndQuizId(studentId, quizId);
 			logger.info("fetched Quizprogress :" + quizprogress);
 
 			if (quizprogress != null) {
@@ -108,20 +113,21 @@ public class QuizprogressController {
 
 	}
 
+	// For getting quiz progress all data from table
 	@GetMapping("/quizprogress")
-	public ResponseEntity<List<Object>> getAllQuizprogresss(@RequestParam(name = "studentId") String studentId)
+	public ResponseEntity<List<Object>> getAllQuizprogresss(@RequestParam(name = "data") String data)
 			throws CPException {
 		logger.debug("Entering getAllQuizprogress");
-		logger.info("Parameter  :" + studentId);
-		
+		logger.info("Parameter  :" + data);
+
 		List<Object> quizprogresss = null;
 
 		try {
 
-			if (studentId.equalsIgnoreCase("all")) {
+			if (data.equalsIgnoreCase("all")) {
 
-				quizprogresss = quizprogressService.getAllQuizprogresss();
-				logger.info("Fetched all Quizprogress :" + quizprogresss);
+				quizprogresss = quizprogressService.getAllQuizprogress();
+				logger.info("Fetched all Quizprogress :" + quizprogresss.size());
 
 				return ResponseHandler.generateListResponse(quizprogresss, HttpStatus.OK);
 			} else {
@@ -138,16 +144,48 @@ public class QuizprogressController {
 		}
 	}
 
-	@DeleteMapping("/quizprogress/{studentId}")
-	public ResponseEntity<Object> deleteQuizprogressBystudentId(@PathVariable("studentId") int studentId) throws CPException {
+	// For getting quiz progress all data from table
+	@GetMapping("/quizprogress/{studentId}")
+	public ResponseEntity<List<Object>> getAllQuizprogresssByStudentId(@PathVariable("studentId") int studentId)
+			throws CPException {
+		logger.debug("Entering getAllQuizprogresssByStudentId");
+		logger.info("Parameter  :" + studentId);
+
+		List<Object> quizprogresses = null;
+
+		try {
+
+			quizprogresses = quizprogressService.getQuizprogressBystudentId(studentId);
+			logger.info("fetched Quizprogress :" + quizprogresses);
+
+			if (quizprogresses != null) {
+				logger.debug("Quizprogress fetched generating response");
+				return ResponseHandler.generateListResponse(quizprogresses, HttpStatus.OK);
+			} else {
+				logger.debug("Quizprogress not found");
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all quizprogresss : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
+
+	// For deleting quiz progress data from table using student id and quizId
+	@DeleteMapping("/quizprogress/{quizId}/{studentId}")
+	public ResponseEntity<Object> deleteQuizprogressByStudentIdAndQuizId(@PathVariable("quizId") int quizId,
+			@PathVariable("studentId") int studentId) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered deleteQuizprogress  :" + studentId);
-		//TODO - implement the business logic
-		
+		// TODO - implement the business logic
+
 		int count = 0;
 
 		try {
-			count = quizprogressService.deleteQuizprogressBystudentId(studentId);
+			count = quizprogressService.deleteQuizprogressByStudentIdAndQuizId(studentId, quizId);
 			if (count >= 1) {
 				logger.info("deleted Quizprogress : studentId = " + studentId);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
@@ -160,20 +198,21 @@ public class QuizprogressController {
 			logger.error("Failed to delete Quizprogress :" + ex.getMessage());
 			throw new CPException("err005", resourceBunde.getString("err005"));
 		}
-		
 
 	}
 
-	@PutMapping("/quizprogress/{studentId}")
+	// For update quiz progress data in table using student id and quizId
+	@PutMapping("/quizprogress/{quizId}/{studentId}")
 	public ResponseEntity<Object> updateQuizprogressBystudentId(@RequestBody Quizprogress quizprogress,
-			@PathVariable("studentId") int studentId) throws CPException {
+			@PathVariable("studentId") int studentId, @PathVariable("quizId") int quizId) throws CPException {
 		logger.debug("Entering updateQuizprogress");
 		logger.info("entered  updateQuizprogress :" + quizprogress);
 
 		Quizprogress updatedQuizprogress = null;
 
-		try { 
-			updatedQuizprogress = quizprogressService.updateQuizprogressBystudentId(quizprogress, studentId);
+		try {
+			updatedQuizprogress = quizprogressService.updateQuizprogressByStudentIdAndQuizId(quizprogress, studentId,
+					quizId);
 
 			if (updatedQuizprogress == null) {
 				logger.info(resourceBunde.getString("err004"));
