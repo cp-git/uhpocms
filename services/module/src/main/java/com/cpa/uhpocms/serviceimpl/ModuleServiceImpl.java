@@ -73,6 +73,9 @@ public class ModuleServiceImpl implements ModuleService {
 		logger.debug("Entering getAllModules");
 
 		List<Object> modules = moduleRepo.findByModuleIsActiveTrue();
+		
+	
+		
 		logger.info("Fetched all active module :" + modules);
 		return modules;
 	}
@@ -215,6 +218,16 @@ public class ModuleServiceImpl implements ModuleService {
 		}
 
 		return updatedModule;
+	}
+
+	@Override
+	public Module getModuleById(int moduleId) {
+		logger.debug("Entering getModuleById");
+
+		Module module = moduleRepo.findById(moduleId);
+		logger.info("Founded module :" + module);
+
+		return module;
 	}
 
 

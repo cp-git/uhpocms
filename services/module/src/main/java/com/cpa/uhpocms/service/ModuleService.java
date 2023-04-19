@@ -16,6 +16,8 @@ public interface ModuleService {
 	Module createModule(Module module);
 
 	Module getModuleByName(String name);
+	
+	Module getModuleById (int moduleId);
 
 	List<Object> getAllModules();
 
