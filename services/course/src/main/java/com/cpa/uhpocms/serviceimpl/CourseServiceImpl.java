@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.cpa.uhpocms.entity.Course;
 import com.cpa.uhpocms.entity.CourseDepartment;
 import com.cpa.uhpocms.entity.CourseInstitution;
+
 import com.cpa.uhpocms.repository.CourseDepartmentRepo;
 import com.cpa.uhpocms.repository.CourseInstitutionRepo;
 import com.cpa.uhpocms.repository.CourseRepo;
@@ -89,9 +90,11 @@ public class CourseServiceImpl implements CourseService {
 	public List<Object> getAllCourses() {
 		logger.debug("Entering getAllCourses");
 
-		List<Object> courses = courseRepo.findByCourseIsActiveTrue();
+		List<Course> courses = courseRepo.findActiveCoursesOfActiveInstitutions();
 		logger.info("Fetched all active course :" + courses);
-		return courses;
+		List<Object> course = new ArrayList<>(courses);
+		return course;
+		
 	}
 
 	/**

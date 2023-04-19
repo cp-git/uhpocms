@@ -41,7 +41,7 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
 	@Query(value = "SELECT quiz.* FROM teacher_quiz quiz JOIN teacher_question question ON quiz.quizid = question.quizid_id WHERE quiz.quizid = ?1", nativeQuery = true)
 	public List<Question> findQuestionsByQuizId(int questionQuizId);
 
-	public List<Object> findAllByQuestionQuizIdAndQuestionIsActive(int quizId, boolean isActive);
+	public List<Object> findAllByQuestionQuizIdAndQuestionIsActiveOrderByQuestionOrderNo(int quizId, boolean isActive);
 
 	@Query(value = "CALL add_question_with_answers_mcq(CAST(:question AS json),CAST(:option1 AS json),CAST(:option2 AS json),CAST(:option3 AS json),CAST(:option4 AS json), :generatedId)", nativeQuery = true)
 	Integer addQuestionWithAnswers(@Param("question") String question, @Param("option1") String answer1,

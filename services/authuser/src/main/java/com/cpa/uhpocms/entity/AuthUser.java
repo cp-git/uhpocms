@@ -67,7 +67,6 @@ public class AuthUser {
 
 	@CreationTimestamp
 	@Column(name = "created_on", nullable = false)
-	@JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Asia/Kolkata")
 	private Date authUserCreatedOn;
 
 	@Column(name = "modified_by", nullable = false)
@@ -75,7 +74,6 @@ public class AuthUser {
 
 	@UpdateTimestamp
 	@Column(name = "modified_on", nullable = false)
-	@JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Asia/Kolkata")
 	private Date authUserModifiedOn;
 
 	// Constructors

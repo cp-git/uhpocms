@@ -57,19 +57,19 @@ public class ModuleController {
 		Module createdModule = null;
 		try {
 
-			Module toCheckModule = moduleService.getModuleByName(module.getModuleName());
-			logger.debug("existing module :" + toCheckModule);
+//			Module toCheckModule = moduleService.getModuleByName(module.getModuleName());
+//			logger.debug("existing module :" + toCheckModule);
 
-			if (toCheckModule == null) {
+			
+			// TODO: Uncomment below 2 lines and change the method name as per your Entity
+			// class
+			module.setModuleCreatedBy("admin");
+			module.setModuleUpdatedBy("admin");  
 
-				// TODO: Uncomment below 2 lines and change the method name as per your Entity
-				// class
-				module.setModuleCreatedBy("admin");
-				module.setModuleUpdatedBy("admin");
-
-				createdModule = moduleService.createModule(module);
-				logger.info("Module created :" + createdModule);
-
+			createdModule = moduleService.createModule(module);
+			logger.info("Module created :" + createdModule);
+			if (createdModule != null) {
+        
 				return ResponseHandler.generateResponse(createdModule, HttpStatus.CREATED);
 
 			} else {
