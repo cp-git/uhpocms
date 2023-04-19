@@ -112,6 +112,34 @@ public class ModuleController {
 		}
 
 	}
+	
+	@GetMapping("/module/{id}")
+	public ResponseEntity<Object> getModuleById(@PathVariable("id") int moduleId) throws CPException {
+		logger.debug("Entering getModuleById");
+		logger.info("entered user name :" + moduleId);
+
+		Module module = null;
+
+		try {
+
+			module = moduleService.getModuleById(moduleId);
+			logger.info("fetched Module :" + module);
+
+			if (module != null) {
+				logger.debug("Module fetched generating response");
+				return ResponseHandler.generateResponse(module, HttpStatus.OK);
+			} else {
+				logger.debug("Module not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting module : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
 
 	@GetMapping("/module")
 	public ResponseEntity<List<Object>> getAllModules(@RequestParam(name = "name") String name) throws CPException {
