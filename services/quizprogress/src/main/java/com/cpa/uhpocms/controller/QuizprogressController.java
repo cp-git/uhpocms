@@ -71,9 +71,11 @@ public class QuizprogressController {
 				return ResponseHandler.generateResponse(createdQuizprogress, HttpStatus.CREATED);
 
 			} else {
-
-				logger.error(resourceBunde.getString("err003"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
+				createdQuizprogress = quizprogressService.updateQuizprogressByStudentIdAndQuizId(quizprogress);
+				logger.info("Quizprogress created :" + createdQuizprogress);
+//				logger.error(resourceBunde.getString("err003"));
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
+				return ResponseHandler.generateResponse(createdQuizprogress, HttpStatus.CREATED);
 			}
 
 		} catch (Exception ex) {
@@ -211,8 +213,7 @@ public class QuizprogressController {
 		Quizprogress updatedQuizprogress = null;
 
 		try {
-			updatedQuizprogress = quizprogressService.updateQuizprogressByStudentIdAndQuizId(quizprogress, studentId,
-					quizId);
+			updatedQuizprogress = quizprogressService.updateQuizprogressByStudentIdAndQuizId(quizprogress);
 
 			if (updatedQuizprogress == null) {
 				logger.info(resourceBunde.getString("err004"));

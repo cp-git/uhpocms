@@ -19,7 +19,7 @@ public interface QuizprogressService {
 
 	List<Object> getAllQuizprogress();
 
-	Quizprogress updateQuizprogressByStudentIdAndQuizId(Quizprogress quizprogress, int studentId, int quizId);
+	Quizprogress updateQuizprogressByStudentIdAndQuizId(Quizprogress quizprogress);
 
 	int deleteQuizprogressByStudentIdAndQuizId(int studentId, int quizId);
 

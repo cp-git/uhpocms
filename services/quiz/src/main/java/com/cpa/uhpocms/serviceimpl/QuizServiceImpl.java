@@ -7,6 +7,7 @@
 
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -190,9 +191,10 @@ public class QuizServiceImpl implements QuizService {
 	public List<Object> getAllQuizzesByProfileId(int studentId) {
 		logger.debug("Entering getAllQuizzesByProfileId");
 
-		List<Object> quizzes = quizRepo.getAllQuizzesByStudentId(studentId);
+		List<Quiz> quizzes = quizRepo.getAllQuizzesByStudentId(studentId);
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
 		logger.info("Fetched quiz :" + quizzes);
-		return quizzes;
+		return objQuizzes;
 	}
 
 }

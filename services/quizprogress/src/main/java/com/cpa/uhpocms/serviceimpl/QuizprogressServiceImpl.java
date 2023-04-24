@@ -85,13 +85,14 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 	 * @description : For updating quizprogress of Teacher_studentquizprogress table
 	 */
 	@Override
-	public Quizprogress updateQuizprogressByStudentIdAndQuizId(Quizprogress quizprogress, int studentId, int quizId) {
+	public Quizprogress updateQuizprogressByStudentIdAndQuizId(Quizprogress quizprogress) {
 		logger.debug("Entering updateQuizprogress");
 
 		Quizprogress toUpdatedQuizprogress = null;
 		Quizprogress updatedQuizprogress = null;
 
-		toUpdatedQuizprogress = quizprogressRepo.getQuizprogressByStudentIdAndQuizId(studentId, quizId);
+		toUpdatedQuizprogress = quizprogressRepo.getQuizprogressByStudentIdAndQuizId(quizprogress.getStudentId(),
+				quizprogress.getQuizId());
 
 		logger.info("exisitng Quizprogress :: " + toUpdatedQuizprogress);
 
