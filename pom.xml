@@ -133,6 +133,7 @@
 		<module>services/modulefileprogress</module>
 		<module>services/moduleprogress</module>
 	    <module>tools/CodeGenerator</module>
+	    
 	</modules>
 </project>
 

@@ -11,20 +11,19 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 
 public class AppBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 
-	  @Override
-	  public void commence(HttpServletRequest request,
-	                       HttpServletResponse response,
-	                       AuthenticationException authEx) throws IOException {
+	@Override
+	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authEx)
+			throws IOException {
 
-	    response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName() + "");
-	    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-	    PrintWriter writer = response.getWriter();
-	    writer.println("HTTP Status 401 - " + authEx.getMessage());
-	  }
-
-	  @Override
-	  public void afterPropertiesSet() {
-	    setRealmName("teacher_question");
-	    super.afterPropertiesSet();
-	  }
+		response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName() + "");
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		PrintWriter writer = response.getWriter();
+		writer.println("HTTP Status 401 - " + authEx.getMessage());
 	}
+
+	@Override
+	public void afterPropertiesSet() {
+		setRealmName("teacher_question");
+		super.afterPropertiesSet();
+	}
+}
