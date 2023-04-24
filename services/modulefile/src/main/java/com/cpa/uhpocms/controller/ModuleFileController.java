@@ -57,18 +57,11 @@ public class ModuleFileController {
 		ModuleFile createdModuleFile = null;
 		try {
 
-			ModuleFile toCheckModuleFile = modulefileService.getModuleFileByFile(modulefile.getModuleFile());
-			logger.debug("existing modulefile :" + toCheckModuleFile);
+			createdModuleFile = modulefileService.createModuleFile(modulefile);
+			logger.info("ModuleFile created :" + createdModuleFile);
+			
+			if (createdModuleFile != null) {
 
-			if (toCheckModuleFile == null) {
-
-				// TODO: Uncomment below 2 lines and change the method name as per your Entity
-				// class
-				modulefile.setModuleFileCreatedBy("admin");
-				modulefile.setModuleFileUpdatedBy("admin");
-
-				createdModuleFile = modulefileService.createModuleFile(modulefile);
-				logger.info("ModuleFile created :" + createdModuleFile);
 
 				return ResponseHandler.generateResponse(createdModuleFile, HttpStatus.CREATED);
 
