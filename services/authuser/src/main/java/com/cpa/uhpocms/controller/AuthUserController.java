@@ -248,5 +248,34 @@ public class AuthUserController {
 			throw new CPException("err007", resourceBundle.getString("err007"));
 		}
 	}
+	
+	@GetMapping("/authuser/user")
+	public ResponseEntity<Object> getAuthUserById(@RequestParam(name = "id") int authUserId)
+			throws CPException {
+		logger.debug("Entering getAuthUserById");
+		logger.info("entered user id :" + authUserId);
+
+		AuthUser authUser = null;
+
+		try {
+
+			authUser = authUserService.getAuthUserById(authUserId);
+			logger.info("fetched auth user :" + authUser);
+
+			if (authUser != null) {
+				logger.debug("auth user fetched generating response");
+				return ResponseHandler.generateResponse(authUser, HttpStatus.OK);
+			} else {
+				logger.debug("auth user not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting auth user : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
 
 }
