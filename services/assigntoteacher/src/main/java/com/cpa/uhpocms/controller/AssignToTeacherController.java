@@ -82,17 +82,17 @@ public class AssignToTeacherController {
 		}
 	}
 
-	@GetMapping("/assigntoteacher/{courseId}")
+	@GetMapping("/assigntoteacher/courseid/{courseId}")
 	public ResponseEntity<Object> getAssignToTeacherBycourseId(@PathVariable("courseId") int courseId)
 			throws CPException {
 		logger.debug("Entering getAssignToTeacherBycourseId");
 		logger.info("entered user name :" + courseId);
 		
-		AssignToTeacher assigntoteacher = null;
+		List<Object> assigntoteacher = null;
 
 		try {
 
-			assigntoteacher = assigntoteacherService.getAssignToTeacherBycourseId(courseId);
+			assigntoteacher = assigntoteacherService.getTeacherBycourseId(courseId);
 			logger.info("fetched AssignToTeacher :" + assigntoteacher);
 
 			if (assigntoteacher != null) {

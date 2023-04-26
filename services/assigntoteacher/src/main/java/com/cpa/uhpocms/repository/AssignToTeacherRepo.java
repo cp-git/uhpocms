@@ -21,7 +21,9 @@ import com.cpa.uhpocms.entity.AssignToTeacher;
 @Repository
 public interface AssignToTeacherRepo extends JpaRepository<AssignToTeacher, Integer> {
 
-	public AssignToTeacher findByAssignToTeachercourseId(int courseid);
+	public List<Object> findAllByCourseId(int courseid);
+	
+	public AssignToTeacher findByCourseId (int courseid);
 
 	//public List<Object> findByAssignToTeacherIsActiveTrue();
 
