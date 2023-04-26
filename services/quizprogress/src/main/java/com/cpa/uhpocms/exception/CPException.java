@@ -2,7 +2,7 @@ package com.cpa.uhpocms.exception;
 
 public class CPException extends Exception {
 	/**
-	 * 
+	 *  
 	 */
 	private static final long serialVersionUID = 1L;
 
