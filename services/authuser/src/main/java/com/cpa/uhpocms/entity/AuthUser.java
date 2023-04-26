@@ -58,7 +58,7 @@ public class AuthUser {
 	@Column(name = "is_superuser", nullable = false)
 	private boolean authUserIsSuperUser;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "MM-dd-yyyy")
 	@Column(name = "date_joined", nullable = false)
 	private Date authUserDateJoined;
 

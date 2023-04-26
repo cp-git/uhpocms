@@ -23,6 +23,8 @@ public interface EnrollToStudentRepo extends JpaRepository<EnrollToStudent, Inte
 
 	public EnrollToStudent findByCourseId(int courseid);
 
+	public List<Object> findAllByCourseId(int courseid);
+	
 //	public List<Object> findByEnrollToStudentIsActiveTrue();
 
 	@Transactional

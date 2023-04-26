@@ -15,7 +15,7 @@ public interface AssignToTeacherService {
 
 	AssignToTeacher createAssignToTeacher(AssignToTeacher assigntoteacher);
 
-	AssignToTeacher getAssignToTeacherBycourseId(int courseid);
+	List<Object> getTeacherBycourseId(int courseid);
 
 	//List<Object> getAllAssignToTeachers();
 

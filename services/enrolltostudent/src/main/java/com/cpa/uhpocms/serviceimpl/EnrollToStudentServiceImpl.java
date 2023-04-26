@@ -136,6 +136,14 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 		return count;
 	}
 
+	@Override
+	public List<Object> getStudentByCourseId(int courseid) {
+		// TODO Auto-generated method stub
+		List<Object> enrolltostudent = enrolltostudentRepo.findAllByCourseId(courseid);
+		
+		return enrolltostudent;
+	}
+
 //	@Override
 //	public void insertCourseAndProfile(int courseId, int profileId) {
 //		// TODO Auto-generated method stub
