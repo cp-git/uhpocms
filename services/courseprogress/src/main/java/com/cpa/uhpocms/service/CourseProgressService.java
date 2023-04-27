@@ -16,11 +16,15 @@ public interface CourseProgressService {
 	CourseProgress createCourseProgress(CourseProgress courseprogress);
 
 	CourseProgress getCourseProgressByid(int id);
+	
+	List<Object> getCourseProgressByCourseId(int id);
 
 	List<Object> getAllCourseProgresss();
 
 	CourseProgress updateCourseProgressByid(CourseProgress courseprogress, int id);
 
 	int deleteCourseProgressByid(int id);
+	
+	public CourseProgress getCourseProgressByCourseIdStudId(int courseId, int studId);
 
 }

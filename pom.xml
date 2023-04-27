@@ -123,6 +123,9 @@
 		<module>services/courseSyllabus</module>
 		<module>services/uploadfile</module>
 		<module>services/accesscontrol</module>
+		<module>services/modulefileprogress</module>
+		<module>services/moduleprogress</module>  
+		<module>services/courseprogress</module>
 	    <module>tools/CodeGenerator</module>
 	</modules>
 </project>

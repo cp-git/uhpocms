@@ -254,5 +254,25 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return instituteAdmin;
 	}
 
+	/**
+	 * @param : authuser id
+	 * @return : InstituteAdmin
+	 * @description : For getting data using authuser id
+	 */
+
+	@Override
+	public InstituteAdmin getProfileById(int id) {
+
+		logger.debug("Entering getProfileById");
+		logger.debug("value of adminid" +id);
+
+		InstituteAdmin instituteAdmin = null;
+		instituteAdmin = instituteAdminRepository.findByAdminId(id);
+		logger.info("Founded instituteAdmin :" + instituteAdmin);
+
+		return instituteAdmin;
+	}
+
+	
 
 }

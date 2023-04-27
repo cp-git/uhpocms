@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 //import com.cpa.uhpocms.controller.CourseProgressController;
 import com.cpa.uhpocms.entity.CourseProgress;
+
 import com.cpa.uhpocms.repository.CourseProgressRepo;
 import com.cpa.uhpocms.service.CourseProgressService;
 
@@ -39,13 +40,26 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 	public CourseProgress createCourseProgress(CourseProgress courseprogress) {
 		logger.debug("Entering createCourseProgress");
 		CourseProgress createdCourseProgress = null;
+	
+		CourseProgress newcourseprogress = courseprogressRepo.findByCourseId_StudId(courseprogress.getCourseId(), courseprogress.getStudentId());
 
+		
+		System.out.println(newcourseprogress);
+		if(newcourseprogress == null)
+		{
+			createdCourseProgress = courseprogressRepo.save(courseprogress);
+			logger.info("created CourseProgress :" + createdCourseProgress);
+			return createdCourseProgress;
+//		
+		}
+		
+		return null;
+		
+		
 	//	courseprogress.setCourseProgressCreatedBy("admin");
 	//	courseprogress.setCourseProgressModifiedBy("admin");
 
-		createdCourseProgress = courseprogressRepo.save(courseprogress);
-		logger.info("created CourseProgress :" + createdCourseProgress);
-		return createdCourseProgress;
+		
 	}
 
 	/**
@@ -105,7 +119,7 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 			toUpdatedCourseProgress.setCurrentUnitNo(courseprogress.getCurrentUnitNo());
 			toUpdatedCourseProgress.setGrade(courseprogress.getGrade());
 			toUpdatedCourseProgress.setStudentId(courseprogress.getStudentId());
-			
+			toUpdatedCourseProgress.setProgress(courseprogress.getProgress());
 			updatedCourseProgress = courseprogressRepo.save(toUpdatedCourseProgress);
 
 			logger.info("updated CourseProgress :" + updatedCourseProgress);
@@ -127,6 +141,41 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 		int count =  courseprogressRepo.deleteById(id);
 		logger.info("deleted CourseProgress count : " + count);
 		return count;
+	}
+
+	/**
+	 * @author shradha
+	 * @desc get list of entry in table by course Id
+	 * 
+	 */
+	public List<Object> getCourseProgressByCourseId(int courseId) {
+		logger.debug("Entering getCourseProgressByCourseId");
+
+		List<Object> objectCoureProgress = null;
+		List<CourseProgress> courseprogresss = courseprogressRepo.findByCourseId(courseId);
+		logger.info("Fetched all active courseprogress :" + courseprogresss);
+		
+		objectCoureProgress = new ArrayList<Object>(courseprogresss);
+		
+		return objectCoureProgress;
+		
+	}
+	
+	/**
+	 * @author shradha
+	 * @desc Function to get entries by course Id and student Id
+	 */
+	public CourseProgress getCourseProgressByCourseIdStudId(int courseId, int studId) {
+		logger.debug("Entering getCourseProgressByCourseId");
+
+		
+		CourseProgress courseprogress = courseprogressRepo.findByCourseId_StudId(courseId,studId);
+		logger.info("Fetched all active courseprogress :" + courseprogress);
+		
+		;
+		
+		return courseprogress;
+		
 	}
 
 }

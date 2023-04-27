@@ -21,6 +21,16 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	 * @description : For Retrieving the data using the FirstName
 	 */
 	public InstituteAdmin findByFirstName(String firstName);
+	
+	
+	/**
+	 * @author : Shradha
+	 * @param : FindById
+	 * @return : InstituteAdmin object
+	 * @description : For Retrieving the data using the Id(primary key)
+	 */
+	public InstituteAdmin findByAdminId(int adminId);
+	
 
 	/**
 	 * @author : Anmesh

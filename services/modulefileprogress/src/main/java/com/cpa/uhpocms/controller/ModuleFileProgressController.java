@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.ModuleFileProgressService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/uhpocms")
 public class ModuleFileProgressController {
@@ -45,6 +47,13 @@ public class ModuleFileProgressController {
 		logger = Logger.getLogger(ModuleFileProgressController.class);
 	}
 
+	/**
+	 * @author Shradha
+	 * @param modulefileprogress
+	 * @return
+	 * @throws CPException
+	 * @desc Api to create new entry in moduleFile progress table
+	 */
 	@PostMapping("/modulefileprog")
 	public ResponseEntity<Object> createModuleFileProgress(@RequestBody ModuleFileProgress modulefileprogress) throws CPException {
 		logger.debug("Entering createModuleFileProgress");
@@ -58,15 +67,23 @@ public class ModuleFileProgressController {
 
 			if (toCheckModuleFileProgress == null) {
 
-			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
-			//	modulefileprogress.setCreatedby("admin");
-			//	modulefileprogress.setUpdatedby("admin");
+			
 
 				createdModuleFileProgress = modulefileprogressService.createModuleFileProgress(modulefileprogress);
+				
+				
+				if(createdModuleFileProgress != null)
+				{
 				logger.info("ModuleFileProgress created :" + createdModuleFileProgress);
 
 				return ResponseHandler.generateResponse(createdModuleFileProgress, HttpStatus.CREATED);
-
+				}
+				
+				//
+				else {
+					logger.error(resourceBunde.getString("err003"));
+					return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
+				}
 			} else {
 
 				logger.error(resourceBunde.getString("err003"));
@@ -79,6 +96,14 @@ public class ModuleFileProgressController {
 		}
 	}
 
+	
+	/**
+	 * @author shradha
+	 * @param id
+	 * @return
+	 * @throws CPException
+	 * @description API to get particular entry in moduleFileProgressTable by id
+	 */
 	@GetMapping("/modulefileprog/{id}")
 	public ResponseEntity<Object> getModuleFileProgressByid(@PathVariable("id") int id)
 			throws CPException {
@@ -107,7 +132,15 @@ public class ModuleFileProgressController {
 		}
 
 	}
-
+	
+	
+/**
+ * @author shradha
+ * @param id
+ * @return
+ * @throws CPException
+ * @description Api to get all entries in moduleFileProgress table
+ */
 	@GetMapping("/modulefileprog")
 	public ResponseEntity<List<Object>> getAllModuleFileProgresss(@RequestParam(name = "id") String id)
 			throws CPException {
@@ -137,7 +170,98 @@ public class ModuleFileProgressController {
 
 		}
 	}
+	
+	
+/**
+ * @author shradha
+ * @param modId
+ * @param studId
+ * @return
+ * @throws CPException
+ * @desc Api to get list of entries in respective table by providing module and student id whose progress will be 100
+ */
+	@GetMapping("/modulefileprog/{modId}/{studId}")
+	public ResponseEntity<List<Object>> getModuleFileProgresss(@PathVariable("modId") int modId ,@PathVariable("studId") int studId )
+			throws CPException { 
+		logger.debug("Entering getAllModuleFileProgress");
+		logger.info("Parameter  :" + modId);
+		
+		List<Object> modulefileprogresss = null;
 
+		try {
+
+			
+
+				modulefileprogresss = modulefileprogressService.getModuleFileProgressByModStudProg(modId, studId);
+				
+				logger.info("Fetched all ModuleFileProgress :" + modulefileprogresss);
+			if (modulefileprogresss  != null) {
+
+				return ResponseHandler.generateListResponse(modulefileprogresss, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all modulefileprogresss : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
+	
+	
+	/**
+	 * @author shradha
+	 * @param modId
+	 * @param studId
+	 * @return
+	 * @throws CPException
+	 * @desc Api to get list of entries in respective table by providing module and student id 
+	 */
+	@GetMapping("/modulefileprog/mod_studId/{modId}/{studId}")
+	public ResponseEntity<List<Object>> getModuleFileProgresssByModIdStudId(@PathVariable("modId") int modId ,@PathVariable("studId") int studId )
+			throws CPException { 
+		logger.debug("Entering getAllModuleFileProgress");
+		logger.info("Parameter  :" + modId);
+		
+		List<Object> modulefileprogresss = null;
+
+		try {
+
+			
+
+				modulefileprogresss = modulefileprogressService.getModuleFileProgressByModStudId(modId, studId);
+				
+				logger.info("Fetched all ModuleFileProgress :" + modulefileprogresss);
+			if (modulefileprogresss  != null) {
+
+				return ResponseHandler.generateListResponse(modulefileprogresss, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all modulefileprogresss : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
+
+	
+	
+	/**
+	 * @author shradha
+	 * @param id
+	 * @return
+	 * @throws CPException
+	 * @desc Api to delete an entry in respective table by providing Id
+	 */
 	@DeleteMapping("/modulefileprog/{id}")
 	public ResponseEntity<Object> deleteModuleFileProgressByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -164,6 +288,14 @@ public class ModuleFileProgressController {
 
 	}
 
+	/**
+	 * @author shradha 
+	 * @param modulefileprogress
+	 * @param id
+	 * @return
+	 * @throws CPException
+	 * @desc Api to update an entry in respective table
+	 */
 	@PutMapping("/modulefileprog/{id}")
 	public ResponseEntity<Object> updateModuleFileProgressByid(@RequestBody ModuleFileProgress modulefileprogress,
 			@PathVariable("id") int id) throws CPException {
