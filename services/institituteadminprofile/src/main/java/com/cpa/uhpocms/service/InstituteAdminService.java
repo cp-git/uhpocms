@@ -10,6 +10,8 @@ public interface InstituteAdminService {
 
 	InstituteAdmin getInstituteByName(String firstName);
 
+	public InstituteAdmin getProfileById(int id);
+	
 	public InstituteAdmin findByUserId(int userId);
 
 	List<Object> getAllInstitute();

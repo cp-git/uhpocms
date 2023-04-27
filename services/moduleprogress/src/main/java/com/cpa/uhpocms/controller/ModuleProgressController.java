@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.ModuleProgressService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/uhpocms")
 public class ModuleProgressController {
@@ -44,7 +46,15 @@ public class ModuleProgressController {
 		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(ModuleProgressController.class);
 	}
-
+	
+	
+/**
+ * @author shradha
+ * @param moduleprogress
+ * @return
+ * @throws CPException
+ * @desc Api to create an entry in moduleprogress table
+ */
 	@PostMapping("/moduleprog")
 	public ResponseEntity<Object> createModuleProgress(@RequestBody ModuleProgress moduleprogress) throws CPException {
 		logger.debug("Entering createModuleProgress");
@@ -57,16 +67,23 @@ public class ModuleProgressController {
 			logger.debug("existing moduleprogress :" + toCheckModuleProgress);
 
 			if (toCheckModuleProgress == null) {
-
+				System.out.println("Entered into if loop");
 			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
 			//	moduleprogress.setCreatedby("admin");
 			//	moduleprogress.setUpdatedby("admin");
-
 				createdModuleProgress = moduleprogressService.createModuleProgress(moduleprogress);
+
+				if(createdModuleProgress != null)
+				{
 				logger.info("ModuleProgress created :" + createdModuleProgress);
 
 				return ResponseHandler.generateResponse(createdModuleProgress, HttpStatus.CREATED);
-
+				}
+				
+				else {logger.error(resourceBunde.getString("err003"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
+					
+				}
 			} else {
 
 				logger.error(resourceBunde.getString("err003"));
@@ -79,6 +96,13 @@ public class ModuleProgressController {
 		}
 	}
 
+	/**
+	 * @author shradha
+	 * @param id
+	 * @return
+	 * @throws CPException
+	 * @desc Api to get an entry in resp. table by Id
+	 */
 	@GetMapping("/moduleprog/{id}")
 	public ResponseEntity<Object> getModuleProgressByid(@PathVariable("id") int id)
 			throws CPException {
@@ -108,6 +132,91 @@ public class ModuleProgressController {
 
 	}
 
+	/**
+	 * @author shradha
+	 * @param modId
+	 * @param studId
+	 * @return
+	 * @throws CPException
+	 * @desc Api to get list of entries by providing module and student Id's
+	 */
+	@GetMapping("/moduleprog/{modId}/{studId}")
+	public ResponseEntity<Object> getModuleProgressBymodIdstudId(@PathVariable("modId") int modId, @PathVariable("studId") int studId)
+			throws CPException {
+		logger.debug("Entering getModuleProgressBymodIdstudId");
+		logger.info("entered module Id and student Id :" + modId + studId);
+		
+		ModuleProgress moduleprogress = null;
+
+		try {
+
+			moduleprogress = moduleprogressService.getModuleProgressBymodstudId(modId, studId);
+			logger.info("fetched ModuleProgress :" + moduleprogress);
+
+			if (moduleprogress != null) {
+				logger.debug("ModuleProgress fetched generating response");
+				return ResponseHandler.generateResponse(moduleprogress, HttpStatus.OK);
+			} else {
+				logger.debug("ModuleProgress not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting moduleprogress : " + ex.getMessage());
+			throw new CPException("err001", resourceBunde.getString("err001"));
+		}
+
+	}
+
+	/**
+	 * @author shradha
+	 * @param id
+	 * @return
+	 * @throws CPException
+	 * @desc api to get list of netries in resp table by providing course id
+	 */
+	@GetMapping("/moduleprog/courseId/{courseId}")
+	public ResponseEntity<List<Object>> getAllModuleProgresssByCourseId(@PathVariable(name = "courseId") int courseId)
+			throws CPException {
+		logger.debug("Entering getAllModuleProgress");
+		logger.info("Parameter  :" + courseId);
+		
+		List<Object> moduleprogresss = null;
+
+		try {
+
+			
+
+				moduleprogresss = moduleprogressService.getAllModuleProgresssByCourseId(courseId);
+				
+				if(moduleprogresss != null)
+				{
+				logger.info("Fetched all ModuleProgress :" + moduleprogresss);
+
+				return ResponseHandler.generateListResponse(moduleprogresss, HttpStatus.OK);
+				}
+				else {
+
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+				}
+		
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all moduleprogresss : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
+	
+	/**
+	 * @author shradha
+	 * @param id
+	 * @return
+	 * @throws CPException
+	 */
 	@GetMapping("/moduleprog")
 	public ResponseEntity<List<Object>> getAllModuleProgresss(@RequestParam(name = "id") String id)
 			throws CPException {
@@ -137,7 +246,13 @@ public class ModuleProgressController {
 
 		}
 	}
-
+/**
+ * @author Shradha
+ * @param id
+ * @return
+ * @throws CPException
+ * @desc Api to delete an entry in table
+ */
 	@DeleteMapping("/moduleprog/{id}")
 	public ResponseEntity<Object> deleteModuleProgressByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering deleteModuleProgressById");
@@ -164,6 +279,13 @@ public class ModuleProgressController {
 
 	}
 
+	/**
+	 * @author Shradha
+	 * @param id
+	 * @return
+	 * @throws CPException
+	 * @desc Api to update an entry in table
+	 */
 	@PutMapping("/moduleprog/{id}")
 	public ResponseEntity<Object> updateModuleProgressByid(@RequestBody ModuleProgress moduleprogress,
 			@PathVariable("id") int id) throws CPException {

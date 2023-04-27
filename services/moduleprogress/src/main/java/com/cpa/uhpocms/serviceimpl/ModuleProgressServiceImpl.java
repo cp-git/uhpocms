@@ -31,6 +31,7 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 	}
 
 	/**
+	 * @author shradha
 	 * @param : ModuleProgress moduleprogress
 	 * @return : ModuleProgress createdModuleProgress
 	 * @description : For creating/inserting entry in Teacher_studentmoduleprogress table
@@ -38,16 +39,51 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 	@Override
 	public ModuleProgress createModuleProgress(ModuleProgress moduleprogress) {
 		logger.debug("Entering createModuleProgress");
+		System.out.println("Eneterd createmethod");
 		ModuleProgress createdModuleProgress = null;
 
 	//	moduleprogress.setModuleProgressCreatedBy("admin");
 	//	moduleprogress.setModuleProgressModifiedBy("admin");
 
-		createdModuleProgress = moduleprogressRepo.save(moduleprogress);
-		logger.info("created ModuleProgress :" + createdModuleProgress);
-		return createdModuleProgress;
+	
+		
+		
+		ModuleProgress newmoduleprogress = moduleprogressRepo.findByModuleId_StudId(moduleprogress.getModuleId(), moduleprogress.getStudentId());
+		
+		System.out.println(newmoduleprogress);
+		if(newmoduleprogress == null)
+		{
+			System.out.println("Entered if loop in create method");
+			createdModuleProgress = moduleprogressRepo.save(moduleprogress);
+			logger.info("created ModuleProgress :" + createdModuleProgress);
+			return createdModuleProgress;
+					
+		}
+		
+		
+		return null;
+		
+		
+		
 	}
 
+	/**
+	 * @author shradha
+	 * @param : String id
+	 * @return : ModuleProgress moduleprogress
+	 * @description : to get entry in Teacher_studentmoduleprogress table by providing module and student id
+	 */
+	@Override
+	public ModuleProgress getModuleProgressBymodstudId(int modId, int studId) {
+		logger.debug("Entering getModuleProgressBymodstudId");
+
+		ModuleProgress moduleprogress = moduleprogressRepo.findByModuleId_StudId(modId, studId);
+		logger.info("Founded moduleprogress :" + moduleprogress);
+
+		return moduleprogress;
+	}
+
+	
 	/**
 	 * @param : String id
 	 * @return : ModuleProgress moduleprogress
@@ -79,6 +115,21 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 	}
 
 	/**
+	 * @author shradha
+	 * @createdDate :24-09-2023
+	 * @desc Function to get list of entries by providing courseId
+	 */
+	public List<Object> getAllModuleProgresssByCourseId(int courseId) {
+		logger.debug("Entering getAllModuleProgresss");
+
+		List<Object> objectModuleProgresss = null;
+		List<ModuleProgress> moduleProgresses  = moduleprogressRepo.findByCourseId(courseId);
+		logger.info("Fetched all active moduleprogress :" + moduleProgresses);
+		objectModuleProgresss = new ArrayList<Object>(moduleProgresses);
+		return objectModuleProgresss;
+	}
+
+	/**
 	 * @param : ModuleProgress to update
 	 * @return : moduleprogress
 	 * @description : For updating moduleprogress of Teacher_studentmoduleprogress table
@@ -97,11 +148,10 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 			logger.debug("setting new data of ModuleProgress to exisitng ModuleProgress");
 
 //			moduleprogress.setModifiedBy("admin");
-			updatedModuleProgress.setCurrentFileNo(moduleprogress.getCurrentFileNo());	
-			updatedModuleProgress.setCurrentquizno(moduleprogress.getCurrentquizno());
+			updatedModuleProgress.setCourseId(moduleprogress.getCourseId());
 			updatedModuleProgress.setModuleId(moduleprogress.getModuleId());
 			updatedModuleProgress.setStudentId(moduleprogress.getStudentId());
-			
+			updatedModuleProgress.setProgress(moduleprogress.getProgress());;
 			
 			toUpdatedModuleProgress = moduleprogressRepo.save(updatedModuleProgress);
 

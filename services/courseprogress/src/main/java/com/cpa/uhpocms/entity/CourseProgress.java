@@ -50,6 +50,23 @@ public class CourseProgress {
 	@Column(name = "studentid_id", nullable = false)
 	private int studentId;
 
+	@Column(name = "progress", nullable = false)
+	private int progress;
+
+	/**
+	 * @return the progress
+	 */
+	public int getProgress() {
+		return progress;
+	}
+
+	/**
+	 * @param progress the progress to set
+	 */
+	public void setProgress(int progress) {
+		this.progress = progress;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -156,9 +173,10 @@ public class CourseProgress {
 	 * @param currentAssignNo
 	 * @param courseId
 	 * @param studentId
+	 * @param progress
 	 */
 	public CourseProgress(int id, float grade, int currentModuleNo, int currentUnitNo, int currentAssignNo,
-			int courseId, int studentId) {
+			int courseId, int studentId, int progress) {
 		super();
 		this.id = id;
 		this.grade = grade;
@@ -167,6 +185,7 @@ public class CourseProgress {
 		this.currentAssignNo = currentAssignNo;
 		this.courseId = courseId;
 		this.studentId = studentId;
+		this.progress = progress;
 	}
 
 	/**
@@ -180,8 +199,9 @@ public class CourseProgress {
 	public String toString() {
 		return "CourseProgress [id=" + id + ", grade=" + grade + ", currentModuleNo=" + currentModuleNo
 				+ ", currentUnitNo=" + currentUnitNo + ", currentAssignNo=" + currentAssignNo + ", courseId=" + courseId
-				+ ", studentId=" + studentId + "]";
+				+ ", studentId=" + studentId + ", progress=" + progress + "]";
 	}
+
 	
 	
 }

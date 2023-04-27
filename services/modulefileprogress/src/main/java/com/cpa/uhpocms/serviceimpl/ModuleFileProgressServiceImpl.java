@@ -31,6 +31,7 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 	}
 
 	/**
+	 * @author shradha
 	 * @param : ModuleFileProgress modulefileprogress
 	 * @return : ModuleFileProgress createdModuleFileProgress
 	 * @description : For creating/inserting entry in teacher_studentmodulefileprogress table
@@ -39,13 +40,23 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 	public ModuleFileProgress createModuleFileProgress(ModuleFileProgress modulefileprogress) {
 		logger.debug("Entering createModuleFileProgress");
 		ModuleFileProgress createdModuleFileProgress = null;
-
-	//	modulefileprogress.setModuleFileProgressCreatedBy("admin");
-	//	modulefileprogress.setModuleFileProgressModifiedBy("admin");
-
-		createdModuleFileProgress = modulefileprogressRepo.save(modulefileprogress);
-		logger.info("created ModuleFileProgress :" + createdModuleFileProgress);
-		return createdModuleFileProgress;
+		
+	  ModuleFileProgress newmodulefileprogress = modulefileprogressRepo.findByFileId_StudId(modulefileprogress.getFileId(), modulefileprogress.getStudentId());
+		
+		System.out.println(newmodulefileprogress);
+		if(newmodulefileprogress == null)
+		{
+			System.out.println("Entered if loop in create method");
+			createdModuleFileProgress = modulefileprogressRepo.save(modulefileprogress);
+			logger.info("created ModuleProgress :" + createdModuleFileProgress);
+			return createdModuleFileProgress;
+					
+		}
+		
+		return null;
+		
+		
+		
 	}
 
 	/**
@@ -62,7 +73,42 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 
 		return modulefileprogress;
 	}
+	
+	
+	/**
+	 *@author shradha 
+	 *@desc Function to get list of entries where progress is 100 for given module and student id's
+	 */
+	@Override
+	public List<Object> getModuleFileProgressByModStudProg(int modId, int studId) {
+		logger.debug("Entering getModuleFileProgressByModStudProg");
 
+		List<Object> objectModuleFileProgresss = null;
+		List<ModuleFileProgress> modulefileprogresss = modulefileprogressRepo.findByModId_StudId_Prog(modId,studId);
+		logger.info("Fetched all active modulefileprogress :" + modulefileprogresss);
+		objectModuleFileProgresss = new ArrayList<Object>(modulefileprogresss);
+		return objectModuleFileProgresss;
+	}
+	
+	
+	/**
+	 *@author shradha 
+	 *@desc Function to get list of entries  for given module and student id's
+	 */
+	@Override
+	public List<Object> getModuleFileProgressByModStudId(int modId, int studId) {
+		logger.debug("Entering getModuleFileProgressByModStudProg");
+
+		List<Object> objectModuleFileProgresss = null;
+		List<ModuleFileProgress> modulefileprogresss = modulefileprogressRepo.findByModId_StudId(modId,studId);
+		logger.info("Fetched all active modulefileprogress :" + modulefileprogresss);
+		objectModuleFileProgresss = new ArrayList<Object>(modulefileprogresss);
+		return objectModuleFileProgresss;
+	}
+	
+	
+	
+	
 	/**
 	 * @return : List<Object> modulefileprogress
 	 * @description : For fetching all modulefileprogress which are active state from teacher_studentmodulefileprogress table
@@ -99,10 +145,9 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 //			modulefileprogress.setModifiedBy("admin");
 			
 			toUpdatedModuleFileProgress.setCurrentFilePageNo(modulefileprogress.getCurrentFilePageNo());
-			toUpdatedModuleFileProgress.setFileId(modulefileprogress.getFileId());
-			toUpdatedModuleFileProgress.setFileCompleted(modulefileprogress.isFileCompleted());
-			toUpdatedModuleFileProgress.setModuleId(modulefileprogress.getModuleId());
-			toUpdatedModuleFileProgress.setStudentId(modulefileprogress.getStudentId());
+			
+			toUpdatedModuleFileProgress.setProgress(modulefileprogress.getProgress());
+			
 			
 			
 			updatedModuleFileProgress = modulefileprogressRepo.save(toUpdatedModuleFileProgress);
