@@ -51,13 +51,14 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	 * @return : List<InstituteAdmin>
 	 * @description : For getting All data using getAllInstitute
 	 */
+
 	@Override
 	public List<Object> getAllInstitute() {
-		logger.debug("in GetAllInstituteAdmin method...");
-		List<Object> InstituteList;
-		InstituteList = instituteAdminRepository.findByActiveUserIsTrue();
-		logger.info("Fetching All List Data " + InstituteList);
-		return InstituteList;
+	    logger.debug("in GetAllInstituteAdmin method...");
+	    List<InstituteAdmin> instituteList = instituteAdminRepository.findActiveProfileOfActiveInstitutions();
+	    List<Object> objectList = new ArrayList<>(instituteList);
+	    logger.info("Fetching All List Data " + objectList);
+	    return objectList;
 	}
 
 	/**

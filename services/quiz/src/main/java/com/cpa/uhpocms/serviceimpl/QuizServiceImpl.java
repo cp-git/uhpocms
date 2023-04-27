@@ -7,12 +7,12 @@
 
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 //import com.cpa.uhpocms.controller.QuizController;
 import com.cpa.uhpocms.entity.Quiz;
@@ -66,7 +66,7 @@ public class QuizServiceImpl implements QuizService {
 				return quiz;
 			}
 		} catch (NullPointerException e) {
-		
+
 		}
 
 		return null;
@@ -116,11 +116,11 @@ public class QuizServiceImpl implements QuizService {
 			toUpdatedQuiz.setPassMark(quiz.getPassMark());
 			toUpdatedQuiz.setSuccessText(quiz.getSuccessText());
 			toUpdatedQuiz.setFailText(quiz.getFailText());
-			;
+
 			toUpdatedQuiz.setDraft(quiz.isDraft());
 			toUpdatedQuiz.setQuizOrderNo(quiz.getQuizOrderNo());
 			toUpdatedQuiz.setCourseId(quiz.getCourseId());
-			;
+
 			toUpdatedQuiz.setModuleId(quiz.getModuleId());
 			toUpdatedQuiz.setCategoryId(quiz.getCategoryId());
 			toUpdatedQuiz.setActive(quiz.isActive());
@@ -159,12 +159,11 @@ public class QuizServiceImpl implements QuizService {
 		// TODO Auto-generated method stub
 		logger.debug("Entering getInActiveQuestions ");
 		List<Object> quizzes = quizRepo.findByIsActiveFalse();
-		
+
 		logger.info("In active quizzes : " + quizzes);
 		return quizzes;
 	}
 
-	
 	/**
 	 * @author Shradha
 	 * 
@@ -173,32 +172,29 @@ public class QuizServiceImpl implements QuizService {
 	public Object updateActiveStatus(String title) {
 		// TODO Auto-generated method stub
 
-		System.out.println(title);
 		logger.debug("Entering getInActiveQuestions ");
 		List<Object> quizzes = getInactiveQuizzes();
-		
-		if(quizzes.size() >= 1)
-		{
-			Object object = quizRepo.findBytitle(title);
-			
-			System.out.println(object);
-			
-		  	System.out.println("Entered  instanceof loop");
-		        Quiz quiz = (Quiz) object;
-		        System.out.println(quiz);
-		        quiz.setActive(true);
-		        
-		        System.out.println(quiz);
-		        
-		        
-		    
 
-		    logger.info("question object"+ object);
-		    return quizRepo.save(quiz);
+		if (quizzes.size() >= 1) {
+			Object object = quizRepo.findBytitle(title);
+
+			Quiz quiz = (Quiz) object;
+			quiz.setActive(true);
+
+			logger.info("question object" + object);
+			return quizRepo.save(quiz);
 		}
-		
-		
+
 		return null;
+	}
+
+	public List<Object> getAllQuizzesByProfileId(int studentId) {
+		logger.debug("Entering getAllQuizzesByProfileId");
+
+		List<Quiz> quizzes = quizRepo.getAllQuizzesByStudentId(studentId);
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
+		logger.info("Fetched quiz :" + quizzes);
+		return objQuizzes;
 	}
 
 }

@@ -61,5 +61,7 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	@Modifying
 	@Query(value = "UPDATE auth_user SET is_active=true WHERE id = ?1", nativeQuery = true)
 	public int activateAuthUserById(int authUserId);
+	
+	public AuthUser findByAuthUserId(int authUserId);
 
 }

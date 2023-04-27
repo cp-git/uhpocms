@@ -57,19 +57,19 @@ public class ModuleController {
 		Module createdModule = null;
 		try {
 
-			Module toCheckModule = moduleService.getModuleByName(module.getModuleName());
-			logger.debug("existing module :" + toCheckModule);
+//			Module toCheckModule = moduleService.getModuleByName(module.getModuleName());
+//			logger.debug("existing module :" + toCheckModule);
 
-			if (toCheckModule == null) {
+			
+			// TODO: Uncomment below 2 lines and change the method name as per your Entity
+			// class
+			module.setModuleCreatedBy("admin");
+			module.setModuleUpdatedBy("admin");  
 
-				// TODO: Uncomment below 2 lines and change the method name as per your Entity
-				// class
-				module.setModuleCreatedBy("admin");
-				module.setModuleUpdatedBy("admin");
-
-				createdModule = moduleService.createModule(module);
-				logger.info("Module created :" + createdModule);
-
+			createdModule = moduleService.createModule(module);
+			logger.info("Module created :" + createdModule);
+			if (createdModule != null) {
+        
 				return ResponseHandler.generateResponse(createdModule, HttpStatus.CREATED);
 
 			} else {
@@ -95,6 +95,34 @@ public class ModuleController {
 		try {
 
 			module = moduleService.getModuleByName(name);
+			logger.info("fetched Module :" + module);
+
+			if (module != null) {
+				logger.debug("Module fetched generating response");
+				return ResponseHandler.generateResponse(module, HttpStatus.OK);
+			} else {
+				logger.debug("Module not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting module : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
+	
+	@GetMapping("/module/{id}")
+	public ResponseEntity<Object> getModuleById(@PathVariable("id") int moduleId) throws CPException {
+		logger.debug("Entering getModuleById");
+		logger.info("entered user name :" + moduleId);
+
+		Module module = null;
+
+		try {
+
+			module = moduleService.getModuleById(moduleId);
 			logger.info("fetched Module :" + module);
 
 			if (module != null) {
@@ -166,6 +194,30 @@ public class ModuleController {
 		}
 
 	}
+	
+	@DeleteMapping("/module/moduleId/{id}")
+	public ResponseEntity<Object> deleteModuleById(@PathVariable("id") int moduleId) throws CPException {
+		logger.debug("Entering deleteAuthUser");
+		logger.info("entered deleteModule  :" + moduleId);
+		// TODO - implement the business logic
+
+		int count = 0;
+
+		try {
+			count = moduleService.deleteModuleBymoduleId(moduleId);
+			if (count >= 1) {
+				logger.info("deleted Module : Name = " + moduleId);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete Module :" + ex.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+		}
+	}
 
 	@PutMapping("/module/{name}")
 	public ResponseEntity<Object> updateModuleByName(@RequestBody Module module, @PathVariable("name") String name)
@@ -177,6 +229,33 @@ public class ModuleController {
 
 		try {
 			updatedModule = moduleService.updateModuleByName(module, name);
+
+			if (updatedModule == null) {
+				logger.info(resourceBundle.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated module : " + updatedModule);
+				return ResponseHandler.generateResponse(updatedModule, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update Module : " + ex.getMessage());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+
+	}
+	
+	@PutMapping("/module/moduleId/{id}")
+	public ResponseEntity<Object> updateModuleById(@RequestBody Module module, @PathVariable("id") int moduleId)
+			throws CPException {
+		logger.debug("Entering updateModule");
+		logger.info("entered  updateModule :" + module);
+
+		Module updatedModule = null;
+
+		try {
+			updatedModule = moduleService.updateModuleBymoduleId(module, moduleId);
 
 			if (updatedModule == null) {
 				logger.info(resourceBundle.getString("err004"));
@@ -263,6 +342,7 @@ public class ModuleController {
         return new AuthenticationBean("You are authenticated");
     }
     
+    //get module by courseid
     @GetMapping(path = "module/courseId/{id}", produces = { "application/json", "application/xml" })
    	public ResponseEntity<List<Object>> getModuleByCourseId(@PathVariable("id") int courseId)
    			throws CPException {

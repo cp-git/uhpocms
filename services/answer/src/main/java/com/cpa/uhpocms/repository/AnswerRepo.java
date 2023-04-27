@@ -30,4 +30,8 @@ public interface AnswerRepo extends JpaRepository<Answer, Integer> {
 	//@Query(value = "UPDATE Teacher_answer SET is_active=false WHERE id = ?1", nativeQuery = true)
 	public int deleteAnswerByid(int id);
 
+	@Query(value = "SELECT* FROM teacher_answer WHERE teacher_answer.questionid = ?1", nativeQuery = true)
+	public List<Answer> findAnswerByQuestionId(int questionid);
+	
+	
 }

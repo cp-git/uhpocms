@@ -19,11 +19,21 @@ public interface ModuleFileService {
 
 	List<Object> getAllModuleFiles();
 
-	ModuleFile updateModuleFileByFile(ModuleFile modulefile, String file);
+	// ModuleFile updateModuleFileByFile(ModuleFile modulefile, String file);
 
-	int deleteModuleFileByFile(String file);
+	// int deleteModuleFileByFile(String file);
 
 	List<Object> getModuleFileByStudentId(int studentId);
+
 	
 	public List<Object> getModuleFileByModuleId(int id) ;
+
+	int deleteModuleFileBymoduleFileId(int id);
+
+	ModuleFile updateModuleFileBymoduleFileId(ModuleFile modulefile, int id);
+
+	List<Object> getAllInactiveModuleFiles();
+
+	int activateModuleFileBymoduleFileId(int id);
+
 }

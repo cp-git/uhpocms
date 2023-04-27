@@ -16,25 +16,24 @@ public interface ModuleService {
 	Module createModule(Module module);
 
 	Module getModuleByName(String name);
+	
+	Module getModuleById (int moduleId);
 
 	List<Object> getAllModules();
 
 	Module updateModuleByName(Module module, String name);
 
 	int deleteModuleByName(String name);
-	
-	List<Object> findByCourseId(int courseId);
-	
 
-	/*
-	 * @author:Shradha
-	 * @createdOn:10 Feb 2023
-	 */
+	List<Object> findByCourseId(int courseId);
+
 	List<Object> getAllInactiveModules();
-	
-	/**
-	 * @author Shradha
-	 * @createdOn:10 Feb 2023
-	 */
+
 	Object updateActiveStatus(String name);
+
+	int deleteModuleBymoduleId(int moduleid);
+//
+Module updateModuleBymoduleId(Module module, int moduleId);
+//
+//	int activateModuleBymoduleId(int moduleid);
 }

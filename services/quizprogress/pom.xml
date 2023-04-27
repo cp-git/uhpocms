@@ -9,7 +9,7 @@
 		<artifactId>uhpocms</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
+ 
 	<groupId>com.cpa.uhpocms.ms.services</groupId>
 	<artifactId>quizprogress</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -21,6 +21,7 @@
 	</properties>
 
 	<build>
+	<finalName>quizprogress</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

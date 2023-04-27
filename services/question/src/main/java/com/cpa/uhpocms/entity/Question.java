@@ -14,6 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,6 +24,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "teacher_question")
+@NamedStoredProcedureQuery(name = "add_question_with_answers5", procedureName = "add_question_with_answers6", parameters = {
+		@StoredProcedureParameter(mode = ParameterMode.IN, name = "question", type = String.class),
+		@StoredProcedureParameter(mode = ParameterMode.IN, name = "answers", type = String.class),
+		@StoredProcedureParameter(mode = ParameterMode.OUT, name = "isCreated", type = Boolean.class) })
+
 public class Question {
 
 	@Id
@@ -28,7 +36,7 @@ public class Question {
 	@Column(name = "id")
 	private int questionId;
 
-	@Column(name = "figure", nullable = false, unique = true)
+	@Column(name = "figure")
 	private String questionFigure;
 
 	@Column(name = "content", nullable = false)

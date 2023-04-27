@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -56,18 +57,11 @@ public class ModuleFileController {
 		ModuleFile createdModuleFile = null;
 		try {
 
-			ModuleFile toCheckModuleFile = modulefileService.getModuleFileByFile(modulefile.getModuleFile());
-			logger.debug("existing modulefile :" + toCheckModuleFile);
+			createdModuleFile = modulefileService.createModuleFile(modulefile);
+			logger.info("ModuleFile created :" + createdModuleFile);
+			
+			if (createdModuleFile != null) {
 
-			if (toCheckModuleFile == null) {
-
-				// TODO: Uncomment below 2 lines and change the method name as per your Entity
-				// class
-				modulefile.setModuleFileCreatedBy("admin");
-				modulefile.setModuleFileUpdatedBy("admin");
-
-				createdModuleFile = modulefileService.createModuleFile(modulefile);
-				logger.info("ModuleFile created :" + createdModuleFile);
 
 				return ResponseHandler.generateResponse(createdModuleFile, HttpStatus.CREATED);
 
@@ -168,18 +162,41 @@ public class ModuleFileController {
 		}
 	}
 
-	@DeleteMapping("/modulefile/{file}")
-	public ResponseEntity<Object> deleteModuleFileByFile(@PathVariable("file") String file) throws CPException {
-		logger.debug("Entering deleteAuthUser");
-		logger.info("entered deleteModuleFile  :" + file);
-		// TODO - implement the business logic
+//	@DeleteMapping("/modulefile/{file}")
+//	public ResponseEntity<Object> deleteModuleFileByFile(@PathVariable("file") String file) throws CPException {
+//		logger.debug("Entering deleteModuleFile");
+//		logger.info("entered deleteModuleFile  :" + file);
+//		// TODO - implement the business logic
+//
+//		int count = 0;
+//
+//		try {
+//			count = modulefileService.deleteModuleFileByFile(file);
+//			if (count >= 1) {
+//				logger.info("deleted ModuleFile : File = " + file);
+//				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+//			} else {
+//				logger.info(resourceBunde.getString("err005"));
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+//			}
+//
+//		} catch (Exception ex) {
+//			logger.error("Failed to delete ModuleFile :" + ex.getMessage());
+//			throw new CPException("err005", resourceBunde.getString("err005"));
+//		}
+//
+//	}
+
+	@DeleteMapping("/modulefileById/{id}")
+	public ResponseEntity<Object> deleteModuleFileById(@PathVariable("id") int id) throws CPException {
+		logger.debug("Entering deleteModuleFile");
 
 		int count = 0;
 
 		try {
-			count = modulefileService.deleteModuleFileByFile(file);
+			count = modulefileService.deleteModuleFileBymoduleFileId(id);
 			if (count >= 1) {
-				logger.info("deleted ModuleFile : File = " + file);
+
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
 			} else {
 				logger.info(resourceBunde.getString("err005"));
@@ -193,16 +210,43 @@ public class ModuleFileController {
 
 	}
 
-	@PutMapping("/modulefile/{file}")
-	public ResponseEntity<Object> updateModuleFileByFile(@RequestBody ModuleFile modulefile,
-			@PathVariable("file") String file) throws CPException {
+//	@PutMapping("/modulefile/{file}")
+//	public ResponseEntity<Object> updateModuleFileByFile(@RequestBody ModuleFile modulefile,
+//			@PathVariable("file") String file) throws CPException {
+//		logger.debug("Entering updateModuleFile");
+//		logger.info("entered  updateModuleFile :" + modulefile);
+//
+//		ModuleFile updatedModuleFile = null;
+//
+//		try {
+//			updatedModuleFile = modulefileService.updateModuleFileByFile(modulefile, file);
+//
+//			if (updatedModuleFile == null) {
+//				logger.info(resourceBunde.getString("err004"));
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+//			} else {
+//				logger.info("updated modulefile : " + updatedModuleFile);
+//				return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
+//			}
+//
+//		} catch (Exception ex) {
+//			logger.error("Failed update ModuleFile : " + ex.getMessage());
+//			throw new CPException("err004", resourceBunde.getString("err004"));
+//
+//		}
+//
+//	}
+
+	@PutMapping("/modulefileById/{id}")
+	public ResponseEntity<Object> updateModuleFileById(@RequestBody ModuleFile modulefile, @PathVariable("id") int id)
+			throws CPException {
 		logger.debug("Entering updateModuleFile");
 		logger.info("entered  updateModuleFile :" + modulefile);
 
 		ModuleFile updatedModuleFile = null;
 
 		try {
-			updatedModuleFile = modulefileService.updateModuleFileByFile(modulefile, file);
+			updatedModuleFile = modulefileService.updateModuleFileBymoduleFileId(modulefile, id);
 
 			if (updatedModuleFile == null) {
 				logger.info(resourceBunde.getString("err004"));
@@ -248,6 +292,63 @@ public class ModuleFileController {
 			logger.error("Failed getting all modulefiles by student id : " + ex.getMessage());
 			throw new CPException("err006", resourceBunde.getString("err006"));
 
+		}
+	}
+
+	/**
+	 * @description api to get all inactive module files
+	 */
+	@GetMapping("/inactive")
+	public ResponseEntity<List<Object>> getInactiveModuleFiles(
+			@RequestParam(name = "inactivemodulesfile") String inactivemodulesfile) throws CPException {
+		List<Object> modulefiles = null;
+		try {
+
+			if (inactivemodulesfile.equalsIgnoreCase("all")) {
+
+				modulefiles = modulefileService.getAllInactiveModuleFiles();
+				logger.info("Fetched all ModuleFile :" + modulefiles);
+
+				return ResponseHandler.generateListResponse(modulefiles, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all Inactive modulefiles : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
+
+	/**
+	 * @description Api to update inactive status to active status
+	 */
+
+	@PatchMapping(path = "/modulefile/activate/{id}")
+	public ResponseEntity<Object> activateModuleFileByModuleFileId(@PathVariable("id") int id) throws CPException {
+		logger.debug("Entering activateModuleFileByModuleFileId");
+		logger.info("entered activateModuleFileByModuleFileId  :" + id);
+		// TODO - implement the business logic
+
+		int count = 0;
+
+		try {
+			count = modulefileService.activateModuleFileBymoduleFileId(id);
+			if (count >= 1) {
+				logger.info("activated activateModuleFileByModuleFileId : Id = " + id);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBunde.getString("err006"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err006");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to activate Course :" + ex.getMessage());
+			throw new CPException("err006", resourceBunde.getString("err006"));
 		}
 	}
 }

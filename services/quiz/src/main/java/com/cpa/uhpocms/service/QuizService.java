@@ -23,8 +23,8 @@ public interface QuizService {
 
 	int deleteQuizBytitle(String title);
 
-	
-	
+	List<Object> getAllQuizzesByProfileId(int studentId);
+
 	Object updateActiveStatus(String figure);
 
 	List<Object> getInactiveQuizzes();
