@@ -16,6 +16,8 @@ public interface QuizprogressService {
 	Quizprogress createQuizprogress(Quizprogress quizprogress);
 
 	Quizprogress getQuizprogressByStudentIdAndQuizId(int studentId, int quizId);
+	
+	Quizprogress getQuizprogressByStudentIdAndQuizIdProg(int studentId, int quizId) ;
 
 	List<Object> getAllQuizprogress();
 

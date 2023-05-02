@@ -197,4 +197,14 @@ public class QuizServiceImpl implements QuizService {
 		return objQuizzes;
 	}
 
+	
+	public List<Object> getAllQuizzesByModuleId(int moduleId) {
+		logger.debug("Entering getAllQuizzesByModuleId");
+
+		List<Quiz> quizzes = quizRepo.findByModuleId(moduleId);
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
+		logger.info("Fetched quiz :" + quizzes);
+		return objQuizzes;
+	}
+
 }
