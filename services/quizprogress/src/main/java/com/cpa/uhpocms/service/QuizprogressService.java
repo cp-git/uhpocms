@@ -15,12 +15,16 @@ public interface QuizprogressService {
 
 	Quizprogress createQuizprogress(Quizprogress quizprogress);
 
-	Quizprogress getQuizprogressBystudentId(int studentId);
+	Quizprogress getQuizprogressByStudentIdAndQuizId(int studentId, int quizId);
+	
+	Quizprogress getQuizprogressByStudentIdAndQuizIdProg(int studentId, int quizId) ;
 
-	List<Object> getAllQuizprogresss();
+	List<Object> getAllQuizprogress();
 
-	Quizprogress updateQuizprogressBystudentId(Quizprogress quizprogress, int studentId);
+	Quizprogress updateQuizprogressByStudentIdAndQuizId(Quizprogress quizprogress);
 
-	int deleteQuizprogressBystudentId(int studentId);
+	int deleteQuizprogressByStudentIdAndQuizId(int studentId, int quizId);
+
+	List<Object> getQuizprogressBystudentId(int studentId);
 
 }

@@ -53,10 +53,10 @@ public class AssignToTeacherServiceImpl implements AssignToTeacherService {
 	 * @description : For get entry in teacher_course_assigntoteacher table
 	 */
 	@Override
-	public AssignToTeacher getAssignToTeacherBycourseId(int courseid) {
+	public List<Object> getTeacherBycourseId(int courseid) {
 		logger.debug("Entering getAssignToTeacherBycourseId");
 
-		AssignToTeacher assigntoteacher = assigntoteacherRepo.findByAssignToTeachercourseId(courseid);
+		List<Object> assigntoteacher = assigntoteacherRepo.findAllByCourseId(courseid);
 		logger.info("Founded assigntoteacher :" + assigntoteacher);
 
 		return assigntoteacher;
@@ -86,7 +86,7 @@ public class AssignToTeacherServiceImpl implements AssignToTeacherService {
 		AssignToTeacher toUpdatedAssignToTeacher = null;
 		AssignToTeacher updatedAssignToTeacher = null;
 
-		toUpdatedAssignToTeacher = assigntoteacherRepo.findByAssignToTeachercourseId(courseid);
+		toUpdatedAssignToTeacher = assigntoteacherRepo.findByCourseId(courseid);
 		logger.info("exisitng AssignToTeacher :: " + toUpdatedAssignToTeacher);
 
 		if (toUpdatedAssignToTeacher != null) {

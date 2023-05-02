@@ -12,7 +12,6 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
-import org.hamcrest.Description;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -236,6 +235,7 @@ public class QuizController {
 		}
 
 	}
+
 	/**
 	 * 
 	 * @author Shradha
@@ -243,10 +243,10 @@ public class QuizController {
 	 * @return
 	 * @throws CPException
 	 */
-	
+
 	@GetMapping("/quiz/inactive")
-	public  ResponseEntity<List<Object>> getInactiveQuizzes(@RequestParam(name = "inactivequizzes") String inactivequizzes) throws CPException 
-	{
+	public ResponseEntity<List<Object>> getInactiveQuizzes(
+			@RequestParam(name = "inactivequizzes") String inactivequizzes) throws CPException {
 		List<Object> quizzes = null;
 		try {
 
@@ -269,7 +269,7 @@ public class QuizController {
 
 		}
 	}
-	
+
 	/**
 	 * @author Shradha
 	 * @param title
@@ -277,14 +277,13 @@ public class QuizController {
 	 * @throws CPException
 	 */
 	@PatchMapping("/quiz/{title}")
-	public ResponseEntity<Object> updateActiveStatus(@PathVariable("title") String title) throws CPException{
-		
+	public ResponseEntity<Object> updateActiveStatus(@PathVariable("title") String title) throws CPException {
+
 		logger.debug("Entering updateActiveStatus");
-		
 
 		Object obj = null;
 
-		try { 
+		try {
 			obj = quizService.updateActiveStatus(title);
 
 			if (obj == null) {
@@ -301,10 +300,78 @@ public class QuizController {
 
 		}
 	}
-	
-	@GetMapping(path = "/basicauth")
-    public AuthenticationBean basicauth() {
-        return new AuthenticationBean("You are authenticated");
-    }
 
+	@GetMapping(path = "/basicauth")
+	public AuthenticationBean basicauth() {
+		return new AuthenticationBean("You are authenticated");
+	}
+
+	/**
+	 * @description method to get quizzes from quiz table by profileId
+	 */
+	@GetMapping("/quiz/studentId")
+	public ResponseEntity<List<Object>> getAllQuizByStudentId(@RequestParam(name = "id") int studentId)
+			throws CPException {
+		logger.debug("Entering getAllQuiz");
+		logger.info("Parameter  :" + studentId);
+
+		List<Object> quizzes = null;
+
+		try {
+			quizzes = quizService.getAllQuizzesByProfileId(studentId);
+			logger.info("Fetched all Quiz :" + quizzes);
+
+			if (quizzes != null) {
+				logger.debug("quizzes fetched generating response");
+				return ResponseHandler.generateListResponse(quizzes, HttpStatus.OK);
+			} else {
+				logger.debug("quizzes not found");
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+			logger.error("Failed getting all quizs : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+		}
+
+	}
+	
+	
+	
+	/**
+	 * @author shradha
+	 * @description method to get quizzes from quiz table by moduleId
+	 */
+	@GetMapping("/quiz/moduleId/{moduleId}")
+	public ResponseEntity<List<Object>> getAllQuizByModuleId(@PathVariable("moduleId") int moduleId)
+			throws CPException {
+		logger.debug("Entering getAllQuizByStudentId");
+		logger.info("Parameter  :" + moduleId);
+
+		List<Object> quizzes = null;
+
+		try {
+			quizzes = quizService.getAllQuizzesByModuleId(moduleId);
+			logger.info("Fetched all Quiz :" + quizzes);
+
+			if (quizzes != null) {
+				logger.debug("quizzes fetched generating response");
+				return ResponseHandler.generateListResponse(quizzes, HttpStatus.OK);
+			} else {
+				logger.debug("quizzes not found");
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+			logger.error("Failed getting all quizs : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+		}
+
+	}
 }

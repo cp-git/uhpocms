@@ -33,8 +33,8 @@ public class ModuleFileProgress {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "filecompleted", nullable = false)
-	private boolean fileCompleted ;
+	@Column(name = "progress", nullable = false )
+	private float progress ;
 
 	@Column(name = "currentfilepageno", nullable = false)
 	private int currentFilePageNo;
@@ -62,18 +62,19 @@ public class ModuleFileProgress {
 		this.id = id;
 	}
 
+
 	/**
-	 * @return the fileCompleted
+	 * @return the progress
 	 */
-	public boolean isFileCompleted() {
-		return fileCompleted;
+	public float getProgress() {
+		return progress;
 	}
 
 	/**
-	 * @param fileCompleted the fileCompleted to set
+	 * @param progress the progress to set
 	 */
-	public void setFileCompleted(boolean fileCompleted) {
-		this.fileCompleted = fileCompleted;
+	public void setProgress(float progress) {
+		this.progress = progress;
 	}
 
 	/**
@@ -143,11 +144,11 @@ public class ModuleFileProgress {
 	 * @param moduleId
 	 * @param studentId
 	 */
-	public ModuleFileProgress(int id, boolean fileCompleted, int currentFilePageNo, int fieldId, int moduleId,
+	public ModuleFileProgress(int id, float progress, int currentFilePageNo, int fieldId, int moduleId,
 			int studentId) {
 		super();
 		this.id = id;
-		this.fileCompleted = fileCompleted;
+		this.progress = progress;
 		this.currentFilePageNo = currentFilePageNo;
 		this.fileId = fieldId;
 		this.moduleId = moduleId;
@@ -163,7 +164,7 @@ public class ModuleFileProgress {
 
 	@Override
 	public String toString() {
-		return "ModuleFileProgress [id=" + id + ", fileCompleted=" + fileCompleted + ", currentFilePageNo="
+		return "ModuleFileProgress [id=" + id + ", progress=" + progress + ", currentFilePageNo="
 				+ currentFilePageNo + ", fieldId=" + fileId + ", moduleId=" + moduleId + ", studentId=" + studentId
 				+ "]";
 	}

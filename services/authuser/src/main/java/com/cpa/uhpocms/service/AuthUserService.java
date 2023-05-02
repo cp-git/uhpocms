@@ -26,4 +26,6 @@ public interface AuthUserService {
 	List<Object> getAllInactiveAuthUsers();
 
 	int activateAuthUserById(int authUserId);
+	
+	AuthUser getAuthUserById(int authUserId);
 }

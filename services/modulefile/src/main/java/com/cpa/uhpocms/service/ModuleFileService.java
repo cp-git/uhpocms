@@ -25,6 +25,9 @@ public interface ModuleFileService {
 
 	List<Object> getModuleFileByStudentId(int studentId);
 
+	
+	public List<Object> getModuleFileByModuleId(int id) ;
+
 	int deleteModuleFileBymoduleFileId(int id);
 
 	ModuleFile updateModuleFileBymoduleFileId(ModuleFile modulefile, int id);
@@ -32,4 +35,5 @@ public interface ModuleFileService {
 	List<Object> getAllInactiveModuleFiles();
 
 	int activateModuleFileBymoduleFileId(int id);
+
 }

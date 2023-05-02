@@ -20,5 +20,5 @@ server:
   port: 8090
   
 file:
-  base-path: H:/uhpocmsUpload/course
+  base-path: E:/uploadFiles
 

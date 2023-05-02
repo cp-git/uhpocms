@@ -18,6 +18,8 @@ public interface EnrollToStudentService {
 	EnrollToStudent getEnrollToStudentBycourseId(int courseid);
 
 //	List<Object> getAllEnrollToStudents();
+	
+	List<Object> getStudentByCourseId(int courseid);
 
 	EnrollToStudent updateEnrollToStudentBycourseId(EnrollToStudent enrolltostudent, int courseid);
 
