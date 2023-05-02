@@ -41,12 +41,15 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 		adminInstitution.setAdminInstitutionCreatedBy("Admin");
 		adminInstitution.setAdminInstitutionModifiedBy("Admin");
+		
 
 		logger.debug("Entering the admin institution data");
 
 		AdminInstitution createdAdminInstitution = null;
 
 		createdAdminInstitution = adminInstitutionRepository.save(adminInstitution);
+		
+		
 
 		logger.info("Created admin institution :" + createdAdminInstitution);
 

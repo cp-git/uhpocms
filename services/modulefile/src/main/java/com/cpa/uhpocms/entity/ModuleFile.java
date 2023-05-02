@@ -9,6 +9,7 @@ package com.cpa.uhpocms.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,7 +34,7 @@ public class ModuleFile {
 	@Column(name = "id", nullable = false)
 	private int moduleFileId;
 
-	@Column(name = "file", unique = true, nullable = false)
+	@Column(name = "file",nullable=false)
 	private String moduleFile;
 
 	@Column(name = "fileorderno")
@@ -43,7 +44,7 @@ public class ModuleFile {
 	private boolean moduleFileIsActive;
 
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY,optional = false)
 	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name="moduleid_id",insertable=false,updatable=false)
 	private Module module;

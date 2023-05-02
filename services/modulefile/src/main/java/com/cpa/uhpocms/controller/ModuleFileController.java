@@ -8,6 +8,11 @@
 package com.cpa.uhpocms.controller;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -17,9 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +34,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.ModuleFile;
@@ -61,23 +70,30 @@ public class ModuleFileController {
 	}
 
 	@PostMapping("/modulefile")
-	public ResponseEntity<Object> createModuleFile(@RequestBody ModuleFile modulefile) throws CPException {
+	public ResponseEntity<Object> createModuleFile(@RequestPart("admin") ModuleFile modulefile,@RequestParam(value="files")List<MultipartFile> files) throws CPException {
 		logger.debug("Entering createModuleFile");
 		logger.info("data of creating ModuleFile  :" + modulefile.toString());
 
 		ModuleFile createdModuleFile = null;
 		try {
 
-			ModuleFile toCheckModuleFile = modulefileService.getModuleFileByFile(modulefile.getModuleFile());
-			logger.debug("existing modulefile :" + toCheckModuleFile);
-			
+//			ModuleFile toCheckModuleFile = modulefileService.getModuleFileByFile(modulefile.getModuleFile());
+//			logger.debug("existing modulefile :" + toCheckModuleFile);
+//			
+//			System.out.println(toCheckModuleFile);
+//			
 			
 			
 
-			if (toCheckModuleFile == null) {
+			if (createdModuleFile == null) {
 
 				// TODO: Uncomment below 2 lines and change the method name as per your Entity
 				// class
+				
+				for(int i=0;i<files.size();i++)
+				{
+					modulefile.setModuleFile(files.get(i).getOriginalFilename());
+				}
 				modulefile.setModuleFileCreatedBy("admin");
 				modulefile.setModuleFileUpdatedBy("admin");
 
@@ -95,16 +111,27 @@ public class ModuleFileController {
 				String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(modulefile.getModuleFileId());
 				System.out.println(departmentName);
 				
+				String deptName=departmentName.trim();
+				
 				
 				String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(modulefile.getModuleFileId());
 				System.out.println(InstituteName);
 				
-				File theDir = new File(basePath+"/institute/"+InstituteName+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+modulefile.getModuleFile());
+				File theDir = new File(basePath+"/institute/"+InstituteName+"/"+deptName+"/"+courseName+"/"+moduleName);
 				System.out.println(theDir);
 				if (!theDir.exists()){
 				    theDir.mkdirs();
 				}
 				
+				List<String> fileNames = new ArrayList<>();
+
+				for (MultipartFile file : files) {
+					String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+					System.out.println(fileName);
+					Path fileStorage = Paths.get(basePath+"/institute/"+InstituteName+"/"+deptName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
+					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
+					fileNames.add(fileName);
+				}
 
 				return ResponseHandler.generateResponse(createdModuleFile, HttpStatus.CREATED);
 				

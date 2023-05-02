@@ -8,6 +8,11 @@
 package com.cpa.uhpocms.controller;
 
 import java.io.File;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -17,9 +22,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +35,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cpa.uhpocms.entity.AdminInstitution;
 import com.cpa.uhpocms.entity.AuthenticationBean;
@@ -64,27 +74,48 @@ public class AdminInstitutionController {
 	 * @return : ResponseEntity
 	 * @description : For creating/inserting entry in AdminInstitution.
 	 */
+	
+	
 	@PostMapping("/institution")
-	public ResponseEntity<Object> addAdminInstitution(@RequestBody AdminInstitution adminInstitution)
+	public ResponseEntity<Object> addAdminInstitution(@RequestPart("admin") AdminInstitution adminInstitution,@RequestParam("file")MultipartFile file)
 			throws CPException {
 		logger.debug("creating Admin Institution");
 		logger.info("data entered of AdminInstitution" + adminInstitution);
 
 		AdminInstitution addInstitution = null;
-
+		String fileName=null;
+		
 		try {
+			
 			AdminInstitution toCheckAdminInstitution = adminInstitutionService
 					.findByAdminInstitutionName(adminInstitution.getAdminInstitutionName());
 			logger.debug("existing admin institution :" + toCheckAdminInstitution);
+			
+			System.out.println(toCheckAdminInstitution);
 
+		
 			if (toCheckAdminInstitution == null) {
+				
+				
+				adminInstitution.setAdminInstitutionPicture(file.getOriginalFilename());
 				addInstitution = adminInstitutionService.saveAdminInstitution(adminInstitution);
 				logger.info("institution created :" + addInstitution);
+				
+				System.out.println(addInstitution);
 				
 				File theDir = new File(basePath+"/institute/"+adminInstitution.getAdminInstitutionName()+"/logo/");
 				if (!theDir.exists()){
 				    theDir.mkdirs();
 				}
+				
+				//Path path = theDir.toPath();
+				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				System.out.println(fileName);
+				Path fileStorage = Paths.get(basePath+"/institute/"+adminInstitution.getAdminInstitutionName()+"/logo/", fileName).toAbsolutePath().normalize();
+				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
+				//fileNames.add(fileName);
+            
+				
 				return ResponseHandler.generateResponse(addInstitution, HttpStatus.CREATED);
 
 			} else {
