@@ -48,7 +48,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		logger.debug("Entering createAnnouncement");
 		Announcement createdAnnouncement = null;
 
-		announcement.setAnnouncementReadby("uhpocadmin");
+		//announcement.setAnnouncementReadby("uhpocadmin");
 		announcement.setAnnouncementCreatedBy("admin");
 
 		createdAnnouncement = announcementRepo.save(announcement);
@@ -110,7 +110,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 			toUpdatedAnnouncement.setAnnouncementTitle(announcement.getAnnouncementTitle());
 			toUpdatedAnnouncement.setAnnouncementMessage(announcement.getAnnouncementMessage());
 			toUpdatedAnnouncement.setAnnouncementTo(announcement.getAnnouncementTo());
-			toUpdatedAnnouncement.setAnnouncementReadby("uhpocadmin");
+			toUpdatedAnnouncement.setAnnouncementSendby(announcement.getAnnouncementSendby());
 			updatedAnnouncement = announcementRepo.save(toUpdatedAnnouncement);
 
 			logger.info("updated Announcement :" + updatedAnnouncement);
@@ -218,5 +218,18 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 			e.printStackTrace();
 		}
 		return announcementsIds;
+	}
+
+	@Override
+	public List<Object> getAnnoucementBySendby(int announcementSendby) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering getAllAnnouncements");
+
+		List<Object> announcements = announcementRepo.findByAnnouncementSendby(announcementSendby);
+
+		logger.info("Fetched all active announcement :" + announcements);
+
+		return announcements;
+
 	}
 }
