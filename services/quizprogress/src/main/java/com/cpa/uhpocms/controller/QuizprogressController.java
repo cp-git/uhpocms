@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -115,6 +116,49 @@ public class QuizprogressController {
 
 	}
 
+	/**
+	 * @author shradha
+	 * @param studentId
+	 * @param quizId
+	 * @return
+	 * @throws CPException
+	 * @Description For getting quiz progress data from table using student id and quizId and is completed status as true
+
+	 */
+	// For getting quiz progress data from table using student id and quizId and is completed status as true
+		@GetMapping("/quizprogress/progress/{quizId}/{studentId}")
+		public ResponseEntity<Object> getQuizprogressByStudentIdAndQuizIdProg(@PathVariable("studentId") int studentId,
+				@PathVariable("quizId") int quizId) throws CPException {
+
+			logger.debug("Entering getQuizprogressByStudentIdAndQuizIdProg");
+			logger.info("entered user name : " + studentId + " quizid : " + quizId);
+
+			Quizprogress quizprogress = null;
+
+			try {
+
+				quizprogress = quizprogressService.getQuizprogressByStudentIdAndQuizIdProg(studentId, quizId);
+				logger.info("fetched Quizprogress :" + quizprogress);
+
+				if (quizprogress != null) {
+					logger.debug("Quizprogress fetched generating response");
+					return ResponseHandler.generateResponse(quizprogress, HttpStatus.OK);
+				} else {
+					logger.debug("Quizprogress not found");
+					return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+				}
+
+			} catch (Exception ex) {
+
+				logger.error("Failed getting quizprogress : " + ex.getMessage());
+				throw new CPException("err001", resourceBunde.getString("err001"));
+			}
+
+		}
+
+	
+	
+	
 	// For getting quiz progress all data from table
 	@GetMapping("/quizprogress")
 	public ResponseEntity<List<Object>> getAllQuizprogresss(@RequestParam(name = "data") String data)

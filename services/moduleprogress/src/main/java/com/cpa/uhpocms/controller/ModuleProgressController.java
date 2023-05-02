@@ -58,7 +58,7 @@ public class ModuleProgressController {
 	@PostMapping("/moduleprog")
 	public ResponseEntity<Object> createModuleProgress(@RequestBody ModuleProgress moduleprogress) throws CPException {
 		logger.debug("Entering createModuleProgress");
-		logger.info("data of creating ModuleProgress  :" + moduleprogress.toString());
+		logger.info("data for  creating ModuleProgress  :" + moduleprogress.toString());
 
 		ModuleProgress createdModuleProgress = null;
 		try {

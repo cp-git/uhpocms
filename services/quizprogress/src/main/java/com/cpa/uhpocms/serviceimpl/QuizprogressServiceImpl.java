@@ -61,6 +61,25 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 		return quizprogress;
 	}
 
+
+	/**
+	 * @author shradha
+	 * @param : String studentid
+	 * @return : Quizprogress quizprogress
+	 * @description : For get entry in Teacher_studentquizprogress table by given quiz and student id for completed status as true
+	 */
+	@Override
+	public Quizprogress getQuizprogressByStudentIdAndQuizIdProg(int studentId, int quizId) {
+		logger.debug("Entering getQuizprogressByStudentIdAndQuizIdProg");
+
+		Quizprogress quizprogress = quizprogressRepo.getQuizprogressByStudentIdAndQuizIdAndIsCompletedTrue(studentId, quizId);
+		logger.info("Founded quizprogress :" + quizprogress);
+
+		return quizprogress;
+	}
+
+	
+	
 	/**
 	 * @return : List<Object> quizprogress
 	 * @description : For fetching all quizprogress which are active state from

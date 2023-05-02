@@ -39,7 +39,7 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 	@Override
 	public ModuleProgress createModuleProgress(ModuleProgress moduleprogress) {
 		logger.debug("Entering createModuleProgress");
-		System.out.println("Eneterd createmethod");
+		System.out.println(moduleprogress);
 		ModuleProgress createdModuleProgress = null;
 
 	//	moduleprogress.setModuleProgressCreatedBy("admin");

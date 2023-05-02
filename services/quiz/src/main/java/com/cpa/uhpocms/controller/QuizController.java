@@ -338,4 +338,40 @@ public class QuizController {
 		}
 
 	}
+	
+	
+	
+	/**
+	 * @author shradha
+	 * @description method to get quizzes from quiz table by moduleId
+	 */
+	@GetMapping("/quiz/moduleId/{moduleId}")
+	public ResponseEntity<List<Object>> getAllQuizByModuleId(@PathVariable("moduleId") int moduleId)
+			throws CPException {
+		logger.debug("Entering getAllQuizByStudentId");
+		logger.info("Parameter  :" + moduleId);
+
+		List<Object> quizzes = null;
+
+		try {
+			quizzes = quizService.getAllQuizzesByModuleId(moduleId);
+			logger.info("Fetched all Quiz :" + quizzes);
+
+			if (quizzes != null) {
+				logger.debug("quizzes fetched generating response");
+				return ResponseHandler.generateListResponse(quizzes, HttpStatus.OK);
+			} else {
+				logger.debug("quizzes not found");
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+			logger.error("Failed getting all quizs : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+		}
+
+	}
 }

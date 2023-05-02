@@ -26,5 +26,7 @@ public interface QuizprogressRepo extends JpaRepository<Quizprogress, Integer> {
 	public int deleteQuizprogressByStudentIdAndQuizId(int studentId, int quizId);
 
 	public Quizprogress getQuizprogressByStudentIdAndQuizId(int studentId, int quizId);
+	
+	public Quizprogress getQuizprogressByStudentIdAndQuizIdAndIsCompletedTrue(int studentId, int quizId);
 
 }

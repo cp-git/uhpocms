@@ -24,6 +24,8 @@ public interface QuizService {
 	int deleteQuizBytitle(String title);
 
 	List<Object> getAllQuizzesByProfileId(int studentId);
+	
+	List<Object> getAllQuizzesByModuleId(int moduleId) ;
 
 	Object updateActiveStatus(String figure);
 
