@@ -52,7 +52,7 @@ public class EnrollToStudentController {
 		logger.debug("Entering createEnrollToStudent");
 		logger.info("data of creating EnrollToStudent  :" + enrolltostudent.toString());
 
-		EnrollToStudent createdEnrollToStudent = null;
+		List<Object> createdEnrollToStudent = null;
 		try {
 			//comment
 

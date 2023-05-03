@@ -35,4 +35,6 @@ public interface EnrollToStudentRepo extends JpaRepository<EnrollToStudent, Inte
 	
 	@Query(value = "INSERT INTO teacher_course_enrolltostudent(course_id, profile_id) VALUES (?1,?2)", nativeQuery = true)
 	public void insertCourseAndProfile(int courseId, int profileId);
+
+	public EnrollToStudent findByCourseIdAndProfileId(int courseid, int profile_id);
 }
