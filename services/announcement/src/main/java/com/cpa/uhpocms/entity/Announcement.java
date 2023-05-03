@@ -36,12 +36,16 @@ public class Announcement {
 	@Column(name = "`to`")
 	private String announcementTo;
 
-	@Column(name = "readby")
-	private String announcementReadby;
+	
+	
+
+	@Column(name = "sendby")
+	private int announcementSendby;
+	
 
 	@Column(name = "createdby")
 	private String announcementCreatedBy;
-
+	
 	@CreationTimestamp
 	@Column(name = "created_on")
 	private Date announcementCreatedOn;
@@ -63,6 +67,7 @@ public class Announcement {
 		this.announcementTitle = announcementTitle;
 		this.announcementMessage = announcementMessage;
 		this.announcementTo = announcementTo;
+		
 	}
 
 	/**
@@ -75,16 +80,19 @@ public class Announcement {
 	 * @param announcementCreatedOn
 	 */
 	public Announcement(int id, String announcementTitle, String announcementMessage, String announcementTo,
-			String announcementReadby, String announcementCreatedBy, Date announcementCreatedOn) {
+			int announcementSendby, String announcementCreatedBy,Date announcementCreatedOn) {
 		super();
 		this.id = id;
 		this.announcementTitle = announcementTitle;
 		this.announcementMessage = announcementMessage;
 		this.announcementTo = announcementTo;
-		this.announcementReadby = announcementReadby;
+		this.announcementSendby = announcementSendby;
 		this.announcementCreatedBy = announcementCreatedBy;
 		this.announcementCreatedOn = announcementCreatedOn;
 	}
+
+	
+		
 
 	/**
 	 * @return the id
@@ -145,15 +153,15 @@ public class Announcement {
 	/**
 	 * @return the announcementReadby
 	 */
-	public String getAnnouncementReadby() {
-		return announcementReadby;
+	public int getAnnouncementSendby() {
+		return announcementSendby;
 	}
 
 	/**
 	 * @param announcementReadby the announcementReadby to set
 	 */
-	public void setAnnouncementReadby(String announcementReadby) {
-		this.announcementReadby = announcementReadby;
+	public void setAnnouncementSendby(int announcementSendby) {
+		this.announcementSendby = announcementSendby;
 	}
 
 	/**
@@ -188,8 +196,8 @@ public class Announcement {
 	public String toString() {
 		return "Announcement [id=" + id + ", announcementTitle=" + announcementTitle + ", announcementMessage="
 				+ announcementMessage + ", announcementTo=" + announcementTo + ", announcementReadby="
-				+ announcementReadby + ", announcementCreatedBy=" + announcementCreatedBy + ", announcementCreatedOn="
-				+ announcementCreatedOn + "]";
+				+ announcementSendby + ", announcementCreatedBy=" + announcementCreatedBy + ", isActive="
+				+ ", announcementCreatedOn=" + announcementCreatedOn + "]";
 	}
 
 }
