@@ -249,4 +249,31 @@ public class AdminInstitutionController {
 
 	}
 
+	@GetMapping("/institution/profile/{id}")
+	public ResponseEntity<Object> getInstitutionByprofileId(@PathVariable("id") int profileid) throws CPException {
+		logger.debug("Entering getInstitutionByprofileId");
+
+		List<Object> adminInstitution = null;
+
+		try {
+
+			adminInstitution = adminInstitutionService.getAdminInstitutionByProfileId(profileid);
+			logger.info("fetched Institution :" + adminInstitution);
+
+			if (adminInstitution != null) {
+				logger.debug("Institution fetched generating response");
+				return ResponseHandler.generateResponse(adminInstitution, HttpStatus.OK);
+			} else {
+				logger.debug("Institution not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting course : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
+
 }

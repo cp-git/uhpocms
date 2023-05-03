@@ -25,6 +25,8 @@ public interface AdminDeptService {
 
 	AdminDepartment getDepartmentById(int departmentid);
 
+	List<Object> getDepartmentByProfileId(int profileid);
+
 	List<Object> findByInstitutionId(int institutionId);
 
 	public List<Object> getAllInactiveDepartments();
