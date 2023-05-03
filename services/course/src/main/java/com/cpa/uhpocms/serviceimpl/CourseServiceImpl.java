@@ -303,6 +303,18 @@ public class CourseServiceImpl implements CourseService {
 		return updatedCourse;
 	}
 
+	@Override
+	public List<Object> findCoursesByDepartmentIdAndProfileId(int department_id, int profile_id) {
+		// TODO Auto-generated method stub
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findCourseByDepartmentIdAndProfileId(department_id, profile_id);
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+	}
+
 	
 
 }
