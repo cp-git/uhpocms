@@ -38,30 +38,27 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 	 * @description : For creating/inserting entry in teacher_course_enrollToStudent table
 	 */
 	@Override
-	public EnrollToStudent createEnrollToStudent(EnrollToStudent enrolltostudent)  {
-		logger.debug("Entering createEnrollToStudent in serviceimpl");
-		EnrollToStudent createdEnrollToStudent = null;
+	public List<Object> createEnrollToStudent(EnrollToStudent enrolltostudent) {
+	    logger.debug("Entering createEnrollToStudent in serviceimpl");
+	    EnrollToStudent createdEnrollToStudent = null;
 
-	//	enrolltostudent.setEnrollToStudentCreatedBy("admin");
-	//	enrolltostudent.setEnrollToStudentModifiedBy("admin");
+	    int courseIdNew = enrolltostudent.getCourseId();
+	    int profileIdNew = enrolltostudent.getProfileId();
 
-		int courseIdNew = enrolltostudent.getCourseId();
-		int profileIdNew = enrolltostudent.getProfileId();
-		
-		EnrollToStudent enrStudentSecond = getEnrollToStudentBycourseId(courseIdNew);
-		
-			if((enrStudentSecond == null) || (enrStudentSecond.getProfileId() != profileIdNew) )
-			{
-			createdEnrollToStudent = enrolltostudentRepo.save(enrolltostudent);
-			
-			logger.info("created EnrollToStudent :" + createdEnrollToStudent);
-			
-			return createdEnrollToStudent;
-			}
-		
-		logger.error("Course Id "+ courseIdNew +" already assigned to profile Id " +profileIdNew );
-		return null;
-		
+	    EnrollToStudent enrStudentSecond = getEnrollToStudentBycourseIdandprofileId(courseIdNew,profileIdNew);
+
+	    if ((enrStudentSecond == null) || (enrStudentSecond.getProfileId() != profileIdNew)) {
+	        createdEnrollToStudent = enrolltostudentRepo.save(enrolltostudent);
+
+	        logger.info("created EnrollToStudent :" + createdEnrollToStudent);
+
+	        List<Object> resultList = new ArrayList<>();
+	        resultList.add(createdEnrollToStudent);
+	        return resultList;
+	    }
+
+	    logger.error("Course Id " + courseIdNew + " already assigned to profile Id " + profileIdNew);
+	    return null;
 	}
 
 	/*
@@ -70,10 +67,10 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 	 * @description : For get entry in teacher_course_enrollToStudent table
 	 */
 	@Override
-	public EnrollToStudent getEnrollToStudentBycourseId(int courseid) {
+	public EnrollToStudent getEnrollToStudentBycourseIdandprofileId(int courseid,int profile_id) {
 		logger.debug("Entering getEnrollToStudentBycourseId");
 
-		EnrollToStudent enrolltostudent = enrolltostudentRepo.findByCourseId(courseid);
+		EnrollToStudent enrolltostudent = enrolltostudentRepo.findByCourseIdAndProfileId(courseid,profile_id);
 		logger.info("Founded enrolltostudent :" + enrolltostudent);
 
 		return enrolltostudent;
@@ -143,6 +140,18 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 		
 		return enrolltostudent;
 	}
+
+	@Override
+	public EnrollToStudent getEnrollToStudentBycourseId(int courseid) {
+		// TODO Auto-generated method stub
+
+		EnrollToStudent enrolltostudent = enrolltostudentRepo.findByCourseId(courseid);
+		logger.info("Founded enrolltostudent :" + enrolltostudent);
+
+		return enrolltostudent;
+	}
+
+	
 
 //	@Override
 //	public void insertCourseAndProfile(int courseId, int profileId) {
