@@ -274,6 +274,16 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return instituteAdmin;
 	}
 
+	@Override
+	public List<Object> getProfileCourseAssignedTeacher(int profileId) {
+		List<Object> profileObject = null;
+
+		List<InstituteAdmin> object = instituteAdminRepository.getProfilesOfCourseAssignedToTeacher(profileId);
+
+		profileObject = new ArrayList<Object>(object);
+		return profileObject;
+	}
+
 	
 	
 
