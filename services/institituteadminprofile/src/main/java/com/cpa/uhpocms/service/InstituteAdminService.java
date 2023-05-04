@@ -32,6 +32,8 @@ public interface InstituteAdminService {
 	InstituteAdmin updateProfileByAuthUserId(InstituteAdmin instituteAdmin, int userId);
 
 	InstituteAdmin getProfileByAuthUserId(int userId);
+	
+	List<Object> getProfileCourseAssignedTeacher(int profileId);
 
 
 }
