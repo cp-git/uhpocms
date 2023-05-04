@@ -294,6 +294,27 @@ public class CourseController {
 		}
 	}
 
+	@GetMapping(path = "/course/department/{department_id}/profile/{profile_id}")
+
+	public ResponseEntity<List<Object>> getCoursesByDepartmentIdAndProfileId(@PathVariable("department_id") int department_id, @PathVariable("profile_id") int profile_id)
+			throws CPException {
+		logger.debug("Entering getAllCourse");
+		logger.info("Parameter  :");
+		List<Object> courses = null;
+		try {
+			if (department_id >= 0 && profile_id >= 0) {
+				courses = courseService.findCoursesByDepartmentIdAndProfileId(department_id, profile_id);
+				logger.info("Fetched all Course :" + courses);
+				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
+			} else {
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+		} catch (Exception ex) {
+			logger.error("Failed getting all courses : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+		}
+	}
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {
 		return new AuthenticationBean("You are authenticated");

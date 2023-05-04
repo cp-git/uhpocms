@@ -55,8 +55,8 @@ public class AdminDeptServImpl implements AdminDeptService {
 		// TODO Auto-generated method stub
 		logger.debug("Entered getAdminDepartments()");
 		List<AdminDepartment> adminDept = adminDeptRepo.findActiveDepartmentsOfActiveInstitutions();
-		   List<Object> deptList = new ArrayList<>(adminDept);
-		    logger.info("Fetching All List Data " + deptList);
+		List<Object> deptList = new ArrayList<>(adminDept);
+		logger.info("Fetching All List Data " + deptList);
 		return deptList;
 	}
 
@@ -236,5 +236,14 @@ public class AdminDeptServImpl implements AdminDeptService {
 		// TODO Auto-generated method stub
 		AdminDepartment adminDepartment = adminDeptRepo.findByInstitutionIdAndName(institutionId, name);
 		return adminDepartment;
+	}
+
+	@Override
+	public List<Object> getDepartmentByProfileId(int profileid) {
+		// TODO Auto-generated method stub
+		List<Object> objectDepartments = null;
+		List<AdminDepartment> adminDepartment = adminDeptRepo.findActiveDepartmentByProfileId(profileid);
+		objectDepartments = new ArrayList<Object>(adminDepartment);
+		return objectDepartments;
 	}
 }
