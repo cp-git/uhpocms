@@ -56,11 +56,11 @@ public class AnnouncementController {
 		Announcement createdAnnouncement = null;
 		try {
 
-			Announcement toCheckAnnouncement = announcementService
-					.getAnnouncementByTitle(announcement.getAnnouncementTitle());
-			logger.debug("existing announcement :" + toCheckAnnouncement);
+//			Announcement toCheckAnnouncement = announcementService
+//					.getAnnouncementByTitle(announcement.getAnnouncementTitle());
+//			logger.debug("existing announcement :" + toCheckAnnouncement);
 
-			if (toCheckAnnouncement == null) {
+			if (createdAnnouncement == null) {
 
 				// TODO: Uncomment below 2 lines and change the method name as per your Entity
 				// class

@@ -101,6 +101,6 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN admin_institution inst ON inst.institutionid=profile.institutionid_id JOIN auth_user users ON users.id=profile.user_id where users.is_active=true and inst.isactive=true and profile.isactive=true", nativeQuery = true)
 	public List<InstituteAdmin> findActiveProfileOfActiveInstitutions();
 	
-	@Query(value = "SELECT iap.* FROM instituteadmin_profile iap JOIN teacher_course_enrolltostudent tces ON iap.id = tces.profile_id JOIN teacher_course_assigntoteacher tcat ON tces.course_id = tcat.course_id WHERE tcat.profile_id = ?1", nativeQuery = true)
+	@Query(value = "SELECT DISTINCT iap.* FROM instituteadmin_profile iap JOIN teacher_course_enrolltostudent tces ON iap.id = tces.profile_id JOIN teacher_course_assigntoteacher tcat ON tces.course_id = tcat.course_id WHERE tcat.profile_id = ?1", nativeQuery = true)
     public List<InstituteAdmin> getProfilesOfCourseAssignedToTeacher(int profileId);
 }
