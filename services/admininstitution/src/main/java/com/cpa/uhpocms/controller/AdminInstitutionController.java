@@ -8,6 +8,9 @@
 package com.cpa.uhpocms.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +23,10 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -291,5 +297,31 @@ public class AdminInstitutionController {
 		}
 
 	}
+	
+	
+	
+	@GetMapping(path="getFileById/{adminInstitutionName}")
+    ResponseEntity<InputStreamResource> getImageById(@PathVariable String adminInstitutionName) throws IOException { //download file
+     
+		AdminInstitution myFile =null;
+		 myFile =adminInstitutionService.findByAdminInstitutionName(adminInstitutionName);
+        System.out.println(myFile);
+       String address =basePath+"/institute/"+ myFile.getAdminInstitutionName()+"/logo/" + myFile.getAdminInstitutionPicture();
+       File file = new File(address);
+        System.out.println("file"+file);
+       InputStream inputStream = new FileInputStream(file);
+//        System.out.println(inputStream);
+       InputStreamResource a = new InputStreamResource(inputStream);
+//      
+        HttpHeaders httpHeaders = new HttpHeaders();
+//        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
+        httpHeaders.setContentType(MediaType.IMAGE_JPEG);
+        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
+//        System.out.println(myFile.getAdminInstitutionPicture());
+       
+       
+       
+        return new ResponseEntity<InputStreamResource>(a, httpHeaders, HttpStatus.ACCEPTED);
+    }
 
 }

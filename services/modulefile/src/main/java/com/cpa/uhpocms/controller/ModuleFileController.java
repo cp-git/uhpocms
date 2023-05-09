@@ -8,6 +8,9 @@
 package com.cpa.uhpocms.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +23,10 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,6 +44,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cpa.uhpocms.entity.AdminInstitution;
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.ModuleFile;
 import com.cpa.uhpocms.exception.CPException;
@@ -395,4 +402,49 @@ public class ModuleFileController {
 			throw new CPException("err006", resourceBunde.getString("err006"));
 		}
 	}
+	
+
+	@GetMapping(path="getFileById/{moduleFileId}")
+    ResponseEntity<InputStreamResource> getImageById(@PathVariable int moduleFileId) throws IOException { //download file
+     
+		ModuleFile myFile =null;
+		 myFile =moduleRepo.findByModuleFileId(moduleFileId);
+        System.out.println(myFile);
+
+        
+        String moduleName=moduleRepo.finByModuleByModuleId(myFile.getModuleFileId());
+		System.out.println(moduleName);
+		
+		
+		String courseName=moduleRepo.finByCourseByModuleId(myFile.getModuleId());
+		System.out.println(courseName);
+		
+		
+		String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
+		System.out.println(departmentName);
+		
+		String deptName=departmentName.trim();
+		
+		
+		String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(myFile.getModuleFileId());
+		System.out.println(InstituteName);
+        
+       String address =basePath+"/institute/"+InstituteName+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+ myFile.getModuleFile();
+       File file = new File(address);
+        System.out.println("file"+file);
+       InputStream inputStream = new FileInputStream(file);
+//        System.out.println(inputStream);
+       InputStreamResource a = new InputStreamResource(inputStream);
+//      
+        HttpHeaders httpHeaders = new HttpHeaders();
+//        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
+        httpHeaders.setContentType(MediaType.valueOf("video/mp4"));
+        
+        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
+//        System.out.println(myFile.getAdminInstitutionPicture());
+       
+       
+       
+        return new ResponseEntity<InputStreamResource>(a, httpHeaders,HttpStatus.OK);
+    }
 }
