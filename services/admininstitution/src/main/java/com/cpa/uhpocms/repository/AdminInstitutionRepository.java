@@ -70,8 +70,15 @@ public interface AdminInstitutionRepository extends JpaRepository<AdminInstituti
 	@Query(value = "UPDATE admin_institution SET isactive=true WHERE institutionid=?1", nativeQuery = true)
 	public int activateAdminInstitutionById(int adminInstitutionId);
 
+
 	AdminInstitution findByAdminInstitutionId(int adminInstitutionId);
 	
 	
+
+	@Transactional
+	@Modifying
+	@Query(value = "SELECT ai.* FROM admin_institution ai JOIN instituteadmin_profile iap ON ai.institutionid = iap.institutionid_id WHERE iap.id =?1", nativeQuery = true)
+	List<AdminInstitution> findActiveInstitutionByProfileId(int profileId);
+
 
 }

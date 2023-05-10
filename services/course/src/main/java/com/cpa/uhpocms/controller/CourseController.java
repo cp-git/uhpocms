@@ -86,7 +86,9 @@ public class CourseController {
 
 //			Course toCheckCourse = courseService.getCourseByName(course.getCourseName());
 //			logger.debug("existing course :" + toCheckCourse);
-			
+
+			// TODO: Uncomment below 2 lines and change the method name as per your Entity
+			// class
 			course.setCourseCreatedBy("admin");
 			course.setCourseUpdatedBy("admin");
 
@@ -114,10 +116,6 @@ public class CourseController {
 			
 			
 			if (createdCourse != null) {
-
-				// TODO: Uncomment below 2 lines and change the method name as per your Entity
-				// class
-			
 
 				return ResponseHandler.generateResponse(createdCourse, HttpStatus.CREATED);
 
@@ -338,6 +336,27 @@ public class CourseController {
 		}
 	}
 
+	@GetMapping(path = "/course/department/{department_id}/profile/{profile_id}")
+
+	public ResponseEntity<List<Object>> getCoursesByDepartmentIdAndProfileId(@PathVariable("department_id") int department_id, @PathVariable("profile_id") int profile_id)
+			throws CPException {
+		logger.debug("Entering getAllCourse");
+		logger.info("Parameter  :");
+		List<Object> courses = null;
+		try {
+			if (department_id >= 0 && profile_id >= 0) {
+				courses = courseService.findCoursesByDepartmentIdAndProfileId(department_id, profile_id);
+				logger.info("Fetched all Course :" + courses);
+				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
+			} else {
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+		} catch (Exception ex) {
+			logger.error("Failed getting all courses : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+		}
+	}
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {
 		return new AuthenticationBean("You are authenticated");
@@ -396,16 +415,15 @@ public class CourseController {
 			throw new CPException("err006", resourceBundle.getString("err006"));
 		}
 	}
-	
 
 	@GetMapping(path = "course/teacherid/{id}")
 	public ResponseEntity<List<Object>> getCourseAssignToTeacher(@PathVariable("id") int profile_id)
 			throws CPException {
 		logger.debug("Entering getAllCourse");
-		logger.info("Parameter  :" );
+		logger.info("Parameter  :");
 		List<Object> courses = null;
 		try {
-			if (profile_id>=0) {
+			if (profile_id >= 0) {
 				courses = courseService.findCoursesAssignToTeacher(profile_id);
 				logger.info("Fetched all Course :" + courses);
 				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
@@ -418,15 +436,15 @@ public class CourseController {
 			throw new CPException("err002", resourceBundle.getString("err002"));
 		}
 	}
-	
+
 	@GetMapping(path = "course/inactive/teacherid/{id}")
 	public ResponseEntity<List<Object>> getInactiveCourseAssignToTeacher(@PathVariable("id") int profile_id)
 			throws CPException {
 		logger.debug("Entering getAllCourse");
-		logger.info("Parameter  :" );
+		logger.info("Parameter  :");
 		List<Object> courses = null;
 		try {
-			if (profile_id>=0) {
+			if (profile_id >= 0) {
 				courses = courseService.findInactiveCoursesAssignToTeacher(profile_id);
 				logger.info("Fetched all Course :" + courses);
 				return ResponseHandler.generateListResponse(courses, HttpStatus.OK);
@@ -437,11 +455,8 @@ public class CourseController {
 		} catch (Exception ex) {
 			logger.error("Failed getting all courses : " + ex.getMessage());
 			throw new CPException("err002", resourceBundle.getString("err002"));
-      }
- }
-	
-	
-	
+		}
+	}
 
 	@PostMapping(path = "/course/department")
 	public ResponseEntity<Object> assignCourseToDepartment(@RequestBody CourseDepartment courseDepartment)
@@ -553,7 +568,6 @@ public class CourseController {
 
 			logger.error("Failed getting all courses : " + ex.getMessage());
 			throw new CPException("err002", resourceBundle.getString("err002"));
-
 
 		}
 	}

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cpa.uhpocms.entity.CourseProgress;
 
+
 @Repository
 public interface CourseProgressRepo extends JpaRepository<CourseProgress, Integer> {
 
@@ -29,5 +30,18 @@ public interface CourseProgressRepo extends JpaRepository<CourseProgress, Intege
 	@Modifying
 	@Query(value = "DELETE from teacher_studentcourseprogress WHERE id = ?1", nativeQuery = true)
 	public int deleteById(int id);
+	
+	public List<CourseProgress> findByCourseId(int courseId);
+	
+	/**
+	 * @author shradha
+	 * @param courseId
+	 * @param studId
+	 * @return
+	 */
+	@Query(value = " SELECT * from teacher_studentcourseprogress as p WHERE p.courseid_id= ?1 and p.studentid_id = ?2", nativeQuery = true)
+	public CourseProgress  findByCourseId_StudId(int courseId,int studId);
+	
+
 
 }

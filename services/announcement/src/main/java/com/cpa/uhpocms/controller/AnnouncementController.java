@@ -56,11 +56,11 @@ public class AnnouncementController {
 		Announcement createdAnnouncement = null;
 		try {
 
-			Announcement toCheckAnnouncement = announcementService
-					.getAnnouncementByTitle(announcement.getAnnouncementTitle());
-			logger.debug("existing announcement :" + toCheckAnnouncement);
+//			Announcement toCheckAnnouncement = announcementService
+//					.getAnnouncementByTitle(announcement.getAnnouncementTitle());
+//			logger.debug("existing announcement :" + toCheckAnnouncement);
 
-			if (toCheckAnnouncement == null) {
+			if (createdAnnouncement == null) {
 
 				// TODO: Uncomment below 2 lines and change the method name as per your Entity
 				// class
@@ -281,5 +281,30 @@ public class AnnouncementController {
 
 		
 	}
+	
+	@GetMapping("/announcement/sendby")
+	public ResponseEntity<List<Object>> getAllAnnouncementByProfileId(@RequestParam("id") int annoucementSendby)
+			throws CPException {
+		logger.debug("Entering getAllAnnouncement");
+		logger.info("Parameter  :" + annoucementSendby);
 
+		List<Object> announcements = null;
+
+		try {
+			announcements = announcementService.getAnnoucementBySendby(annoucementSendby);
+			logger.info("AnnouncementsTo Data : " + announcements);
+			if (announcements != null) {
+				return ResponseHandler.generateListResponse(announcements, HttpStatus.OK);
+			} else {
+				logger.info(resourceBundle.getString("err007"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err007");
+			}
+		} catch (Exception ex) {
+
+			logger.error("Failed getting profile id by announcement id : " + ex.getMessage());
+			throw new CPException("err007", resourceBundle.getString("err007"));
+		}
+	}
+
+	
 }

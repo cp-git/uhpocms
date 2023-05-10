@@ -22,6 +22,8 @@ import com.cpa.uhpocms.entity.Module;
 public interface ModuleRepo extends JpaRepository<Module, Integer> {
 
 	public Module findByModuleName(String name);
+	
+	public Module findById(int moduleId);
 
 //	public List<Object> findByModuleIsActiveTrue();
 
@@ -29,16 +31,23 @@ public interface ModuleRepo extends JpaRepository<Module, Integer> {
 	@Modifying
 	@Query(value = "UPDATE teacher_module SET isactive=false WHERE name = ?1", nativeQuery = true)
 	public int deleteModuleByName(String name);
-
+	
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE teacher_module SET isactive=false WHERE moduleid = ?1", nativeQuery = true)
+	public int deleteModuleById(int moduleId);
 
 	public List<Object> findByCourseIdAndModuleIsActive(int courseId,boolean isActive);
 
+	
 	/*
 	 * @author:Shradha
 	 * @createdOn: 10 Feb 2023
 	 * 
 	 */
 	public List<Object> findByModuleIsActiveFalse();
+	
+	
 	
 	
 

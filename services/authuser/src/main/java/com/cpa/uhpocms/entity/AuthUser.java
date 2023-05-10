@@ -58,7 +58,7 @@ public class AuthUser {
 	@Column(name = "is_superuser", nullable = false)
 	private boolean authUserIsSuperUser;
 
-	@JsonFormat(pattern = "dd-MM-yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd")
 	@Column(name = "date_joined", nullable = false)
 	private Date authUserDateJoined;
 
@@ -67,7 +67,6 @@ public class AuthUser {
 
 	@CreationTimestamp
 	@Column(name = "created_on", nullable = false)
-	@JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Asia/Kolkata")
 	private Date authUserCreatedOn;
 
 	@Column(name = "modified_by", nullable = false)
@@ -75,7 +74,6 @@ public class AuthUser {
 
 	@UpdateTimestamp
 	@Column(name = "modified_on", nullable = false)
-	@JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Asia/Kolkata")
 	private Date authUserModifiedOn;
 
 	// Constructors

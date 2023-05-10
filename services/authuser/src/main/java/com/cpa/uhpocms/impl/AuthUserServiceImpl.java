@@ -169,4 +169,15 @@ public class AuthUserServiceImpl implements AuthUserService {
 		logger.info("activated authuser count : " + count);
 		return count;
 	}
+	
+	public AuthUser getAuthUserById(int authUserId) {
+		logger.debug("Entering getAuthUserByUserName");
+
+		AuthUser authUser = null;
+
+		authUser = authUserRepo.findByAuthUserId(authUserId);
+		logger.info("Founded authUser :" + authUser);
+
+		return authUser;
+	}
 }

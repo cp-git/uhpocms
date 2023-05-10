@@ -16,6 +16,8 @@ public interface ModuleService {
 	Module createModule(Module module);
 
 	Module getModuleByName(String name);
+	
+	Module getModuleById (int moduleId);
 
 	List<Object> getAllModules();
 
@@ -29,9 +31,9 @@ public interface ModuleService {
 
 	Object updateActiveStatus(String name);
 
-//	int deleteModuleBymoduleId(int moduleid);
+	int deleteModuleBymoduleId(int moduleid);
 //
-//	Module updateModuleBymoduleId(Module module, int moduleid);
+Module updateModuleBymoduleId(Module module, int moduleId);
 //
 //	int activateModuleBymoduleId(int moduleid);
 }

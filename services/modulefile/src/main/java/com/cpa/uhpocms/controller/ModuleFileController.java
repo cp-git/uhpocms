@@ -84,6 +84,7 @@ public class ModuleFileController {
 		ModuleFile createdModuleFile = null;
 		try {
 
+
 //			ModuleFile toCheckModuleFile = modulefileService.getModuleFileByFile(modulefile.getModuleFile());
 //			logger.debug("existing modulefile :" + toCheckModuleFile);
 //			
@@ -143,6 +144,7 @@ public class ModuleFileController {
 					fileNames.add(fileName);
 				}
 
+
 				return ResponseHandler.generateResponse(createdModuleFile, HttpStatus.CREATED);
 				
 				
@@ -186,6 +188,34 @@ public class ModuleFileController {
 		}
 
 	}
+	
+	
+	@GetMapping("/modulefile/moduleId/{moduleId}")
+	public ResponseEntity<List<Object>> getAllModuleFiles(@PathVariable(name = "moduleId") int moduleId) throws CPException {
+		logger.debug("Entering getAllModuleFile");
+		logger.info("Parameter  :" + moduleId);
+
+		List<Object> modulefiles = null;
+
+		try {
+
+			
+
+				modulefiles = modulefileService.getModuleFileByModuleId(moduleId);
+				logger.info("Fetched all ModuleFile :" + modulefiles);
+
+				return ResponseHandler.generateListResponse(modulefiles, HttpStatus.OK);
+			 
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all modulefiles : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
+
+	
+	
 
 	@GetMapping("/modulefile")
 	public ResponseEntity<List<Object>> getAllModuleFiles(@RequestParam(name = "file") String file) throws CPException {

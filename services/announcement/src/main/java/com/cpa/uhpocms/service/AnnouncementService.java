@@ -28,4 +28,8 @@ public interface AnnouncementService {
 	List<Object> getAnnouncementsByProfiledId(int profileId);
 
 	List<Object> getProfileIdsByAnnouncementId(int announcementId);
+	
+	List<Object> getAnnoucementBySendby (int announcementSendby);
+	
+	
 }

@@ -73,6 +73,9 @@ public class ModuleServiceImpl implements ModuleService {
 		logger.debug("Entering getAllModules");
 
 		List<Object> modules = moduleRepo.findByModuleIsActiveTrue();
+		
+	
+		
 		logger.info("Fetched all active module :" + modules);
 		return modules;
 	}
@@ -175,18 +178,60 @@ public class ModuleServiceImpl implements ModuleService {
 
 	}
 
-//	@Override
-//	public int deleteModuleBymoduleId(int moduleid) {
-//		// TODO Auto-generated method stub
-//		
-//				return count;
-//	}
-//
-//	@Override
-//	public Module updateModuleBymoduleId(Module module, int moduleid) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public int deleteModuleBymoduleId(int moduleId) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering deleteModuleByName");
+
+		int count = moduleRepo.deleteModuleById(moduleId);
+		logger.info("deleted Module count : " + count);
+		return count;
+	}
+
+	@Override
+	public Module updateModuleBymoduleId(Module module, int moduleId) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering updateModule");
+
+		Module toUpdatedModule = null;
+		Module updatedModule = null;
+
+		toUpdatedModule = moduleRepo.findById(moduleId);
+		logger.info("exisitng Module :: " + toUpdatedModule);
+
+		if (toUpdatedModule != null) {
+			logger.debug("setting new data of Module to exisitng Module");
+
+			toUpdatedModule.setModuleName(module.getModuleName());
+			toUpdatedModule.setModuleDescription(module.getModuleDescription());
+			toUpdatedModule.setModuleIsActive(module.isModuleIsActive());
+
+			toUpdatedModule.setModuleStartDate(module.getModuleStartDate());
+			toUpdatedModule.setModuleEndDate(module.getModuleEndDate());
+			toUpdatedModule.setModuleCourse(module.getModuleCourse());
+			toUpdatedModule.setModuleOrderNo(module.getModuleOrderNo());
+			toUpdatedModule.setCourseId_id(module.getCourseId_id());
+
+			updatedModule = moduleRepo.save(toUpdatedModule);
+
+			logger.info("updated Module :" + updatedModule);
+		}
+
+		return updatedModule;
+	}
+
+	@Override
+	public Module getModuleById(int moduleId) {
+		logger.debug("Entering getModuleById");
+
+		Module module = moduleRepo.findById(moduleId);
+		logger.info("Founded module :" + module);
+
+		return module;
+	}
+
+
+
 //
 //	@Override
 //	public int activateModuleBymoduleId(int moduleid) {

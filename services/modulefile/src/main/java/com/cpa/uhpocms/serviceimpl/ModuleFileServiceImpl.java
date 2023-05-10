@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 //import com.cpa.uhpocms.controller.ModuleFileController;
 import com.cpa.uhpocms.entity.ModuleFile;
 import com.cpa.uhpocms.repository.ModuleFileRepo;
@@ -56,11 +57,33 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 	@Override
 	public ModuleFile getModuleFileByFile(String file) {
 		logger.debug("Entering getModuleFileByFile");
-
+		List<Object> modulefiles = null;
 		ModuleFile modulefile = modulefileRepo.findByModuleFile(file);
 		logger.info("Founded modulefile :" + modulefile);
 
 		return modulefile;
+		
+		
+
+	}
+	
+	/**
+	 * @author shradha
+	 * 
+	 */
+	@Override
+	public List<Object> getModuleFileByModuleId(int id) {
+		logger.debug("Entering getModuleFileByModuleId");
+
+		List<Object> modulesfiles = null;
+
+		List<Object> files = modulefileRepo.findByModuleId(id);
+
+		
+		modulesfiles = new ArrayList<Object>(files);
+
+		logger.info("Fetched all module files :" + modulesfiles);
+		return modulesfiles;
 	}
 
 	/**

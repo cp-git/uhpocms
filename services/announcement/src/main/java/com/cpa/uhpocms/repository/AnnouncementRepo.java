@@ -21,6 +21,8 @@ import com.cpa.uhpocms.entity.Announcement;
 public interface AnnouncementRepo extends JpaRepository<Announcement, Integer> {
 
 	public Announcement findByAnnouncementTitle(String title);
+	
+	public List<Object> findByAnnouncementSendby (int announcementSendby);
 
 	public List<Object> findByIdIsGreaterThan(int NUMBER);
 
@@ -28,6 +30,12 @@ public interface AnnouncementRepo extends JpaRepository<Announcement, Integer> {
 	@Modifying 
 	@Query(value = "DELETE FROM teacher_announcements WHERE id=?", nativeQuery = true)
 	public int deleteByAnnouncementId(int id);
+	
+	@Modifying
+	@Query(value = "UPDATE isActive SET isactive=false WHERE id=?", nativeQuery = true)
+	public int deleteById(int id);
+	
+
 
 //	@Query(value = "INSERT INTO teacher_announcements_to_list VALUES(?,?,?)", nativeQuery = true)
 //	public List<AnnouncementTo> sendToAll();

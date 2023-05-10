@@ -34,7 +34,8 @@ public class ModuleFile {
 	@Column(name = "id", nullable = false)
 	private int moduleFileId;
 
-	@Column(name = "file",nullable=false)
+
+@Column(name = "file", nullable = false)
 	private String moduleFile;
 
 	@Column(name = "fileorderno")

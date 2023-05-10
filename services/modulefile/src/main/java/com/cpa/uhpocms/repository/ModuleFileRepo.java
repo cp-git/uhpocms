@@ -22,6 +22,8 @@ import com.cpa.uhpocms.entity.ModuleFile;
 public interface ModuleFileRepo extends JpaRepository<ModuleFile, Integer> {
 
 	public ModuleFile findByModuleFile(String file);
+	
+	public List<Object>  findByModuleId(int module_id);
 
 	public List<Object> findByModuleFileIsActiveTrue();
 

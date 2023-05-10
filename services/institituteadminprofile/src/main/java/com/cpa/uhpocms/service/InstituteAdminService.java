@@ -10,6 +10,8 @@ public interface InstituteAdminService {
 
 	InstituteAdmin getInstituteByName(String firstName);
 
+	public InstituteAdmin getProfileById(int id);
+	
 	public InstituteAdmin findByUserId(int userId);
 
 	List<Object> getAllInstitute();
@@ -30,6 +32,8 @@ public interface InstituteAdminService {
 	InstituteAdmin updateProfileByAuthUserId(InstituteAdmin instituteAdmin, int userId);
 
 	InstituteAdmin getProfileByAuthUserId(int userId);
+	
+	List<Object> getProfileCourseAssignedTeacher(int profileId);
 
 
 }

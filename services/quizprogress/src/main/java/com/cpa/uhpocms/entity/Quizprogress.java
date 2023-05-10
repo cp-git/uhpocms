@@ -7,8 +7,6 @@
 
 package com.cpa.uhpocms.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,36 +14,56 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Entity
 @Table(name = "teacher_studentquizprogress")
 public class Quizprogress {
 
 //TODO - add attributed and genrate setters and getters
-	
+
 	@Column(name = "id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "score")
 	private int score;
 
 	@Column(name = "completed")
-	private boolean completed;
+	private boolean isCompleted;
 
-	@Column(name = "numattempts")
+	@Column(name = "num_attempts")
 	private int numberOfAttempts;
-	
-	@Column(name = "quizid")
-	private int quizid;
-	
-	@Column(name = "studentid")
+
+	@Column(name = "quizid_id")
+	private int quizId;
+
+	@Column(name = "studentid_id")
 	private int studentId;
+
+	/**
+	 * 
+	 */
+	public Quizprogress() {
+		super();
+	}
+
+	/**
+	 * @param id
+	 * @param score
+	 * @param isCompleted
+	 * @param numberOfAttempts
+	 * @param quizId
+	 * @param studentId
+	 */
+	public Quizprogress(int id, int score, boolean isCompleted, int numberOfAttempts, int quizId, int studentId) {
+		super();
+		this.id = id;
+		this.score = score;
+		this.isCompleted = isCompleted;
+		this.numberOfAttempts = numberOfAttempts;
+		this.quizId = quizId;
+		this.studentId = studentId;
+	}
 
 	/**
 	 * @return the id
@@ -76,17 +94,17 @@ public class Quizprogress {
 	}
 
 	/**
-	 * @return the completed
+	 * @return the isCompleted
 	 */
 	public boolean isCompleted() {
-		return completed;
+		return isCompleted;
 	}
 
 	/**
-	 * @param completed the completed to set
+	 * @param isCompleted the isCompleted to set
 	 */
-	public void setCompleted(boolean completed) {
-		this.completed = completed;
+	public void setCompleted(boolean isCompleted) {
+		this.isCompleted = isCompleted;
 	}
 
 	/**
@@ -104,17 +122,17 @@ public class Quizprogress {
 	}
 
 	/**
-	 * @return the quizid
+	 * @return the quizId
 	 */
-	public int getQuizid() {
-		return quizid;
+	public int getQuizId() {
+		return quizId;
 	}
 
 	/**
-	 * @param quizid the quizid to set
+	 * @param quizId the quizId to set
 	 */
-	public void setQuizid(int quizid) {
-		this.quizid = quizid;
+	public void setQuizId(int quizId) {
+		this.quizId = quizId;
 	}
 
 	/**
@@ -131,37 +149,4 @@ public class Quizprogress {
 		this.studentId = studentId;
 	}
 
-	/**
-	 * @param id
-	 * @param score
-	 * @param completed
-	 * @param numberOfAttempts
-	 * @param quizid
-	 * @param studentId
-	 */
-	public Quizprogress(int id, int score, boolean completed, int numberOfAttempts, int quizid, int studentId) {
-		super();
-		this.id = id;
-		this.score = score;
-		this.completed = completed;
-		this.numberOfAttempts = numberOfAttempts;
-		this.quizid = quizid;
-		this.studentId = studentId;
-	}
-
-	/**
-	 * 
-	 */
-	public Quizprogress() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "Quizprogress [id=" + id + ", score=" + score + ", completed=" + completed + ", numberOfAttempts="
-				+ numberOfAttempts + ", quizid=" + quizid + ", studentId=" + studentId + "]";
-	}
-
-	
 }

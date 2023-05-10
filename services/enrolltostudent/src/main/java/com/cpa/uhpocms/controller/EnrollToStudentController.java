@@ -52,7 +52,7 @@ public class EnrollToStudentController {
 		logger.debug("Entering createEnrollToStudent");
 		logger.info("data of creating EnrollToStudent  :" + enrolltostudent.toString());
 
-		EnrollToStudent createdEnrollToStudent = null;
+		List<Object> createdEnrollToStudent = null;
 		try {
 			//comment
 
@@ -107,6 +107,35 @@ public class EnrollToStudentController {
 		try {
 
 			enrolltostudent = enrolltostudentService.getEnrollToStudentBycourseId(courseId);
+			logger.info("fetched EnrollToStudent :" + enrolltostudent);
+
+			if (enrolltostudent != null) {
+				logger.debug("EnrollToStudent fetched generating response");
+				return ResponseHandler.generateResponse(enrolltostudent, HttpStatus.OK);
+			} else {
+				logger.debug("EnrollToStudent not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting enrolltostudent : " + ex.getMessage());
+			throw new CPException("err001", resourceBunde.getString("err001"));
+		}
+
+	}
+	
+	@GetMapping("enrollstudent/courseid/{courseId}")
+	public ResponseEntity<Object> getStudentByCourseId(@PathVariable("courseId") int courseId)
+			throws CPException {
+		logger.debug("Entering getEnrollToStudentBycourseId");
+		logger.info("entered user name :" + courseId);
+		
+		List<Object> enrolltostudent = null;
+
+		try {
+
+			enrolltostudent = enrolltostudentService.getStudentByCourseId(courseId);
 			logger.info("fetched EnrollToStudent :" + enrolltostudent);
 
 			if (enrolltostudent != null) {

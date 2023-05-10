@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cpa.uhpocms.entity.CourseSyllabus;
 
+
 @Repository
 public interface CourseSyllabusRepo extends JpaRepository<CourseSyllabus, Integer> {
 
@@ -34,4 +35,11 @@ public interface CourseSyllabusRepo extends JpaRepository<CourseSyllabus, Intege
 	@Modifying
 	@Query(value = "UPDATE teacher_coursesyllabus SET isactive=false WHERE courseid_id = ?1", nativeQuery = true)
 	public int deleteCourseSyllabusByCourseId(int courseId);
+	
+	
+	
+	
+	
+	
+	
 }

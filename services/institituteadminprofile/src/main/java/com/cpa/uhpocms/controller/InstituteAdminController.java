@@ -114,6 +114,8 @@ public class InstituteAdminController {
 
 	}
 	
+	
+	
 	/**
 	 * @author shradha
 	 * @param userId
@@ -140,6 +142,37 @@ public class InstituteAdminController {
 		} catch (Exception ee) {
 			ee.printStackTrace();
 			logger.error("Exception Occured in getIntituteByUserId Method");
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
+	
+	/**
+	 * @author shradha
+	 * @param userId
+	 * @return
+	 * @throws CPException
+	 */
+	@GetMapping("/profile/id/{id}")
+	public ResponseEntity<Object> getProfileByAdminId(@PathVariable("id") int id) throws CPException {
+
+		logger.info("in getProfileByAdminId");
+		InstituteAdmin instituteAdmin = null;
+		try {
+			instituteAdmin = instituteAdminService.getProfileById(id);
+			logger.info("GetIntituteByUserId Values" + instituteAdmin);
+
+			if (instituteAdmin != null) {
+				return ResponseHandler.generateResponse(instituteAdmin, HttpStatus.OK);
+			} else {
+				logger.debug("Not Found");
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err001");
+
+			}
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+			logger.error("Exception Occured in getProfileByAdminId Method");
 			throw new CPException("err001", resourceBundle.getString("err001"));
 		}
 
@@ -352,6 +385,31 @@ public class InstituteAdminController {
 			logger.error(ee.toString());
 			throw new CPException("err004", resourceBundle.getString("err004"));
 
+		}
+
+	}
+	
+	@GetMapping("/profile/profiles/{id}")
+	public ResponseEntity<Object> getEnrolledProfilesOfCoursesAssignedToTeacher(@PathVariable("id") int profileId) throws CPException {
+
+		logger.info("in getProfileByAdminId");
+		List<Object> instituteAdmin = null;
+		try {
+			instituteAdmin = instituteAdminService.getProfileCourseAssignedTeacher(profileId);
+			logger.info("GetIntituteByUserId Values" + instituteAdmin);
+
+			if (instituteAdmin != null) {
+				return ResponseHandler.generateResponse(instituteAdmin, HttpStatus.OK);
+			} else {
+				logger.debug("Not Found");
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err001");
+
+			}
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+			logger.error("Exception Occured in getProfileByAdminId Method");
+			throw new CPException("err001", resourceBundle.getString("err001"));
 		}
 
 	}

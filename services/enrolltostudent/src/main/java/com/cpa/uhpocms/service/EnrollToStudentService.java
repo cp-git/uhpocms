@@ -13,11 +13,15 @@ import com.cpa.uhpocms.entity.EnrollToStudent;
 
 public interface EnrollToStudentService {
 
-	EnrollToStudent createEnrollToStudent(EnrollToStudent enrolltostudent);
+	List<Object> createEnrollToStudent(EnrollToStudent enrolltostudent);
 
+	EnrollToStudent getEnrollToStudentBycourseIdandprofileId(int courseid,int profile_id);
+	
 	EnrollToStudent getEnrollToStudentBycourseId(int courseid);
 
 //	List<Object> getAllEnrollToStudents();
+	
+	List<Object> getStudentByCourseId(int courseid);
 
 	EnrollToStudent updateEnrollToStudentBycourseId(EnrollToStudent enrolltostudent, int courseid);
 

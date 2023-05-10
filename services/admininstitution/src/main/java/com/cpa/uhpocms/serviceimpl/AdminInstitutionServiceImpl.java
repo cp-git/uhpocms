@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import com.cpa.uhpocms.controller.AdminInstitutionController;
 import com.cpa.uhpocms.entity.AdminInstitution;
-
 import com.cpa.uhpocms.repository.AdminInstitutionRepository;
 import com.cpa.uhpocms.service.AdminInstitutionService;
 
@@ -130,7 +129,6 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		return adminInstitution;
 	}
 
-
 	/**
 	 * @return : adminInstitutions - list of institution which are in inactive state
 	 * @description : For retrieving the all entries in admin_institution table
@@ -163,5 +161,14 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		return count;
 	}
 
+	@Override
+	public List<Object> getAdminInstitutionByProfileId(int profileid) {
+		// TODO Auto-generated method stub
+		List<Object> objectAdminInstitutions = null;
+		List<AdminInstitution> adminInstitution = adminInstitutionRepository
+				.findActiveInstitutionByProfileId(profileid);
+		objectAdminInstitutions = new ArrayList<Object>(adminInstitution);
+		return objectAdminInstitutions;
+	}
 
 }
