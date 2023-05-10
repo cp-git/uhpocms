@@ -35,7 +35,7 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	public List<Object> findByInstitutionIdAndIsActive(int institutionid_id, boolean isActive);
 
 	// Method to find inactive departments of active institutions
-	@Query(value = "SELECT dept.* FROM admin_department dept JOIN admin_institution inst ON dept.institutionid_id= inst.institutionid where inst.isactive=true and dept.isactive=false", nativeQuery = true)
+	@Query(value = "SELECT dept.* FROM admin_department dept JOIN admin_institution inst ON dept.institutionid= inst.institutionid where inst.isactive=true and dept.isactive=false", nativeQuery = true)
 	List<AdminDepartment> findInactiveDepartmentsOfActiveInstitutions();
 
 	@Transactional
@@ -58,7 +58,7 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 
 
 	// Method to find active departments of active institutions
-	@Query(value = "SELECT dept.* FROM admin_department dept JOIN admin_institution inst ON dept.institutionid_id= inst.institutionid where inst.isactive=true and dept.isactive=true", nativeQuery = true)
+	@Query(value = "SELECT dept.* FROM admin_department dept JOIN admin_institution inst ON dept.institutionid= inst.institutionid where inst.isactive=true and dept.isactive=true", nativeQuery = true)
 	List<AdminDepartment> findActiveDepartmentsOfActiveInstitutions();
 
 	@Transactional

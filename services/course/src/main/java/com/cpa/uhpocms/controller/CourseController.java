@@ -95,7 +95,7 @@ public class CourseController {
 			createdCourse = courseService.createCourse(course);
 			logger.info("Course created :" + createdCourse);
 			
-			String departmentName=courseDeptRepo.finByDepartmentInstitutionId(course.getCourseId());
+			String departmentName=courseDeptRepo.finByAdminInstitutionId(course.getCourseId());
 			System.out.println(departmentName);
 			
 			
