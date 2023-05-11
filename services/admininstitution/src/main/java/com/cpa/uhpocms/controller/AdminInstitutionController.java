@@ -121,7 +121,7 @@ public class AdminInstitutionController {
 				//Path path = theDir.toPath();
 				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
 				System.out.println(fileName);
-				Path fileStorage = Paths.get(basePath+"/institute/"+adminInstitution.getAdminInstitutionName()+"/logo/", fileName).toAbsolutePath().normalize();
+				Path fileStorage = Paths.get(basePath+"/institute/"+instNameAndId+"/logo/", fileName).toAbsolutePath().normalize();
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 				//fileNames.add(fileName);
             
