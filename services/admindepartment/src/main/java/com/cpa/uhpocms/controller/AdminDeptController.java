@@ -240,11 +240,19 @@ public class AdminDeptController {
 			if (refAdminDepartment != null) {
 				logger.info("Inserting AdminDepartment performed successfully");
 				logger.info(refAdminDepartment);
+				
+				
 				String instituteName=adminDeptrepo.finByAdminInstitutionId(adminDepartment.getId());
- 				System.out.println(instituteName);
+ 				//System.out.println(instituteName);
+ 				
+ 				int instituteId=adminDeptrepo.finByAdminInstitutionsId(adminDepartment.getId());
+ 				//System.out.println(instituteId);
 				
  				
- 				File theDir = new File(basePath+"/institute/"+instituteName+"/"+adminDepartment.getName());
+ 				String instituteNameAndId=instituteName+"_"+instituteId;
+ 				//System.out.println(instituteNameAndId);
+ 				
+ 				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+adminDepartment.getName());
 				if (!theDir.exists()){
 				    theDir.mkdirs();
 				}

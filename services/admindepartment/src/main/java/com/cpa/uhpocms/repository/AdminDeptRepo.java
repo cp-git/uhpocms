@@ -50,10 +50,14 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	public int activateAdminDepartmentById(int departmentId);
 
 
-	
+	//To Find InstituteName using adminDepartment
 	@Query(value="Select dp.name from admin_institution dp JOIN admin_department tc  ON tc.institutionid = dp.institutionid where tc.departmentid=?1",nativeQuery=true)
 	public String finByAdminInstitutionId(int id);
 	
+	//To Find InstituteId using the adminDepartment
+	
+	@Query(value="Select dp.institutionid from admin_institution dp JOIN admin_department tc  ON tc.institutionid = dp.institutionid where tc.departmentid=?1",nativeQuery=true)
+	public int finByAdminInstitutionsId(int id);
 	
 
 

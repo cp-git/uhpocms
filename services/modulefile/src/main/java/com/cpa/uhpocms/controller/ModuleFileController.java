@@ -125,10 +125,18 @@ public class ModuleFileController {
 				String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(modulefile.getModuleFileId());
 				System.out.println(InstituteName);
 				
+				int InstituteId=moduleRepo.finByAdminInstitutionById(modulefile.getModuleFileId());
+				System.out.println(InstituteId);
+				
+				String instituteNameAndId=InstituteName+"_"+InstituteId;
+				System.out.println(instituteNameAndId);
 				
 				
 				
-				File theDir = new File(basePath+"/institute/"+InstituteName+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+modulefile.getModuleFile());
+				
+				
+				
+				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+modulefile.getModuleFile());
 				System.out.println(theDir);
 				if (!theDir.exists()){
 				    theDir.mkdirs();
@@ -139,7 +147,7 @@ public class ModuleFileController {
 				for (MultipartFile file : files) {
 					String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 					System.out.println(fileName);
-					Path fileStorage = Paths.get(basePath+"/institute/"+InstituteName+"/"+departmentName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
+					Path fileStorage = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 					fileNames.add(fileName);
 				}

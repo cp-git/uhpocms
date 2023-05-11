@@ -95,7 +95,15 @@ public class ModuleController {
 				String instituteName=moduleRepo.finByAdminInstitutionNameAndId(module.getCourseId_id());
 				System.out.println(instituteName);
 				
-				File theDir = new File(basePath+"/institute/"+instituteName+"/"+departmentName+"/"+courseName+"/"+module.getModuleName());
+				int instituteId=moduleRepo.finByAdminInstitutionsId(module.getCourseId_id());
+				System.out.println(instituteId);
+				
+				String instituteNameAndId=instituteName+"_"+instituteId;
+				
+				
+				
+				
+				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+module.getModuleName());
 				System.out.println(theDir);
 				if (!theDir.exists()){
 				    theDir.mkdirs();

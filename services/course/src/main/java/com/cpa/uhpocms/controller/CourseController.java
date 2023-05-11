@@ -95,20 +95,31 @@ public class CourseController {
 			createdCourse = courseService.createCourse(course);
 			logger.info("Course created :" + createdCourse);
 			
-			String departmentName=courseDeptRepo.finByAdminInstitutionId(course.getCourseId());
-			System.out.println(departmentName);
-			
+		
 			
 			
 			String instituteName=courseDeptRepo.finByAdminInstitutionByCourseId(course.getCourseId());
 			System.out.println(instituteName);
+			
+
+			int instituteId=courseDeptRepo.finByAdminInstitutionsByCourseId(course.getCourseId());
+			System.out.println(instituteId);
+			
+			String instituteNameAndId=instituteName+"_"+instituteId;
+			
+			String departmentName=courseDeptRepo.finByDepartmentInstitutionId(course.getCourseId());
+			System.out.println(departmentName);
+			
+			
+
+			
 			
 			
 			
 			System.out.println(course.getCourseName());
 			
 			
-			File theDir = new File(basePath+"/institute/"+instituteName+"/"+departmentName+"/"+course.getCourseName());
+			File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+course.getCourseName());
 			System.out.println(theDir);
 			if (!theDir.exists()){
 			    theDir.mkdirs();
@@ -484,11 +495,18 @@ public class CourseController {
 				System.out.println(instituteName);
 				
 				
+				int instituteId=courseDeptRepo.finByAdminInstitutionsByCourseId(courseDepartment.getCourseId());
+				System.out.println(instituteId);
+				
+				String instituteNameAndId=instituteName+"_"+instituteId;;
+				System.out.println(instituteNameAndId);
+				
+				
 				String courseName=courseDeptRepo.finByCourseByCourseId(courseDepartment.getCourseId());
 				System.out.println(courseName);
 				
 				
-				File theDir = new File(basePath+"/institute/"+instituteName+"/"+departmentName+"/"+courseName);
+				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName);
 				System.out.println(theDir);
 				if (!theDir.exists()){
 				    theDir.mkdirs();

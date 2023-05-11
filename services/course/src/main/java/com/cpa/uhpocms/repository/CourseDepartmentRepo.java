@@ -17,14 +17,20 @@ public interface CourseDepartmentRepo extends JpaRepository<CourseDepartment, In
 
 	List<CourseDepartment> findAll();
 	
+
 	
-	@Query(value="Select dp.name from admin_department dp JOIN teacher_course_departmentid tc  ON tc.department_id = dp.departmentid where tc.department_id=?1",nativeQuery=true)
+	@Query(value="SELECT  dp.name from admin_department dp JOIN teacher_course_departmentid tc  ON tc.department_id = dp.departmentid where tc.department_id=?1",nativeQuery=true)
 	public String finByAdminInstitutionId(int department_id);
 	
 	
-	
+	//To find instituteName
 	@Query(value="Select dp.name from admin_institution dp JOIN teacher_course tc  ON tc.instid = dp.institutionid where tc.courseid=?1",nativeQuery=true)
 	public String finByAdminInstitutionByCourseId(int courseId);
+	
+	
+	//To Find Institute Id
+	@Query(value="Select dp.institutionid from admin_institution dp JOIN teacher_course tc  ON tc.instid = dp.institutionid where tc.courseid=?1",nativeQuery=true)
+	public int finByAdminInstitutionsByCourseId(int courseId);
 	
 	
 	
