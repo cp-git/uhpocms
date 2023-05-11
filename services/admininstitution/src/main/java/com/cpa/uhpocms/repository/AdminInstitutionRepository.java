@@ -71,7 +71,8 @@ public interface AdminInstitutionRepository extends JpaRepository<AdminInstituti
 	public int activateAdminInstitutionById(int adminInstitutionId);
 
 
-	AdminInstitution findByAdminInstitutionId(int adminInstitutionId);
+	
+	public AdminInstitution findByAdminInstitutionId(int adminInstitutionId);
 	
 	
 

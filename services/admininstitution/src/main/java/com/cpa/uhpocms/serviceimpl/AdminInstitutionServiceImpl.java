@@ -171,4 +171,14 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		return objectAdminInstitutions;
 	}
 
+	@Override
+	public AdminInstitution findInstituteById(int adminInstitutionId) {
+		// TODO Auto-generated method stub
+		System.out.println("in serviceImpl");
+		AdminInstitution admin=null;
+		admin =adminInstitutionRepository.findByAdminInstitutionId(adminInstitutionId);
+		
+		return  admin;
+	}
+
 }

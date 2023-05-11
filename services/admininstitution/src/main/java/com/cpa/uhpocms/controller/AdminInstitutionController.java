@@ -49,6 +49,7 @@ import com.cpa.uhpocms.entity.AdminInstitution;
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.helper.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.repository.AdminInstitutionRepository;
 import com.cpa.uhpocms.service.AdminInstitutionService;
 
 @RequestMapping("/uhpocms")
@@ -59,6 +60,9 @@ public class AdminInstitutionController {
 	// autowire the AdminInstitutionService
 	@Autowired
 	private AdminInstitutionService adminInstitutionService;
+	
+	@Autowired 
+	private AdminInstitutionRepository adminRepo;
 
 	private ResourceBundle resourceBundle;
 
@@ -304,13 +308,17 @@ public class AdminInstitutionController {
 	
 	
 	
-	@GetMapping(path="getFileById/{adminInstitutionName}")
-    ResponseEntity<InputStreamResource> getImageById(@PathVariable String adminInstitutionName) throws IOException { //download file
+	@GetMapping(path="getFileById/{adminInstitutionId}")
+    ResponseEntity<InputStreamResource> getImageById(@PathVariable int adminInstitutionId) throws IOException { //download file
      
-		AdminInstitution myFile =null;
-		 myFile =adminInstitutionService.findByAdminInstitutionName(adminInstitutionName);
+		System.out.println("in controller..");
+		AdminInstitution myFile;
+		 myFile =adminInstitutionService.findInstituteById(adminInstitutionId);
         System.out.println(myFile);
-       String address =basePath+"/institute/"+ myFile.getAdminInstitutionName()+"/logo/" + myFile.getAdminInstitutionPicture();
+        
+        String instNameAndId=myFile.getAdminInstitutionName()+"_"+myFile.getAdminInstitutionId();
+		System.out.println(instNameAndId);
+       String address =basePath+"/institute/"+ instNameAndId+"/logo/" + myFile.getAdminInstitutionPicture();
        File file = new File(address);
         System.out.println("file"+file);
        InputStream inputStream = new FileInputStream(file);
