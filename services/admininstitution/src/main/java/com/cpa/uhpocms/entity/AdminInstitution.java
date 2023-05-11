@@ -26,7 +26,7 @@ public class AdminInstitution {
 	@Column(name = "institutionid")
 	private int adminInstitutionId;
 
-	@Column(name = "name", unique = true)
+	@Column(name = "name")
 	private String adminInstitutionName;
 
 	@Column(name = "description")

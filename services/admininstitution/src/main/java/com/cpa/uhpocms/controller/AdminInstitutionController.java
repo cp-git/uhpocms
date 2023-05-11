@@ -93,23 +93,27 @@ public class AdminInstitutionController {
 		
 		try {
 			
-			AdminInstitution toCheckAdminInstitution = adminInstitutionService
-					.findByAdminInstitutionName(adminInstitution.getAdminInstitutionName());
-			logger.debug("existing admin institution :" + toCheckAdminInstitution);
-			
-			System.out.println(toCheckAdminInstitution);
+//			AdminInstitution toCheckAdminInstitution = adminInstitutionService
+//					.findByAdminInstitutionName(adminInstitution.getAdminInstitutionName());
+//			logger.debug("existing admin institution :" + toCheckAdminInstitution);
+//			
+//			System.out.println(toCheckAdminInstitution);
 
 		
-			if (toCheckAdminInstitution == null) {
+			if (addInstitution == null) {
 				
 				
 				adminInstitution.setAdminInstitutionPicture(file.getOriginalFilename());
 				addInstitution = adminInstitutionService.saveAdminInstitution(adminInstitution);
 				logger.info("institution created :" + addInstitution);
 				
-				System.out.println(addInstitution);
+//				System.out.println("instituteName"+addInstitution.getAdminInstitutionName());
+//				System.out.println("instituteId"+addInstitution.getAdminInstitutionId());
 				
-				File theDir = new File(basePath+"/institute/"+adminInstitution.getAdminInstitutionName()+"/logo/");
+				String instNameAndId=addInstitution.getAdminInstitutionName()+"_"+addInstitution.getAdminInstitutionId();
+				System.out.println(instNameAndId);
+				
+				File theDir = new File(basePath+"/institute/"+instNameAndId+"/logo/");
 				if (!theDir.exists()){
 				    theDir.mkdirs();
 				}
