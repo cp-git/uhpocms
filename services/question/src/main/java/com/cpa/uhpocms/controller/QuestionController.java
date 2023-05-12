@@ -381,7 +381,7 @@ public class QuestionController {
 
 	}
 
-	@GetMapping("/questions/quiz/{quizId}")
+	@GetMapping("/questions")
 	public ResponseEntity<List<Object>> getQuestionByQuizId(@PathVariable(name = "quizId") int quizId)
 			throws CPException {
 		logger.debug("Entering getAllQuestion");
