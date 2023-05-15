@@ -9,6 +9,7 @@ package com.cpa.uhpocms.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -445,47 +446,117 @@ public class ModuleFileController {
 	}
 	
 
-	@GetMapping(path="getFileById/{moduleFileId}")
-    ResponseEntity<InputStreamResource> getImageById(@PathVariable int moduleFileId) throws IOException { //download file
-     
-		ModuleFile myFile =null;
-		 myFile =moduleRepo.findByModuleFileId(moduleFileId);
-        System.out.println(myFile);
+//	@GetMapping(path="getFileById/{moduleFileId}")
+//    ResponseEntity<InputStreamResource> getImageById(@PathVariable int moduleFileId) throws IOException { //download file
+//     
+//		ModuleFile myFile =null;
+//		 myFile =moduleRepo.findByModuleFileId(moduleFileId);
+//        System.out.println(myFile);
+//
+//        
+//        String moduleName=moduleRepo.finByModuleByModuleId(myFile.getModuleFileId());
+//		System.out.println(moduleName);
+//		
+//		
+//		String courseName=moduleRepo.finByCourseByModuleId(myFile.getModuleId());
+//		System.out.println(courseName);
+//		
+//		
+//		String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
+//		System.out.println(departmentName);
+//		
+//		String deptName=departmentName.trim();
+//		
+//		
+//		String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(myFile.getModuleFileId());
+//		System.out.println(InstituteName);
+//		
+//		
+//		
+//		int InstituteId=moduleRepo.finByAdminInstitutionById(myFile.getModuleFileId());
+//		System.out.println(InstituteId);
+//		
+//		String instituteNameAndId=InstituteName+"_"+InstituteId;
+//		System.out.println(instituteNameAndId);
+//        
+//       String address =basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+ myFile.getModuleFile();
+//       File file = new File(address);
+//        System.out.println("file"+file);
+//       InputStream inputStream = new FileInputStream(file);
+////        System.out.println(inputStream);
+//       InputStreamResource a = new InputStreamResource(inputStream);
+////      
+//        HttpHeaders httpHeaders = new HttpHeaders();
+////        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
+//        httpHeaders.setContentType(MediaType.valueOf("video/mp4"));
+//        
+//        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
+////        System.out.println(myFile.getAdminInstitutionPicture());
+//       
+//       
+//       
+//        return new ResponseEntity<InputStreamResource>(a, httpHeaders,HttpStatus.OK);
+//    }
+	
+	
+	@GetMapping(path ="files/{moduleFileId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public ResponseEntity<InputStreamResource> getFile(@PathVariable int moduleFileId) {
+		try {
+				// retrieve
 
-        
-        String moduleName=moduleRepo.finByModuleByModuleId(myFile.getModuleFileId());
-		System.out.println(moduleName);
-		
-		
-		String courseName=moduleRepo.finByCourseByModuleId(myFile.getModuleId());
-		System.out.println(courseName);
-		
-		
-		String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
-		System.out.println(departmentName);
-		
-		String deptName=departmentName.trim();
-		
-		
-		String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(myFile.getModuleFileId());
-		System.out.println(InstituteName);
-        
-       String address =basePath+"/institute/"+InstituteName+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+ myFile.getModuleFile();
-       File file = new File(address);
-        System.out.println("file"+file);
-       InputStream inputStream = new FileInputStream(file);
-//        System.out.println(inputStream);
-       InputStreamResource a = new InputStreamResource(inputStream);
-//      
-        HttpHeaders httpHeaders = new HttpHeaders();
-//        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
-        httpHeaders.setContentType(MediaType.valueOf("video/mp4"));
-        
-        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
-//        System.out.println(myFile.getAdminInstitutionPicture());
-       
-       
-       
-        return new ResponseEntity<InputStreamResource>(a, httpHeaders,HttpStatus.OK);
-    }
+			ModuleFile myFile =null;
+			 myFile =moduleRepo.findByModuleFileId(moduleFileId);
+	        System.out.println(myFile);
+
+	        
+	        String moduleName=moduleRepo.finByModuleByModuleId(myFile.getModuleFileId());
+			System.out.println(moduleName);
+			
+			
+			String courseName=moduleRepo.finByCourseByModuleId(myFile.getModuleId());
+			System.out.println(courseName);
+			
+			
+			String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
+			System.out.println(departmentName);
+			
+			String deptName=departmentName.trim();
+			
+			
+			String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(myFile.getModuleFileId());
+			System.out.println(InstituteName);
+			
+			
+			
+			int InstituteId=moduleRepo.finByAdminInstitutionById(myFile.getModuleFileId());
+			System.out.println(InstituteId);
+			
+			String instituteNameAndId=InstituteName+"_"+InstituteId;
+			System.out.println(instituteNameAndId);
+	        
+	       String address =basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+ myFile.getModuleFile();
+	       File file = new File(address);
+	        System.out.println("file"+file);
+	       InputStream inputStream = new FileInputStream(file);
+//	        System.out.println(inputStream);
+	       InputStreamResource a = new InputStreamResource(inputStream);
+			System.out.println(inputStream.toString());
+			return ResponseEntity.ok().header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"")
+					.contentType(MediaType.APPLICATION_OCTET_STREAM).contentLength(file.length()).body(a);
+		} catch (FileNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} catch (IOException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	
+	
+
+
+
+
+
+
+
 }
