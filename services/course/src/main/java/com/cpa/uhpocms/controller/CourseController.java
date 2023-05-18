@@ -97,34 +97,34 @@ public class CourseController {
 			
 		
 			
-			
-			String instituteName=courseDeptRepo.finByAdminInstitutionByCourseId(course.getCourseId());
-			System.out.println(instituteName);
-			
-
-			int instituteId=courseDeptRepo.finByAdminInstitutionsByCourseId(course.getCourseId());
-			System.out.println(instituteId);
-			
-			String instituteNameAndId=instituteName+"_"+instituteId;
-			
-			String departmentName=courseDeptRepo.finByDepartmentInstitutionId(course.getCourseId());
-			System.out.println(departmentName);
-			
-			
-
-			
-			
-			
-			
-			System.out.println(course.getCourseName());
-			
-			
-			File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+course.getCourseName());
-			System.out.println(theDir);
-			if (!theDir.exists()){
-			    theDir.mkdirs();
-			}
-			
+//			
+//			String instituteName=courseDeptRepo.finByAdminInstitutionByCourseId(course.getCourseId());
+//			System.out.println(instituteName);
+//			
+//
+//			int instituteId=courseDeptRepo.finByAdminInstitutionsByCourseId(course.getCourseId());
+//			System.out.println(instituteId);
+//			
+//			String instituteNameAndId=instituteName+"_"+instituteId;
+//			
+//			String departmentName=courseDeptRepo.finByDepartmentInstitutionId(course.getCourseId());
+//			System.out.println(departmentName);
+//			
+//			
+//
+//			
+//			
+//			
+//			
+//			System.out.println(course.getCourseName());
+//			
+//			
+//			File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+course.getCourseName());
+//			System.out.println(theDir);
+//			if (!theDir.exists()){
+//			    theDir.mkdirs();
+//			}
+//			
 			
 			if (createdCourse != null) {
 

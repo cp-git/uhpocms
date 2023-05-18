@@ -19,7 +19,7 @@ public interface CourseDepartmentRepo extends JpaRepository<CourseDepartment, In
 	
 
 	
-	@Query(value="SELECT  dp.name from admin_department dp JOIN teacher_course_departmentid tc  ON tc.department_id = dp.departmentid where tc.department_id=?1",nativeQuery=true)
+	@Query(value="SELECT distinct dp.name from admin_department dp JOIN teacher_course_departmentid tc  ON tc.department_id = dp.departmentid where tc.department_id=?1",nativeQuery=true)
 	public String finByAdminInstitutionId(int department_id);
 	
 	
@@ -35,16 +35,16 @@ public interface CourseDepartmentRepo extends JpaRepository<CourseDepartment, In
 	
 	
 	
-	@Query(value="Select dp.name from teacher_course dp JOIN teacher_course_departmentid tc  ON tc.course_id = dp.courseid where tc.course_id=?1",nativeQuery=true)
+	@Query(value="Select distinct dp.name from teacher_course dp JOIN teacher_course_departmentid tc  ON tc.course_id = dp.courseid where tc.course_id=?1",nativeQuery=true)
 	public String finByCourseByCourseId(int courseId);
 	
 	
 	
-	@Query(value="Select dp.name from admin_department dp JOIN teacher_course tc  ON tc.instid = dp.institutionid where tc.courseid=?1",nativeQuery=true)
+	@Query(value="SELECT admin_department.name FROM teacher_course,teacher_module,admin_institution,admin_department,teacher_course_departmentid WHERE admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id =teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid =?1",nativeQuery=true)
 	public String finByDepartmentInstitutionId(int courseId);
 	
 	
-	
+	 
 	
 	
 	
