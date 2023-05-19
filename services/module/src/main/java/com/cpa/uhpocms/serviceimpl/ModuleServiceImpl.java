@@ -134,7 +134,7 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public List<Object> findByCourseId(int courseId) {
 		// TODO Auto-generated method stub
-		List<Object> moduleCourse = moduleRepo.findByCourseIdAndModuleIsActive(courseId, ISACTIVE);
+		List<Object> moduleCourse = moduleRepo.findByCourseIdAndModuleIsActiveOrderByModuleOrderNo(courseId, ISACTIVE);
 		return moduleCourse;
 
 	}
