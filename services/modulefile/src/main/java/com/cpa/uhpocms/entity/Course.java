@@ -83,6 +83,11 @@ public class Course {
 	
 	
 	
+	@OneToMany(targetEntity=Module.class, mappedBy="course",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<Module> module;
+	
+	
+	
 	
 	
 	

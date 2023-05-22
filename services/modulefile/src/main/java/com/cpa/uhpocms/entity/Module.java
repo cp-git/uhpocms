@@ -8,7 +8,9 @@
 package com.cpa.uhpocms.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,9 +19,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.NotFound;
@@ -37,7 +38,7 @@ public class Module {
 	@Column(name = "moduleid", nullable = false)
 	private int moduleId;
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", unique = true, nullable = false)
 	private String moduleName;
 
 	@Column(name = "description", nullable = false)
@@ -46,11 +47,11 @@ public class Module {
 	@Column(name = "isactive")
 	private boolean moduleIsActive;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "startdate")
 	private Date moduleStartDate;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "enddate")
 	private Date moduleEndDate;
 
@@ -82,6 +83,10 @@ public class Module {
 	@UpdateTimestamp
 	@Column(name = "updateddate", nullable = false)
 	private Date moduleUpdatedDate;
+	
+	
+	@OneToMany(targetEntity=ModuleFile.class, mappedBy="module",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<ModuleFile> courselist;
 
 	/**
 	 * @param moduleId

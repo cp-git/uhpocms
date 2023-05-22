@@ -45,7 +45,7 @@ public interface ModuleProgressRepo extends JpaRepository<ModuleProgress, Intege
 	@Query(value = " SELECT * from teacher_studentmoduleprogress as p WHERE p.moduleid_id= ?1 and p.studentid_id = ?2", nativeQuery = true)
 	public ModuleProgress  findByModuleId_StudId(int modId,int studId);
 	
-	
+	public List<ModuleProgress> findByCourseIdAndStudentId(int courseId, int studentId);
 	
 	
 }

@@ -40,12 +40,15 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 		adminInstitution.setAdminInstitutionCreatedBy("Admin");
 		adminInstitution.setAdminInstitutionModifiedBy("Admin");
+		
 
 		logger.debug("Entering the admin institution data");
 
 		AdminInstitution createdAdminInstitution = null;
 
 		createdAdminInstitution = adminInstitutionRepository.save(adminInstitution);
+		
+		
 
 		logger.info("Created admin institution :" + createdAdminInstitution);
 
@@ -166,6 +169,16 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 				.findActiveInstitutionByProfileId(profileid);
 		objectAdminInstitutions = new ArrayList<Object>(adminInstitution);
 		return objectAdminInstitutions;
+	}
+
+	@Override
+	public AdminInstitution findInstituteById(int adminInstitutionId) {
+		// TODO Auto-generated method stub
+		System.out.println("in serviceImpl");
+		AdminInstitution admin=null;
+		admin =adminInstitutionRepository.findByAdminInstitutionId(adminInstitutionId);
+		
+		return  admin;
 	}
 
 }

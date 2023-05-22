@@ -31,5 +31,9 @@ public interface AdminInstitutionService {
 	List<Object> getAllInactiveAdminInstitutions();
 
 	int activateAdminInstitutionById(int adminInstitutionId);
+	
+	AdminInstitution findInstituteById(int adminInstitutionId);
+	
+	
 
 }

@@ -6,6 +6,7 @@
 
 package com.cpa.uhpocms.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,9 +32,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cpa.uhpocms.entity.AdminDepartment;
+import com.cpa.uhpocms.entity.AdminInstitution;
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.repository.AdminDeptRepo;
 import com.cpa.uhpocms.service.AdminDeptService;
 
 /*
@@ -49,6 +53,13 @@ public class AdminDeptController {
 
 	@Autowired
 	AdminDeptService adminDeptService;
+	
+	
+	@Autowired
+	AdminDeptRepo adminDeptrepo;
+	
+	@Value("${file.base-path}")
+	private String basePath;
 
 	private ResourceBundle resourceBundle;
 
@@ -161,7 +172,9 @@ public class AdminDeptController {
 	public ResponseEntity<Object> getDepartmentByName(@PathVariable("name") String name) throws CPException {
 
 		try {
-			Object adminDept = adminDeptService.getDeptByName(name);
+			System.out.println("in controller...");
+			AdminDepartment adminDept = adminDeptService.getDeptByName(name);
+			System.out.println(adminDept);
 			if (adminDept != null) {
 
 				logger.info("Getting AdminDepartment by " + name + " performed successfully");
@@ -227,8 +240,27 @@ public class AdminDeptController {
 			if (refAdminDepartment != null) {
 				logger.info("Inserting AdminDepartment performed successfully");
 				logger.info(refAdminDepartment);
+				
+				
+				String instituteName=adminDeptrepo.finByAdminInstitutionId(adminDepartment.getId());
+ 				//System.out.println(instituteName);
+ 				
+ 				int instituteId=adminDeptrepo.finByAdminInstitutionsId(adminDepartment.getId());
+ 				//System.out.println(instituteId);
+				
+ 				
+ 				String instituteNameAndId=instituteName+"_"+instituteId;
+ 				//System.out.println(instituteNameAndId);
+ 				
+ 				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+adminDepartment.getName());
+				if (!theDir.exists()){
+				    theDir.mkdirs();
+				}
+				
 				return new ResponseEntity<>(refAdminDepartment, HttpStatus.CREATED);
 			}
+			
+		
 		} catch (Exception e) {
 
 			logger.info("Unable to create entry due to exception occurence");
@@ -389,6 +421,19 @@ public class AdminDeptController {
 		}
 
 	}
+	
+//	@GetMapping("data/{id}")
+//	
+//	public List<String> getDepartmets(@PathVariable("id")int id) {
+//		
+//		List<String> dept;
+//		
+//		dept=adminDeptrepo.finByAdminInstitutionId(id);
+//		System.out.println(dept);
+//		
+//		
+//		return dept;
+//	}
 
 	@GetMapping("/department/profile/{id}")
 	public ResponseEntity<Object> getDepartmentByprofileId(@PathVariable("id") int profileid) throws CPException {

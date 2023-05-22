@@ -175,5 +175,19 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 		logger.info("deleted ModuleProgress count : " + count);
 		return count;
 	}
+	
+	/**
+	 * @desc Function to get list of entries by providing courseId
+	 */
+	@Override
+	public List<Object> getAllModuleProgresssByCourseIdAndStudentId(int courseId, int studentId) {
+		logger.debug("Entering getAllModuleProgresssByCourseIdAndProfileId");
+
+		List<Object> objectModuleProgresss = null;
+		List<ModuleProgress> moduleProgresses = moduleprogressRepo.findByCourseIdAndStudentId(courseId, studentId);
+		logger.info("Fetched all moduleprogress :" + moduleProgresses);
+		objectModuleProgresss = new ArrayList<Object>(moduleProgresses);
+		return objectModuleProgresss;
+	}
 
 }

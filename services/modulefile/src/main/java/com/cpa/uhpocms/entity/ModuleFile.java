@@ -9,14 +9,20 @@ package com.cpa.uhpocms.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
@@ -28,7 +34,8 @@ public class ModuleFile {
 	@Column(name = "id", nullable = false)
 	private int moduleFileId;
 
-	@Column(name = "file", nullable = false)
+
+@Column(name = "file", nullable = false)
 	private String moduleFile;
 
 	@Column(name = "fileorderno")
@@ -37,6 +44,11 @@ public class ModuleFile {
 	@Column(name = "isactive")
 	private boolean moduleFileIsActive;
 
+	
+	@ManyToOne(fetch = FetchType.LAZY,optional = false)
+	@NotFound(action = NotFoundAction.IGNORE)
+	@JoinColumn(name="moduleid_id",insertable=false,updatable=false)
+	private Module module;
 	@Column(name = "moduleid_id")
 	private int moduleId;
 

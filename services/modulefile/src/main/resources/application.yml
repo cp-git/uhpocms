@@ -7,6 +7,12 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
+    
+   
+  servlet:
+     multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/uhpocms
@@ -15,6 +21,12 @@ spring:
 
 server:
   port: 8090
-    
+
+  
+  
+file:
+  base-path: D:/UHPOCMS
+  
+
 
 

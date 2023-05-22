@@ -86,7 +86,13 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	
 	@Query(value = "INSERT INTO teacher_course_enrolltostudent(course_id, profile_id) VALUES (?1,?2)", nativeQuery = true)
 	public void insertCourseAndProfile(int courseId, int profileId);
+
 	
+//	@Query(value="Select dp.name from admin_institution dp JOIN teacher_course tc  ON tc.instid = dp.institutionid where tc.courseid=?1",nativeQuery=true)
+//	public String finByAdminInstitutionByCourseId(int courseId);
+	
+	
+
 	@Query(value = "SELECT tc.* FROM teacher_course tc JOIN teacher_course_institutionid tci ON tc.courseid = tci.course_id JOIN admin_institution inst ON tci.institution_id = inst.institutionid WHERE inst.isactive = true AND tc.isactive = true", nativeQuery = true)
 	public List<Course> findActiveCoursesOfActiveInstitutions();
 	
@@ -94,5 +100,10 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	@Modifying
 	@Query(value = "SELECT tc.* FROM public.teacher_course tc JOIN public.teacher_course_departmentid tcd ON tc.courseid = tcd.course_id JOIN public.teacher_course_assigntoteacher tcat ON tc.courseid = tcat.course_id JOIN public.instituteadmin_profile iap ON tcat.profile_id = iap.id  WHERE tcd.department_id =?1  AND iap.id =?2 ",nativeQuery = true)
 	public List<Course> findCourseByDepartmentIdAndProfileId(int department_id,int profileid);
+	
+
+	@Query(value="SELECT  admin_department.name FROM teacher_course, admin_department,teacher_course_departmentid WHERE admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND  teacher_course.instid =?1",nativeQuery=true)
+	public String finByDepartmentByinstId(int instId);
+
 	
 }

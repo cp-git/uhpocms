@@ -6,18 +6,21 @@
 package com.cpa.uhpocms.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@Entity
+@Entity (name="institute")
 @Table(name = "admin_institution")
 public class AdminInstitution {
 
@@ -26,7 +29,7 @@ public class AdminInstitution {
 	@Column(name = "institutionid")
 	private int adminInstitutionId;
 
-	@Column(name = "name")
+	@Column(name = "name", unique = true)
 	private String adminInstitutionName;
 
 	@Column(name = "description")
@@ -51,6 +54,10 @@ public class AdminInstitution {
 
 	@Column(name = "picture")
 	private String adminInstitutionPicture;
+	
+	
+	@OneToMany(targetEntity=AdminDepartment.class, mappedBy="institute",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<AdminDepartment> adminDept;
 
 	/**
 	 * @param adminInstitutionId

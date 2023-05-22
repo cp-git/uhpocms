@@ -27,4 +27,6 @@ public interface ModuleProgressService {
 	
 	public List<Object> getAllModuleProgresssByCourseId(int courseId);
 	
+	List<Object> getAllModuleProgresssByCourseIdAndStudentId(int courseId, int studentId);
+	
 }

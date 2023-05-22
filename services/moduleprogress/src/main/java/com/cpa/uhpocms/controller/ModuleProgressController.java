@@ -312,5 +312,42 @@ public class ModuleProgressController {
 		}
 
 	}
+	
+	/**
+	 * @param courseId and studentid
+	 * @return list of progress
+	 * @throws CPException
+	 * @desc api to get list of module progress using course id and student id
+	 */
+	@GetMapping("/moduleprog/id")
+	public ResponseEntity<List<Object>> getModuleProgressesByCourseIdAndStudentId(
+			@RequestParam(name = "courseid") int courseId, @RequestParam(name = "studentid") int studentId)
+			throws CPException {
+		logger.debug("Entering getModuleProgressesByCourseIdAndProfileId");
+		logger.info("Parameter  :" + courseId);
+
+		List<Object> moduleprogresss = null;
+
+		try {
+
+			moduleprogresss = moduleprogressService.getAllModuleProgresssByCourseIdAndStudentId(courseId, studentId);
+
+			if (moduleprogresss != null) {
+				logger.info("Fetched all ModuleProgress :" + moduleprogresss);
+
+				return ResponseHandler.generateListResponse(moduleprogresss, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBunde.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all moduleprogresss : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+	}
 
 }

@@ -61,10 +61,12 @@ public class AdminDeptServImpl implements AdminDeptService {
 	}
 
 	@Override
-	public Object getDeptByName(String name) {
+	public AdminDepartment getDeptByName(String name) {
+		System.out.println("in serviceimpl");
 		logger.debug("Entered getDeptByName()");
-		Object adminDepartment = adminDeptRepo.findByName(name);
-
+		AdminDepartment adminDepartment = adminDeptRepo.findByName(name);
+		System.out.println( adminDeptRepo.findByName(name));
+		//System.out.println(adminDepartment);
 		// logger.debug(adminDepartment);
 		return adminDepartment;
 	}

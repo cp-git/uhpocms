@@ -86,7 +86,7 @@ public class ModuleServiceImplTest {
 			e.printStackTrace();
 		}
 		// creating module to create entry in table
-		Module module = new Module("calculator", "chatting", true, startDate, endDate, 5, 5, 1);
+		//Module module = new Module("calculator", "chatting", true, startDate, endDate, 5, 5, 1);
 		Mockito.when(moduleRepo.save(module)).thenReturn(this.module);
 		// result of module after creating
 		Module result = moduleService.createModule(module);
@@ -113,7 +113,7 @@ public class ModuleServiceImplTest {
 		Module existing = new Module(8, "calculator", "chatting", true, startDate, endDate, 5, 5, 1, "admin",
 				createdDate, "admin", updatedDate);
 		// updating module to update entry in table
-		Module module = new Module("calculator", "calculation", false, startDate, endDate, 5, 5, 1);
+		//Module module = new Module("calculator", "calculation", false, startDate, endDate, 5, 5, 1);
 		// expected module
 		Module expect = new Module(8, "calculator", "calculation", false, startDate, endDate, 5, 5, 1, "admin",
 				createdDate, "admin", updatedDate);

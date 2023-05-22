@@ -7,17 +7,33 @@
 
 package com.cpa.uhpocms.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +41,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.cpa.uhpocms.entity.AdminInstitution;
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.ModuleFile;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.repository.ModuleFileRepo;
 import com.cpa.uhpocms.service.ModuleFileService;
 
 @RestController
@@ -43,6 +63,14 @@ public class ModuleFileController {
 
 	private ResourceBundle resourceBunde;
 	private static Logger logger;
+	
+	
+	@Autowired
+	private ModuleFileRepo moduleRepo;
+	
+	
+	@Value("${file.base-path}")
+	private String basePath;
 
 	ModuleFileController() {
 		resourceBunde = ResourceBundle.getBundle("ErrorMessage", Locale.US);
@@ -50,20 +78,85 @@ public class ModuleFileController {
 	}
 
 	@PostMapping("/modulefile")
-	public ResponseEntity<Object> createModuleFile(@RequestBody ModuleFile modulefile) throws CPException {
+	public ResponseEntity<Object> createModuleFile(@RequestPart("admin") ModuleFile modulefile,@RequestParam(value="files")List<MultipartFile> files) throws CPException {
 		logger.debug("Entering createModuleFile");
 		logger.info("data of creating ModuleFile  :" + modulefile.toString());
 
 		ModuleFile createdModuleFile = null;
 		try {
 
-			createdModuleFile = modulefileService.createModuleFile(modulefile);
-			logger.info("ModuleFile created :" + createdModuleFile);
+
+//			ModuleFile toCheckModuleFile = modulefileService.getModuleFileByFile(modulefile.getModuleFile());
+//			logger.debug("existing modulefile :" + toCheckModuleFile);
+//			
+//			System.out.println(toCheckModuleFile);
+//			
 			
-			if (createdModuleFile != null) {
+			
+
+			if (createdModuleFile == null) {
+
+				// TODO: Uncomment below 2 lines and change the method name as per your Entity
+				// class
+				
+				for(int i=0;i<files.size();i++)
+				{
+					modulefile.setModuleFile(files.get(i).getOriginalFilename());
+				}
+				modulefile.setModuleFileCreatedBy("admin");
+				modulefile.setModuleFileUpdatedBy("admin");
+
+				createdModuleFile = modulefileService.createModuleFile(modulefile);
+				logger.info("ModuleFile created :" + createdModuleFile);
+				
+				String moduleName=moduleRepo.finByModuleByModuleId(modulefile.getModuleFileId());
+				System.out.println(moduleName);
+				
+				
+				String courseName=moduleRepo.finByCourseByModuleId(modulefile.getModuleId());
+				System.out.println(courseName);
+				
+				
+				String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(modulefile.getModuleFileId());
+				System.out.println(departmentName);
+				
+//				String deptName=departmentName.trim();
+//				
+				
+				String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(modulefile.getModuleFileId());
+				System.out.println(InstituteName);
+				
+				int InstituteId=moduleRepo.finByAdminInstitutionById(modulefile.getModuleFileId());
+				System.out.println(InstituteId);
+				
+				String instituteNameAndId=InstituteName+"_"+InstituteId;
+				System.out.println(instituteNameAndId);
+				
+				
+				
+				
+				
+				
+				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+modulefile.getModuleFile());
+				System.out.println(theDir);
+				if (!theDir.exists()){
+				    theDir.mkdirs();
+				}
+				
+				List<String> fileNames = new ArrayList<>();
+
+				for (MultipartFile file : files) {
+					String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+					System.out.println(fileName);
+					Path fileStorage = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
+					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
+					fileNames.add(fileName);
+				}
 
 
 				return ResponseHandler.generateResponse(createdModuleFile, HttpStatus.CREATED);
+				
+				
 
 			} else {
 
@@ -351,4 +444,119 @@ public class ModuleFileController {
 			throw new CPException("err006", resourceBunde.getString("err006"));
 		}
 	}
+	
+
+//	@GetMapping(path="getFileById/{moduleFileId}")
+//    ResponseEntity<InputStreamResource> getImageById(@PathVariable int moduleFileId) throws IOException { //download file
+//     
+//		ModuleFile myFile =null;
+//		 myFile =moduleRepo.findByModuleFileId(moduleFileId);
+//        System.out.println(myFile);
+//
+//        
+//        String moduleName=moduleRepo.finByModuleByModuleId(myFile.getModuleFileId());
+//		System.out.println(moduleName);
+//		
+//		
+//		String courseName=moduleRepo.finByCourseByModuleId(myFile.getModuleId());
+//		System.out.println(courseName);
+//		
+//		
+//		String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
+//		System.out.println(departmentName);
+//		
+//		String deptName=departmentName.trim();
+//		
+//		
+//		String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(myFile.getModuleFileId());
+//		System.out.println(InstituteName);
+//		
+//		
+//		
+//		int InstituteId=moduleRepo.finByAdminInstitutionById(myFile.getModuleFileId());
+//		System.out.println(InstituteId);
+//		
+//		String instituteNameAndId=InstituteName+"_"+InstituteId;
+//		System.out.println(instituteNameAndId);
+//        
+//       String address =basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+ myFile.getModuleFile();
+//       File file = new File(address);
+//        System.out.println("file"+file);
+//       InputStream inputStream = new FileInputStream(file);
+////        System.out.println(inputStream);
+//       InputStreamResource a = new InputStreamResource(inputStream);
+////      
+//        HttpHeaders httpHeaders = new HttpHeaders();
+////        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
+//        httpHeaders.setContentType(MediaType.valueOf("video/mp4"));
+//        
+//        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
+////        System.out.println(myFile.getAdminInstitutionPicture());
+//       
+//       
+//       
+//        return new ResponseEntity<InputStreamResource>(a, httpHeaders,HttpStatus.OK);
+//    }
+	
+	
+	@GetMapping(path ="files/{moduleFileId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public ResponseEntity<InputStreamResource> getFile(@PathVariable int moduleFileId) {
+		try {
+				// retrieve
+
+			ModuleFile myFile =null;
+			 myFile =moduleRepo.findByModuleFileId(moduleFileId);
+	        System.out.println(myFile);
+
+	        
+	        String moduleName=moduleRepo.finByModuleByModuleId(myFile.getModuleFileId());
+			System.out.println(moduleName);
+			
+			
+			String courseName=moduleRepo.finByCourseByModuleId(myFile.getModuleId());
+			System.out.println(courseName);
+			
+			
+			String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
+			System.out.println(departmentName);
+			
+			String deptName=departmentName.trim();
+			
+			
+			String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(myFile.getModuleFileId());
+			System.out.println(InstituteName);
+			
+			
+			
+			int InstituteId=moduleRepo.finByAdminInstitutionById(myFile.getModuleFileId());
+			System.out.println(InstituteId);
+			
+			String instituteNameAndId=InstituteName+"_"+InstituteId;
+			System.out.println(instituteNameAndId);
+	        
+	       String address =basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+ myFile.getModuleFile();
+	       File file = new File(address);
+	        System.out.println("file"+file);
+	       InputStream inputStream = new FileInputStream(file);
+//	        System.out.println(inputStream);
+	       InputStreamResource a = new InputStreamResource(inputStream);
+			System.out.println(inputStream.toString());
+			return ResponseEntity.ok().header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"")
+					.contentType(MediaType.APPLICATION_OCTET_STREAM).contentLength(file.length()).body(a);
+		} catch (FileNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		} catch (IOException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	
+	
+
+
+
+
+
+
+
 }
