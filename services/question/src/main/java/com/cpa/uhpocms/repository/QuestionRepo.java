@@ -40,6 +40,13 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
 
 	@Query(value = "SELECT quiz.* FROM teacher_quiz quiz JOIN teacher_question question ON quiz.quizid = question.quizid_id WHERE quiz.quizid = ?1", nativeQuery = true)
 	public List<Question> findQuestionsByQuizId(int questionQuizId);
+	
+	
+	@Query(value = "SELECT * FROM teacher_question WHERE quizid_id = ?1 ORDER BY CASE WHEN (SELECT random_order FROM teacher_quiz WHERE quizid = ?1) = true THEN random() ELSE questionOrderNo END", nativeQuery = true)
+	List<Question> shuffleQuestionsByQuizId(int quizId);
+
+
+	
 
 	public List<Object> findAllByQuestionQuizIdAndQuestionIsActiveOrderByQuestionOrderNo(int quizId, boolean isActive);
 

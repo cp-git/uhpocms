@@ -352,7 +352,8 @@ public class QuestionController {
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {
 		return new AuthenticationBean("You are authenticated");
-	}
+	}	
+	
 
 	@GetMapping("/question/id/{questionId}")
 	public ResponseEntity<Object> getQuestionById(@PathVariable("questionId") int questionId) throws CPException {
@@ -381,7 +382,7 @@ public class QuestionController {
 	}
 
 	@GetMapping("/questions")
-	public ResponseEntity<List<Object>> getQuestionByQuizId(@RequestParam(name = "quizId") int quizId)
+	public ResponseEntity<List<Object>> getQuestionByQuizId(@PathVariable(name = "quizId") int quizId)
 			throws CPException {
 		logger.debug("Entering getAllQuestion");
 		logger.info("Parameter  :" + quizId);
@@ -389,6 +390,27 @@ public class QuestionController {
 		try {
 			if (quizId > 0) {
 				questions = questionService.getAllQuestionsByQuizId(quizId);
+				logger.info("Fetched all Question :" + questions.size());
+				return ResponseHandler.generateListResponse(questions, HttpStatus.OK);
+			} else {
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+		} catch (Exception ex) {
+			logger.error("Failed getting all questions : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+		}
+	}
+	
+	@GetMapping("/questions/quizid/{quizId}")
+	public ResponseEntity<List<Object>> getShuffledQuesitonByQuizId(@PathVariable(name = "quizId") int quizId)
+			throws CPException {
+		logger.debug("Entering getAllQuestion");
+		logger.info("Parameter  :" + quizId);
+		List<Object> questions = null;
+		try {
+			if (quizId > 0) {
+				questions = questionService.getShuffledQuestionByQuizId(quizId);
 				logger.info("Fetched all Question :" + questions.size());
 				return ResponseHandler.generateListResponse(questions, HttpStatus.OK);
 			} else {
