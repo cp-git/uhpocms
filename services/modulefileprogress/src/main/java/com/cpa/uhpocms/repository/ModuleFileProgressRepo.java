@@ -22,8 +22,10 @@ import com.cpa.uhpocms.entity.ModuleFileProgress;
 public interface ModuleFileProgressRepo extends JpaRepository<ModuleFileProgress, Integer> {
 
 	public ModuleFileProgress findById(int id);
-	public ModuleFileProgress  findByFileId(int fileId);
-	public List<ModuleFileProgress>  findByStudentId(int studId);
+
+	public ModuleFileProgress findByFileId(int fileId);
+
+	public List<ModuleFileProgress> findByStudentId(int studId);
 
 	@Transactional
 	@Modifying
@@ -37,8 +39,7 @@ public interface ModuleFileProgressRepo extends JpaRepository<ModuleFileProgress
 	 * @return
 	 */
 	@Query(value = " SELECT * from teacher_studentmodulefileprogress as p WHERE p.fileid_id= ?1 and p.studentid_id = ?2", nativeQuery = true)
-	public ModuleFileProgress  findByFileId_StudId(int fileId,int studId);
-	
+	public ModuleFileProgress findByFileId_StudId(int fileId, int studId);
 
 	/**
 	 * @author shradha
@@ -47,9 +48,8 @@ public interface ModuleFileProgressRepo extends JpaRepository<ModuleFileProgress
 	 * @return
 	 */
 	@Query(value = " SELECT * from teacher_studentmodulefileprogress as p WHERE p.moduleid_id= ?1 and p.studentid_id = ?2 and p.progress = 100 ", nativeQuery = true)
-	public List<ModuleFileProgress>  findByModId_StudId_Prog(int modId,int studId);
-	
-	
+	public List<ModuleFileProgress> findByModId_StudId_Prog(int modId, int studId);
+
 	/**
 	 * @author shradha
 	 * @param modId
@@ -57,5 +57,7 @@ public interface ModuleFileProgressRepo extends JpaRepository<ModuleFileProgress
 	 * @return
 	 */
 	@Query(value = " SELECT * from teacher_studentmodulefileprogress as p WHERE p.moduleid_id= ?1 and p.studentid_id = ?2", nativeQuery = true)
-	public List<ModuleFileProgress>  findByModId_StudId(int modId,int studId);
+	public List<ModuleFileProgress> findByModId_StudId(int modId, int studId);
+
+	public ModuleFileProgress findByFileIdAndStudentId(int moduleFileId, int studentId);
 }
