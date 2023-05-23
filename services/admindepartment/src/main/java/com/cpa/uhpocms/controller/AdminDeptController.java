@@ -9,6 +9,7 @@ package com.cpa.uhpocms.controller;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletResponse;
@@ -234,8 +235,21 @@ public class AdminDeptController {
 			HttpServletResponse response) throws CPException {
 		logger.info("Entered insertDepartment() ");
 		try {
-			AdminDepartment refAdminDepartment = null;
+			
+			List<AdminDepartment> listDepartment=adminDeptrepo.findDepartmentByAdminInstitutionId(adminDepartment.getInstitutionId());
 
+			for(AdminDepartment dept:listDepartment)
+			{
+				if(dept.getInstitutionId() == adminDepartment.getInstitutionId()) {
+				   if (dept.getName().equals(adminDepartment.getName())) {
+		                // Data already exists, handle accordingly (e.g., throw an exception or return an error message)
+					   throw new CPException("err001", resourceBundle.getString("err001"));
+		            }
+				}
+			}
+			AdminDepartment refAdminDepartment = null;
+			
+			
 			refAdminDepartment = adminDeptService.insertDept(adminDepartment);
 			if (refAdminDepartment != null) {
 				logger.info("Inserting AdminDepartment performed successfully");

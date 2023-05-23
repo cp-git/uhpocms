@@ -27,6 +27,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 	private static final boolean ISACTIVE = true;
 	@Autowired
 	AdminDeptRepo adminDeptRepo;
+	
 
 	/**
 	 * @author Shradha
@@ -78,6 +79,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 	 */
 	@Override
 	public AdminDepartment insertDept(AdminDepartment adminDepartment) {
+		
 		logger.debug("Entered insertDept()");
 		adminDepartment.setCreatedBy("admin");
 		adminDepartment.setModifiedBy("admin");

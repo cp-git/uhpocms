@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.cpa.uhpocms.entity.AdminDepartment;
 import com.cpa.uhpocms.entity.Course;
 
 @Repository
@@ -104,6 +105,15 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 
 	@Query(value="SELECT  admin_department.name FROM teacher_course, admin_department,teacher_course_departmentid WHERE admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND  teacher_course.instid =?1",nativeQuery=true)
 	public String finByDepartmentByinstId(int instId);
+	
+	
+	List<Course> findAll();
 
+	
+	//Finding Department of courses by id
+		@Query(value="SELECT tc.* FROM admin_department tc JOIN teacher_course_departmentid deptCourse ON  tc.departmentid = deptCourse.department_id WHERE deptCourse.course_id=?1", nativeQuery =true)
+		public AdminDepartment findByDepartment(int courseId);
+	
+	
 	
 }

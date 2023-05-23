@@ -67,13 +67,27 @@ public class ModuleController {
 
 		Module createdModule = null;
 		try {
-
-
-			Module toCheckModule = moduleService.getModuleByName(module.getModuleName());
-			logger.debug("existing module :" + toCheckModule);
 			
+			List<Module> moduleData=moduleRepo.findModules(module.getCourseId_id());
+			System.out.println(moduleData);
+			
+			for(Module mod:moduleData)
+			{
+				if(mod.getCourseId_id() == module.getCourseId_id())
+				{
+					if(mod.getModuleName().equals(module.getModuleName()))
+					{
+						 throw new CPException("err001", resourceBundle.getString("err001"));
+					}
+				}
+			}
 
-			if (toCheckModule == null) {
+
+//			Module toCheckModule = moduleService.getModuleByName(module.getModuleName());
+//			logger.debug("existing module :" + toCheckModule);
+//			
+
+			if (createdModule == null) {
 
 				// TODO: Uncomment below 2 lines and change the method name as per your Entity
 				// class
