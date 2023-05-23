@@ -507,7 +507,7 @@ public class CourseController {
 //						 System.out.println("Array Course Name"+c.getCourseName());
 //						 System.out.println("course Name"+course.getCourseName());
 						 
-						 if(c.getCourseName().equals(course.getCourseName()))
+						 if(c.getCourseName().equalsIgnoreCase(course.getCourseName()))
 						 {
 							 throw new CPException("err001", resourceBundle.getString("err001"));
 							 

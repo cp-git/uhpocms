@@ -241,7 +241,7 @@ public class AdminDeptController {
 			for(AdminDepartment dept:listDepartment)
 			{
 				if(dept.getInstitutionId() == adminDepartment.getInstitutionId()) {
-				   if (dept.getName().equals(adminDepartment.getName())) {
+				   if (dept.getName().equalsIgnoreCase(adminDepartment.getName())) {
 		                // Data already exists, handle accordingly (e.g., throw an exception or return an error message)
 					   throw new CPException("err001", resourceBundle.getString("err001"));
 		            }

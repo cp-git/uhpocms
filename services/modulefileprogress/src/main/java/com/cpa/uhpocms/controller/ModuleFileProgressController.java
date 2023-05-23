@@ -352,33 +352,33 @@ public class ModuleFileProgressController {
 	 * @throws CPException
 	 * @desc Api to update an entry in respective table
 	 */
-	@PutMapping("/modulefileprog/file_studid/{fileId}/{studentId}")
-	public ResponseEntity<Object> updateFileProgressByFileIdAndStudentId(@PathVariable("fileId") int moduleFileId,
-			@PathVariable("studentId") int studentId, @RequestBody ModuleFileProgress modulefileprogress)
-			throws CPException {
-		logger.debug("Entering updateFileProgressByFileIdAndStudentId");
-		logger.info("entered  updateFileProgressByFileIdAndStudentId :" + modulefileprogress);
-
-		ModuleFileProgress updatedModuleFileProgress = null;
-
-		try {
-			updatedModuleFileProgress = modulefileprogressService.updateFileProgressByFileIdAndStudentId(moduleFileId,
-					studentId, modulefileprogress);
-
-			if (updatedModuleFileProgress == null) {
-				logger.info(resourceBunde.getString("err004"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-			} else {
-				logger.info("updated modulefileprogress : " + updatedModuleFileProgress);
-				return ResponseHandler.generateResponse(updatedModuleFileProgress, HttpStatus.CREATED);
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed update ModuleFileProgress : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
-
-		}
-
-	}
+//	@PutMapping("/modulefileprog/file_studid/{fileId}/{studentId}")
+//	public ResponseEntity<Object> updateFileProgressByFileIdAndStudentId(@PathVariable("fileId") int moduleFileId,
+//			@PathVariable("studentId") int studentId, @RequestBody ModuleFileProgress modulefileprogress)
+//			throws CPException {
+//		logger.debug("Entering updateFileProgressByFileIdAndStudentId");
+//		logger.info("entered  updateFileProgressByFileIdAndStudentId :" + modulefileprogress);
+//
+//		ModuleFileProgress updatedModuleFileProgress = null;
+//
+//		try {
+//			updatedModuleFileProgress = modulefileprogressService.updateFileProgressByFileIdAndStudentId(moduleFileId,
+//					studentId, modulefileprogress);
+//
+//			if (updatedModuleFileProgress == null) {
+//				logger.info(resourceBunde.getString("err004"));
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+//			} else {
+//				logger.info("updated modulefileprogress : " + updatedModuleFileProgress);
+//				return ResponseHandler.generateResponse(updatedModuleFileProgress, HttpStatus.CREATED);
+//			}
+//
+//		} catch (Exception ex) {
+//			logger.error("Failed update ModuleFileProgress : " + ex.getMessage());
+//			throw new CPException("err004", resourceBunde.getString("err004"));
+//
+//		}
+//
+//	}
 
 }

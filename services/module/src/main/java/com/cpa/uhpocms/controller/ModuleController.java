@@ -75,7 +75,7 @@ public class ModuleController {
 			{
 				if(mod.getCourseId_id() == module.getCourseId_id())
 				{
-					if(mod.getModuleName().equals(module.getModuleName()))
+					if(mod.getModuleName().equalsIgnoreCase(module.getModuleName()))
 					{
 						 throw new CPException("err001", resourceBundle.getString("err001"));
 					}
