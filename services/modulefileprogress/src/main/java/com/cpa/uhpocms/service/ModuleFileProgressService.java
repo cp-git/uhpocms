@@ -7,7 +7,6 @@
 
 package com.cpa.uhpocms.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.cpa.uhpocms.entity.ModuleFileProgress;
@@ -23,9 +22,12 @@ public interface ModuleFileProgressService {
 	ModuleFileProgress updateModuleFileProgressByid(ModuleFileProgress modulefileprogress, int id);
 
 	int deleteModuleFileProgressByid(int id);
+
 	public List<Object> getModuleFileProgressByModStudProg(int modId, int studId);
-	
-	public List<Object> getModuleFileProgressByModStudId(int modId, int studId) ;
-		
-	
+
+	public List<Object> getModuleFileProgressByModStudId(int modId, int studId);
+
+	ModuleFileProgress updateFileProgressByFileIdAndStudentId(int moduleFileId, int studentId,
+			ModuleFileProgress modulefileprogress);
+
 }

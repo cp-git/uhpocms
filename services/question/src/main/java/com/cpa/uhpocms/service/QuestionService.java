@@ -33,6 +33,8 @@ public interface QuestionService {
 	List<Object> getInActiveQuestions();
 
 	List<Object> getAllQuestionsByQuizId(int quizId);
+	
+	List<Object> getShuffledQuestionByQuizId(int quizId);
 
 	Object updateActiveStatus(String figure);
 

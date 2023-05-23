@@ -301,4 +301,18 @@ public class QuestionServiceImpl implements QuestionService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public List<Object> getShuffledQuestionByQuizId(int quizId) {
+		 logger.debug("Entering getAllQuestionsByQuizId");
+		 System.out.println("quiz id : " + quizId);
+		    List<Question> questions = questionRepo.shuffleQuestionsByQuizId(quizId);
+		    logger.info("Fetched all active question :" + questions.size());
+
+		    List<Object> questionObjects = new ArrayList<Object>(questions);
+		    System.out.println("array of quesitons ++++++++++" + questions);
+
+		 
+		    return questionObjects;
+	}
 }
