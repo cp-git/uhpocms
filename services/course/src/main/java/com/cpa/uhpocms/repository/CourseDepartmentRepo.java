@@ -5,9 +5,12 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.cpa.uhpocms.entity.AdminDepartment;
+import com.cpa.uhpocms.entity.Course;
 import com.cpa.uhpocms.entity.CourseDepartment;
 
 @Repository
@@ -44,7 +47,26 @@ public interface CourseDepartmentRepo extends JpaRepository<CourseDepartment, In
 	public String finByDepartmentInstitutionId(int courseId);
 	
 	
-	 
+	
+	
+	@Query(value="SELECT distinct dp.name from teacher_course dp JOIN teacher_course_departmentid tc  ON tc.course_id = dp.courseid where tc.department_id=?1",nativeQuery=true)
+	public Course finByCoursesOnDepartment(int department_id);
+	
+	
+	
+	
+	@Transactional
+	@Query(value="SELECT dp.departmentid from admin_department dp JOIN teacher_course_departmentid tc  ON tc.department_id = dp.departmentid where tc.department_id=?1",nativeQuery=true)
+	public int finByAdminDepartmentId(int department_id);
+	
+	
+	
+	
+	
+	
+	
+	//
+		
 	
 	
 	

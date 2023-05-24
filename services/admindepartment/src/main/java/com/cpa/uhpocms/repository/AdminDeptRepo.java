@@ -6,6 +6,7 @@
 package com.cpa.uhpocms.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -70,5 +71,17 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	@Query(value = "SELECT DISTINCT dept.* FROM admin_department dept LEFT JOIN teacher_course_departmentid cd ON dept.departmentid = cd.department_id LEFT JOIN teacher_course_assigntoteacher ca ON cd.course_id = ca.course_id WHERE ca.profile_id = ?1", nativeQuery = true)
 
 	List<AdminDepartment> findActiveDepartmentByProfileId(int profileId);
+	
+	
+	
+	//To find Departments Based on Institute Names
+	
+	@Query(value="Select * from admin_department dp where dp.institutionid=?1",nativeQuery=true)
+	public List<AdminDepartment> findDepartmentByAdminInstitutionId(int institutionId);
+	
+	
+	Boolean existsByInstitutionId(int institutionId);
+
+	
 
 }

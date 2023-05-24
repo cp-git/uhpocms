@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cpa.uhpocms.entity.AdminDepartment;
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.Course;
 import com.cpa.uhpocms.entity.CourseDepartment;
@@ -474,40 +475,80 @@ public class CourseController {
 			throws CPException {
 		logger.debug("Entering assignCourseToDepartment");
 
-		CourseDepartment assignedCourseDepartment = null;
+		
 		try {
-
+			
+			//List of Courses by Department
+		   List<Course> CoursesByDepartment=courseRepo.findCourseByDepartmentId(courseDepartment.getDepartment_id());
+		   //System.out.println("Courses Based on Department...."+CoursesByDepartment);
+		   
+		   
+		   //Course By id
+		   Course course=courseRepo.findByCourseId(courseDepartment.getCourseId());
+		   //System.out.println("course Object.."+course);
+		   
+		  
+		   //Find All CourseDepartment
+		   List<CourseDepartment> courseDepartments=courseDeptRepo.findAll();
+		   //System.out.println("All Data"+courseDepartments);
+		   
+		   for(CourseDepartment dp:courseDepartments)
+		   {
+			   if(dp.getDepartment_id()==courseDepartment.getDepartment_id())
+			   {
+				   
+//				   System.out.println("Id of Course Department"+dp.getDepartment_id());
+//				   System.out.println("User Enter deptId"+courseDepartment.getDepartment_id());
+//				   
+				   for(Course c:CoursesByDepartment)
+				   {
+				   //System.out.println("In Loop..."+c);
+					
+//						 System.out.println("Array Course Name"+c.getCourseName());
+//						 System.out.println("course Name"+course.getCourseName());
+						 
+						 if(c.getCourseName().equalsIgnoreCase(course.getCourseName()))
+						 {
+							 throw new CPException("err001", resourceBundle.getString("err001"));
+							 
+						 }
+					 
+					
+				   }
+			   }
+		   }
+			
+			
+			CourseDepartment assignedCourseDepartment = null;
 			assignedCourseDepartment = courseService.assignCourseToDepartment(courseDepartment);
 			logger.debug("assigned course :" + assignedCourseDepartment);
 			
 			
 				
-				
-
 			if (assignedCourseDepartment != null) {
 				
 				String departmentName=courseDeptRepo.finByAdminInstitutionId(courseDepartment.getDepartment_id());
-				System.out.println(departmentName);
+				//System.out.println(departmentName);
 				
 				
 				
 				String instituteName=courseDeptRepo.finByAdminInstitutionByCourseId(courseDepartment.getCourseId());
-				System.out.println(instituteName);
+				//System.out.println(instituteName);
 				
 				
 				int instituteId=courseDeptRepo.finByAdminInstitutionsByCourseId(courseDepartment.getCourseId());
-				System.out.println(instituteId);
+				//System.out.println(instituteId);
 				
 				String instituteNameAndId=instituteName+"_"+instituteId;;
-				System.out.println(instituteNameAndId);
+				//System.out.println(instituteNameAndId);
 				
 				
 				String courseName=courseDeptRepo.finByCourseByCourseId(courseDepartment.getCourseId());
-				System.out.println(courseName);
+				//System.out.println(courseName);
 				
 				
 				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName);
-				System.out.println(theDir);
+				//System.out.println(theDir);
 				if (!theDir.exists()){
 				    theDir.mkdirs();
 				}

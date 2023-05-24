@@ -91,7 +91,36 @@ public class ModuleFileController {
 //			
 //			System.out.println(toCheckModuleFile);
 //			
+			List<ModuleFile> ListModuleFile=moduleRepo.getAllModuleFiles(modulefile.getModuleId());
+			//System.out.println(ListModuleFile);
 			
+			List<String> ListModuleFileName=moduleRepo.getAllModuleFilesName(modulefile.getModuleId());
+			System.out.println("File Names.."+ListModuleFileName);
+			
+			
+			
+			
+			for(ModuleFile module:ListModuleFile)
+			{
+			  // System.out.println(module);
+			   
+			   if(module.getModuleId() == modulefile.getModuleId())
+			   {
+				   //System.out.println("Files Data.."+module.getModuleFile());
+				   
+				   
+				  for(int i=0;i<ListModuleFileName.size();i++)
+				  {
+					  System.out.println(ListModuleFileName.get(i));
+					  
+					  if(ListModuleFileName.get(i).equals(modulefile.getModuleFile()));
+					  {
+						  throw new CPException("err001", resourceBunde.getString("err001"));
+					  }
+				  }
+				   
+			   }
+			}
 			
 
 			if (createdModuleFile == null) {
@@ -110,27 +139,27 @@ public class ModuleFileController {
 				logger.info("ModuleFile created :" + createdModuleFile);
 				
 				String moduleName=moduleRepo.finByModuleByModuleId(modulefile.getModuleFileId());
-				System.out.println(moduleName);
+				//System.out.println(moduleName);
 				
 				
 				String courseName=moduleRepo.finByCourseByModuleId(modulefile.getModuleId());
-				System.out.println(courseName);
+				//System.out.println(courseName);
 				
 				
 				String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(modulefile.getModuleFileId());
-				System.out.println(departmentName);
+				//System.out.println(departmentName);
 				
 //				String deptName=departmentName.trim();
 //				
 				
 				String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(modulefile.getModuleFileId());
-				System.out.println(InstituteName);
+				//System.out.println(InstituteName);
 				
 				int InstituteId=moduleRepo.finByAdminInstitutionById(modulefile.getModuleFileId());
-				System.out.println(InstituteId);
+				//System.out.println(InstituteId);
 				
 				String instituteNameAndId=InstituteName+"_"+InstituteId;
-				System.out.println(instituteNameAndId);
+				//System.out.println(instituteNameAndId);
 				
 				
 				
@@ -138,7 +167,7 @@ public class ModuleFileController {
 				
 				
 				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+modulefile.getModuleFile());
-				System.out.println(theDir);
+				//System.out.println(theDir);
 				if (!theDir.exists()){
 				    theDir.mkdirs();
 				}

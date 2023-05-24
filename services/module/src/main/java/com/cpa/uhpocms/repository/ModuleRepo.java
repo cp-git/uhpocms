@@ -67,5 +67,8 @@ public interface ModuleRepo extends JpaRepository<Module, Integer> {
 	
 	public List<Object> findByModuleIsActiveTrue();
 	
+	@Query(value="Select * from teacher_module where courseid_id=?1",nativeQuery=true)
+	List<Module> findModules(int courseId);
+	
 
 }

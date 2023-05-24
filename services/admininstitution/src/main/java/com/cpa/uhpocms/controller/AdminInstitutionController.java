@@ -91,6 +91,8 @@ public class AdminInstitutionController {
 			throws CPException {
 		logger.debug("creating Admin Institution");
 		logger.info("data entered of AdminInstitution" + adminInstitution);
+		
+		
 
 		AdminInstitution addInstitution = null;
 		String fileName=null;

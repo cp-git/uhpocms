@@ -73,6 +73,16 @@ public interface ModuleFileRepo extends JpaRepository<ModuleFile, Integer> {
 	
 	@Query(value="Select  admin_institution.institutionid FROM teacher_course,teacher_module,admin_institution,admin_department,teacher_course_departmentid,teacher_modulefile  WHERE admin_department.departmentid = teacher_course_departmentid.department_id AND 	teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_modulefile.moduleid_id AND teacher_modulefile.id=?1",nativeQuery=true)
 	public int finByAdminInstitutionById(int moduleFileId);
+	
+	
+	@Query(value = "Select * from teacher_modulefile WHERE moduleid_id= ?1", nativeQuery = true)
+	public List<ModuleFile> getAllModuleFiles(int moduleId);
+	
+	
+	@Query(value = "Select file from teacher_modulefile WHERE moduleid_id= ?1", nativeQuery = true)
+	public List<String> getAllModuleFilesName(int moduleId);
+	
+	
 }
 
 
