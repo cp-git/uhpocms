@@ -30,4 +30,6 @@ public interface ModuleFileProgressService {
 	ModuleFileProgress updateFileProgressByFileIdAndStudentId(int moduleFileId, int studentId,
 			ModuleFileProgress modulefileprogress);
 
+	ModuleFileProgress getFileProgressByFileIdAndStudentId(int moduleFileId, int studentId);
+
 }

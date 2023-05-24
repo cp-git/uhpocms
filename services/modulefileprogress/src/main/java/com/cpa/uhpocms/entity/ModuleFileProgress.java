@@ -7,8 +7,6 @@
 
 package com.cpa.uhpocms.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,32 +14,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Entity
 @Table(name = "teacher_studentmodulefileprogress")
 public class ModuleFileProgress {
 
 //TODO - add attributed and genrate setters and getters
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "progress", nullable = false )
-	private float progress ;
+	@Column(name = "progress", nullable = false)
+	private float progress;
 
 	@Column(name = "currentfilepageno", nullable = false)
 	private int currentFilePageNo;
 
 	@Column(name = "fileid_id", nullable = false)
 	private int fileId;
-	
+
 	@Column(name = "moduleid_id", nullable = false)
 	private int moduleId;
 
@@ -61,7 +53,6 @@ public class ModuleFileProgress {
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	/**
 	 * @return the progress
@@ -91,9 +82,6 @@ public class ModuleFileProgress {
 		this.currentFilePageNo = currentFilePageNo;
 	}
 
-	
-
-	
 	/**
 	 * @return the fileId
 	 */
@@ -144,8 +132,7 @@ public class ModuleFileProgress {
 	 * @param moduleId
 	 * @param studentId
 	 */
-	public ModuleFileProgress(int id, float progress, int currentFilePageNo, int fieldId, int moduleId,
-			int studentId) {
+	public ModuleFileProgress(int id, float progress, int currentFilePageNo, int fieldId, int moduleId, int studentId) {
 		super();
 		this.id = id;
 		this.progress = progress;
@@ -164,11 +151,8 @@ public class ModuleFileProgress {
 
 	@Override
 	public String toString() {
-		return "ModuleFileProgress [id=" + id + ", progress=" + progress + ", currentFilePageNo="
-				+ currentFilePageNo + ", fieldId=" + fileId + ", moduleId=" + moduleId + ", studentId=" + studentId
-				+ "]";
+		return "ModuleFileProgress [id=" + id + ", progress=" + progress + ", currentFilePageNo=" + currentFilePageNo
+				+ ", fieldId=" + fileId + ", moduleId=" + moduleId + ", studentId=" + studentId + "]";
 	}
 
-
-	
 }

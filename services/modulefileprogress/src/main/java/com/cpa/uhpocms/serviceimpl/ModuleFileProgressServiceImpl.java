@@ -203,4 +203,17 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 		return updatedModuleFileProgress;
 	}
 
+	/**
+	 * @desc Function to get list of entries for given file id and student id
+	 */
+	@Override
+	public ModuleFileProgress getFileProgressByFileIdAndStudentId(int moduleFileId, int studentId) {
+		logger.debug("Entering getFileProgressByFileIdAndStudentId");
+
+		ModuleFileProgress moduleFileProgress = null;
+		moduleFileProgress = modulefileprogressRepo.findByFileIdAndStudentId(moduleFileId, studentId);
+		logger.info("Fetched modulefileprogress :" + moduleFileProgress);
+
+		return moduleFileProgress;
+	}
 }
