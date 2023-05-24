@@ -14,4 +14,4 @@ server:
   port : 8090  
   
 file:
-  base-path: E:/UHPOCMS
+  base-path: D:/UHPOCMS
