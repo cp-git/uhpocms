@@ -86,13 +86,15 @@ public class ModuleFileController {
 		try {
 
 
-//			ModuleFile toCheckModuleFile = modulefileService.getModuleFileByFile(modulefile.getModuleFile());
-//			logger.debug("existing modulefile :" + toCheckModuleFile);
-//			
-//			System.out.println(toCheckModuleFile);
+			ModuleFile toCheckModuleFile = modulefileService.getModuleFileByFile(modulefile.getModuleFile());
+			logger.debug("existing modulefile :" + toCheckModuleFile);
+			
+			System.out.println(toCheckModuleFile);
 //			
 			List<ModuleFile> ListModuleFile=moduleRepo.getAllModuleFiles(modulefile.getModuleId());
 			//System.out.println(ListModuleFile);
+			
+		
 			
 			List<String> ListModuleFileName=moduleRepo.getAllModuleFilesName(modulefile.getModuleId());
 			System.out.println("File Names.."+ListModuleFileName);
@@ -102,22 +104,22 @@ public class ModuleFileController {
 			
 			for(ModuleFile module:ListModuleFile)
 			{
-			  // System.out.println(module);
+			   System.out.println("Module File.."+module.getModuleFile());
 			   
 			   if(module.getModuleId() == modulefile.getModuleId())
 			   {
 				   //System.out.println("Files Data.."+module.getModuleFile());
 				   
 				   
-				  for(int i=0;i<ListModuleFileName.size();i++)
-				  {
-					  System.out.println(ListModuleFileName.get(i));
+//				  for(int i=0;i<ListModuleFileName.size();i++)
+//				  {
+//					  System.out.println(ListModuleFileName.get(i));
 					  
-					  if(ListModuleFileName.get(i).equals(modulefile.getModuleFile()));
+					  if(module.getModuleFile().equals(modulefile.getModuleFile()));
 					  {
 						  throw new CPException("err001", resourceBunde.getString("err001"));
 					  }
-				  }
+				//  }
 				   
 			   }
 			}
