@@ -39,6 +39,11 @@ public class ModuleFileProgress {
 
 	@Column(name = "studentid_id", nullable = false)
 	private int studentId;
+	
+
+	@Column(name = "courseid_id", nullable = false)
+	private int courseId;
+
 
 	/**
 	 * @return the id
@@ -47,12 +52,14 @@ public class ModuleFileProgress {
 		return id;
 	}
 
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	/**
 	 * @return the progress
@@ -61,12 +68,14 @@ public class ModuleFileProgress {
 		return progress;
 	}
 
+
 	/**
 	 * @param progress the progress to set
 	 */
 	public void setProgress(float progress) {
 		this.progress = progress;
 	}
+
 
 	/**
 	 * @return the currentFilePageNo
@@ -75,12 +84,14 @@ public class ModuleFileProgress {
 		return currentFilePageNo;
 	}
 
+
 	/**
 	 * @param currentFilePageNo the currentFilePageNo to set
 	 */
 	public void setCurrentFilePageNo(int currentFilePageNo) {
 		this.currentFilePageNo = currentFilePageNo;
 	}
+
 
 	/**
 	 * @return the fileId
@@ -89,12 +100,14 @@ public class ModuleFileProgress {
 		return fileId;
 	}
 
+
 	/**
 	 * @param fileId the fileId to set
 	 */
 	public void setFileId(int fileId) {
 		this.fileId = fileId;
 	}
+
 
 	/**
 	 * @return the moduleId
@@ -103,12 +116,14 @@ public class ModuleFileProgress {
 		return moduleId;
 	}
 
+
 	/**
 	 * @param moduleId the moduleId to set
 	 */
 	public void setModuleId(int moduleId) {
 		this.moduleId = moduleId;
 	}
+
 
 	/**
 	 * @return the studentId
@@ -117,6 +132,7 @@ public class ModuleFileProgress {
 		return studentId;
 	}
 
+
 	/**
 	 * @param studentId the studentId to set
 	 */
@@ -124,23 +140,44 @@ public class ModuleFileProgress {
 		this.studentId = studentId;
 	}
 
+
+	/**
+	 * @return the courseId
+	 */
+	public int getCourseId() {
+		return courseId;
+	}
+
+
+	/**
+	 * @param courseId the courseId to set
+	 */
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+
+
 	/**
 	 * @param id
-	 * @param fileCompleted
+	 * @param progress
 	 * @param currentFilePageNo
-	 * @param fieldId
+	 * @param fileId
 	 * @param moduleId
 	 * @param studentId
+	 * @param courseId
 	 */
-	public ModuleFileProgress(int id, float progress, int currentFilePageNo, int fieldId, int moduleId, int studentId) {
+	public ModuleFileProgress(int id, float progress, int currentFilePageNo, int fileId, int moduleId, int studentId,
+			int courseId) {
 		super();
 		this.id = id;
 		this.progress = progress;
 		this.currentFilePageNo = currentFilePageNo;
-		this.fileId = fieldId;
+		this.fileId = fileId;
 		this.moduleId = moduleId;
 		this.studentId = studentId;
+		this.courseId = courseId;
 	}
+
 
 	/**
 	 * 
@@ -149,10 +186,14 @@ public class ModuleFileProgress {
 		super();
 	}
 
+
 	@Override
 	public String toString() {
 		return "ModuleFileProgress [id=" + id + ", progress=" + progress + ", currentFilePageNo=" + currentFilePageNo
-				+ ", fieldId=" + fileId + ", moduleId=" + moduleId + ", studentId=" + studentId + "]";
+				+ ", fileId=" + fileId + ", moduleId=" + moduleId + ", studentId=" + studentId + ", courseId="
+				+ courseId + "]";
 	}
+
+
 
 }
