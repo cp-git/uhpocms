@@ -86,13 +86,12 @@ public class ModuleFileController {
 		try {
 
 
-//			ModuleFile toCheckModuleFile = modulefileService.getModuleFileByFile(modulefile.getModuleFile());
-//			logger.debug("existing modulefile :" + toCheckModuleFile);
-//			
-//			System.out.println(toCheckModuleFile);
+			
 //			
 			List<ModuleFile> ListModuleFile=moduleRepo.getAllModuleFiles(modulefile.getModuleId());
 			//System.out.println(ListModuleFile);
+			
+		
 			
 			List<String> ListModuleFileName=moduleRepo.getAllModuleFilesName(modulefile.getModuleId());
 			System.out.println("File Names.."+ListModuleFileName);
@@ -100,27 +99,45 @@ public class ModuleFileController {
 			
 			
 			
+			String fileName = null;
+
+
+			for (MultipartFile file : files) {
+				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				System.out.println(fileName);
+			}
+
+			
+			
 			for(ModuleFile module:ListModuleFile)
 			{
-			  // System.out.println(module);
+			   System.out.println("Module File.."+module.getModuleFile());
 			   
 			   if(module.getModuleId() == modulefile.getModuleId())
 			   {
-				   //System.out.println("Files Data.."+module.getModuleFile());
+				   System.out.println("Module id"+module.getModuleId());
+				   System.out.println("User input"+modulefile.getModuleId());
 				   
+				   System.out.println("fileName"+fileName);
 				   
-				  for(int i=0;i<ListModuleFileName.size();i++)
-				  {
-					  System.out.println(ListModuleFileName.get(i));
+				   if(module.getModuleFile().equals(fileName))
+				   {
 					  
-					  if(ListModuleFileName.get(i).equals(modulefile.getModuleFile()));
-					  {
-						  throw new CPException("err001", resourceBunde.getString("err001"));
-					  }
-				  }
+					   System.out.println("Module file"+module.getModuleFile());
+					   System.out.println("user input"+fileName);
+					   throw new CPException("err001", resourceBunde.getString("err001"));
+				   }
 				   
-			   }
-			}
+					
+				}
+				   
+				 
+				 
+
+				   
+			 }
+			
+		
 			
 
 			if (createdModuleFile == null) {
@@ -175,7 +192,7 @@ public class ModuleFileController {
 				List<String> fileNames = new ArrayList<>();
 
 				for (MultipartFile file : files) {
-					String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+					 fileName = StringUtils.cleanPath(file.getOriginalFilename());
 					System.out.println(fileName);
 					Path fileStorage = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
