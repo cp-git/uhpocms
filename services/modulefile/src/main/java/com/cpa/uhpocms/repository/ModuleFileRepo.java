@@ -83,6 +83,12 @@ public interface ModuleFileRepo extends JpaRepository<ModuleFile, Integer> {
 	public List<String> getAllModuleFilesName(int moduleId);
 	
 	
+	@Query(value = "Select * from teacher_modulefile", nativeQuery = true)
+	public List<ModuleFile> getAllModuleFile();
+	
+
+	
+	
 }
 
 
