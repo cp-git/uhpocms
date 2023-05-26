@@ -7,14 +7,21 @@
 
 package com.cpa.uhpocms.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +32,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import com.cpa.uhpocms.entity.Answer;
 import com.cpa.uhpocms.entity.AuthenticationBean;
@@ -49,7 +59,11 @@ public class QuestionController {
 	QuestionController() {
 		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(QuestionController.class);
+	
 	}
+	
+	@Value("${file.base-path}")
+	private String basePath;
 
 //	@PostMapping("/question")
 //	public ResponseEntity<Object> createQuestion(@RequestBody Question question) throws CPException {
@@ -425,7 +439,7 @@ public class QuestionController {
 
 	// for inserting question and answers
 	@PostMapping("/question/add")
-	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestBody QuestionAnswer request) throws CPException {
+	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestPart("request") QuestionAnswer request,@RequestParam("file")MultipartFile file) throws CPException {
 		// Extract questions and answers arrays from the request
 
 		Question question = request.getQuestion();
@@ -437,7 +451,19 @@ public class QuestionController {
 			logger.info("fetched Question :" + question);
 			logger.info("fetched answers :" + answers.length);
 
+			question.setQuestionFigure(file.getOriginalFilename());
 			questionId = questionService.addQuestionsAndAnswers(question, answers);
+			
+			File theDir = new File(basePath);
+			if (!theDir.exists()){
+			    theDir.mkdirs();
+			}
+			
+			//Path path = theDir.toPath();
+			 String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			System.out.println(fileName);
+			Path fileStorage = Paths.get(basePath, fileName).toAbsolutePath().normalize();
+			Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 
 			logger.info("generated value in controller :" + questionId);
 			if (questionId > 0) {
