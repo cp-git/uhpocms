@@ -1,5 +1,11 @@
 package com.cpa.uhpocms.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 /**
  * @author Anmesh
  * @createdOn 30 Nov 2022
@@ -13,8 +19,10 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +33,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.InstituteAdmin;
@@ -48,6 +59,9 @@ public class InstituteAdminController {
 	InstituteAdminController() {
 		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 	}
+	
+	@Value("${file.base-path}")
+	private String basePath;
 
 	/**
 	 * @author : Anmesh
@@ -58,14 +72,29 @@ public class InstituteAdminController {
 
 	@PostMapping("/profile")
 
-	public ResponseEntity<Object> saveInstituteAdmin(@RequestBody InstituteAdmin instituteAdmin) throws CPException {
+	public ResponseEntity<Object> saveInstituteAdmin(@RequestPart("admin") InstituteAdmin instituteAdmin,@RequestParam("file")MultipartFile file) throws CPException {
 		InstituteAdmin institueAdminProfile = null;
+		
+		String fileName=null;
 		logger.info("In Post Method...");
 		try {
 			InstituteAdmin institutionAdmin = instituteAdminService.findByUserId(instituteAdmin.getUserId());
 
 			if (institutionAdmin == null) {
+				
+				instituteAdmin.setProfilePics(file.getOriginalFilename());
 				institueAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
+				
+				File theDir = new File(basePath);
+				if (!theDir.exists()){
+				    theDir.mkdirs();
+				}
+				
+				//Path path = theDir.toPath();
+				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				System.out.println(fileName);
+				Path fileStorage = Paths.get(basePath, fileName).toAbsolutePath().normalize();
+				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 
 				logger.info("created profile :" + institueAdminProfile);
 
