@@ -54,5 +54,40 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
 	Integer addQuestionWithAnswers(@Param("question") String question, @Param("option1") String answer1,
 			@Param("option2") String answer2, @Param("option3") String answer3, @Param("option4") String answer4,
 			@Param("generatedId") Integer questionId);
+	
+	
+	//Finding the institute by using the questionId
+	@Query(value = "SELECT admin_institution.name FROM teacher_course,teacher_module, admin_institution, admin_department, teacher_course_departmentid, teacher_quiz,teacher_question WHERE  admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_quiz.module_id AND teacher_quiz.quizid=teacher_question.quizid_id AND teacher_question.id=?1", nativeQuery = true)
+	public String getInstituteByQuestion(int questionId);
+	
+	//Finding the institute id by using the questionId
+	@Query(value = "SELECT admin_institution.institutionid FROM teacher_course,teacher_module, admin_institution, admin_department, teacher_course_departmentid, teacher_quiz,teacher_question WHERE  admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_quiz.module_id AND teacher_quiz.quizid=teacher_question.quizid_id AND teacher_question.id=?1", nativeQuery = true)
+	public int getInstituteidByQuestion(int questionId);
+	
+	
+	//Finding the Department by using the questionId
+	@Query(value = "SELECT admin_department.name FROM teacher_course,teacher_module, admin_institution, admin_department, teacher_course_departmentid, teacher_quiz,teacher_question WHERE  admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_quiz.module_id AND teacher_quiz.quizid=teacher_question.quizid_id AND teacher_question.id=?1", nativeQuery = true)
+	public String getDepartmentByQuestion(int questionId);
+	
+	
+	//Finding the Course by using the questionId
+		@Query(value = "SELECT teacher_course.name FROM teacher_course,teacher_module, admin_institution, admin_department, teacher_course_departmentid, teacher_quiz,teacher_question WHERE  admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_quiz.module_id AND teacher_quiz.quizid=teacher_question.quizid_id AND teacher_question.id=?1", nativeQuery = true)
+		public String getCourseByQuestion(int questionId);
+		
+		
+		//Finding the Course by using the questionId
+		@Query(value = "SELECT teacher_module.name FROM teacher_course,teacher_module, admin_institution, admin_department, teacher_course_departmentid, teacher_quiz,teacher_question WHERE  admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_quiz.module_id AND teacher_quiz.quizid=teacher_question.quizid_id AND teacher_question.id=?1", nativeQuery = true)
+		public String getModuleByQuestion(int questionId);
+		
+		
+		//Finding the Course by using the questionId
+		@Query(value = "SELECT teacher_quiz.title FROM teacher_course,teacher_module, admin_institution, admin_department, teacher_course_departmentid, teacher_quiz,teacher_question WHERE  admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_quiz.module_id AND teacher_quiz.quizid=teacher_question.quizid_id AND teacher_question.id=?1", nativeQuery = true)
+		public String getQuizByQuestion(int questionId);
+		
+		//Finding the Course by using the questionId
+		@Query(value = "SELECT teacher_quiz.quizid FROM teacher_course,teacher_module, admin_institution, admin_department, teacher_course_departmentid, teacher_quiz,teacher_question WHERE  admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_quiz.module_id AND teacher_quiz.quizid=teacher_question.quizid_id AND teacher_question.id=?1", nativeQuery = true)
+		public int getQuizIdByQuestion(int questionId);
+	
+	
 
 }

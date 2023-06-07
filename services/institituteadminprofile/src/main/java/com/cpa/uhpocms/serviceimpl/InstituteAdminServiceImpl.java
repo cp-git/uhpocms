@@ -284,6 +284,15 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return profileObject;
 	}
 
+	@Override
+	public InstituteAdmin getInstituteDetails(int adminId) {
+		// TODO Auto-generated method stub
+		InstituteAdmin instituteAdmin = null;
+		instituteAdmin =instituteAdminRepository.findByAdminId(adminId);
+		
+		return instituteAdmin;
+	}
+
 	
 	
 

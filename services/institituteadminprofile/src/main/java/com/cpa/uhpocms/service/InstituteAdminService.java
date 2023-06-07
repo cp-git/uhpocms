@@ -35,5 +35,7 @@ public interface InstituteAdminService {
 	
 	List<Object> getProfileCourseAssignedTeacher(int profileId);
 
+	
+	InstituteAdmin getInstituteDetails(int adminId);
 
 }

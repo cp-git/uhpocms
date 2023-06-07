@@ -1,6 +1,9 @@
 package com.cpa.uhpocms.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +23,10 @@ import java.util.ResourceBundle;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -85,7 +91,9 @@ public class InstituteAdminController {
 				instituteAdmin.setProfilePics(file.getOriginalFilename());
 				institueAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
 				
-				File theDir = new File(basePath);
+				String instituteAdminProfileNameAndId=instituteAdmin.getFirstName()+"_"+instituteAdmin.getAdminId();
+				
+				File theDir = new File(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId);
 				if (!theDir.exists()){
 				    theDir.mkdirs();
 				}
@@ -93,7 +101,7 @@ public class InstituteAdminController {
 				//Path path = theDir.toPath();
 				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
 				System.out.println(fileName);
-				Path fileStorage = Paths.get(basePath, fileName).toAbsolutePath().normalize();
+				Path fileStorage = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, fileName).toAbsolutePath().normalize();
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 
 				logger.info("created profile :" + institueAdminProfile);
@@ -387,18 +395,34 @@ public class InstituteAdminController {
 	
 
 	@PutMapping("/profile/{id}")
-	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestBody InstituteAdmin instituteAdmin,
+	public ResponseEntity<Object> saveInstituteAdminByAuthUserId(@RequestPart("admin") InstituteAdmin instituteAdmin,@RequestParam("file")MultipartFile file,
 			@PathVariable("id") int authUserId) throws CPException {
 
 		logger.info("inside the put method..");
 		InstituteAdmin instituteAdminProfile = null;
+		String fileName=null;
 		try {
 
+			instituteAdmin.setProfilePics(file.getOriginalFilename());
 			instituteAdminProfile = instituteAdminService.getProfileByAuthUserId(authUserId);
 			logger.info("updateInstituteAdmin Values" + instituteAdminProfile);
 
 			if (instituteAdminProfile == null) {
 				instituteAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
+				
+
+				String instituteAdminProfileNameAndId=instituteAdmin.getFirstName()+"_"+instituteAdmin.getAdminId();
+				
+				File theDir = new File(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId);
+				if (!theDir.exists()){
+				    theDir.mkdirs();
+				}
+				
+				//Path path = theDir.toPath();
+				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				System.out.println(fileName);
+				Path fileStorage = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, fileName).toAbsolutePath().normalize();
+				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 
 				logger.info("created profile :" + instituteAdminProfile);
 
@@ -442,6 +466,74 @@ public class InstituteAdminController {
 		}
 
 	}
+	
+	
+	
+	//display image using the instituteadminprofile
+	
+	
+	
+	@GetMapping(path="getFileById/{adminId}")
+    ResponseEntity<InputStreamResource> getImageById(@PathVariable int adminId) throws IOException { //download file
+     
+		System.out.println("in controller..");
+		InstituteAdmin myFile;
+		 myFile =instituteAdminService.getInstituteDetails(adminId);
+        System.out.println(myFile);
+        
+        String instNameAndId=myFile.getFirstName()+"_"+myFile.getAdminId();
+		System.out.println(instNameAndId);
+       String address =basePath+"/institute/"+"/user_profile/"+instNameAndId+"/"+ myFile.getProfilePics();
+       File file = new File(address);
+        System.out.println("file"+file);
+       InputStream inputStream = new FileInputStream(file);
+//        System.out.println(inputStream);
+       InputStreamResource a = new InputStreamResource(inputStream);
+//      
+        HttpHeaders httpHeaders = new HttpHeaders();
+//        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
+        httpHeaders.setContentType(MediaType.IMAGE_JPEG);
+        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
+//        System.out.println(myFile.getAdminInstitutionPicture());
+       
+       
+       
+        return new ResponseEntity<InputStreamResource>(a, httpHeaders, HttpStatus.ACCEPTED);
+    }
+	
+	
+	@PutMapping("/profile/updatedelete/{Id}")
+	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestBody InstituteAdmin instituteAdmin,
+			@PathVariable("Id") int authUserId) throws CPException {
+
+		logger.info("inside the put method..");
+		InstituteAdmin instituteAdminProfile = null;
+		try {
+
+			instituteAdminProfile = instituteAdminService.getProfileByAuthUserId(authUserId);
+			logger.info("updateInstituteAdmin Values" + instituteAdminProfile);
+
+			if (instituteAdminProfile == null) {
+				instituteAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
+
+				logger.info("created profile :" + instituteAdminProfile);
+
+				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
+//				logger.info("Update profile is failed...");
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
+				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ee) {
+			logger.error(ee.toString());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+
+	}
+
 
 
 }

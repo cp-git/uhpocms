@@ -315,4 +315,13 @@ public class QuestionServiceImpl implements QuestionService {
 		 
 		    return questionObjects;
 	}
+
+	@Override
+	public Question findQuestionById(int questionId) {
+		// TODO Auto-generated method stub
+		
+		Question question=null;
+		question=questionRepo.findByQuestionId(questionId);
+		return question;
+	}
 }
