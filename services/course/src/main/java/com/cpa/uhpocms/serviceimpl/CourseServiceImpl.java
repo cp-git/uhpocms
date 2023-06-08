@@ -288,7 +288,7 @@ public class CourseServiceImpl implements CourseService {
 			toUpdatedCourse.setCourseType(course.getCourseType());
 			toUpdatedCourse.setPassingScore(course.getPassingScore());
 			toUpdatedCourse.setInstId(course.getInstId());
-
+			toUpdatedCourse.setAccessModuleInOrder(course.getAccessModuleInOrder());
 			updatedCourse = courseRepo.save(toUpdatedCourse);
 
 			logger.info("updated Course :" + updatedCourse);
