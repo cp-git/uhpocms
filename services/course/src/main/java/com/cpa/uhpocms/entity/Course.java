@@ -8,9 +8,7 @@
 package com.cpa.uhpocms.entity;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -54,9 +51,6 @@ public class Course {
 	@Column(name = "passingscore")
 	private String passingScore;
 
-	
-	
-
 	@Column(name = "createdby")
 	private String courseCreatedBy;
 
@@ -70,26 +64,16 @@ public class Course {
 	@UpdateTimestamp
 	@Column(name = "updateddate", nullable = false)
 	private Date courseUpdatedDate;
-	
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@NotFound(action = NotFoundAction.IGNORE)
-	@JoinColumn(name="instid",insertable=false,updatable=false)
+	@JoinColumn(name = "instid", insertable = false, updatable = false)
 	private Course course;
-	
-	
-	
+
 	private int instId;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@Column(name = "moduleinorder")
+	private boolean accessModuleInOrder;
 
 	/**
 	 * @param courseId
@@ -104,10 +88,11 @@ public class Course {
 	 * @param courseCreatedDate
 	 * @param courseUpdatedBy
 	 * @param courseUpdatedDate
+	 * @param accessModuleInOrder
 	 */
 	public Course(int courseId, String courseName, String courseDescription, boolean courseIsActive, String courseCode,
 			String courseType, String passingScore, int instId, String courseCreatedBy, Date courseCreatedDate,
-			String courseUpdatedBy, Date courseUpdatedDate) {
+			String courseUpdatedBy, Date courseUpdatedDate, boolean accessModuleInOrder) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
@@ -121,6 +106,7 @@ public class Course {
 		this.courseCreatedDate = courseCreatedDate;
 		this.courseUpdatedBy = courseUpdatedBy;
 		this.courseUpdatedDate = courseUpdatedDate;
+		this.accessModuleInOrder = accessModuleInOrder;
 	}
 
 	/**
@@ -299,13 +285,28 @@ public class Course {
 		this.courseUpdatedDate = courseUpdatedDate;
 	}
 
+	/**
+	 * @return the accessModuleInOrder
+	 */
+	public boolean getAccessModuleInOrder() {
+		return accessModuleInOrder;
+	}
+
+	/**
+	 * @param accessModuleInOrder the accessModuleInOrder to set
+	 */
+	public void setAccessModuleInOrder(boolean accessModuleInOrder) {
+		this.accessModuleInOrder = accessModuleInOrder;
+	}
+
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDescription="
 				+ courseDescription + ", courseIsActive=" + courseIsActive + ", courseCode=" + courseCode
 				+ ", courseType=" + courseType + ", passingScore=" + passingScore + ", instId=" + instId
 				+ ", courseCreatedBy=" + courseCreatedBy + ", courseCreatedDate=" + courseCreatedDate
-				+ ", courseUpdatedBy=" + courseUpdatedBy + ", courseUpdatedDate=" + courseUpdatedDate + "]";
+				+ ", courseUpdatedBy=" + courseUpdatedBy + ", courseUpdatedDate=" + courseUpdatedDate
+				+ ",accessModuleInOrder=" + accessModuleInOrder + "]";
 	}
 
 }
