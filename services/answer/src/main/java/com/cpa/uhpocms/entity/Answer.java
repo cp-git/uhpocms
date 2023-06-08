@@ -124,10 +124,9 @@ public class Answer {
 	 * @param content
 	 * @param correct
 	 * @param questionorderno
-	 * @param quizid
 	 * @param questionid
 	 */
-	public Answer(int id, String content, boolean correct, int questionorderno, int quizid, int questionid) {
+	public Answer(int id, String content, boolean correct, int questionorderno, int questionid) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -147,7 +146,7 @@ public class Answer {
 	@Override
 	public String toString() {
 		return "Answer [id=" + id + ", content=" + content + ", correct=" + correct + ", questionorderno="
-				+ questionorderno + ", quizid=" + ", questionid=" + questionid + "]";
+				+ questionorderno + ", questionid=" + questionid + "]";
 	}
 
 	
