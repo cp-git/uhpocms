@@ -547,9 +547,48 @@ public class QuestionController {
 		 myFile =questionService.findQuestionById(questionId);
         System.out.println(myFile);
         
-//        String instNameAndId=myFile.getAdminInstitutionName()+"_"+myFile.getAdminInstitutionId();
-//		System.out.println(instNameAndId);
-       String address =basePath+"/" + myFile.getQuestionFigure();
+		//Institute Name
+		String instituteName=questionRepo.getInstituteByQuestion(questionId);
+		System.out.println("institute Name"+instituteName);
+		
+		
+		//Institute Id
+		int instituteId=questionRepo.getInstituteidByQuestion(questionId);
+		System.out.println("institute Name"+instituteId);
+		
+		
+		
+		String InstituteNameandId=instituteName+"_"+instituteId;
+		System.out.println(InstituteNameandId);
+		
+		
+		//Department Name
+		String departmentName=questionRepo.getDepartmentByQuestion(questionId);
+		System.out.println("Department Name"+departmentName);
+		
+		
+		
+		//Course Name
+		String courseName=questionRepo.getCourseByQuestion(questionId);
+		System.out.println("Course Name"+courseName);
+		
+		//Module Name
+		
+		String moduleName=questionRepo.getModuleByQuestion(questionId);
+		System.out.println("Module Name"+moduleName);
+		
+		//Quiz Name
+		
+		String quizName=questionRepo.getQuizByQuestion(questionId);
+		System.out.println("Quiz Name"+quizName);
+		
+		int quizId=questionRepo.getQuizIdByQuestion(questionId);
+		System.out.println("Quiz Name"+quizId);
+		
+		String QuestionData=quizName+"_"+quizId+"_"+myFile.getQuestionId()+"_"+myFile.getQuestionFigure();
+        
+        
+       String address =basePath+"/institute/"+InstituteNameandId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/"+myFile.getQuestionFigure();
        File file = new File(address);
         System.out.println("file"+file);
        InputStream inputStream = new FileInputStream(file);
