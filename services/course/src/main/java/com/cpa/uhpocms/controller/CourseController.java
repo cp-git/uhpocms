@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cpa.uhpocms.entity.AdminDepartment;
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.Course;
 import com.cpa.uhpocms.entity.CourseDepartment;
@@ -50,24 +49,15 @@ public class CourseController {
 
 	@Autowired
 	private CourseDepartmentService courseDepartmentService;
-	
-	
+
 	@Autowired
 	private CourseDepartmentRepo courseDeptRepo;
-	
-	
+
 	@Autowired
 	private CourseRepo courseRepo;
-	
-	
+
 	@Value("${file.base-path}")
 	private String basePath;
-	
-	
-	
-	
-	
-	
 
 	private ResourceBundle resourceBundle;
 	private static Logger logger;
@@ -95,9 +85,7 @@ public class CourseController {
 
 			createdCourse = courseService.createCourse(course);
 			logger.info("Course created :" + createdCourse);
-			
-		
-			
+
 //			
 //			String instituteName=courseDeptRepo.finByAdminInstitutionByCourseId(course.getCourseId());
 //			System.out.println(instituteName);
@@ -126,7 +114,7 @@ public class CourseController {
 //			    theDir.mkdirs();
 //			}
 //			
-			
+
 			if (createdCourse != null) {
 
 				return ResponseHandler.generateResponse(createdCourse, HttpStatus.CREATED);
@@ -350,7 +338,8 @@ public class CourseController {
 
 	@GetMapping(path = "/course/department/{department_id}/profile/{profile_id}")
 
-	public ResponseEntity<List<Object>> getCoursesByDepartmentIdAndProfileId(@PathVariable("department_id") int department_id, @PathVariable("profile_id") int profile_id)
+	public ResponseEntity<List<Object>> getCoursesByDepartmentIdAndProfileId(
+			@PathVariable("department_id") int department_id, @PathVariable("profile_id") int profile_id)
 			throws CPException {
 		logger.debug("Entering getAllCourse");
 		logger.info("Parameter  :");
@@ -369,6 +358,7 @@ public class CourseController {
 			throw new CPException("err002", resourceBundle.getString("err002"));
 		}
 	}
+
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {
 		return new AuthenticationBean("You are authenticated");
@@ -475,84 +465,69 @@ public class CourseController {
 			throws CPException {
 		logger.debug("Entering assignCourseToDepartment");
 
-		
 		try {
-			
-			//List of Courses by Department
-		   List<Course> CoursesByDepartment=courseRepo.findCourseByDepartmentId(courseDepartment.getDepartment_id());
-		   //System.out.println("Courses Based on Department...."+CoursesByDepartment);
-		   
-		   
-		   //Course By id
-		   Course course=courseRepo.findByCourseId(courseDepartment.getCourseId());
-		   //System.out.println("course Object.."+course);
-		   
-		  
-		   //Find All CourseDepartment
-		   List<CourseDepartment> courseDepartments=courseDeptRepo.findAll();
-		   //System.out.println("All Data"+courseDepartments);
-		   
-		   for(CourseDepartment dp:courseDepartments)
-		   {
-			   if(dp.getDepartment_id()==courseDepartment.getDepartment_id())
-			   {
-				   
+
+			// List of Courses by Department
+			List<Course> CoursesByDepartment = courseRepo.findCourseByDepartmentId(courseDepartment.getDepartment_id());
+			// System.out.println("Courses Based on Department...."+CoursesByDepartment);
+
+			// Course By id
+			Course course = courseRepo.findByCourseId(courseDepartment.getCourseId());
+			// System.out.println("course Object.."+course);
+
+			// Find All CourseDepartment
+			List<CourseDepartment> courseDepartments = courseDeptRepo.findAll();
+			// System.out.println("All Data"+courseDepartments);
+
+			for (CourseDepartment dp : courseDepartments) {
+				if (dp.getDepartment_id() == courseDepartment.getDepartment_id()) {
+
 //				   System.out.println("Id of Course Department"+dp.getDepartment_id());
 //				   System.out.println("User Enter deptId"+courseDepartment.getDepartment_id());
 //				   
-				   for(Course c:CoursesByDepartment)
-				   {
-				   //System.out.println("In Loop..."+c);
-					
+					for (Course c : CoursesByDepartment) {
+						// System.out.println("In Loop..."+c);
+
 //						 System.out.println("Array Course Name"+c.getCourseName());
 //						 System.out.println("course Name"+course.getCourseName());
-						 
-						 if(c.getCourseName().equalsIgnoreCase(course.getCourseName()))
-						 {
-							 throw new CPException("err001", resourceBundle.getString("err001"));
-							 
-						 }
-					 
-					
-				   }
-			   }
-		   }
-			
-			
+
+						if (c.getCourseName().equalsIgnoreCase(course.getCourseName())) {
+							throw new CPException("err001", resourceBundle.getString("err001"));
+
+						}
+
+					}
+				}
+			}
+
 			CourseDepartment assignedCourseDepartment = null;
 			assignedCourseDepartment = courseService.assignCourseToDepartment(courseDepartment);
 			logger.debug("assigned course :" + assignedCourseDepartment);
-			
-			
-				
+
 			if (assignedCourseDepartment != null) {
-				
-				String departmentName=courseDeptRepo.finByAdminInstitutionId(courseDepartment.getDepartment_id());
-				//System.out.println(departmentName);
-				
-				
-				
-				String instituteName=courseDeptRepo.finByAdminInstitutionByCourseId(courseDepartment.getCourseId());
-				//System.out.println(instituteName);
-				
-				
-				int instituteId=courseDeptRepo.finByAdminInstitutionsByCourseId(courseDepartment.getCourseId());
-				//System.out.println(instituteId);
-				
-				String instituteNameAndId=instituteName+"_"+instituteId;;
-				//System.out.println(instituteNameAndId);
-				
-				
-				String courseName=courseDeptRepo.finByCourseByCourseId(courseDepartment.getCourseId());
-				//System.out.println(courseName);
-				
-				
-				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName);
-				//System.out.println(theDir);
-				if (!theDir.exists()){
-				    theDir.mkdirs();
+
+				String departmentName = courseDeptRepo.finByAdminInstitutionId(courseDepartment.getDepartment_id());
+				// System.out.println(departmentName);
+
+				String instituteName = courseDeptRepo.finByAdminInstitutionByCourseId(courseDepartment.getCourseId());
+				// System.out.println(instituteName);
+
+				int instituteId = courseDeptRepo.finByAdminInstitutionsByCourseId(courseDepartment.getCourseId());
+				// System.out.println(instituteId);
+
+				String instituteNameAndId = instituteName + "_" + instituteId;
+				;
+				// System.out.println(instituteNameAndId);
+
+				String courseName = courseDeptRepo.finByCourseByCourseId(courseDepartment.getCourseId());
+				// System.out.println(courseName);
+
+				File theDir = new File(
+						basePath + "/institute/" + instituteNameAndId + "/" + departmentName + "/" + courseName);
+				// System.out.println(theDir);
+				if (!theDir.exists()) {
+					theDir.mkdirs();
 				}
-				
 
 				return ResponseHandler.generateResponse(assignedCourseDepartment, HttpStatus.CREATED);
 

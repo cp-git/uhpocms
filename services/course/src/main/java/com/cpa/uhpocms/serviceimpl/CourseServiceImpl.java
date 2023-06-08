@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import com.cpa.uhpocms.entity.Course;
 import com.cpa.uhpocms.entity.CourseDepartment;
 import com.cpa.uhpocms.entity.CourseInstitution;
-
 import com.cpa.uhpocms.repository.CourseDepartmentRepo;
 import com.cpa.uhpocms.repository.CourseInstitutionRepo;
 import com.cpa.uhpocms.repository.CourseRepo;
@@ -94,7 +93,7 @@ public class CourseServiceImpl implements CourseService {
 		logger.info("Fetched all active course :" + courses);
 		List<Object> course = new ArrayList<>(courses);
 		return course;
-		
+
 	}
 
 	/**
@@ -124,7 +123,7 @@ public class CourseServiceImpl implements CourseService {
 			toUpdatedCourse.setCourseType(course.getCourseType());
 			toUpdatedCourse.setPassingScore(course.getPassingScore());
 			toUpdatedCourse.setInstId(course.getInstId());
-
+			toUpdatedCourse.setAccessModuleInOrder(course.getAccessModuleInOrder());
 			updatedCourse = courseRepo.save(toUpdatedCourse);
 
 			logger.info("updated Course :" + updatedCourse);
@@ -208,8 +207,6 @@ public class CourseServiceImpl implements CourseService {
 		logger.info("activated Course count : " + count);
 		return count;
 	}
-	
-	
 
 	@Override
 	public Course getCourseByCourseId(int courseid) {
@@ -233,7 +230,6 @@ public class CourseServiceImpl implements CourseService {
 		logger.info("deleted Course count : " + count);
 		return count;
 	}
-
 
 	@Override
 	public List<Object> findCoursesAssignToTeacher(int profile_id) {
@@ -259,14 +255,12 @@ public class CourseServiceImpl implements CourseService {
 		return objectCourses;
 	}
 
-
 	@Override
 	public CourseDepartment assignCourseToDepartment(CourseDepartment courseDepartment) {
 
 		logger.debug("Entering assignCourseToDepartment");
 
 		return courseDepartmentRepo.save(courseDepartment);
-
 
 	}
 
@@ -314,7 +308,5 @@ public class CourseServiceImpl implements CourseService {
 		objectCourses = new ArrayList<Object>(courses);
 		return objectCourses;
 	}
-
-	
 
 }
