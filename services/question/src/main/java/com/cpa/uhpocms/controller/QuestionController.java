@@ -7,14 +7,27 @@
 
 package com.cpa.uhpocms.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +38,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import com.cpa.uhpocms.entity.Answer;
 import com.cpa.uhpocms.entity.AuthenticationBean;
@@ -33,6 +49,7 @@ import com.cpa.uhpocms.entity.Question;
 import com.cpa.uhpocms.entity.QuestionAnswer;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.repository.QuestionRepo;
 import com.cpa.uhpocms.service.QuestionService;
 
 @CrossOrigin
@@ -41,7 +58,10 @@ import com.cpa.uhpocms.service.QuestionService;
 public class QuestionController {
 
 	@Autowired
-	private QuestionService questionService;;
+	private QuestionService questionService;
+	
+	@Autowired
+	private QuestionRepo questionRepo;
 
 	private ResourceBundle resourceBundle;
 	private static Logger logger;
@@ -49,7 +69,11 @@ public class QuestionController {
 	QuestionController() {
 		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		logger = Logger.getLogger(QuestionController.class);
+	
 	}
+	
+	@Value("${file.base-path}")
+	private String basePath;
 
 //	@PostMapping("/question")
 //	public ResponseEntity<Object> createQuestion(@RequestBody Question question) throws CPException {
@@ -425,7 +449,7 @@ public class QuestionController {
 
 	// for inserting question and answers
 	@PostMapping("/question/add")
-	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestBody QuestionAnswer request) throws CPException {
+	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestPart("request") QuestionAnswer request,@RequestParam("file")MultipartFile file) throws CPException {
 		// Extract questions and answers arrays from the request
 
 		Question question = request.getQuestion();
@@ -437,10 +461,71 @@ public class QuestionController {
 			logger.info("fetched Question :" + question);
 			logger.info("fetched answers :" + answers.length);
 
+			question.setQuestionFigure(file.getOriginalFilename());
 			questionId = questionService.addQuestionsAndAnswers(question, answers);
-
+			
+			System.out.println(question.getQuestionId());
+			
+		
 			logger.info("generated value in controller :" + questionId);
 			if (questionId > 0) {
+			
+				//Institute Name
+				String instituteName=questionRepo.getInstituteByQuestion(questionId);
+				System.out.println("institute Name"+instituteName);
+				
+				
+				//Institute Id
+				int instituteId=questionRepo.getInstituteidByQuestion(questionId);
+				System.out.println("institute Name"+instituteId);
+				
+				
+				
+				String InstituteNameandId=instituteName+"_"+instituteId;
+				System.out.println(InstituteNameandId);
+				
+				
+				//Department Name
+				String departmentName=questionRepo.getDepartmentByQuestion(questionId);
+				System.out.println("Department Name"+departmentName);
+				
+				
+				
+				//Course Name
+				String courseName=questionRepo.getCourseByQuestion(questionId);
+				System.out.println("Course Name"+courseName);
+				
+				//Module Name
+				
+				String moduleName=questionRepo.getModuleByQuestion(questionId);
+				System.out.println("Module Name"+moduleName);
+				
+				//Quiz Name
+				
+				String quizName=questionRepo.getQuizByQuestion(questionId);
+				System.out.println("Quiz Name"+quizName);
+				
+				int quizId=questionRepo.getQuizIdByQuestion(questionId);
+				System.out.println("Quiz Name"+quizId);
+				
+				String QuestionData=quizName+"_"+quizId+"_"+question.getQuestionFigure();
+				System.out.println(QuestionData);
+				
+				
+				
+				
+				File theDir = new File(basePath+"/institute/"+InstituteNameandId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+QuestionData);
+				System.out.println("the directory path"+theDir);
+				if (!theDir.exists()){
+				    theDir.mkdirs();
+				}
+				
+				//Path path = theDir.toPath();
+				 String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				System.out.println(fileName);
+				Path fileStorage = Paths.get(basePath+"/institute/"+InstituteNameandId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/", fileName).toAbsolutePath().normalize();
+				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
+
 				logger.debug("added question and answers successfully");
 				return ResponseHandler.generateResponse(questionId, HttpStatus.OK);
 			} else {
@@ -456,5 +541,75 @@ public class QuestionController {
 //		return ResponseHandler.generateResponse(HttpStatus.OK);
 
 	}
+	
+	
+	
+	@GetMapping(path="getFileById/{questionId}")
+    ResponseEntity<InputStreamResource> getImageById(@PathVariable int questionId) throws IOException { //download file
+     
+		System.out.println("in controller..");
+		Question myFile;
+		 myFile =questionService.findQuestionById(questionId);
+        System.out.println(myFile);
+        
+		//Institute Name
+		String instituteName=questionRepo.getInstituteByQuestion(questionId);
+		System.out.println("institute Name"+instituteName);
+		
+		
+		//Institute Id
+		int instituteId=questionRepo.getInstituteidByQuestion(questionId);
+		System.out.println("institute Name"+instituteId);
+		
+		
+		
+		String InstituteNameandId=instituteName+"_"+instituteId;
+		System.out.println(InstituteNameandId);
+		
+		
+		//Department Name
+		String departmentName=questionRepo.getDepartmentByQuestion(questionId);
+		System.out.println("Department Name"+departmentName);
+		
+		
+		
+		//Course Name
+		String courseName=questionRepo.getCourseByQuestion(questionId);
+		System.out.println("Course Name"+courseName);
+		
+		//Module Name
+		
+		String moduleName=questionRepo.getModuleByQuestion(questionId);
+		System.out.println("Module Name"+moduleName);
+		
+		//Quiz Name
+		
+		String quizName=questionRepo.getQuizByQuestion(questionId);
+		System.out.println("Quiz Name"+quizName);
+		
+		int quizId=questionRepo.getQuizIdByQuestion(questionId);
+		System.out.println("Quiz Name"+quizId);
+		
+		String QuestionData=quizName+"_"+quizId+"_"+myFile.getQuestionFigure();
+        
+        
+       String address =basePath+"/institute/"+InstituteNameandId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/"+myFile.getQuestionFigure();
+       File file = new File(address);
+        System.out.println("file"+file);
+       InputStream inputStream = new FileInputStream(file);
+//        System.out.println(inputStream);
+       InputStreamResource a = new InputStreamResource(inputStream);
+//      
+        HttpHeaders httpHeaders = new HttpHeaders();
+//        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
+        httpHeaders.setContentType(MediaType.IMAGE_JPEG);
+        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
+//        System.out.println(myFile.getAdminInstitutionPicture());
+       
+       
+       
+        return new ResponseEntity<InputStreamResource>(a, httpHeaders, HttpStatus.ACCEPTED);
+    }
+
 
 }

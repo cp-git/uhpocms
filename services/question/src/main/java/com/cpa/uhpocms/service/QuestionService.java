@@ -41,4 +41,6 @@ public interface QuestionService {
 	int addQuestionWithAnswers(Question question);
 
 	Integer addQuestionsAndAnswers(Question question, Answer[] answers);
+	
+	Question findQuestionById(int questionId);
 }

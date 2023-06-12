@@ -3,6 +3,11 @@ spring.jpa:
   hibernate.ddl-auto: update
   show-sql: true
   hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  
+  servlet:
+     multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
 
 
 
@@ -25,3 +30,7 @@ spring.datasource:
 
 server:
   port : 8090
+  
+  
+file:
+  base-path: D:/UHPOCMS
