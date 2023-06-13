@@ -310,7 +310,7 @@ public class AdminInstitutionController {
 	
 	
 	
-	@GetMapping(path="getFileById/{adminInstitutionId}")
+	@GetMapping(path="/institution/getFileById/{adminInstitutionId}")
     ResponseEntity<InputStreamResource> getImageById(@PathVariable int adminInstitutionId) throws IOException { //download file
      
 		System.out.println("in controller..");
