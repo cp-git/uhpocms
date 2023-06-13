@@ -473,7 +473,7 @@ public class InstituteAdminController {
 	
 	
 	
-	@GetMapping(path="getFileById/{adminId}")
+	@GetMapping(path="profile/getFileById/{adminId}")
     ResponseEntity<InputStreamResource> getImageById(@PathVariable int adminId) throws IOException { //download file
      
 		System.out.println("in controller..");
