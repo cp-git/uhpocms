@@ -37,16 +37,35 @@ public class AuthController {
 	@Autowired
 	private final AuthService authService;
 
+	/**
+	 * Constructor injection for AuthService.
+	 *
+	 * @param authService The AuthService implementation.
+	 */
 	public AuthController(AuthService authService) {
 		this.authService = authService;
 	}
 
+	/**
+	 * Creates a new permission.
+	 *
+	 * @param permission The AuthPermission object to be created.
+	 * @return ResponseEntity containing the created AuthPermission object and HTTP
+	 *         status code.
+	 */
 	@PostMapping("/permissions")
 	public ResponseEntity<AuthPermission> createPermission(@RequestBody AuthPermission permission) {
 		AuthPermission createdPermission = authService.createPermission(permission);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdPermission);
 	}
 
+	/**
+	 * Deletes a permission by its ID.
+	 *
+	 * @param permissionId The ID of the permission to be deleted.
+	 * @return ResponseEntity containing the deleted AuthPermission object and HTTP
+	 *         status code.
+	 */
 	@DeleteMapping("/permissions/{permissionId}")
 	public ResponseEntity<AuthPermission> deletePermission(@PathVariable long permissionId) {
 		AuthPermission deletedPermission = authService.deletePermission(permissionId);
@@ -57,6 +76,12 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * Retrieves all permissions.
+	 *
+	 * @return ResponseEntity containing the list of AuthPermission objects and HTTP
+	 *         status code.
+	 */
 	@GetMapping("/permission")
 	public ResponseEntity<List<AuthPermission>> getAllPermissions() {
 		try {
@@ -68,6 +93,13 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * Retrieves permissions by role ID.
+	 *
+	 * @param roleId The ID of the role.
+	 * @return ResponseEntity containing the list of AuthGroupPermission objects and
+	 *         HTTP status code.
+	 */
 	@GetMapping("/permissions/role/{roleId}")
 	public ResponseEntity<List<AuthGroupPermission>> getPermissionsByRoleId(@PathVariable int roleId) {
 		try {
@@ -79,6 +111,14 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * Assigns permissions to a role.
+	 *
+	 * @param roleId      The ID of the role.
+	 * @param permissions Map of permission IDs to module IDs.
+	 * @return ResponseEntity containing the list of assigned AuthGroupPermission
+	 *         objects and HTTP status code.
+	 */
 	@PostMapping("/role/{roleId}")
 	public ResponseEntity<List<AuthGroupPermission>> assignPermissionToRole(@PathVariable("roleId") int roleId,
 			@RequestBody Map<Long, List<Long>> permissions) {
@@ -86,6 +126,13 @@ public class AuthController {
 		return ResponseEntity.ok(assignedPermissions);
 	}
 
+	/**
+	 * Revokes permissions from a role.
+	 *
+	 * @param roleId      The ID of the role.
+	 * @param permissions Map of permission IDs to module IDs.
+	 * @return ResponseEntity containing a success message and HTTP status code.
+	 */
 	@DeleteMapping("/role/{roleId}")
 	public ResponseEntity<String> revokePermissionFromRole(@PathVariable("roleId") int roleId,
 			@RequestBody Map<Long, List<Long>> permissions) {
@@ -93,6 +140,15 @@ public class AuthController {
 		return ResponseEntity.ok("Permissions revoked successfully");
 	}
 
+	/**
+	 * Checks if a role has a specific permission for a module.
+	 *
+	 * @param roleId       The ID of the role.
+	 * @param permissionId The ID of the permission.
+	 * @param moduleId     The ID of the module.
+	 * @return ResponseEntity containing a boolean indicating if the role has the
+	 *         permission and HTTP status code.
+	 */
 	@GetMapping("/role/{roleId}/permission/{permissionId}/module/{moduleId}")
 	public ResponseEntity<Boolean> checkPermissionForRoleId(@PathVariable int roleId, @PathVariable long permissionId,
 			@PathVariable long moduleId) {
@@ -105,6 +161,13 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * Retrieves permissions by user ID.
+	 *
+	 * @param userId The ID of the user.
+	 * @return ResponseEntity containing the list of AuthUserUserPermission objects
+	 *         and HTTP status code.
+	 */
 	@GetMapping("/permissions/user/{userId}")
 	public ResponseEntity<List<AuthUserUserPermission>> getPermissionsByUserId(@PathVariable long userId) {
 		try {
@@ -116,6 +179,14 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * Assigns permissions to a user.
+	 *
+	 * @param userId      The ID of the user.
+	 * @param permissions Map of permission IDs to module IDs.
+	 * @return ResponseEntity containing the list of assigned AuthUserUserPermission
+	 *         objects and HTTP status code.
+	 */
 	@PostMapping("/users/{userId}")
 	public ResponseEntity<List<AuthUserUserPermission>> assignPermissionToUser(@PathVariable("userId") Long userId,
 			@RequestBody Map<Long, List<Long>> permissions) {
@@ -123,6 +194,14 @@ public class AuthController {
 		return ResponseEntity.ok(assignedPermissions);
 	}
 
+	/**
+	 * Revokes permissions from a user.
+	 *
+	 * @param userId      The ID of the user.
+	 * @param permissions Map of permission IDs to module IDs.
+	 * @return ResponseEntity containing the list of revoked AuthUserUserPermission
+	 *         objects and HTTP status code.
+	 */
 	@DeleteMapping("/user/{userId}")
 	public ResponseEntity<List<AuthUserUserPermission>> revokePermissionFromUser(@PathVariable("userId") Long userId,
 			@RequestBody Map<Long, List<Long>> permissions) {
@@ -130,6 +209,15 @@ public class AuthController {
 		return ResponseEntity.ok(revokedPermissions);
 	}
 
+	/**
+	 * Checks if a user has a specific permission for a module.
+	 *
+	 * @param userId       The ID of the user.
+	 * @param permissionId The ID of the permission.
+	 * @param moduleId     The ID of the module.
+	 * @return ResponseEntity containing a boolean indicating if the user has the
+	 *         permission and HTTP status code.
+	 */
 	@GetMapping("/user/{userId}/permission/{permissionId}/module/{moduleId}")
 	public ResponseEntity<Boolean> checkPermissionForUserId(@PathVariable long userId, @PathVariable long permissionId,
 			@PathVariable long moduleId) {
@@ -142,6 +230,13 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * Adds a new module.
+	 *
+	 * @param module The AuthModule object to be added.
+	 * @return ResponseEntity containing the added AuthModule object and HTTP status
+	 *         code.
+	 */
 	@PostMapping("/module")
 	public ResponseEntity<AuthModule> addModule(@RequestBody AuthModule module) {
 		try {
@@ -153,6 +248,13 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * Deletes a module by its ID.
+	 *
+	 * @param moduleId The ID of the module to be deleted.
+	 * @return ResponseEntity containing the deleted AuthModule object and HTTP
+	 *         status code.
+	 */
 	@DeleteMapping("/module/{moduleId}")
 	public ResponseEntity<AuthModule> deleteModule(@PathVariable long moduleId) {
 		try {
@@ -168,6 +270,12 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * Retrieves all modules.
+	 *
+	 * @return ResponseEntity containing the list of AuthModule objects and HTTP
+	 *         status code.
+	 */
 	@GetMapping("/modules")
 	public ResponseEntity<List<AuthModule>> getAllModules() {
 		try {
@@ -179,6 +287,14 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * Retrieves permissions by user ID and role ID.
+	 *
+	 * @param userId The ID of the user.
+	 * @param roleId The ID of the role.
+	 * @return ResponseEntity containing the list of AuthPermission objects and HTTP
+	 *         status code.
+	 */
 	@GetMapping("/permissions")
 	public ResponseEntity<List<AuthPermission>> getPermissionsByUserIdAndRoleId(@RequestParam("userId") Long userId,
 			@RequestParam("roleId") Long roleId) {
@@ -189,9 +305,15 @@ public class AuthController {
 
 	// Exception handling
 
+	/**
+	 * Exception handler for handling exceptions thrown by the controller.
+	 *
+	 * @param ex The exception object.
+	 * @return ResponseEntity containing the error message and HTTP status code.
+	 */
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<String> handleException(Exception e) {
-		logger.error("An error occurred", e);
-		return new ResponseEntity<>("An error occurred", HttpStatus.INTERNAL_SERVER_ERROR);
+	public ResponseEntity<String> handleException(Exception ex) {
+		logger.error("Exception occurred in AuthController", ex);
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
 	}
 }
