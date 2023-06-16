@@ -166,7 +166,7 @@ public class ModuleFileController {
 				String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(modulefile.getModuleFileId());
 				//System.out.println(departmentName);
 				
-//				String deptName=departmentName.trim();
+				String deptName=departmentName.trim();
 //				
 				
 				String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(modulefile.getModuleFileId());
@@ -194,7 +194,7 @@ public class ModuleFileController {
 				for (MultipartFile file : files) {
 					 fileName = StringUtils.cleanPath(file.getOriginalFilename());
 					System.out.println(fileName);
-					Path fileStorage = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
+					Path fileStorage = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 					fileNames.add(fileName);
 				}
