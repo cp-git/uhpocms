@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.AccessControlService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/uhpocms")
 public class AccessControlController {
@@ -58,9 +60,10 @@ public class AccessControlController {
 
 			if (toCheckAccessControl == null) {
 
-			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
-			//	accesscontrol.setCreatedby("admin");
-			//	accesscontrol.setUpdatedby("admin");
+				// TODO: Uncomment below 2 lines and change the method name as per your Entity
+				// class
+				// accesscontrol.setCreatedby("admin");
+				// accesscontrol.setUpdatedby("admin");
 
 				createdAccessControl = accesscontrolService.createAccessControl(accesscontrol);
 				logger.info("AccessControl created :" + createdAccessControl);
@@ -80,11 +83,10 @@ public class AccessControlController {
 	}
 
 	@GetMapping("/access/{id}")
-	public ResponseEntity<Object> getAccessControlByid(@PathVariable("id") int id)
-			throws CPException {
+	public ResponseEntity<Object> getAccessControlByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering getAccessControlByid");
 		logger.info("entered user name :" + id);
-		
+
 		AccessControl accesscontrol = null;
 
 		try {
@@ -109,11 +111,10 @@ public class AccessControlController {
 	}
 
 	@GetMapping("/access")
-	public ResponseEntity<List<Object>> getAllAccessControls(@RequestParam(name = "id") String id)
-			throws CPException {
+	public ResponseEntity<List<Object>> getAllAccessControls(@RequestParam(name = "id") String id) throws CPException {
 		logger.debug("Entering getAllAccessControl");
 		logger.info("Parameter  :" + id);
-		
+
 		List<Object> accesscontrols = null;
 
 		try {
@@ -142,8 +143,8 @@ public class AccessControlController {
 	public ResponseEntity<Object> deleteAccessControlByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered deleteAccessControl  :" + id);
-		//TODO - implement the business logic
-		
+		// TODO - implement the business logic
+
 		int count = 0;
 
 		try {
@@ -160,7 +161,6 @@ public class AccessControlController {
 			logger.error("Failed to delete AccessControl :" + ex.getMessage());
 			throw new CPException("err005", resourceBunde.getString("err005"));
 		}
-		
 
 	}
 
@@ -172,7 +172,7 @@ public class AccessControlController {
 
 		AccessControl updatedAccessControl = null;
 
-		try { 
+		try {
 			updatedAccessControl = accesscontrolService.updateAccessControlByid(accesscontrol, id);
 
 			if (updatedAccessControl == null) {
@@ -187,6 +187,34 @@ public class AccessControlController {
 			logger.error("Failed update AccessControl : " + ex.getMessage());
 			throw new CPException("err004", resourceBunde.getString("err004"));
 
+		}
+
+	}
+
+	@GetMapping("/access/userid/{userid}")
+	public ResponseEntity<Object> getAccessControlByUserId(@PathVariable("userid") int userid) throws CPException {
+		logger.debug("Entering getAccessControlByid");
+		logger.info("entered user name :" + userid);
+
+		AccessControl accesscontrol = null;
+
+		try {
+
+			accesscontrol = accesscontrolService.getAccessControlByUserId(userid);
+			logger.info("fetched AccessControl :" + accesscontrol);
+
+			if (accesscontrol != null) {
+				logger.debug("AccessControl fetched generating response");
+				return ResponseHandler.generateResponse(accesscontrol, HttpStatus.OK);
+			} else {
+				logger.debug("AccessControl not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting accesscontrol : " + ex.getMessage());
+			throw new CPException("err001", resourceBunde.getString("err001"));
 		}
 
 	}

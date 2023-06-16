@@ -23,4 +23,5 @@ public interface AccessControlService {
 
 	int deleteAccessControlByid(int id);
 
+	AccessControl getAccessControlByUserId(int userid);
 }

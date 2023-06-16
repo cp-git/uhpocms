@@ -7,8 +7,6 @@
 
 package com.cpa.uhpocms.repository;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,12 +20,12 @@ import com.cpa.uhpocms.entity.AccessControl;
 public interface AccessControlRepo extends JpaRepository<AccessControl, Integer> {
 
 	public AccessControl findById(int id);
-	
-	
-	
+
 	@Transactional
 	@Modifying
 	@Query(value = "DELETE from accesscontrol WHERE id= ?1", nativeQuery = true)
 	public int deleteById(int id);
+
+	public AccessControl findByUserId(int userid);
 
 }

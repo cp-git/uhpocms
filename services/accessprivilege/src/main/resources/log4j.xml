@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration
+	xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="logFileAppender"
+		class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="logs/accessprivilege.log" />
+		<param name="Encoding" value="UTF-8" />
+		<layout class="org.apache.log4j.EnhancedPatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MMM-dd HH:mm:ss} [%-5p] - [%10t] %-30c{1.} -- %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ConsoleAppender"
+		class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+			<param name="Threshold" value="INFO" />
+		<layout class="org.apache.log4j.EnhancedPatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MMM-dd HH:mm:ss} [%-5p] - [%10t] %-30c{1.} -- %m%n" />
+		</layout>
+	</appender>
+
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="logFileAppender" />
+		<appender-ref ref="ConsoleAppender" />
+	</root>
+
+</log4j:configuration>
