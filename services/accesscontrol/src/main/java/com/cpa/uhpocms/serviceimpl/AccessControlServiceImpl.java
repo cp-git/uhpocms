@@ -40,8 +40,8 @@ public class AccessControlServiceImpl implements AccessControlService {
 		logger.debug("Entering createAccessControl");
 		AccessControl createdAccessControl = null;
 
-	//	accesscontrol.setAccessControlCreatedBy("admin");
-	//	accesscontrol.setAccessControlModifiedBy("admin");
+		// accesscontrol.setAccessControlCreatedBy("admin");
+		// accesscontrol.setAccessControlModifiedBy("admin");
 
 		createdAccessControl = accesscontrolRepo.save(accesscontrol);
 		logger.info("created AccessControl :" + createdAccessControl);
@@ -65,18 +65,18 @@ public class AccessControlServiceImpl implements AccessControlService {
 
 	/**
 	 * @return : List<Object> accesscontrol
-	 * @description : For fetching all accesscontrol which are active state from accesscontrol table
+	 * @description : For fetching all accesscontrol which are active state from
+	 *              accesscontrol table
 	 */
 	@Override
 	public List<Object> getAllAccessControls() {
 		logger.debug("Entering getAllAccessControls");
 		List<Object> objectAccessControls = null;
-		
+
 		List<AccessControl> accesscontrols = accesscontrolRepo.findAll();
 		logger.info("Fetched all active accesscontrol :" + accesscontrols);
 		objectAccessControls = new ArrayList<Object>(accesscontrols);
-		
-		
+
 		return objectAccessControls;
 	}
 
@@ -99,7 +99,7 @@ public class AccessControlServiceImpl implements AccessControlService {
 			logger.debug("setting new data of AccessControl to exisitng AccessControl");
 
 //			accesscontrol.setModifiedBy("admin");
-						
+
 			updatedAccessControl = accesscontrolRepo.save(accesscontrol);
 
 			logger.info("updated AccessControl :" + updatedAccessControl);
@@ -111,16 +111,28 @@ public class AccessControlServiceImpl implements AccessControlService {
 	/**
 	 * @param : String id
 	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of AccessControl
+	 * @description : This is function is used to soft delete the record of
+	 *              AccessControl
 	 * 
 	 */
 	@Override
 	public int deleteAccessControlByid(int id) {
 		logger.debug("Entering deleteAccessControlByid");
 
-		int count =  accesscontrolRepo.deleteById(id);
+		int count = accesscontrolRepo.deleteById(id);
 		logger.info("deleted AccessControl count : " + count);
 		return count;
+	}
+
+	@Override
+	public AccessControl getAccessControlByUserId(int userid) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering getAccessControlByUserId");
+
+		AccessControl accesscontrol = accesscontrolRepo.findByUserId(userid);
+		logger.info("Founded accesscontrol :" + accesscontrol);
+
+		return accesscontrol;
 	}
 
 }

@@ -54,11 +54,11 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 
 	@Override
 	public List<Object> getAllInstitute() {
-	    logger.debug("in GetAllInstituteAdmin method...");
-	    List<InstituteAdmin> instituteList = instituteAdminRepository.findActiveProfileOfActiveInstitutions();
-	    List<Object> objectList = new ArrayList<>(instituteList);
-	    logger.info("Fetching All List Data " + objectList);
-	    return objectList;
+		logger.debug("in GetAllInstituteAdmin method...");
+		List<InstituteAdmin> instituteList = instituteAdminRepository.findActiveProfileOfActiveInstitutions();
+		List<Object> objectList = new ArrayList<>(instituteList);
+		logger.info("Fetching All List Data " + objectList);
+		return objectList;
 	}
 
 	/**
@@ -90,6 +90,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		insAdmin.setActiveUser(instituteAdmin.isActiveUser());
 		insAdmin.setInstitutionId(instituteAdmin.getInstitutionId());
 		insAdmin.setUserId(instituteAdmin.getUserId());
+		insAdmin.setUserRoleId(instituteAdmin.getUserRoleId());
 
 		instituteAdminRepository.save(insAdmin);
 		return insAdmin;
@@ -177,33 +178,24 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return count;
 	}
 
-
-
 	/**
 	 * @author Shradha
 	 * @return : List of Institute_Admin_Profile Objects
 	 * @param : institution Id and userRole
-	 * @description : returns a sorted list of profiles based on institution id and userRole provided
+	 * @description : returns a sorted list of profiles based on institution id and
+	 *              userRole provided
 	 */
 	public List<Object> getProfileByInstitutionIdAndUserRole(Integer institutionId, String userRole) {
 		// TODO Auto-generated method stub
 		logger.debug("Entering getProfileByUserRole");
 
 		List<Object> institutionProfilesList = null;
-		
-	    
-	    	institutionProfilesList = instituteAdminRepository.findByInstitutionIdAndUserRole(institutionId, userRole);
-	    	logger.info("activated institutionProfile count : " + institutionProfilesList);
-			return institutionProfilesList;
-	    
-				
-		
-		
+
+		institutionProfilesList = instituteAdminRepository.findByInstitutionIdAndUserRole(institutionId, userRole);
+		logger.info("activated institutionProfile count : " + institutionProfilesList);
+		return institutionProfilesList;
+
 	}
-
-	
-
-	
 
 	/**
 	 * @param : InstituteAdmin, int
@@ -233,6 +225,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		existingProfile.setActiveUser(instituteAdmin.isActiveUser());
 		existingProfile.setInstitutionId(instituteAdmin.getInstitutionId());
 		existingProfile.setUserId(instituteAdmin.getUserId());
+		existingProfile.setUserRoleId(instituteAdmin.getUserRoleId());
 
 		instituteAdminRepository.save(existingProfile);
 		return existingProfile;
@@ -265,7 +258,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	public InstituteAdmin getProfileById(int id) {
 
 		logger.debug("Entering getProfileById");
-		logger.debug("value of adminid" +id);
+		logger.debug("value of adminid" + id);
 
 		InstituteAdmin instituteAdmin = null;
 		instituteAdmin = instituteAdminRepository.findByAdminId(id);
@@ -288,12 +281,9 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	public InstituteAdmin getInstituteDetails(int adminId) {
 		// TODO Auto-generated method stub
 		InstituteAdmin instituteAdmin = null;
-		instituteAdmin =instituteAdminRepository.findByAdminId(adminId);
-		
+		instituteAdmin = instituteAdminRepository.findByAdminId(adminId);
+
 		return instituteAdmin;
 	}
-
-	
-	
 
 }

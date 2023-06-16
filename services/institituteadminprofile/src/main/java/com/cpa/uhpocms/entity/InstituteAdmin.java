@@ -96,6 +96,9 @@ public class InstituteAdmin {
 	@Column(name = "user_id")
 	private Integer userId;
 
+	@Column(name = "userroleid")
+	private int userRoleId;
+
 	public InstituteAdmin() {
 		super();
 
@@ -178,7 +181,7 @@ public class InstituteAdmin {
 	public InstituteAdmin(int adminId, String userRole, String firstName, String lastName, String adminEmail,
 			String dob, String mobilePhone, String adminGender, Integer adminDepartment, String adminAddress1,
 			String adminAddress2, String adminCity, String adminState, String adminZip, String profilePics,
-			boolean activeUser, int institutionId, Integer userId) {
+			boolean activeUser, int institutionId, Integer userId, int userRoleId) {
 		super();
 		this.adminId = adminId;
 		this.userRole = userRole;
@@ -198,6 +201,21 @@ public class InstituteAdmin {
 		this.activeUser = activeUser;
 		this.institutionId = institutionId;
 		this.userId = userId;
+		this.userRoleId = userRoleId;
+	}
+
+	/**
+	 * @return the userRoleId
+	 */
+	public int getUserRoleId() {
+		return userRoleId;
+	}
+
+	/**
+	 * @param userRoleId the userRoleId to set
+	 */
+	public void setUserRoleId(int userRoleId) {
+		this.userRoleId = userRoleId;
 	}
 
 	/**
@@ -518,7 +536,7 @@ public class InstituteAdmin {
 				+ ", adminState=" + adminState + ", adminZip=" + adminZip + ", profilePics=" + profilePics
 				+ ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", modifiedBy=" + modifiedBy
 				+ ", modifiedOn=" + modifiedOn + ", activeUser=" + activeUser + ", institutionId=" + institutionId
-				+ ", userId=" + userId + "]";
+				+ ", userId=" + userId + ", userRoleId=" + userRoleId + "]";
 	}
 
 }
