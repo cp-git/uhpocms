@@ -503,11 +503,12 @@ public class InstituteAdminController {
 	
 	
 	@PutMapping("/profile/updatedelete/{Id}")
-	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestBody InstituteAdmin instituteAdmin,
-			@PathVariable("Id") int authUserId) throws CPException {
+	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestPart("admin") InstituteAdmin instituteAdmin,
+			@PathVariable("Id") int authUserId, @RequestParam("file")MultipartFile file) throws CPException {
 
 		logger.info("inside the put method..");
 		InstituteAdmin instituteAdminProfile = null;
+		String fileName=null;
 		try {
 
 			instituteAdminProfile = instituteAdminService.getProfileByAuthUserId(authUserId);
@@ -522,7 +523,63 @@ public class InstituteAdminController {
 //				logger.info("Update profile is failed...");
 //				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
 			} else {
+				instituteAdmin.setProfilePics(file.getOriginalFilename());
 				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
+				//System.out.println(instituteAdminProfile.getAdminId());
+				
+
+				String instituteAdminProfileNameAndId=instituteAdminProfile.getFirstName()+"_"+instituteAdminProfile.getAdminId();
+				
+				File theDir = new File(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId);
+				if (!theDir.exists()){
+				    theDir.mkdirs();
+				}
+				
+				//Path path = theDir.toPath();
+				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				System.out.println(fileName);
+				Path fileStorage = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, fileName).toAbsolutePath().normalize();
+				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
+				
+				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ee) {
+			logger.error(ee.toString());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+
+	}
+	
+	
+	//DeleteAuthUser
+	@PutMapping("/profile/delete/{Id}")
+	public ResponseEntity<Object> deleteInstituteAdminByAuthUserId(@RequestBody InstituteAdmin instituteAdmin,
+			@PathVariable("Id") int authUserId) throws CPException {
+
+		logger.info("inside the put method..");
+		InstituteAdmin instituteAdminProfile = null;
+	
+		try {
+
+			instituteAdminProfile = instituteAdminService.getProfileByAuthUserId(authUserId);
+			logger.info("updateInstituteAdmin Values" + instituteAdminProfile);
+
+			if (instituteAdminProfile == null) {
+				instituteAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
+
+				logger.info("created profile :" + instituteAdminProfile);
+
+				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
+//				logger.info("Update profile is failed...");
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				
+				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
+				//System.out.println(instituteAdminProfile.getAdminId());
+				
+				
 				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
 			}
 
