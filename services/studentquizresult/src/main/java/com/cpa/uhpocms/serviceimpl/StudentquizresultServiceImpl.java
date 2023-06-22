@@ -92,7 +92,8 @@ public class StudentquizresultServiceImpl implements StudentquizresultService {
 //			studentquizresult.setModifiedBy("admin");
 			toUpdatedStudentquizresult.setQuestionContent(studentquizresult.getQuestionContent());
 			toUpdatedStudentquizresult.setSelectedOption(studentquizresult.isSelectedOption());
-
+			toUpdatedStudentquizresult.setTeacherRemark(studentquizresult.getTeacherRemark());
+			toUpdatedStudentquizresult.setMarks(studentquizresult.getMarks());
 			updatedStudentquizresult = studentquizresultRepo.save(toUpdatedStudentquizresult);
 
 			logger.info("updated Studentquizresult :" + updatedStudentquizresult);

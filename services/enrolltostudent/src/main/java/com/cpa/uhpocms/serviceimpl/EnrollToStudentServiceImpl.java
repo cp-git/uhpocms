@@ -151,6 +151,20 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 		return enrolltostudent;
 	}
 
+	@Override
+	public List<Object> getProfilesByInstIdandCourId(int instId, int courId) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering getEnrollToStudentByInstIdandCourId");
+
+		List<EnrollToStudent> enrollesdSTudents = null;
+		enrollesdSTudents = enrolltostudentRepo.findProfilesByInstIDandCourseId(instId, courId);
+		logger.info("Founded enrolltostudent :" + enrollesdSTudents);
+		
+		List<Object> enrolledStudObjects = new ArrayList<Object>(enrollesdSTudents);
+		return enrolledStudObjects;	
+	
+	}
+
 	
 
 //	@Override
