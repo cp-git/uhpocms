@@ -180,5 +180,16 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		
 		return  admin;
 	}
+	
+	
+	@Override
+	public int deleteInstitutionById(int institutionId) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering deleteInstitutionById");
+
+		int count = adminInstitutionRepository.deleteAdminInstitutionByadminInstitutionId(institutionId);
+		
+		return count;
+	}
 
 }
