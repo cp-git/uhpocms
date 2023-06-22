@@ -34,6 +34,8 @@ public interface AdminInstitutionService {
 	
 	AdminInstitution findInstituteById(int adminInstitutionId);
 	
+	 int deleteInstitutionById(int institutionid);
+	
 	
 
 }
