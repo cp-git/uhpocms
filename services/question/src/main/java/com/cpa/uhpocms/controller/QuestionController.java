@@ -450,7 +450,7 @@ public class QuestionController {
 
 	// for inserting question and answers
 	@PostMapping("/question/add")
-	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestPart("request") QuestionAnswer request,@RequestParam(value="files")List<MultipartFile> files) throws CPException {
+	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestPart("request") QuestionAnswer request,@RequestParam(value="files",required=false)List<MultipartFile> files) throws CPException {
 		// Extract questions and answers arrays from the request
 
 		Question question = request.getQuestion();
@@ -458,15 +458,34 @@ public class QuestionController {
 
 		Integer questionId = 0;
 		
-		String fileName = null;
+		
+		
 		try {
 
 			logger.info("fetched Question :" + question);
 			logger.info("fetched answers :" + answers.length);
 
-			for(int i=0;i<files.size();i++)
-			{
-				question.setQuestionFigure(files.get(i).getOriginalFilename());			}
+			
+			
+			if (files != null && !files.isEmpty()) {
+			    // do your code here
+				  for (MultipartFile file : files) {
+			            String fileName = file.getOriginalFilename();
+
+			            // Check file condition
+			            if (file.isEmpty()) {
+			                // File is empty
+			                question.setQuestionFigure(null);
+			            } else {
+			                // File exists and has content
+			                // Upload file code goes here
+			                // Replace this block with your upload logic
+			            	 question.setQuestionFigure(fileName);
+			            }
+			        }
+				
+			}
+			
 			
 			questionId = questionService.addQuestionsAndAnswers(question, answers);
 			
@@ -531,7 +550,7 @@ public class QuestionController {
 				List<String> fileNames = new ArrayList<>();
 
 				for (MultipartFile file : files) {
-					 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+					String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 					System.out.println(fileName);
 					Path fileStorage = Paths.get(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/", fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
