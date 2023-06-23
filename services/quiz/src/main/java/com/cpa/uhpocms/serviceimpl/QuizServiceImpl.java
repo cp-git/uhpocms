@@ -207,4 +207,10 @@ public class QuizServiceImpl implements QuizService {
 		return objQuizzes;
 	}
 
+	@Override
+	public List<Object[]> getQuizInfoByQuizId(int quizId) {
+		// TODO Auto-generated method stub
+		 return quizRepo.getQuizInfoByQuizId(quizId);
+	}
+
 }

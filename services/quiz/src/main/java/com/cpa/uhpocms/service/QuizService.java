@@ -30,4 +30,6 @@ public interface QuizService {
 	Object updateActiveStatus(String figure);
 
 	List<Object> getInactiveQuizzes();
+	
+	List<Object[]> getQuizInfoByQuizId(int quizId);
 }
