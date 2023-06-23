@@ -7,6 +7,7 @@
 
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 //import com.cpa.uhpocms.controller.AssignToTeacherController;
 import com.cpa.uhpocms.entity.AssignToTeacher;
+
 import com.cpa.uhpocms.repository.AssignToTeacherRepo;
 import com.cpa.uhpocms.service.AssignToTeacherService;
 
@@ -116,5 +118,21 @@ public class AssignToTeacherServiceImpl implements AssignToTeacherService {
 		logger.info("deleted AssignToTeacher count : " + count);
 		return count;
 	}
+	
+	@Override
+	public List<Object> getProfilesByInstIdandCourId(int instId, int courId) {
+		// TODO Auto-generated method stub
+		logger.debug("Entering getEnrollToStudentByInstIdandCourId");
+
+		List<AssignToTeacher> assignedTeachers = null;
+		assignedTeachers = assigntoteacherRepo.findProfilesByInstIDandCourseId(instId, courId);
+		logger.info("Founded enrolltostudent :" + assignedTeachers);
+		
+		List<Object> assignedTeacherObjects = new ArrayList<Object>(assignedTeachers);
+		return assignedTeacherObjects;	
+	
+	}
+
+	
 
 }

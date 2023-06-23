@@ -17,6 +17,8 @@ public interface EnrollToStudentService {
 
 	EnrollToStudent getEnrollToStudentBycourseIdandprofileId(int courseid,int profile_id);
 	
+	List<Object> getProfilesByInstIdandCourId(int instId,int courId);
+	
 	EnrollToStudent getEnrollToStudentBycourseId(int courseid);
 
 //	List<Object> getAllEnrollToStudents();

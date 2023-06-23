@@ -264,6 +264,7 @@ public class QuestionServiceImpl implements QuestionService {
 		String questionJson = null;
 		List<String> answersJson = new ArrayList<String>();
 
+		
 		try {
 			questionJson = objectMapper.writeValueAsString(question);
 
@@ -288,9 +289,13 @@ public class QuestionServiceImpl implements QuestionService {
 //		System.out.println("json array " + questionJson);
 //		System.out.println("answer json " + answersJson);
 
+		if((question.isQuestionIsMCQ() == false) && (question.getMaxMarks() == 0)) {
+			return null;
+		}
+		else {
 		value = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
 				answersJson.get(2), answersJson.get(3), value);
-
+		}
 		logger.info("generated ID" + value.toString());
 		return value;
 

@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+
 import com.cpa.uhpocms.entity.EnrollToStudent;
 
 @Repository
@@ -37,4 +38,14 @@ public interface EnrollToStudentRepo extends JpaRepository<EnrollToStudent, Inte
 	public void insertCourseAndProfile(int courseId, int profileId);
 
 	public EnrollToStudent findByCourseIdAndProfileId(int courseid, int profile_id);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "SELECT DISTINCT te.* FROM teacher_course_enrolltostudent te  JOIN teacher_course tc ON te.course_id = tc.courseid WHERE tc.instid = ?1 and te.course_id=?2 and tc.isactive = 'true'", nativeQuery = true)
+	List<EnrollToStudent> findProfilesByInstIDandCourseId(int instId,int courId);
+	
+	
+	
+	
+	
 }
