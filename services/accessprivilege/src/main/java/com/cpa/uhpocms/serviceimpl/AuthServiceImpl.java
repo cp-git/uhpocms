@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +17,8 @@ import com.cpa.uhpocms.entity.AuthGroupPermission;
 import com.cpa.uhpocms.entity.AuthModule;
 import com.cpa.uhpocms.entity.AuthPermission;
 import com.cpa.uhpocms.entity.AuthUserUserPermission;
+import com.cpa.uhpocms.entity.PermissionAssignment;
+import com.cpa.uhpocms.entity.UserRoleIds;
 import com.cpa.uhpocms.repository.AuthGroupPermissionRepository;
 import com.cpa.uhpocms.repository.AuthGroupRepository;
 import com.cpa.uhpocms.repository.AuthModuleRepository;
@@ -89,13 +92,23 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	/**
+	 * Retrieves all permissions.
+	 *
+	 * @return The list of all AuthPermission objects.
+	 */
+	@Override
+	public List<AuthGroupPermission> getAllGroupPermissions() {
+		return groupPermissionRepository.findAll();
+	}
+
+	/**
 	 * Retrieves group permissions by role ID.
 	 *
 	 * @param roleId The ID of the role.
 	 * @return The list of AuthGroupPermission objects associated with the role.
 	 */
 	@Override
-	public List<AuthGroupPermission> getPermissionsByRoleId(int roleId) {
+	public List<AuthGroupPermission> getPermissionsByRoleId(Long roleId) {
 		return groupPermissionRepository.findByRoleId(roleId);
 	}
 
@@ -108,20 +121,31 @@ public class AuthServiceImpl implements AuthService {
 	 * @return The list of assigned AuthGroupPermission objects.
 	 */
 	@Override
-	public List<AuthGroupPermission> assignPermissionToRole(int roleId, Map<Long, List<Long>> permissions) {
-		List<AuthGroupPermission> assignedPermissions = new ArrayList<>();
+	public List<AuthGroupPermission> assignPermissionToRole(Long roleId, List<PermissionAssignment> permissions) {
+		groupPermissionRepository.deleteAllByRoleId(roleId);
 
-		// Iterate over the module IDs and their corresponding permission IDs
-		permissions.forEach((moduleId, permissionIds) -> {
-			// Iterate over the permission IDs
+		List<AuthGroupPermission> assignedPermissions = new ArrayList<>();
+		// Iterate over each permission request
+		permissions.forEach(permissionRequest -> {
+			Long moduleId = permissionRequest.getModuleId();
+			List<Long> permissionIds = permissionRequest.getPermissionIds();
+			// Iterate over each permission ID
 			permissionIds.forEach(permissionId -> {
-				// Create a new AuthGroupPermission object
+				// Create a new AuthUserUserPermission object
 				AuthGroupPermission groupPermission = new AuthGroupPermission();
-				groupPermission.setRoleId(roleId); // Set the role ID
-				groupPermission.setModuleId(moduleId); // Set the module ID
-				groupPermission.setPermissionId(permissionId); // Set the permission ID
-				assignedPermissions.add(groupPermissionRepository.save(groupPermission)); // Save the group permission
-																							// and add it to the list
+				groupPermission.setRoleId(roleId);
+				groupPermission.setModuleId(moduleId);
+				groupPermission.setPermissionId(permissionId);
+				// Save the user permission to the database and add it to the list of assigned
+				// permissions
+
+//				AuthGroupPermission groupPermission = groupPermissionRepository
+//						.findByRoleIdAndModuleIdAndPermissionId(roleId, moduleId, permissionId);
+
+//				if (groupPermission == null) {
+				assignedPermissions.add(groupPermissionRepository.save(groupPermission));
+//				}
+
 			});
 		});
 
@@ -136,7 +160,7 @@ public class AuthServiceImpl implements AuthService {
 	 *                    permission IDs as values.
 	 * @return The list of revoked AuthGroupPermission objects.
 	 */
-	public List<AuthGroupPermission> revokePermission(int roleId, Map<Long, List<Long>> permissions) {
+	public List<AuthGroupPermission> revokePermission(Long roleId, Map<Long, List<Long>> permissions) {
 		List<AuthGroupPermission> revokedPermissions = new ArrayList<>();
 
 		// Iterate over the module IDs and their corresponding permission IDs
@@ -166,7 +190,7 @@ public class AuthServiceImpl implements AuthService {
 	 * @return true if the role has the permission for the module, false otherwise.
 	 */
 	@Override
-	public boolean checkPermissionForRoleId(int roleId, long permissionId, long moduleId) {
+	public boolean checkPermissionForRoleId(Long roleId, long permissionId, long moduleId) {
 		AuthGroupPermission permission = groupPermissionRepository.findByRoleIdAndPermissionIdAndModuleId(roleId,
 				permissionId, moduleId);
 		return permission != null && permission.getModuleId() == moduleId;
@@ -302,8 +326,121 @@ public class AuthServiceImpl implements AuthService {
 	 * @return The list of AuthPermission objects associated with the user and role.
 	 */
 	@Override
-	public List<AuthPermission> getPermissionsByUserIdAndRoleId(Long userId, Long roleId) {
-		return permissionRepository.findPermissionByUserIdAndRoleId(userId, roleId);
+	public List<AuthUserUserPermission> getUserPermissionsByUserIdAndRoleId(Long userId, Long roleId) {
+
+		List<AuthUserUserPermission> userPermissions = userPermissionRepository.findByUserId(userId);
+
+		List<AuthGroupPermission> groupPermissions = groupPermissionRepository.findByRoleId(roleId);
+
+		List<AuthUserUserPermission> userAndGroupPermissions = new ArrayList<>(userPermissions);
+
+//		for (AuthGroupPermission perm : userPermissions) {
+//			userAndGroupPermissions.add(perm);
+//		}
+		AuthUserUserPermission userPermission = null;
+		for (AuthGroupPermission perm : groupPermissions) {
+
+			userPermission = new AuthUserUserPermission();
+			userPermission.setUserId(userId);
+			userPermission.setPermissionId(perm.getPermissionId());
+			userPermission.setModuleId(perm.getModuleId());
+			userPermission.setRoleId(roleId);
+			userAndGroupPermissions.add(userPermission);
+		}
+		System.out.println(userAndGroupPermissions);
+
+		return userAndGroupPermissions;
+
 	}
 
+	/**
+	 * Retrieves all permissions.
+	 *
+	 * @return The list of all AuthPermission objects.
+	 */
+	@Override
+	public List<Object> getAllUserPermissions() {
+
+		List<AuthUserUserPermission> userPermissions = userPermissionRepository.findAll();
+
+		List<UserRoleIds> userRoleIds = userPermissionRepository.getDistinctRoleIdsAndUserIds();
+		System.out.println(userRoleIds);
+
+//		List<UserRoleIds> groupRoleIds = groupPermissionRepository.getDistinctRoleIds();
+//		System.out.println("here" + groupRoleIds);
+		List<AuthGroupPermission> groupPermissions = groupPermissionRepository.findAll();
+
+		List<AuthUserUserPermission> allUserPermissions = new ArrayList<>();
+
+		allUserPermissions.addAll(userPermissions);
+
+		for (UserRoleIds result : userRoleIds) {
+
+			Long roleId = result.getRoleId();
+			Long userId = result.getUserId();
+			System.out.println("Role ID: " + roleId + ", User ID: " + userId);
+
+			List<AuthGroupPermission> filteredPermissions = groupPermissions.stream()
+					.filter(groupPerm -> groupPerm.getRoleId() == roleId).collect(Collectors.toList());
+
+			System.out.println("filetr " + filteredPermissions);
+
+			AuthUserUserPermission userPermission = null;
+			for (AuthGroupPermission perm : filteredPermissions) {
+
+				userPermission = new AuthUserUserPermission();
+				userPermission.setUserId(userId);
+				userPermission.setPermissionId(perm.getPermissionId());
+				userPermission.setModuleId(perm.getModuleId());
+				userPermission.setRoleId(roleId);
+				allUserPermissions.add(userPermission);
+			}
+			System.out.println("semi final " + allUserPermissions);
+		}
+		System.out.println("final " + allUserPermissions);
+
+		List<Object> objectAllUserPermissions = new ArrayList<>(allUserPermissions);
+		return objectAllUserPermissions;
+	}
+
+	/**
+	 * Assigns permissions to a user.
+	 *
+	 * @param userId      The ID of the user to assign permissions to.
+	 * @param roleId      The ID of the role associated with the user.
+	 * @param permissions The list of PermissionRequest objects containing module
+	 *                    IDs and permission IDs.
+	 * @return The list of assigned AuthUserUserPermission objects.
+	 */
+	public List<AuthUserUserPermission> assignPermissionToUser(Long userId, Long roleId,
+			List<PermissionAssignment> permissions) {
+		userPermissionRepository.deleteAllByUserId(userId);
+
+		List<AuthUserUserPermission> assignedPermissions = new ArrayList<>();
+		// Iterate over each permission request
+		permissions.forEach(permissionRequest -> {
+			Long moduleId = permissionRequest.getModuleId();
+			List<Long> permissionIds = permissionRequest.getPermissionIds();
+			// Iterate over each permission ID
+			permissionIds.forEach(permissionId -> {
+				// Create a new AuthUserUserPermission object
+				AuthUserUserPermission userPermission = new AuthUserUserPermission();
+				userPermission.setUserId(userId);
+				userPermission.setRoleId(roleId);
+				userPermission.setModuleId(moduleId);
+				userPermission.setPermissionId(permissionId);
+				// Save the user permission to the database and add it to the list of assigned
+				// permissions
+
+				AuthGroupPermission groupPermission = groupPermissionRepository
+						.findByRoleIdAndModuleIdAndPermissionId(roleId, moduleId, permissionId);
+
+				if (groupPermission == null) {
+					assignedPermissions.add(userPermissionRepository.save(userPermission));
+				}
+
+			});
+		});
+		return assignedPermissions;
+	}
 }

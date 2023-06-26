@@ -218,5 +218,37 @@ public class AccessControlController {
 		}
 
 	}
+	
+	@PutMapping("/access/userId/{userId}")
+	public ResponseEntity<Object> addOrUpdateAccessControlByUserId(@RequestBody AccessControl accessControl,
+			@PathVariable("userId") int userId) throws CPException {
+		logger.debug("Entering addOrUpdateAccessControlByUserId");
+		logger.info("Entered addOrUpdateAccessControlByUserId with userId: " + userId);
 
+		AccessControl updatedAccessControl = null;
+
+		try {
+			AccessControl existingAccessControl = accesscontrolService.getAccessControlByUserId(userId);
+			logger.debug("Existing AccessControl: " + existingAccessControl);
+
+			if (existingAccessControl != null) {
+				accessControl.setId(existingAccessControl.getId()); // Update existing AccessControl
+				updatedAccessControl = accesscontrolService.updateAccessControl(accessControl);
+				logger.info("Updated AccessControl: " + updatedAccessControl);
+
+				return ResponseHandler.generateResponse(updatedAccessControl, HttpStatus.OK);
+			} else {
+				// Create new AccessControl
+				accessControl.setUserId(userId);
+				updatedAccessControl = accesscontrolService.createAccessControl(accessControl);
+				logger.info("AccessControl created: " + updatedAccessControl);
+
+				return ResponseHandler.generateResponse(updatedAccessControl, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to add or update AccessControl: " + ex.getMessage());
+			throw new CPException("err004", resourceBunde.getString("err004"));
+		}
+	}
 }

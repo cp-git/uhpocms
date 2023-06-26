@@ -23,7 +23,7 @@ import com.cpa.uhpocms.service.AccessControlService;
 public class AccessControlServiceImpl implements AccessControlService {
 
 	@Autowired
-	private AccessControlRepo accesscontrolRepo;
+	private AccessControlRepo accessControlRepository;
 	private static Logger logger;
 
 	public AccessControlServiceImpl() {
@@ -43,7 +43,7 @@ public class AccessControlServiceImpl implements AccessControlService {
 		// accesscontrol.setAccessControlCreatedBy("admin");
 		// accesscontrol.setAccessControlModifiedBy("admin");
 
-		createdAccessControl = accesscontrolRepo.save(accesscontrol);
+		createdAccessControl = accessControlRepository.save(accesscontrol);
 		logger.info("created AccessControl :" + createdAccessControl);
 		return createdAccessControl;
 	}
@@ -57,7 +57,7 @@ public class AccessControlServiceImpl implements AccessControlService {
 	public AccessControl getAccessControlByid(int id) {
 		logger.debug("Entering getAccessControlByid");
 
-		AccessControl accesscontrol = accesscontrolRepo.findById(id);
+		AccessControl accesscontrol = accessControlRepository.findById(id);
 		logger.info("Founded accesscontrol :" + accesscontrol);
 
 		return accesscontrol;
@@ -73,7 +73,7 @@ public class AccessControlServiceImpl implements AccessControlService {
 		logger.debug("Entering getAllAccessControls");
 		List<Object> objectAccessControls = null;
 
-		List<AccessControl> accesscontrols = accesscontrolRepo.findAll();
+		List<AccessControl> accesscontrols = accessControlRepository.findAll();
 		logger.info("Fetched all active accesscontrol :" + accesscontrols);
 		objectAccessControls = new ArrayList<Object>(accesscontrols);
 
@@ -92,7 +92,7 @@ public class AccessControlServiceImpl implements AccessControlService {
 		AccessControl toUpdatedAccessControl = null;
 		AccessControl updatedAccessControl = null;
 
-		toUpdatedAccessControl = accesscontrolRepo.findById(id);
+		toUpdatedAccessControl = accessControlRepository.findById(id);
 		logger.info("exisitng AccessControl :: " + toUpdatedAccessControl);
 
 		if (toUpdatedAccessControl != null) {
@@ -100,7 +100,7 @@ public class AccessControlServiceImpl implements AccessControlService {
 
 //			accesscontrol.setModifiedBy("admin");
 
-			updatedAccessControl = accesscontrolRepo.save(accesscontrol);
+			updatedAccessControl = accessControlRepository.save(accesscontrol);
 
 			logger.info("updated AccessControl :" + updatedAccessControl);
 		}
@@ -119,7 +119,7 @@ public class AccessControlServiceImpl implements AccessControlService {
 	public int deleteAccessControlByid(int id) {
 		logger.debug("Entering deleteAccessControlByid");
 
-		int count = accesscontrolRepo.deleteById(id);
+		int count = accessControlRepository.deleteById(id);
 		logger.info("deleted AccessControl count : " + count);
 		return count;
 	}
@@ -129,10 +129,15 @@ public class AccessControlServiceImpl implements AccessControlService {
 		// TODO Auto-generated method stub
 		logger.debug("Entering getAccessControlByUserId");
 
-		AccessControl accesscontrol = accesscontrolRepo.findByUserId(userid);
+		AccessControl accesscontrol = accessControlRepository.findByUserId(userid);
 		logger.info("Founded accesscontrol :" + accesscontrol);
 
 		return accesscontrol;
 	}
+	
+	  @Override
+	    public AccessControl updateAccessControl(AccessControl accessControl) {
+	        return accessControlRepository.save(accessControl);
+	    }
 
 }
