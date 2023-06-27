@@ -169,30 +169,29 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 	}
 
 	@Override
-	public ModuleFile updateModuleFileBymoduleFileId(ModuleFile modulefile, int id) {
+	public ModuleFile updateModuleFileBymoduleFileId(ModuleFile modulefile, int moduleFileId) {
 		// TODO Auto-generated method stub
-		logger.debug("Entering updateModuleFile");
+		logger.debug("InSaveInstituteAdmin...");
+		ModuleFile moduleFile = modulefileRepo.findByModuleFileId(moduleFileId);
+		logger.info("The Update Method is..." + moduleFile);
+		moduleFile.setModuleFile(modulefile.getModuleFile());
+		moduleFile.setModuleFileOrderNo(modulefile.getModuleFileOrderNo());
+		moduleFile.setModuleFileIsActive(modulefile.isModuleFileIsActive());
+		moduleFile.setModuleId(modulefile.getModuleId());
+		
+		
+		
 
-		ModuleFile toUpdatedModuleFile = null;
-		ModuleFile updatedModuleFile = null;
+		modulefileRepo.save(moduleFile);
+		
+		System.out.println(modulefile);
+		return moduleFile;
+		
+		
 
-		toUpdatedModuleFile = modulefileRepo.findByModuleFileId(id);
-		logger.info("exisitng ModuleFile :: " + toUpdatedModuleFile);
 
-		if (toUpdatedModuleFile != null) {
-			logger.debug("setting new data of ModuleFile to exisitng ModuleFile");
-
-			toUpdatedModuleFile.setModuleFile(modulefile.getModuleFile());
-			toUpdatedModuleFile.setModuleFileOrderNo(modulefile.getModuleFileOrderNo());
-			toUpdatedModuleFile.setModuleFileIsActive(modulefile.isModuleFileIsActive());
-			toUpdatedModuleFile.setModuleId(modulefile.getModuleId());
-
-			updatedModuleFile = modulefileRepo.save(toUpdatedModuleFile);
-
-			logger.info("updated ModuleFile :" + updatedModuleFile);
-		}
-
-		return updatedModuleFile;
+		
+			
 	}
 
 	@Override
@@ -213,6 +212,12 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		int count = modulefileRepo.activateModuleFileByModuleFileId(id);
 		logger.info("activated module file count : " + count);
 		return count;
+	}
+
+	@Override
+	public ModuleFile getModuleFileById(int id) {
+		// TODO Auto-generated method stub
+		return modulefileRepo.findByModuleFileId(id);
 	}
 
 }
