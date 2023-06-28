@@ -47,11 +47,11 @@ public class QuestionServiceImplTest {
 
 		// actual question
 		this.question = new Question(1, "user", "content", "expl", 10, true, 1, 1, true, "admin", createdOn, "admin",
-				modifiedOn);
+				modifiedOn,50);
 
 		// expected question
 		this.expect = new Question(1, "user", "content", "expl", 10, true, 1, 1, true, "admin", createdOn, "admin",
-				modifiedOn);
+				modifiedOn,10);
 
 	}
 
@@ -91,7 +91,7 @@ public class QuestionServiceImplTest {
 		 */
 
 		// creating question to create entry in table
-		Question question = new Question("user", "content", "expl", 10, true, 1, 1, true);
+		Question question = new Question(0, "user", "content", "expl", 10, true, 1, 1, true,null, null, null, null, 100);
 
 		Mockito.when(questionRepository.save(question)).thenReturn(this.question);
 
@@ -117,14 +117,14 @@ public class QuestionServiceImplTest {
 
 		// exisiting question
 		Question existing = new Question(1, "user", "content", "expl", 10, true, 1, 1, true, "admin", createdOn,
-				"admin", modifiedOn);
+				"admin", modifiedOn, 0);
 
 		// updating question to update entry in table
-		Question question = new Question("user", "content123", "expl123", 10, true, 1, 1, true);
+		Question question = new Question(0, "user", "content123", "expl123", 10, true, 1, 1, true, null, modifiedOn, null, modifiedOn, 0);
 
 		// expected question
 		Question expect = new Question(1, "user", "content123", "expl123", 10, true, 1, 1, true, "admin", createdOn,
-				"admin", modifiedOn);
+				"admin", modifiedOn, 0);
 
 		Mockito.when(questionRepository.findByQuestionFigure("user")).thenReturn(existing);
 		Question toUpdateQuestion = questionRepository.findByQuestionFigure("user");
