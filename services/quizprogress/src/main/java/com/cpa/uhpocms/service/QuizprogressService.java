@@ -26,5 +26,7 @@ public interface QuizprogressService {
 	int deleteQuizprogressByStudentIdAndQuizId(int studentId, int quizId);
 
 	List<Object> getQuizprogressBystudentId(int studentId);
+	
+	List<Object> getQuizProgByCourIDAndModID(int courId,int modId);
 
 }
