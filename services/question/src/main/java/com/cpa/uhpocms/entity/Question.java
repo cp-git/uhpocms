@@ -73,6 +73,10 @@ public class Question {
 	@UpdateTimestamp
 	@Column(name = "modified_on", nullable = false)
 	private Date questionModifiedOn;
+	
+	
+	@Column(name = "max_marks", nullable = false)
+	private int maxMarks;
 
 	/**
 	 * 
@@ -80,28 +84,112 @@ public class Question {
 	public Question() {
 		super();
 	}
+//
+//	/**
+//	 * @param questionFigure
+//	 * @param questionContent
+//	 * @param questionExplanation
+//	 * @param questionOrderNo
+//	 * @param questionIsMCQ
+//	 * @param questionQuizId
+//	 * @param questionCategoryId
+//	 * @param questionIsActive
+//	 */
+//	public Question(String questionFigure, String questionContent, String questionExplanation, int questionOrderNo,
+//			boolean questionIsMCQ, int questionQuizId, int questionCategoryId, boolean questionIsActive) {
+//		super();
+//		this.questionFigure = questionFigure;
+//		this.questionContent = questionContent;
+//		this.questionExplanation = questionExplanation;
+//		this.questionOrderNo = questionOrderNo;
+//		this.questionIsMCQ = questionIsMCQ;
+//		this.questionQuizId = questionQuizId;
+//		this.questionCategoryId = questionCategoryId;
+//		this.questionIsActive = questionIsActive;
+//	}
+//
+//	/**
+//	 * @param questionId
+//	 * @param questionFigure
+//	 * @param questionContent
+//	 * @param questionExplanation
+//	 * @param questionOrderNo
+//	 * @param questionIsMCQ
+//	 * @param questionQuizId
+//	 * @param questionCategoryId
+//	 * @param questionIsActive
+//	 * @param questionCreatedBy
+//	 * @param questionCreatedOn
+//	 * @param questionModifiedBy
+//	 * @param questionModifiedOn
+//	 */
+//	public Question(int questionId, String questionFigure, String questionContent, String questionExplanation,
+//			int questionOrderNo, boolean questionIsMCQ, int questionQuizId, int questionCategoryId,
+//			boolean questionIsActive, String questionCreatedBy, Date questionCreatedOn, String questionModifiedBy,
+//			Date questionModifiedOn) {
+//		super();
+//		this.questionId = questionId;
+//		this.questionFigure = questionFigure;
+//		this.questionContent = questionContent;
+//		this.questionExplanation = questionExplanation;
+//		this.questionOrderNo = questionOrderNo;
+//		this.questionIsMCQ = questionIsMCQ;
+//		this.questionQuizId = questionQuizId;
+//		this.questionCategoryId = questionCategoryId;
+//		this.questionIsActive = questionIsActive;
+//		this.questionCreatedBy = questionCreatedBy;
+//		this.questionCreatedOn = questionCreatedOn;
+//		this.questionModifiedBy = questionModifiedBy;
+//		this.questionModifiedOn = questionModifiedOn;
+//	}
+//
+//	
+//	/**
+//	 * @param questionId
+//	 * @param questionFigure
+//	 * @param questionContent
+//	 * @param questionExplanation
+//	 * @param questionOrderNo
+//	 * @param questionIsMCQ
+//	 * @param questionQuizId
+//	 * @param questionCategoryId
+//	 * @param questionIsActive
+//	 * @param questionCreatedBy
+//	 * @param questionCreatedOn
+//	 * @param questionModifiedBy
+//	 * @param questionModifiedOn
+//	 * @param maxMarks
+//	 */
+//	public Question(int questionId, String questionFigure, String questionContent, String questionExplanation,
+//			int questionOrderNo, boolean questionIsMCQ, int questionQuizId, int questionCategoryId,
+//			boolean questionIsActive, String questionCreatedBy, Date questionCreatedOn, String questionModifiedBy,
+//			Date questionModifiedOn, int maxMarks) {
+//		super();
+//		this.questionId = questionId;
+//		this.questionFigure = questionFigure;
+//		this.questionContent = questionContent;
+//		this.questionExplanation = questionExplanation;
+//		this.questionOrderNo = questionOrderNo;
+//		this.questionIsMCQ = questionIsMCQ;
+//		this.questionQuizId = questionQuizId;
+//		this.questionCategoryId = questionCategoryId;
+//		this.questionIsActive = questionIsActive;
+//		this.questionCreatedBy = questionCreatedBy;
+//		this.questionCreatedOn = questionCreatedOn;
+//		this.questionModifiedBy = questionModifiedBy;
+//		this.questionModifiedOn = questionModifiedOn;
+//		this.maxMarks = maxMarks;
+//	}
+//
+//	/**
+//	 * @return the maxMarks
+//	 */
 
 	/**
-	 * @param questionFigure
-	 * @param questionContent
-	 * @param questionExplanation
-	 * @param questionOrderNo
-	 * @param questionIsMCQ
-	 * @param questionQuizId
-	 * @param questionCategoryId
-	 * @param questionIsActive
+	 * @return the questionId
 	 */
-	public Question(String questionFigure, String questionContent, String questionExplanation, int questionOrderNo,
-			boolean questionIsMCQ, int questionQuizId, int questionCategoryId, boolean questionIsActive) {
-		super();
-		this.questionFigure = questionFigure;
-		this.questionContent = questionContent;
-		this.questionExplanation = questionExplanation;
-		this.questionOrderNo = questionOrderNo;
-		this.questionIsMCQ = questionIsMCQ;
-		this.questionQuizId = questionQuizId;
-		this.questionCategoryId = questionCategoryId;
-		this.questionIsActive = questionIsActive;
+	public int getQuestionId() {
+		return questionId;
 	}
 
 	/**
@@ -118,11 +206,12 @@ public class Question {
 	 * @param questionCreatedOn
 	 * @param questionModifiedBy
 	 * @param questionModifiedOn
+	 * @param maxMarks
 	 */
 	public Question(int questionId, String questionFigure, String questionContent, String questionExplanation,
 			int questionOrderNo, boolean questionIsMCQ, int questionQuizId, int questionCategoryId,
 			boolean questionIsActive, String questionCreatedBy, Date questionCreatedOn, String questionModifiedBy,
-			Date questionModifiedOn) {
+			Date questionModifiedOn, int maxMarks) {
 		super();
 		this.questionId = questionId;
 		this.questionFigure = questionFigure;
@@ -137,13 +226,21 @@ public class Question {
 		this.questionCreatedOn = questionCreatedOn;
 		this.questionModifiedBy = questionModifiedBy;
 		this.questionModifiedOn = questionModifiedOn;
+		this.maxMarks = maxMarks;
 	}
 
 	/**
-	 * @return the questionId
+	 * @return the maxMarks
 	 */
-	public int getQuestionId() {
-		return questionId;
+	public int getMaxMarks() {
+		return maxMarks;
+	}
+
+	/**
+	 * @param maxMarks the maxMarks to set
+	 */
+	public void setMaxMarks(int maxMarks) {
+		this.maxMarks = maxMarks;
 	}
 
 	/**
@@ -328,7 +425,10 @@ public class Question {
 				+ questionOrderNo + ", questionIsMCQ=" + questionIsMCQ + ", questionQuizId=" + questionQuizId
 				+ ", questionCategoryId=" + questionCategoryId + ", questionIsActive=" + questionIsActive
 				+ ", questionCreatedBy=" + questionCreatedBy + ", questionCreatedOn=" + questionCreatedOn
-				+ ", questionModifiedBy=" + questionModifiedBy + ", questionModifiedOn=" + questionModifiedOn + "]";
+				+ ", questionModifiedBy=" + questionModifiedBy + ", questionModifiedOn=" + questionModifiedOn
+				+ ", maxMarks=" + maxMarks + "]";
 	}
+
+
 
 }

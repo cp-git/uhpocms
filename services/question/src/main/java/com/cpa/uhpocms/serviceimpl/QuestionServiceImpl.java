@@ -140,7 +140,7 @@ public class QuestionServiceImpl implements QuestionService {
 			toUpdatedQuestion.setQuestionQuizId(question.getQuestionQuizId());
 			toUpdatedQuestion.setQuestionCategoryId(question.getQuestionCategoryId());
 			toUpdatedQuestion.setQuestionIsActive(question.isQuestionIsActive());
-
+			toUpdatedQuestion.setMaxMarks(question.getMaxMarks());
 			updatedQuestion = questionRepo.save(toUpdatedQuestion);
 
 			logger.info("updated Question :" + updatedQuestion);
@@ -254,6 +254,9 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public Integer addQuestionsAndAnswers(Question question, Answer[] answers) {
 
+		System.out.println("in serv impl");
+		System.out.println(question.getMaxMarks());
+		System.out.println(question);
 		Integer value = 0;
 
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -264,9 +267,11 @@ public class QuestionServiceImpl implements QuestionService {
 		String questionJson = null;
 		List<String> answersJson = new ArrayList<String>();
 
+		
 		try {
 			questionJson = objectMapper.writeValueAsString(question);
-
+			System.out.println("question json value");
+			System.out.println(questionJson);
 			for (Answer answer : answers) {
 				System.out.println(answer.getContent());
 				if (answer.getContent() != null) {
@@ -274,7 +279,7 @@ public class QuestionServiceImpl implements QuestionService {
 				}
 			}
 
-			// inserting null values
+			
 			System.out.println(answersJson.size());
 			for (int i = answersJson.size(); i < ANSWER_LENGTH; i++) {
 				answersJson.add(null);
@@ -287,10 +292,16 @@ public class QuestionServiceImpl implements QuestionService {
 
 //		System.out.println("json array " + questionJson);
 //		System.out.println("answer json " + answersJson);
-
-		value = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
+//
+//	    if((question.isQuestionIsMCQ() == false) && (question.getMaxMarks() == 0 ))
+//	    {
+//	    	
+//	    }
+//	    else
+//	    {
+	    	value = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
 				answersJson.get(2), answersJson.get(3), value);
-
+//	    }
 		logger.info("generated ID" + value.toString());
 		return value;
 

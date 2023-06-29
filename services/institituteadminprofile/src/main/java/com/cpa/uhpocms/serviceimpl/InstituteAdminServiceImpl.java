@@ -90,7 +90,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		insAdmin.setActiveUser(instituteAdmin.isActiveUser());
 		insAdmin.setInstitutionId(instituteAdmin.getInstitutionId());
 		insAdmin.setUserId(instituteAdmin.getUserId());
-		insAdmin.setUserRoleId(instituteAdmin.getUserRoleId());
+		
 
 		instituteAdminRepository.save(insAdmin);
 		return insAdmin;
@@ -225,7 +225,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		existingProfile.setActiveUser(instituteAdmin.isActiveUser());
 		existingProfile.setInstitutionId(instituteAdmin.getInstitutionId());
 		existingProfile.setUserId(instituteAdmin.getUserId());
-		existingProfile.setUserRoleId(instituteAdmin.getUserRoleId());
+		
 
 		instituteAdminRepository.save(existingProfile);
 		return existingProfile;

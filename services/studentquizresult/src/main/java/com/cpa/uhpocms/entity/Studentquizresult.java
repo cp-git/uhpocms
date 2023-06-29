@@ -43,6 +43,64 @@ public class Studentquizresult {
 	@Column(name = "answerid", nullable = false)
 	private int answerId;
 
+	@Column(name = "teacher_remark", nullable = true)
+	private String teacherRemark;
+
+	@Column(name = "marks", nullable = false)
+	private int marks;
+	/**
+	 * @param id
+	 * @param studentId
+	 * @param quizId
+	 * @param questionId
+	 * @param questionContent
+	 * @param selectedOption
+	 * @param answerId
+	 * @param teacherRemark
+	 * @param marks
+	 */
+	public Studentquizresult(int id, int studentId, int quizId, int questionId, String questionContent,
+			boolean selectedOption, int answerId, String teacherRemark, int marks) {
+		super();
+		Id = id;
+		this.studentId = studentId;
+		this.quizId = quizId;
+		this.questionId = questionId;
+		this.questionContent = questionContent;
+		this.selectedOption = selectedOption;
+		this.answerId = answerId;
+		this.teacherRemark = teacherRemark;
+		this.marks = marks;
+	}
+
+	/**
+	 * @return the teacherRemark
+	 */
+	public String getTeacherRemark() {
+		return teacherRemark;
+	}
+
+	/**
+	 * @param teacherRemark the teacherRemark to set
+	 */
+	public void setTeacherRemark(String teacherRemark) {
+		this.teacherRemark = teacherRemark;
+	}
+
+	/**
+	 * @return the marks
+	 */
+	public int getMarks() {
+		return marks;
+	}
+
+	/**
+	 * @param marks the marks to set
+	 */
+	public void setMarks(int marks) {
+		this.marks = marks;
+	}
+
 	/**
 	 * @param id
 	 * @param studentId
@@ -192,7 +250,8 @@ public class Studentquizresult {
 	@Override
 	public String toString() {
 		return "Studentquizresult [Id=" + Id + ", studentId=" + studentId + ", quizId=" + quizId + ", questionId="
-				+ questionId + ", questionContent=" + questionContent + ", selectedOption=" + selectedOption + "]";
+				+ questionId + ", questionContent=" + questionContent + ", selectedOption=" + selectedOption
+				+ ", answerId=" + answerId + ", teacherRemark=" + teacherRemark + ", marks=" + marks + "]";
 	}
 
 }

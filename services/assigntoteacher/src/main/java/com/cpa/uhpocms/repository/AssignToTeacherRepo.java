@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cpa.uhpocms.entity.AssignToTeacher;
 
+
 @Repository
 public interface AssignToTeacherRepo extends JpaRepository<AssignToTeacher, Integer> {
 
@@ -32,4 +33,11 @@ public interface AssignToTeacherRepo extends JpaRepository<AssignToTeacher, Inte
 	@Query(value = "UPDATE teacher_course_assigntoteacher SET is_active=false WHERE course_id = ?1", nativeQuery = true)
 	public int deleteAssignToTeacherBycourseId(int courseid);
 
+	
+	@Transactional
+	@Modifying
+	@Query(value = "SELECT DISTINCT te.* FROM teacher_course_assigntoteacher te  JOIN teacher_course tc ON te.course_id = tc.courseid WHERE tc.instid = ?1 and te.course_id=?2 and tc.isactive = 'true'", nativeQuery = true)
+	List<AssignToTeacher> findProfilesByInstIDandCourseId(int instId,int courId);
+	
+	
 }

@@ -365,4 +365,28 @@ public class AdminInstitutionController {
 
 	}
 
+	
+	@DeleteMapping("/institution/institutionId/{id}")
+	public ResponseEntity<Object> deleteInstitutionById(@PathVariable("id") int institutionId) throws CPException {
+		logger.debug("Entering deleteInstitution");
+		logger.info("entered deleteInstitution  :" + institutionId);
+		// TODO - implement the business logic
+
+		int count = 0;
+
+		try {
+			count = adminInstitutionService.deleteInstitutionById(institutionId);
+			if (count >= 1) {
+				logger.info("deleted Institution : Name = " + institutionId);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete Institution :" + ex.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+		}
+	}
 }

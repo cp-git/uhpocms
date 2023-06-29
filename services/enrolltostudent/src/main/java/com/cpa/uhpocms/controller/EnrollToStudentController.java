@@ -236,5 +236,36 @@ public class EnrollToStudentController {
 		}
 
 	}
+	
+	
+	@GetMapping("enrollstudent/instid_courid/{instId}/{courseId}")
+	public ResponseEntity<Object> getStudentByInstIdAndCourseId(@PathVariable("instId") int instId,@PathVariable("courseId") int courseId)
+			throws CPException {
+		logger.debug("Entering  getStudentByInstIdAndCourseId");
+		logger.info("entered user name :" + instId+"   " + courseId);
+		
+		List<Object> enrolltostudent = null;
+
+		try {
+
+			enrolltostudent = enrolltostudentService.getProfilesByInstIdandCourId(instId, courseId);
+			logger.info("fetched EnrollToStudent :" + enrolltostudent);
+
+			if (enrolltostudent != null) {
+				logger.debug("EnrollToStudent fetched generating response");
+				return ResponseHandler.generateResponse(enrolltostudent, HttpStatus.OK);
+			} else {
+				logger.debug("EnrollToStudent not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting enrolltostudent : " + ex.getMessage());
+			throw new CPException("err001", resourceBunde.getString("err001"));
+		}
+
+	}
+
 
 }

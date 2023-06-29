@@ -193,5 +193,37 @@ public class AssignToTeacherController {
 		}
 
 	}
+	
+
+	@GetMapping("assigntoteacher/instid_courid/{instId}/{courseId}")
+	public ResponseEntity<Object> getTeachersByInstIdAndCourseId(@PathVariable("instId") int instId,@PathVariable("courseId") int courseId)
+			throws CPException {
+		logger.debug("Entering  getTeachersByInstIdAndCourseId");
+		logger.info("entered user name :" + courseId);
+		
+		List<Object> assigntoteacher = null;
+
+		try {
+
+			assigntoteacher = assigntoteacherService.getProfilesByInstIdandCourId(instId, courseId);
+			logger.info("fetched AssignToTeacher :" + assigntoteacher);
+
+			if (assigntoteacher != null) {
+				logger.debug("AssignToTeacher fetched generating response");
+				return ResponseHandler.generateResponse(assigntoteacher, HttpStatus.OK);
+			} else {
+				logger.debug("AssignToTeacher not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting assigntoteacher : " + ex.getMessage());
+			throw new CPException("err001", resourceBunde.getString("err001"));
+		}
+
+
+	}
+
 
 }
