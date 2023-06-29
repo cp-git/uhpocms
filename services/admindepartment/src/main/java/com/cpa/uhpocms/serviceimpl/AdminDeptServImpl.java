@@ -250,4 +250,10 @@ public class AdminDeptServImpl implements AdminDeptService {
 		objectDepartments = new ArrayList<Object>(adminDepartment);
 		return objectDepartments;
 	}
+	@Override
+	public List<Object> getInactiveDepartmentsByInstituionId(int institutionId){
+		List<Object> adminDepartments = adminDeptRepo.findByInstitutionIdAndIsActive(institutionId, false);
+
+		return adminDepartments;
+	}
 }

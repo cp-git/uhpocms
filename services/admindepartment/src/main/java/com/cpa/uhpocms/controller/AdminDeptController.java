@@ -475,5 +475,33 @@ public class AdminDeptController {
 		}
 
 	}
+	
+	@GetMapping("/department/inactive/instid/{id}")
+	public ResponseEntity<List<Object>> getInactiveDepartmentsByInstitutionId(@PathVariable("id") int institutionId) throws CPException {
+		logger.debug("Entering getInactiveDepartmentsByInstitutionId");
+
+		List<Object> adminDepartments = null;
+
+		try {
+
+			adminDepartments = adminDeptService.getInactiveDepartmentsByInstituionId(institutionId);
+			logger.info("fetched Department :" + adminDepartments);
+
+			if (adminDepartments != null) {
+				logger.debug("Department fetched generating response");
+				return ResponseHandler.generateListResponse(adminDepartments, HttpStatus.OK);
+			} else {
+				logger.debug("Department not found");
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting course : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
+
 
 }
