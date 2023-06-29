@@ -457,35 +457,43 @@ public class QuestionController {
 		Answer[] answers = request.getAnswers();
 
 		Integer questionId = 0;
-		
+	
 		
 		
 		try {
 
 			logger.info("fetched Question :" + question);
 			logger.info("fetched answers :" + answers.length);
+			
+			
+			
+			if (files == null || files.isEmpty()) {
+		        // List is null or empty
+		        // Perform your desired action here, such as logging an error or returning a response
+		        System.out.println("Null or empty list of files found");
+		    } else {
+		        for (MultipartFile file : files) {
+		            if (file != null && !file.isEmpty()) {
+		                // File is not null and has content
+		                // Process the file and perform the insertion logic
+		                String fileName = file.getOriginalFilename();
+		                // Insert the file into the database or perform any other necessary operations
+		                System.out.println("File inserted: " + fileName);
+		            } else {
+		                // File is null or empty
+		                // Perform your desired action here, such as logging an error or returning a response
+		                System.out.println("Null or empty file found");
+		            }
+		        }
+		    }
+			
+			
 
 			
-			
-			if (files != null && !files.isEmpty()) {
-			    // do your code here
-				  for (MultipartFile file : files) {
-			            String fileName = file.getOriginalFilename();
+		        
+		        
+		    
 
-			            // Check file condition
-			            if (file.isEmpty()) {
-			                // File is empty
-			                question.setQuestionFigure(null);
-			            } else {
-			                // File exists and has content
-			                // Upload file code goes here
-			                // Replace this block with your upload logic
-			            	 question.setQuestionFigure(fileName);
-			            }
-			        }
-				
-			}
-			
 			
 			questionId = questionService.addQuestionsAndAnswers(question, answers);
 			
@@ -557,6 +565,7 @@ public class QuestionController {
 					fileNames.add(fileName);
 				}
 
+
 				
 
 				logger.debug("added question and answers successfully");
@@ -626,6 +635,8 @@ public class QuestionController {
 		System.out.println("Quiz Name"+quizId);
 		
 		String QuestionData=quizName+"_"+quizId;
+		
+		System.out.println(myFile.getQuestionFigure());
         
         
        String address =basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/"+myFile.getQuestionFigure();
