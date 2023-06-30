@@ -24,4 +24,6 @@ public interface AssignToTeacherService {
 	int deleteAssignToTeacherBycourseId(int courseid);
 
 	List<Object> getProfilesByInstIdandCourId(int instId,int courId);
+	
+	   int deleteAssignToTeacherByCourseIdAndProfileId(int courseId, int profileId);
 }
