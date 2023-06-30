@@ -31,11 +31,11 @@ public class ModuleFile {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
+	@Column(name = "id")
 	private int moduleFileId;
 
 
-@Column(name = "file", nullable = false)
+	@Column(name = "file")
 	private String moduleFile;
 
 	@Column(name = "fileorderno")
@@ -56,14 +56,14 @@ public class ModuleFile {
 	private String moduleFileCreatedBy;
 
 	@CreationTimestamp
-	@Column(name = "createddate", nullable = false)
+	@Column(name = "createddate")
 	private Date moduleFileCreatedDate;
 
 	@Column(name = "updatedby")
 	private String moduleFileUpdatedBy;
 
 	@UpdateTimestamp
-	@Column(name = "updateddate", nullable = false)
+	@Column(name = "updateddate")
 	private Date moduleFileUpdatedDate;
 
 	/**
