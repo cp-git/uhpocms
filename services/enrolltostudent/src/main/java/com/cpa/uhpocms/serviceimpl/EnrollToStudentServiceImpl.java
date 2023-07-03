@@ -165,6 +165,12 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 	
 	}
 
+	@Override
+	public int deleteEnrollToStudentByCourseIdAndProfileId(int courseId, int profileId) {
+		// TODO Auto-generated method stub
+		 return enrolltostudentRepo.deleteEnrollToStudentByCourseIdAndProfileId(courseId, profileId);
+	}
+
 	
 
 //	@Override
