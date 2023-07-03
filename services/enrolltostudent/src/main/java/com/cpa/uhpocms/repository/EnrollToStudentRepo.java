@@ -44,8 +44,10 @@ public interface EnrollToStudentRepo extends JpaRepository<EnrollToStudent, Inte
 	@Query(value = "SELECT DISTINCT te.* FROM teacher_course_enrolltostudent te  JOIN teacher_course tc ON te.course_id = tc.courseid WHERE tc.instid = ?1 and te.course_id=?2 and tc.isactive = 'true'", nativeQuery = true)
 	List<EnrollToStudent> findProfilesByInstIDandCourseId(int instId,int courId);
 	
-	
-	
+	@Transactional
+	 @Modifying
+	    @Query(value = "DELETE FROM teacher_course_enrollToStudent WHERE course_id = ?1 AND profile_id = ?2", nativeQuery = true)
+	   int deleteEnrollToStudentByCourseIdAndProfileId(int courseId, int profileId);
 	
 	
 }

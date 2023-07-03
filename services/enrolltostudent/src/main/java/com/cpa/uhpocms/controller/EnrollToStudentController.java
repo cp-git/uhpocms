@@ -267,5 +267,15 @@ public class EnrollToStudentController {
 
 	}
 
+	 @DeleteMapping("/enrollstudent/courseid/{courseId}/profileid/{profileId}")
+	    public ResponseEntity<Object> deleteEnrollToStudentByCourseIdAndProfileId(
+	            @PathVariable("courseId") int courseId, @PathVariable("profileId") int profileId) {
+	        int count = enrolltostudentService.deleteEnrollToStudentByCourseIdAndProfileId(courseId, profileId);
+	        if (count > 0) {
+	            return ResponseEntity.ok().build();
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	        }
+	    }
 
 }
