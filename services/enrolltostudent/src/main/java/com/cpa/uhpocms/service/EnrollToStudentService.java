@@ -30,5 +30,7 @@ public interface EnrollToStudentService {
 	int deleteEnrollToStudentBycourseId(int courseid);
 	
 //	void insertCourseAndProfile(int courseId,int profileId);
+	
+	  int deleteEnrollToStudentByCourseIdAndProfileId(int courseId, int profileId);
 
 }
