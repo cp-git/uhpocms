@@ -277,8 +277,8 @@ public class QuizprogressController {
 	
 	
 	// For getting quiz progress all data from table
-		@GetMapping("/quizprogress/courIdAndmodId/{courId}/modID")
-		public ResponseEntity<List<Object>> getAllQuizprogresssByCourIdAndModID(@PathVariable("courseId") int courId, @PathVariable("modId") int modId)
+		@GetMapping("/quizprogress/courIdAndmodId/{courId}/{modId}")
+		public ResponseEntity<List<Object>> getAllQuizprogresssByCourIdAndModID(@PathVariable("courId") int courId, @PathVariable("modId") int modId)
 				throws CPException {
 			logger.debug("Entering getAllQuizprogresssByStudentId");
 			logger.info("Parameter  :" + courId+ " "+modId);
