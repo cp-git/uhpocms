@@ -34,7 +34,7 @@ public interface ModuleFileService {
 	List<Object> getAllInactiveModuleFiles();
 
 	int activateModuleFileBymoduleFileId(int id);
-	
+
 	ModuleFile getModuleFileById(int id);
 
 	List<Object> getModuleFilesByTeacherId(int teacherId);

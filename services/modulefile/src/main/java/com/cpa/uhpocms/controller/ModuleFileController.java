@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -340,77 +339,66 @@ public class ModuleFileController {
 //	}
 
 	@PutMapping("/modulefileById/{id}")
-	public ResponseEntity<Object> updateModuleFileById(@RequestPart("admin") ModuleFile modulefile, @PathVariable("id") int id,@RequestParam(value="files")List<MultipartFile> files)
-			throws CPException {
+	public ResponseEntity<Object> updateModuleFileById(@RequestPart("admin") ModuleFile modulefile,
+			@PathVariable("id") int id, @RequestParam(value = "files") List<MultipartFile> files) throws CPException {
 		logger.debug("Entering updateModuleFile");
 		logger.info("entered  updateModuleFile :" + modulefile);
 
 		ModuleFile updatedModuleFile = null;
-		String fileName=null;
+		String fileName = null;
 
 		try {
-			for(int i=0;i<files.size();i++)
-			{
+			for (int i = 0; i < files.size(); i++) {
 				modulefile.setModuleFile(files.get(i).getOriginalFilename());
 			}
 			updatedModuleFile = modulefileService.updateModuleFileBymoduleFileId(modulefile, id);
 			logger.info("updated modulefile : " + updatedModuleFile);
-			
+
 			System.out.println(updatedModuleFile.getModuleFileId());
-				
-			String moduleName=moduleRepo.finByModuleByModuleId(updatedModuleFile.getModuleFileId());
+
+			String moduleName = moduleRepo.finByModuleByModuleId(updatedModuleFile.getModuleFileId());
 			System.out.println(moduleName);
-			
-			
-			String courseName=moduleRepo.finByCourseByModuleId(updatedModuleFile.getModuleId());
+
+			String courseName = moduleRepo.finByCourseByModuleId(updatedModuleFile.getModuleId());
 			System.out.println(courseName);
-			
-			
-			String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(updatedModuleFile.getModuleFileId());
-			//System.out.println(departmentName);
-			
-			String deptName=departmentName.trim();
+
+			String departmentName = moduleRepo
+					.finByAdminDepartmentByCourseDepartmentId(updatedModuleFile.getModuleFileId());
+			// System.out.println(departmentName);
+
+			String deptName = departmentName.trim();
 			System.out.println(deptName);
 //			
-			
-			String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(updatedModuleFile.getModuleFileId());
+
+			String InstituteName = moduleRepo
+					.finByAdminInstitutionByCourseDepartmentId(updatedModuleFile.getModuleFileId());
 			System.out.println(InstituteName);
-			
-			int InstituteId=moduleRepo.finByAdminInstitutionById(updatedModuleFile.getModuleFileId());
+
+			int InstituteId = moduleRepo.finByAdminInstitutionById(updatedModuleFile.getModuleFileId());
 			System.out.println(InstituteId);
-			
-			String instituteNameAndId=InstituteName+"_"+InstituteId;
-		  System.out.println(instituteNameAndId);
-			
-			
-			
-			
-			
-			
-			File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+modulefile.getModuleFile());
+
+			String instituteNameAndId = InstituteName + "_" + InstituteId;
+			System.out.println(instituteNameAndId);
+
+			File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + departmentName + "/"
+					+ courseName + "/" + moduleName + "/" + modulefile.getModuleFile());
 			System.out.println(theDir);
-			if (!theDir.exists()){
-			    theDir.mkdirs();
+			if (!theDir.exists()) {
+				theDir.mkdirs();
 			}
-			
+
 			List<String> fileNames = new ArrayList<>();
 
 			for (MultipartFile file : files) {
-				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				fileName = StringUtils.cleanPath(file.getOriginalFilename());
 				System.out.println(fileName);
-				Path fileStorage = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
+				Path fileStorage = Paths.get(basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/"
+						+ courseName + "/" + moduleName, fileName).toAbsolutePath().normalize();
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 				fileNames.add(fileName);
 			}
-			
 
-				
-				
-				
-			
-
-				return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
-			
+			return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
 
 		} catch (Exception ex) {
 			logger.error("Failed update ModuleFile : " + ex.getMessage());
