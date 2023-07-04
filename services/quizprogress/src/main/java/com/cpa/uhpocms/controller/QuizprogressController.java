@@ -274,5 +274,36 @@ public class QuizprogressController {
 		}
 
 	}
+	
+	
+	// For getting quiz progress all data from table
+		@GetMapping("/quizprogress/courIdAndmodId/{courId}/{modId}")
+		public ResponseEntity<List<Object>> getAllQuizprogresssByCourIdAndModID(@PathVariable("courId") int courId, @PathVariable("modId") int modId)
+				throws CPException {
+			logger.debug("Entering getAllQuizprogresssByStudentId");
+			logger.info("Parameter  :" + courId+ " "+modId);
+
+			List<Object> quizprogresses = null;
+
+			try {
+
+				quizprogresses = quizprogressService.getQuizProgByCourIDAndModID(courId, modId);
+				logger.info("fetched Quizprogress :" + quizprogresses);
+
+				if (quizprogresses != null) {
+					logger.debug("Quizprogress fetched generating response");
+					return ResponseHandler.generateListResponse(quizprogresses, HttpStatus.OK);
+				} else {
+					logger.debug("Quizprogress not found");
+					return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err001");
+				}
+
+			} catch (Exception ex) {
+
+				logger.error("Failed getting all quizprogresss : " + ex.getMessage());
+				throw new CPException("err002", resourceBunde.getString("err002"));
+
+			}
+		}
 
 }

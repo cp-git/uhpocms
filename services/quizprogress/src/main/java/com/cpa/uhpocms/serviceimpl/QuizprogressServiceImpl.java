@@ -159,4 +159,18 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 		return quizprogress;
 	}
 
+	public List<Object> getQuizProgByCourIDAndModID(int courId,int modId)
+	{ System.out.println(courId +" " +modId);
+		List<Object> objectQuizProg = null;
+		
+		List<Quizprogress> qplist = quizprogressRepo.findquizprogressBycourseIdandModId(courId, modId);
+		objectQuizProg = new  ArrayList<Object>(qplist);
+		
+		System.out.println(qplist);
+		return objectQuizProg;
+
+	}
+	
+	
+	
 }

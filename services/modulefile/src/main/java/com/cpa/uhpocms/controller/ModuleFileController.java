@@ -340,23 +340,77 @@ public class ModuleFileController {
 //	}
 
 	@PutMapping("/modulefileById/{id}")
-	public ResponseEntity<Object> updateModuleFileById(@RequestBody ModuleFile modulefile, @PathVariable("id") int id)
+	public ResponseEntity<Object> updateModuleFileById(@RequestPart("admin") ModuleFile modulefile, @PathVariable("id") int id,@RequestParam(value="files")List<MultipartFile> files)
 			throws CPException {
 		logger.debug("Entering updateModuleFile");
 		logger.info("entered  updateModuleFile :" + modulefile);
 
 		ModuleFile updatedModuleFile = null;
+		String fileName=null;
 
 		try {
-			updatedModuleFile = modulefileService.updateModuleFileBymoduleFileId(modulefile, id);
-
-			if (updatedModuleFile == null) {
-				logger.info(resourceBunde.getString("err004"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-			} else {
-				logger.info("updated modulefile : " + updatedModuleFile);
-				return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
+			for(int i=0;i<files.size();i++)
+			{
+				modulefile.setModuleFile(files.get(i).getOriginalFilename());
 			}
+			updatedModuleFile = modulefileService.updateModuleFileBymoduleFileId(modulefile, id);
+			logger.info("updated modulefile : " + updatedModuleFile);
+			
+			System.out.println(updatedModuleFile.getModuleFileId());
+				
+			String moduleName=moduleRepo.finByModuleByModuleId(updatedModuleFile.getModuleFileId());
+			System.out.println(moduleName);
+			
+			
+			String courseName=moduleRepo.finByCourseByModuleId(updatedModuleFile.getModuleId());
+			System.out.println(courseName);
+			
+			
+			String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(updatedModuleFile.getModuleFileId());
+			//System.out.println(departmentName);
+			
+			String deptName=departmentName.trim();
+			System.out.println(deptName);
+//			
+			
+			String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(updatedModuleFile.getModuleFileId());
+			System.out.println(InstituteName);
+			
+			int InstituteId=moduleRepo.finByAdminInstitutionById(updatedModuleFile.getModuleFileId());
+			System.out.println(InstituteId);
+			
+			String instituteNameAndId=InstituteName+"_"+InstituteId;
+		  System.out.println(instituteNameAndId);
+			
+			
+			
+			
+			
+			
+			File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+modulefile.getModuleFile());
+			System.out.println(theDir);
+			if (!theDir.exists()){
+			    theDir.mkdirs();
+			}
+			
+			List<String> fileNames = new ArrayList<>();
+
+			for (MultipartFile file : files) {
+				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				System.out.println(fileName);
+				Path fileStorage = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
+				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
+				fileNames.add(fileName);
+			}
+			
+
+				
+				
+				
+			
+
+				return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
+			
 
 		} catch (Exception ex) {
 			logger.error("Failed update ModuleFile : " + ex.getMessage());

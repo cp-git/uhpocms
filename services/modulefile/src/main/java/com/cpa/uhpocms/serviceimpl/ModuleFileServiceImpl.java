@@ -101,31 +101,32 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 	 * @return : modulefile
 	 * @description : For updating modulefile of teacher_modulefile table
 	 */
-//	@Override
-//	public ModuleFile updateModuleFileByFile(ModuleFile modulefile, String file) {
-//		logger.debug("Entering updateModuleFile");
-//
-//		ModuleFile toUpdatedModuleFile = null;
-//		ModuleFile updatedModuleFile = null;
-//
-//		toUpdatedModuleFile = modulefileRepo.findByModuleFile(file);
-//		logger.info("exisitng ModuleFile :: " + toUpdatedModuleFile);
-//
-//		if (toUpdatedModuleFile != null) {
-//			logger.debug("setting new data of ModuleFile to exisitng ModuleFile");
-//
-//			toUpdatedModuleFile.setModuleFile(modulefile.getModuleFile());
-//			toUpdatedModuleFile.setModuleFileOrderNo(modulefile.getModuleFileOrderNo());
-//			toUpdatedModuleFile.setModuleFileIsActive(modulefile.isModuleFileIsActive());
-//			toUpdatedModuleFile.setModuleId(modulefile.getModuleId());
-//
-//			updatedModuleFile = modulefileRepo.save(toUpdatedModuleFile);
-//
-//			logger.info("updated ModuleFile :" + updatedModuleFile);
-//		}
-//
-//		return updatedModuleFile;
-//	}
+	// @Override
+	// public ModuleFile updateModuleFileByFile(ModuleFile modulefile, String file)
+	// {
+	// logger.debug("Entering updateModuleFile");
+	//
+	// ModuleFile toUpdatedModuleFile = null;
+	// ModuleFile updatedModuleFile = null;
+	//
+	// toUpdatedModuleFile = modulefileRepo.findByModuleFile(file);
+	// logger.info("exisitng ModuleFile :: " + toUpdatedModuleFile);
+	//
+	// if (toUpdatedModuleFile != null) {
+	// logger.debug("setting new data of ModuleFile to exisitng ModuleFile");
+	//
+	// toUpdatedModuleFile.setModuleFile(modulefile.getModuleFile());
+	// toUpdatedModuleFile.setModuleFileOrderNo(modulefile.getModuleFileOrderNo());
+	// toUpdatedModuleFile.setModuleFileIsActive(modulefile.isModuleFileIsActive());
+	// toUpdatedModuleFile.setModuleId(modulefile.getModuleId());
+	//
+	// updatedModuleFile = modulefileRepo.save(toUpdatedModuleFile);
+	//
+	// logger.info("updated ModuleFile :" + updatedModuleFile);
+	// }
+	//
+	// return updatedModuleFile;
+	// }
 
 	/**
 	 * @param : String file
@@ -134,14 +135,14 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 	 *              ModuleFile
 	 * 
 	 */
-//	@Override
-//	public int deleteModuleFileByFile(String file) {
-//		logger.debug("Entering deleteModuleFileByFile");
-//
-//		int count = modulefileRepo.deleteModuleFileByFile(file);
-//		logger.info("deleted ModuleFile count : " + count);
-//		return count;
-//	}
+	// @Override
+	// public int deleteModuleFileByFile(String file) {
+	// logger.debug("Entering deleteModuleFileByFile");
+	//
+	// int count = modulefileRepo.deleteModuleFileByFile(file);
+	// logger.info("deleted ModuleFile count : " + count);
+	// return count;
+	// }
 
 	@Override
 	public List<Object> getModuleFileByStudentId(int studentId) {
@@ -165,30 +166,21 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 	}
 
 	@Override
-	public ModuleFile updateModuleFileBymoduleFileId(ModuleFile modulefile, int id) {
+	public ModuleFile updateModuleFileBymoduleFileId(ModuleFile modulefile, int moduleFileId) {
 		// TODO Auto-generated method stub
-		logger.debug("Entering updateModuleFile");
+		logger.debug("InSaveInstituteAdmin...");
+		ModuleFile moduleFile = modulefileRepo.findByModuleFileId(moduleFileId);
+		logger.info("The Update Method is..." + moduleFile);
+		moduleFile.setModuleFile(modulefile.getModuleFile());
+		moduleFile.setModuleFileOrderNo(modulefile.getModuleFileOrderNo());
+		moduleFile.setModuleFileIsActive(modulefile.isModuleFileIsActive());
+		moduleFile.setModuleId(modulefile.getModuleId());
 
-		ModuleFile toUpdatedModuleFile = null;
-		ModuleFile updatedModuleFile = null;
+		modulefileRepo.save(moduleFile);
 
-		toUpdatedModuleFile = modulefileRepo.findByModuleFileId(id);
-		logger.info("exisitng ModuleFile :: " + toUpdatedModuleFile);
+		System.out.println(modulefile);
+		return moduleFile;
 
-		if (toUpdatedModuleFile != null) {
-			logger.debug("setting new data of ModuleFile to exisitng ModuleFile");
-
-			toUpdatedModuleFile.setModuleFile(modulefile.getModuleFile());
-			toUpdatedModuleFile.setModuleFileOrderNo(modulefile.getModuleFileOrderNo());
-			toUpdatedModuleFile.setModuleFileIsActive(modulefile.isModuleFileIsActive());
-			toUpdatedModuleFile.setModuleId(modulefile.getModuleId());
-
-			updatedModuleFile = modulefileRepo.save(toUpdatedModuleFile);
-
-			logger.info("updated ModuleFile :" + updatedModuleFile);
-		}
-
-		return updatedModuleFile;
 	}
 
 	@Override
@@ -219,6 +211,11 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		List<Object> objectModulefiles = new ArrayList<>(moduleFiles);
 		logger.info("Fetched all modulefile of teacher id " + teacherId + " : " + objectModulefiles);
 		return objectModulefiles;
+	}
+
+	public ModuleFile getModuleFileById(int id) {
+		// TODO Auto-generated method stub
+		return modulefileRepo.findByModuleFileId(id);
 	}
 
 }

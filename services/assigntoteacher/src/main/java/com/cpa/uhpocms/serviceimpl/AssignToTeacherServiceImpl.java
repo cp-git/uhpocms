@@ -133,6 +133,12 @@ public class AssignToTeacherServiceImpl implements AssignToTeacherService {
 	
 	}
 
+	@Override
+	public int deleteAssignToTeacherByCourseIdAndProfileId(int courseId, int profileId) {
+		// TODO Auto-generated method stub
+		 return assigntoteacherRepo.deleteAssignToTeacherByCourseIdAndProfileId(courseId, profileId);
+	}
+
 	
 
 }

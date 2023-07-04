@@ -224,6 +224,15 @@ public class AssignToTeacherController {
 
 
 	}
-
+	 @DeleteMapping("/assigntoteacher/courseid/{courseId}/profileid/{profileId}")
+	    public ResponseEntity<Object> deleteAssignToTeacherByCourseIdAndProfileId(
+	            @PathVariable("courseId") int courseId, @PathVariable("profileId") int profileId) {
+	        int count = assigntoteacherService.deleteAssignToTeacherByCourseIdAndProfileId(courseId, profileId);
+	        if (count > 0) {
+	            return ResponseEntity.ok().build();
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	        }
+	    }
 
 }

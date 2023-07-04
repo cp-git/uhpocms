@@ -126,6 +126,17 @@ public class QuizController {
 		}
 
 	}
+	
+	
+	@GetMapping("/quiz/info/{quizId}")
+	public ResponseEntity<Object[]> getQuizInfoByQuizId(@PathVariable int quizId) {
+        List<Object[]> quizInfoList = quizService.getQuizInfoByQuizId(quizId);
+        if (!quizInfoList.isEmpty()) {
+            return new ResponseEntity<>(quizInfoList.get(0), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 	/**
 	 * 
