@@ -7,6 +7,7 @@
 
 package com.cpa.uhpocms.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -73,9 +74,7 @@ public class ModuleServiceImpl implements ModuleService {
 		logger.debug("Entering getAllModules");
 
 		List<Object> modules = moduleRepo.findByModuleIsActiveTrue();
-		
-	
-		
+
 		logger.info("Fetched all active module :" + modules);
 		return modules;
 	}
@@ -230,13 +229,39 @@ public class ModuleServiceImpl implements ModuleService {
 		return module;
 	}
 
-
-
 //
 //	@Override
 //	public int activateModuleBymoduleId(int moduleid) {
 //		// TODO Auto-generated method stub
 //		return 0;
 //	}
+
+	/**
+	 * @return : List<Object> module
+	 * @description : For fetching all module of course using profile id
+	 */
+	@Override
+	public List<Object> getModulesOfAssignedCoursesByProfileId(int profileId) {
+		logger.debug("Entering getAllModules");
+
+		List<Module> modules = moduleRepo.getModulesOfAssignedCoursesByProfileId(profileId);
+		List<Object> objectModules = new ArrayList<>(modules);
+		logger.info("Fetched all active module :" + modules);
+		return objectModules;
+	}
+
+	/**
+	 * @return : List<Object> module
+	 * @description : For fetching all module of course using profile id
+	 */
+	@Override
+	public List<Object> getModulesOfEnrolledCoursesByProfileId(int profileId) {
+		logger.debug("Entering getAllModules");
+
+		List<Module> modules = moduleRepo.getModulesOfEnrolledCoursesByProfileId(profileId);
+		List<Object> objectModules = new ArrayList<>(modules);
+		logger.info("Fetched all active module :" + modules);
+		return objectModules;
+	}
 
 }
