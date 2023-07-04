@@ -212,5 +212,34 @@ public class QuizServiceImpl implements QuizService {
 		// TODO Auto-generated method stub
 		 return quizRepo.getQuizInfoByQuizId(quizId);
 	}
+	
+	@Override
+	public List<Object> getAllInactiveQuizzesByStudentId(int studentId) {
+		logger.debug("Entering getAllQuizzesByProfileId");
 
+		List<Quiz> quizzes = quizRepo.getAllInactiveQuizzesByStudentId(studentId);
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
+		logger.info("Fetched quiz :" + quizzes);
+		return objQuizzes;
+	}
+	
+	@Override
+	public List<Object> getAllQuizzesByTeacherId(int teacherId) {
+		logger.debug("Entering getAllQuizzesByProfileId");
+
+		List<Quiz> quizzes = quizRepo.getAllQuizzesByTeacherId(teacherId);
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
+		logger.info("Fetched quiz :" + quizzes);
+		return objQuizzes;
+	}
+	
+	@Override
+	public List<Object> getAllInactiveQuizzesByTeacherId(int teacherId) {
+		logger.debug("Entering getAllQuizzesByProfileId");
+
+		List<Quiz> quizzes = quizRepo.getAllInactiveQuizzesByTeacherId(teacherId);
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
+		logger.info("Fetched quiz :" + quizzes);
+		return objQuizzes;
+	}
 }

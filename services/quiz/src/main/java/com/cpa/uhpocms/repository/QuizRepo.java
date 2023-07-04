@@ -40,4 +40,12 @@ public interface QuizRepo extends JpaRepository<Quiz, Integer> {
 	@Query(value = "SELECT tq.quizid, tm.name AS module_name, tc.name AS course_name, ad.name AS department_name, ai.name AS institution_name, tq.pass_mark, tc.coursecode FROM teacher_quiz tq JOIN public.teacher_module tm ON tq.module_id = tm.moduleid JOIN public.teacher_course tc ON tm.courseid_id = tc.courseid JOIN public.admin_department ad ON tc.instid = ad.institutionid JOIN public.admin_institution ai ON ad.institutionid = ai.institutionid WHERE  tq.quizid = ?1", nativeQuery = true)
 	List<Object[]> getQuizInfoByQuizId(int quizId);
 
+	@Query(value = "SELECT quiz.* FROM public.teacher_quiz quiz JOIN public.teacher_course_enrolltostudent enrollcourses ON quiz.courseid_id=enrollcourses.course_id WHERE enrollcourses.profile_id=?1 AND quiz.isactive=false", nativeQuery = true)
+	public List<Quiz> getAllInactiveQuizzesByStudentId(int profileId);
+	
+	@Query(value = "SELECT quiz.* FROM public.teacher_quiz quiz JOIN public.teacher_course_assigntoteacher assigncourses ON quiz.courseid_id=assigncourses.course_id WHERE assigncourses.profile_id=?1 AND quiz.isactive=false", nativeQuery = true)
+	public List<Quiz> getAllInactiveQuizzesByTeacherId(int profileId);
+	
+	@Query(value = "SELECT quiz.* FROM public.teacher_quiz quiz JOIN public.teacher_course_assigntoteacher assigncourses ON quiz.courseid_id=assigncourses.course_id WHERE assigncourses.profile_id=?1 AND quiz.isactive=true", nativeQuery = true)
+	public List<Quiz> getAllQuizzesByTeacherId(int profileId);
 }
