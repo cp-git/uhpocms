@@ -513,16 +513,19 @@ public class InstituteAdminController {
 
 			instituteAdminProfile = instituteAdminService.getProfileByAuthUserId(authUserId);
 			logger.info("updateInstituteAdmin Values" + instituteAdminProfile);
+			
+			String PreviousImage=instituteAdminProfile.getProfilePics();
+			System.out.println(PreviousImage);
 
-			if (instituteAdminProfile == null) {
-				instituteAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
-
-				logger.info("created profile :" + instituteAdminProfile);
-
-				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
-//				logger.info("Update profile is failed...");
-//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-			} else {
+//			if (instituteAdminProfile == null) {
+//				instituteAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
+//
+//				logger.info("created profile :" + instituteAdminProfile);
+//
+//				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
+////				logger.info("Update profile is failed...");
+////				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+//			} else {
 				instituteAdmin.setProfilePics(file.getOriginalFilename());
 				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
 				//System.out.println(instituteAdminProfile.getAdminId());
@@ -541,8 +544,12 @@ public class InstituteAdminController {
 				Path fileStorage = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, fileName).toAbsolutePath().normalize();
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 				
+				
+				Path fileStorage1 = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, PreviousImage).toAbsolutePath().normalize();
+				Files.delete(fileStorage1);
+				
 				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
-			}
+			
 
 		} catch (Exception ee) {
 			logger.error(ee.toString());
