@@ -258,4 +258,27 @@ public class CategoryController {
         return new AuthenticationBean("You are authenticated");
     }
 
+	@DeleteMapping("/category/categoryId/{id}")
+	public ResponseEntity<Object> deleteModuleById(@PathVariable("id") int categoryId) throws CPException {
+		logger.debug("Entering deleteCategory");
+		logger.info("entered deleteCategory  :" + categoryId);
+		// TODO - implement the business logic
+
+		int count = 0;
+
+		try {
+			count = categoryService.deleteCategoryByCategoryId(categoryId);
+			if (count >= 1) {
+				logger.info("deleted Category : Name = " + categoryId);
+				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete Category :" + ex.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+		}
+	}
 }

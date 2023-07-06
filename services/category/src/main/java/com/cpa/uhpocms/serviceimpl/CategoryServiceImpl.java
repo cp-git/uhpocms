@@ -171,6 +171,15 @@ public class CategoryServiceImpl implements CategoryService {
 		return null;
 	}
 
+	@Override
+	public int deleteCategoryByCategoryId(int categoryId) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+				logger.debug("Entering deleteCategoryByCategoryId");
 
+				int count = categoryRepo.deleteCategoryByCategoryId(categoryId);
+				logger.info("deleted Category count : " + count);
+				return count;
+	}
 	
 }

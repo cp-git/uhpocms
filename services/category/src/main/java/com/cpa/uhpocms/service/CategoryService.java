@@ -26,4 +26,6 @@ public interface CategoryService {
     Object updateActiveStatus(String name);
     
     List<Object> getInActiveCategories();
+    
+    int deleteCategoryByCategoryId(int categoryId);
 }
