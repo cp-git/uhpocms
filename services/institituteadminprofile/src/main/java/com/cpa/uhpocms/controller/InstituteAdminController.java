@@ -597,7 +597,38 @@ public class InstituteAdminController {
 		}
 
 	}
+	
+	//used in Auth User updation to profile..
+	@PutMapping("/profile/updateprofile/{Id}")
+	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestBody InstituteAdmin instituteAdmin,
+			@PathVariable("Id") int authUserId) throws CPException {
 
+		logger.info("inside the put method..");
+		InstituteAdmin instituteAdminProfile = null;
+	
+		try {
 
+			instituteAdminProfile = instituteAdminService.getProfileByAuthUserId(authUserId);
+			logger.info("updateInstituteAdmin Values" + instituteAdminProfile);
+			
 
+			instituteAdminProfile.setProfilePics(instituteAdmin.getProfilePics());
+				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
+				//System.out.println(instituteAdminProfile.getAdminId());
+				
+
+			
+				
+				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
+			
+
+		} catch (Exception ee) {
+			logger.error(ee.toString());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+
+	}
 }
+	
+	
