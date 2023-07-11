@@ -94,6 +94,10 @@ public class StudentquizresultServiceImpl implements StudentquizresultService {
 			toUpdatedStudentquizresult.setSelectedOption(studentquizresult.isSelectedOption());
 			toUpdatedStudentquizresult.setTeacherRemark(studentquizresult.getTeacherRemark());
 			toUpdatedStudentquizresult.setMarks(studentquizresult.getMarks());
+			toUpdatedStudentquizresult.setCreatedOn(studentquizresult.getCreatedOn());
+			toUpdatedStudentquizresult.setModifiedOn(studentquizresult.getModifiedOn());
+			toUpdatedStudentquizresult.setReviewedOn(studentquizresult.getReviewedOn());
+			toUpdatedStudentquizresult.setReviewStat(studentquizresult.isReviewStat());
 			updatedStudentquizresult = studentquizresultRepo.save(toUpdatedStudentquizresult);
 
 			logger.info("updated Studentquizresult :" + updatedStudentquizresult);
