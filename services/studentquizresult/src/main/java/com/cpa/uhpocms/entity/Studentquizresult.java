@@ -7,12 +7,17 @@
 
 package com.cpa.uhpocms.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "teacher_studentquizresult")
@@ -48,93 +53,22 @@ public class Studentquizresult {
 
 	@Column(name = "marks", nullable = false)
 	private int marks;
-	/**
-	 * @param id
-	 * @param studentId
-	 * @param quizId
-	 * @param questionId
-	 * @param questionContent
-	 * @param selectedOption
-	 * @param answerId
-	 * @param teacherRemark
-	 * @param marks
-	 */
-	public Studentquizresult(int id, int studentId, int quizId, int questionId, String questionContent,
-			boolean selectedOption, int answerId, String teacherRemark, int marks) {
-		super();
-		Id = id;
-		this.studentId = studentId;
-		this.quizId = quizId;
-		this.questionId = questionId;
-		this.questionContent = questionContent;
-		this.selectedOption = selectedOption;
-		this.answerId = answerId;
-		this.teacherRemark = teacherRemark;
-		this.marks = marks;
-	}
+	
 
-	/**
-	 * @return the teacherRemark
-	 */
-	public String getTeacherRemark() {
-		return teacherRemark;
-	}
-
-	/**
-	 * @param teacherRemark the teacherRemark to set
-	 */
-	public void setTeacherRemark(String teacherRemark) {
-		this.teacherRemark = teacherRemark;
-	}
-
-	/**
-	 * @return the marks
-	 */
-	public int getMarks() {
-		return marks;
-	}
-
-	/**
-	 * @param marks the marks to set
-	 */
-	public void setMarks(int marks) {
-		this.marks = marks;
-	}
-
-	/**
-	 * @param id
-	 * @param studentId
-	 * @param quizId
-	 * @param questionId
-	 * @param questionContent
-	 * @param selectedOption
-	 * @param answerId
-	 */
-	public Studentquizresult(int id, int studentId, int quizId, int questionId, String questionContent,
-			boolean selectedOption, int answerId) {
-		super();
-		Id = id;
-		this.studentId = studentId;
-		this.quizId = quizId;
-		this.questionId = questionId;
-		this.questionContent = questionContent;
-		this.selectedOption = selectedOption;
-		this.answerId = answerId;
-	}
-
-	/**
-	 * @return the answerId
-	 */
-	public int getAnswerId() {
-		return answerId;
-	}
-
-	/**
-	 * @param answerId the answerId to set
-	 */
-	public void setAnswerId(int answerId) {
-		this.answerId = answerId;
-	}
+	@Column(name = "reviewStat", nullable = false)
+	private boolean reviewStat ;
+	
+	@CreationTimestamp
+	@Column(name = "createdon")
+	private Date createdOn;
+	
+	@UpdateTimestamp
+	@Column(name = "modifiedon")
+	private Date modifiedOn;
+	
+	@UpdateTimestamp
+	@Column(name = "reviwedon")
+	private Date reviewedOn;
 
 	/**
 	 * @return the id
@@ -221,15 +155,121 @@ public class Studentquizresult {
 	}
 
 	/**
+	 * @return the answerId
+	 */
+	public int getAnswerId() {
+		return answerId;
+	}
+
+	/**
+	 * @param answerId the answerId to set
+	 */
+	public void setAnswerId(int answerId) {
+		this.answerId = answerId;
+	}
+
+	/**
+	 * @return the teacherRemark
+	 */
+	public String getTeacherRemark() {
+		return teacherRemark;
+	}
+
+	/**
+	 * @param teacherRemark the teacherRemark to set
+	 */
+	public void setTeacherRemark(String teacherRemark) {
+		this.teacherRemark = teacherRemark;
+	}
+
+	/**
+	 * @return the marks
+	 */
+	public int getMarks() {
+		return marks;
+	}
+
+	/**
+	 * @param marks the marks to set
+	 */
+	public void setMarks(int marks) {
+		this.marks = marks;
+	}
+
+	/**
+	 * @return the reviewStat
+	 */
+	public boolean isReviewStat() {
+		return reviewStat;
+	}
+
+	/**
+	 * @param reviewStat the reviewStat to set
+	 */
+	public void setReviewStat(boolean reviewStat) {
+		this.reviewStat = reviewStat;
+	}
+
+	/**
+	 * @return the createdOn
+	 */
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	/**
+	 * @param createdOn the createdOn to set
+	 */
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	/**
+	 * @return the modifiedOn
+	 */
+	public Date getModifiedOn() {
+		return modifiedOn;
+	}
+
+	/**
+	 * @param modifiedOn the modifiedOn to set
+	 */
+	public void setModifiedOn(Date modifiedOn) {
+		this.modifiedOn = modifiedOn;
+	}
+
+	/**
+	 * @return the reviewedOn
+	 */
+	public Date getReviewedOn() {
+		return reviewedOn;
+	}
+
+	/**
+	 * @param reviewedOn the reviewedOn to set
+	 */
+	public void setReviewedOn(Date reviewedOn) {
+		this.reviewedOn = reviewedOn;
+	}
+
+	/**
 	 * @param id
 	 * @param studentId
 	 * @param quizId
 	 * @param questionId
 	 * @param questionContent
 	 * @param selectedOption
+	 * @param answerId
+	 * @param teacherRemark
+	 * @param marks
+	 * @param reviewStat
+	 * @param createdOn
+	 * @param modifiedOn
+	 * @param reviewedOn
 	 */
 	public Studentquizresult(int id, int studentId, int quizId, int questionId, String questionContent,
-			boolean selectedOption) {
+			boolean selectedOption, int answerId, String teacherRemark, int marks, boolean reviewStat, Date createdOn,
+			Date modifiedOn, Date reviewedOn) {
 		super();
 		Id = id;
 		this.studentId = studentId;
@@ -237,6 +277,13 @@ public class Studentquizresult {
 		this.questionId = questionId;
 		this.questionContent = questionContent;
 		this.selectedOption = selectedOption;
+		this.answerId = answerId;
+		this.teacherRemark = teacherRemark;
+		this.marks = marks;
+		this.reviewStat = reviewStat;
+		this.createdOn = createdOn;
+		this.modifiedOn = modifiedOn;
+		this.reviewedOn = reviewedOn;
 	}
 
 	/**
@@ -244,14 +291,19 @@ public class Studentquizresult {
 	 */
 	public Studentquizresult() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
 		return "Studentquizresult [Id=" + Id + ", studentId=" + studentId + ", quizId=" + quizId + ", questionId="
 				+ questionId + ", questionContent=" + questionContent + ", selectedOption=" + selectedOption
-				+ ", answerId=" + answerId + ", teacherRemark=" + teacherRemark + ", marks=" + marks + "]";
+				+ ", answerId=" + answerId + ", teacherRemark=" + teacherRemark + ", marks=" + marks + ", reviewStat="
+				+ reviewStat + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn + ", reviewedOn=" + reviewedOn
+				+ "]";
 	}
-
+	
+	
+	
+	
+	
 }

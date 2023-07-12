@@ -345,7 +345,13 @@ public class ModuleFileController {
 		logger.info("entered  updateModuleFile :" + modulefile);
 
 		ModuleFile updatedModuleFile = null;
-		String fileName = null;
+		String fileName=null;
+		
+		ModuleFile moduleFile = modulefileService.getModuleFileById(id);
+		System.out.println("Details of Modulefile..."+moduleFile);
+		
+		String moduleFileName=moduleFile.getModuleFile();
+		System.out.println(moduleFileName);
 
 		try {
 			for (int i = 0; i < files.size(); i++) {
@@ -397,6 +403,11 @@ public class ModuleFileController {
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 				fileNames.add(fileName);
 			}
+			
+			
+			Path fileStorage1 = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName, moduleFileName).toAbsolutePath().normalize();
+			Files.delete(fileStorage1);
+			
 
 			return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
 
