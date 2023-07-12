@@ -26,5 +26,7 @@ public interface CourseProgressService {
 	int deleteCourseProgressByid(int id);
 	
 	public CourseProgress getCourseProgressByCourseIdStudId(int courseId, int studId);
+	
+	int deleteCourseProgressByCourseIdAndStudentId(int courseId, int studId);
 
 }
