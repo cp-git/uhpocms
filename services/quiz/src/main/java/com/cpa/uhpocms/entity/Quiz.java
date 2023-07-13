@@ -79,6 +79,10 @@ public class Quiz {
 
 	@Column(name = "category_id")
 	private int categoryId;
+	
+	@Column(name = "set_timer")
+	private int setTimer;
+
 
 	@Column(name = "isactive")
 	private boolean isActive;
@@ -133,7 +137,7 @@ public class Quiz {
 	public Quiz(int quizId, String title, String description, String url, Boolean randomOrder, int maxQuestions,
 			boolean answersAtEnd, boolean examPaper, boolean singleAttempt, int passMark, String successText,
 			String failText, boolean draft, int quizOrderNo, int courseId, int moduleId, int categoryId,
-			boolean isActive, String modifiedBy, String createdBy, Date createdOn, Date modifiedOn) {
+			boolean isActive, String modifiedBy, String createdBy, Date createdOn, Date modifiedOn,int setTimer) {
 		super();
 		this.quizId = quizId;
 		this.title = title;
@@ -157,6 +161,7 @@ public class Quiz {
 		this.createdBy = createdBy;
 		this.createdOn = createdOn;
 		this.modifiedOn = modifiedOn;
+		 this.setTimer = setTimer;
 	}
 
 	/**
@@ -467,7 +472,13 @@ public class Quiz {
 		this.modifiedOn = modifiedOn;
 	}
 	
-	
+	public int getSetTimer() {
+	    return setTimer;
+	}
+
+	public void setSetTimer(int setTimer) {
+	    this.setTimer = setTimer;
+	}
 	
 
 	/**
@@ -497,7 +508,7 @@ public class Quiz {
 	public Quiz(int quizId, String title, String description, String url, boolean randomOrder, int maxQuestions,
 			boolean answersAtEnd, boolean examPaper, boolean singleAttempt, int passMark, String successText,
 			String failText, boolean draft, int quizOrderNo, int courseId, int moduleId, int categoryId,
-			boolean isActive, String modifiedBy, String createdBy, Date createdOn, Date modifiedOn) {
+			boolean isActive, String modifiedBy, String createdBy, Date createdOn, Date modifiedOn,int setTimer) {
 		super();
 		this.quizId = quizId;
 		this.title = title;
@@ -521,6 +532,7 @@ public class Quiz {
 		this.createdBy = createdBy;
 		this.createdOn = createdOn;
 		this.modifiedOn = modifiedOn;
+		 this.setTimer = setTimer;
 	}
 
 	/*
@@ -536,7 +548,7 @@ public class Quiz {
 				+ ", successText=" + successText + ", failText=" + failText + ", draft=" + draft + ", quizOrderNo="
 				+ quizOrderNo + ", courseidId=" + courseId + ", moduleId=" + moduleId + ", categoryId=" + categoryId
 				+ ", isActive=" + isActive + ", modifiedBy=" + modifiedBy + ", createdBy=" + createdBy + ", createdOn="
-				+ createdOn + ", modifiedOn=" + modifiedOn + "]";
+				+ createdOn + ", modifiedOn=" + modifiedOn + ",setTimer=" + setTimer+"]";
 	}
 
 }
