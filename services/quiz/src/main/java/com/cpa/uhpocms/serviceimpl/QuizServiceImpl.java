@@ -125,6 +125,7 @@ public class QuizServiceImpl implements QuizService {
 			toUpdatedQuiz.setCategoryId(quiz.getCategoryId());
 			toUpdatedQuiz.setActive(quiz.isActive());
 			toUpdatedQuiz.setModifiedBy(quiz.getModifiedBy());
+			toUpdatedQuiz.setSetTimer(quiz.getSetTimer());
 
 			updatedQuiz = quizRepo.save(toUpdatedQuiz);
 

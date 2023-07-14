@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 //import com.cpa.uhpocms.controller.CourseProgressController;
 import com.cpa.uhpocms.entity.CourseProgress;
-
 import com.cpa.uhpocms.repository.CourseProgressRepo;
 import com.cpa.uhpocms.service.CourseProgressService;
 
@@ -34,32 +33,30 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 	/**
 	 * @param : CourseProgress courseprogress
 	 * @return : CourseProgress createdCourseProgress
-	 * @description : For creating/inserting entry in teacher_studentcourseprogress table
+	 * @description : For creating/inserting entry in teacher_studentcourseprogress
+	 *              table
 	 */
 	@Override
 	public CourseProgress createCourseProgress(CourseProgress courseprogress) {
 		logger.debug("Entering createCourseProgress");
 		CourseProgress createdCourseProgress = null;
-	
-		CourseProgress newcourseprogress = courseprogressRepo.findByCourseId_StudId(courseprogress.getCourseId(), courseprogress.getStudentId());
 
-		
+		CourseProgress newcourseprogress = courseprogressRepo.findByCourseId_StudId(courseprogress.getCourseId(),
+				courseprogress.getStudentId());
+
 		System.out.println(newcourseprogress);
-		if(newcourseprogress == null)
-		{
+		if (newcourseprogress == null) {
 			createdCourseProgress = courseprogressRepo.save(courseprogress);
 			logger.info("created CourseProgress :" + createdCourseProgress);
 			return createdCourseProgress;
 //		
 		}
-		
-		return null;
-		
-		
-	//	courseprogress.setCourseProgressCreatedBy("admin");
-	//	courseprogress.setCourseProgressModifiedBy("admin");
 
-		
+		return null;
+
+		// courseprogress.setCourseProgressCreatedBy("admin");
+		// courseprogress.setCourseProgressModifiedBy("admin");
+
 	}
 
 	/**
@@ -79,25 +76,27 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 
 	/**
 	 * @return : List<Object> courseprogress
-	 * @description : For fetching all courseprogress which are active state from teacher_studentcourseprogress table
+	 * @description : For fetching all courseprogress which are active state from
+	 *              teacher_studentcourseprogress table
 	 */
 	@Override
 	public List<Object> getAllCourseProgresss() {
-		
+
 		logger.debug("Entering getAllCourseProgresss");
 		List<Object> objectCoureProgress = null;
 		List<CourseProgress> courseprogresss = courseprogressRepo.findAll();
 		logger.info("Fetched all active courseprogress :" + courseprogresss);
-		
+
 		objectCoureProgress = new ArrayList<Object>(courseprogresss);
-		
+
 		return objectCoureProgress;
 	}
 
 	/**
 	 * @param : CourseProgress to update
 	 * @return : courseprogress
-	 * @description : For updating courseprogress of teacher_studentcourseprogress table
+	 * @description : For updating courseprogress of teacher_studentcourseprogress
+	 *              table
 	 */
 	@Override
 	public CourseProgress updateCourseProgressByid(CourseProgress courseprogress, int id) {
@@ -131,14 +130,15 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 	/**
 	 * @param : String id
 	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of CourseProgress
+	 * @description : This is function is used to soft delete the record of
+	 *              CourseProgress
 	 * 
 	 */
 	@Override
 	public int deleteCourseProgressByid(int id) {
 		logger.debug("Entering deleteCourseProgressByid");
 
-		int count =  courseprogressRepo.deleteById(id);
+		int count = courseprogressRepo.deleteById(id);
 		logger.info("deleted CourseProgress count : " + count);
 		return count;
 	}
@@ -154,13 +154,13 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 		List<Object> objectCoureProgress = null;
 		List<CourseProgress> courseprogresss = courseprogressRepo.findByCourseId(courseId);
 		logger.info("Fetched all active courseprogress :" + courseprogresss);
-		
+
 		objectCoureProgress = new ArrayList<Object>(courseprogresss);
-		
+
 		return objectCoureProgress;
-		
+
 	}
-	
+
 	/**
 	 * @author shradha
 	 * @desc Function to get entries by course Id and student Id
@@ -168,14 +168,19 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 	public CourseProgress getCourseProgressByCourseIdStudId(int courseId, int studId) {
 		logger.debug("Entering getCourseProgressByCourseId");
 
-		
-		CourseProgress courseprogress = courseprogressRepo.findByCourseId_StudId(courseId,studId);
+		CourseProgress courseprogress = courseprogressRepo.findByCourseId_StudId(courseId, studId);
 		logger.info("Fetched all active courseprogress :" + courseprogress);
-		
+
 		;
-		
+
 		return courseprogress;
-		
+
+	}
+
+	@Override
+	public int deleteCourseProgressByCourseIdAndStudentId(int courseId, int studId) {
+		// TODO Auto-generated method stub
+		return courseprogressRepo.deleteCourseProgressByCourseIdAndStudentId(courseId, studId);
 	}
 
 }
