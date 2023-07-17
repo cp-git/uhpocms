@@ -38,4 +38,5 @@ public interface InstituteAdminService {
 	
 	InstituteAdmin getInstituteDetails(int adminId);
 
+	List<Object> getEnrolledProfilesOfCourseByOneStudentId(int profileId);
 }

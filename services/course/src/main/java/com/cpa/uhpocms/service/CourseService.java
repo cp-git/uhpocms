@@ -46,5 +46,6 @@ public interface CourseService {
 
 	CourseDepartment assignCourseToDepartment(CourseDepartment courseDepartment);
 
+	List<Object> findInactiveCourseByInstitutionId(int institutionId);
 
 }

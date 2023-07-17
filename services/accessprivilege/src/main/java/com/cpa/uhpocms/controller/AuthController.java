@@ -4,7 +4,9 @@
 package com.cpa.uhpocms.controller;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +28,9 @@ import com.cpa.uhpocms.entity.AuthGroupPermission;
 import com.cpa.uhpocms.entity.AuthModule;
 import com.cpa.uhpocms.entity.AuthPermission;
 import com.cpa.uhpocms.entity.AuthUserUserPermission;
+import com.cpa.uhpocms.entity.PermissionAssignment;
+import com.cpa.uhpocms.helper.CPException;
+import com.cpa.uhpocms.helper.ResponseHandler;
 import com.cpa.uhpocms.service.AuthService;
 
 @RestController
@@ -37,12 +42,15 @@ public class AuthController {
 	@Autowired
 	private final AuthService authService;
 
+	private ResourceBundle resourceBundle;
+
 	/**
 	 * Constructor injection for AuthService.
 	 *
 	 * @param authService The AuthService implementation.
 	 */
 	public AuthController(AuthService authService) {
+		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 		this.authService = authService;
 	}
 
@@ -94,6 +102,23 @@ public class AuthController {
 	}
 
 	/**
+	 * Retrieves all permissions.
+	 *
+	 * @return ResponseEntity containing the list of AuthPermission objects and HTTP
+	 *         status code.
+	 */
+	@GetMapping("/grouppermission")
+	public ResponseEntity<List<AuthGroupPermission>> getAllGroupPermissions() {
+		try {
+			List<AuthGroupPermission> permissions = authService.getAllGroupPermissions();
+			return new ResponseEntity<>(permissions, HttpStatus.OK);
+		} catch (Exception e) {
+			logger.error("Error occurred while retrieving permissions", e);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	/**
 	 * Retrieves permissions by role ID.
 	 *
 	 * @param roleId The ID of the role.
@@ -101,7 +126,7 @@ public class AuthController {
 	 *         HTTP status code.
 	 */
 	@GetMapping("/permissions/role/{roleId}")
-	public ResponseEntity<List<AuthGroupPermission>> getPermissionsByRoleId(@PathVariable int roleId) {
+	public ResponseEntity<List<AuthGroupPermission>> getPermissionsByRoleId(@PathVariable Long roleId) {
 		try {
 			List<AuthGroupPermission> permissions = authService.getPermissionsByRoleId(roleId);
 			return new ResponseEntity<>(permissions, HttpStatus.OK);
@@ -120,8 +145,8 @@ public class AuthController {
 	 *         objects and HTTP status code.
 	 */
 	@PostMapping("/role/{roleId}")
-	public ResponseEntity<List<AuthGroupPermission>> assignPermissionToRole(@PathVariable("roleId") int roleId,
-			@RequestBody Map<Long, List<Long>> permissions) {
+	public ResponseEntity<List<AuthGroupPermission>> assignPermissionToRole(@PathVariable("roleId") Long roleId,
+			@RequestBody List<PermissionAssignment> permissions) {
 		List<AuthGroupPermission> assignedPermissions = authService.assignPermissionToRole(roleId, permissions);
 		return ResponseEntity.ok(assignedPermissions);
 	}
@@ -134,7 +159,7 @@ public class AuthController {
 	 * @return ResponseEntity containing a success message and HTTP status code.
 	 */
 	@DeleteMapping("/role/{roleId}")
-	public ResponseEntity<String> revokePermissionFromRole(@PathVariable("roleId") int roleId,
+	public ResponseEntity<String> revokePermissionFromRole(@PathVariable("roleId") Long roleId,
 			@RequestBody Map<Long, List<Long>> permissions) {
 		authService.revokePermission(roleId, permissions);
 		return ResponseEntity.ok("Permissions revoked successfully");
@@ -150,7 +175,7 @@ public class AuthController {
 	 *         permission and HTTP status code.
 	 */
 	@GetMapping("/role/{roleId}/permission/{permissionId}/module/{moduleId}")
-	public ResponseEntity<Boolean> checkPermissionForRoleId(@PathVariable int roleId, @PathVariable long permissionId,
+	public ResponseEntity<Boolean> checkPermissionForRoleId(@PathVariable Long roleId, @PathVariable long permissionId,
 			@PathVariable long moduleId) {
 		try {
 			boolean hasPermission = authService.checkPermissionForRoleId(roleId, permissionId, moduleId);
@@ -296,10 +321,10 @@ public class AuthController {
 	 *         status code.
 	 */
 	@GetMapping("/permissions")
-	public ResponseEntity<List<AuthPermission>> getPermissionsByUserIdAndRoleId(@RequestParam("userId") Long userId,
-			@RequestParam("roleId") Long roleId) {
+	public ResponseEntity<List<AuthUserUserPermission>> getPermissionsByUserIdAndRoleId(
+			@RequestParam("userId") Long userId, @RequestParam("roleId") Long roleId) {
 
-		List<AuthPermission> permissions = authService.getPermissionsByUserIdAndRoleId(userId, roleId);
+		List<AuthUserUserPermission> permissions = authService.getUserPermissionsByUserIdAndRoleId(userId, roleId);
 		return ResponseEntity.ok(permissions);
 	}
 
@@ -315,5 +340,50 @@ public class AuthController {
 	public ResponseEntity<String> handleException(Exception ex) {
 		logger.error("Exception occurred in AuthController", ex);
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+	}
+
+	@GetMapping("/userpermission")
+	public ResponseEntity<List<Object>> getAllUserPermissions(@RequestParam(name = "user") String user)
+			throws CPException {
+		logger.debug("Entering getAllUserPermissions");
+		logger.info("entered user name :" + user);
+
+		List<Object> userPermissions = null;
+
+		try {
+			if (user.equalsIgnoreCase("all")) {
+				userPermissions = authService.getAllUserPermissions();
+				logger.info("Fetched all userPermissions :" + user);
+				return ResponseHandler.generateListResponse(userPermissions, HttpStatus.OK);
+
+			} else {
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all auth users : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+		}
+	}
+
+	/**
+	 * Assigns permissions to a user.
+	 *
+	 * @param userId      The ID of the user.
+	 * @param roleId      The ID of the role.
+	 * @param permissions List of objects containing module ID and a list of
+	 *                    permission IDs.
+	 * @return ResponseEntity containing the list of assigned AuthUserUserPermission
+	 *         objects and HTTP status code.
+	 */
+	@PostMapping("/user/{userId}/role/{roleId}")
+	public ResponseEntity<List<AuthUserUserPermission>> assignPermissionToUser(@PathVariable("userId") Long userId,
+			@PathVariable("roleId") Long roleId, @RequestBody List<PermissionAssignment> permissions) {
+		List<AuthUserUserPermission> assignedPermissions = authService.assignPermissionToUser(userId, roleId,
+				permissions);
+		return ResponseEntity.ok(assignedPermissions);
 	}
 }

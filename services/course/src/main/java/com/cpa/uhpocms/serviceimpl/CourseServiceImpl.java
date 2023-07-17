@@ -309,4 +309,17 @@ public class CourseServiceImpl implements CourseService {
 		return objectCourses;
 	}
 
+	@Override
+	public List<Object> findInactiveCourseByInstitutionId(int institutionId) {
+		// TODO Auto-generated method stub
+
+		List<Object> objectCourses = null;
+
+		List<Course> courses = courseRepo.findInactiveCourseByInstitutionId(institutionId);
+
+		logger.info("Fetched all active course :" + courses);
+		objectCourses = new ArrayList<Object>(courses);
+		return objectCourses;
+
+	}
 }
