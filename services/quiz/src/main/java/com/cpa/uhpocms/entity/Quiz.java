@@ -81,7 +81,7 @@ public class Quiz {
 	private int categoryId;
 	
 	@Column(name = "set_timer")
-	private int setTimer;
+	private Integer setTimer;
 
 
 	@Column(name = "isactive")
@@ -472,7 +472,7 @@ public class Quiz {
 		this.modifiedOn = modifiedOn;
 	}
 	
-	public int getSetTimer() {
+	public Integer getSetTimer() {
 	    return setTimer;
 	}
 
