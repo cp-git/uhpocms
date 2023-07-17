@@ -107,13 +107,14 @@ public class QuizServiceImpl implements QuizService {
 			toUpdatedQuiz.setTitle(quiz.getTitle());
 			toUpdatedQuiz.setDescription(quiz.getDescription());
 			toUpdatedQuiz.setUrl(quiz.getUrl());
-			toUpdatedQuiz.setRandomOrder(quiz.getRandomOrder());
+			toUpdatedQuiz.setRandomOrder(quiz.isRandomOrder());
 			toUpdatedQuiz.setMaxQuestions(quiz.getMaxQuestions());
 			toUpdatedQuiz.setAnswersAtEnd(quiz.isAnswersAtEnd());
 			toUpdatedQuiz.setExamPaper(quiz.isExamPaper());
 			;
 			toUpdatedQuiz.setSingleAttempt(quiz.isSingleAttempt());
 			toUpdatedQuiz.setPassMark(quiz.getPassMark());
+			toUpdatedQuiz.setMaxMarks(quiz.getMaxMarks());
 			toUpdatedQuiz.setSuccessText(quiz.getSuccessText());
 			toUpdatedQuiz.setFailText(quiz.getFailText());
 

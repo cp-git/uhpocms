@@ -56,7 +56,7 @@ public class QuizServImplTest {
 	public void getAllQuizsTest() {
 
 		Date date = new Date();
-		Quiz quiz = new Quiz(9, "TRF", "AMOEBA", "", true, 5, true, true, true, 5, "", "", false, 1, 1, 1, 1, true,
+		Quiz quiz = new Quiz(9, "TRF", "AMOEBA", "", true, 5, true, true, true, 5,10, "", "", false, 1, 1, 1, 1, true,
 				"admin", "admin", date, date);
 
 		List<Object> quizzes = new ArrayList<>();
@@ -78,7 +78,7 @@ public class QuizServImplTest {
 	@Test
 	public void getQuizBytitleTest() {
 		Date date = new Date();
-		Quiz quiz = new Quiz(9, "TRF", "AMOEBA", "", true, 5, true, true, true, 5, "", "", false, 1, 1, 1, 1, true,
+		Quiz quiz = new Quiz(9, "TRF", "AMOEBA", "", true, 5, true, true, true, 5,10, "", "", false, 1, 1, 1, 1, true,
 				"admin", "admin", date, date);
 
 		given(quizRepo.findBytitle(quiz.getTitle())).willReturn(quiz);
@@ -100,7 +100,7 @@ public class QuizServImplTest {
 	public void createQuizTest() {
 
 		Date date = new Date();
-		Quiz quiz = new Quiz(9, "TRF", "AMOEBA", "", true, 5, true, true, true, 5, "", "", false, 1, 1, 1, 1, true,
+		Quiz quiz = new Quiz(9, "TRF", "AMOEBA", "", true, 5, true, true, true, 5,10, "", "", false, 1, 1, 1, 1, true,
 				"admin", "admin", date, date);
 
 		given(quizRepo.save(quiz)).willReturn(quiz);
@@ -121,7 +121,7 @@ public class QuizServImplTest {
 	@Test
 	public void updateQuizTest() {
 		Date date = new Date();
-		Quiz quiz = new Quiz(9, "TRF", "AMOEBA", "", true, 5, true, true, true, 5, "", "", false, 1, 1, 1, 1, true,
+		Quiz quiz = new Quiz(9, "TRF", "AMOEBA", "", true, 5, true, true, true, 5,10, "", "", false, 1, 1, 1, 1, true,
 				"admin", "admin", date, date);
 
 		given(quizRepo.save(quiz)).willReturn(quiz);
