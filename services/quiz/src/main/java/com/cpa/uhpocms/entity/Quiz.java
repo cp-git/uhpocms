@@ -58,6 +58,10 @@ public class Quiz {
 
 	@Column(name = "pass_mark")
 	private int passMark;
+	
+	@Column(name = "max_marks", nullable = false)
+	private int maxMarks;
+
 
 	@Column(name = "success_text")
 	private String successText;
@@ -104,8 +108,7 @@ public class Quiz {
 	private Date modifiedOn;
 
 	/**
-	 * 
-	 */
+
 	public Quiz() {
 		super();
 	}
@@ -165,6 +168,7 @@ public class Quiz {
 	}
 
 	/**
+>>>>>>> development
 	 * @return the quizId
 	 */
 	public int getQuizId() {
@@ -223,14 +227,14 @@ public class Quiz {
 	/**
 	 * @return the randomOrder
 	 */
-	public Boolean getRandomOrder() {
+	public boolean isRandomOrder() {
 		return randomOrder;
 	}
 
 	/**
 	 * @param randomOrder the randomOrder to set
 	 */
-	public void setRandomOrder(Boolean randomOrder) {
+	public void setRandomOrder(boolean randomOrder) {
 		this.randomOrder = randomOrder;
 	}
 
@@ -305,6 +309,20 @@ public class Quiz {
 	}
 
 	/**
+	 * @return the maxMarks
+	 */
+	public int getMaxMarks() {
+		return maxMarks;
+	}
+
+	/**
+	 * @param maxMarks the maxMarks to set
+	 */
+	public void setMaxMarks(int maxMarks) {
+		this.maxMarks = maxMarks;
+	}
+
+	/**
 	 * @return the successText
 	 */
 	public String getSuccessText() {
@@ -361,14 +379,14 @@ public class Quiz {
 	}
 
 	/**
-	 * @return the courseidId
+	 * @return the courseId
 	 */
 	public int getCourseId() {
 		return courseId;
 	}
 
 	/**
-	 * @param courseidId the courseidId to set
+	 * @param courseId the courseId to set
 	 */
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
@@ -471,7 +489,7 @@ public class Quiz {
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
-	
+
 	public Integer getSetTimer() {
 	    return setTimer;
 	}
@@ -479,7 +497,6 @@ public class Quiz {
 	public void setSetTimer(int setTimer) {
 	    this.setTimer = setTimer;
 	}
-	
 
 	/**
 	 * @param quizId
@@ -492,6 +509,7 @@ public class Quiz {
 	 * @param examPaper
 	 * @param singleAttempt
 	 * @param passMark
+	 * @param maxMarks
 	 * @param successText
 	 * @param failText
 	 * @param draft
@@ -499,6 +517,7 @@ public class Quiz {
 	 * @param courseId
 	 * @param moduleId
 	 * @param categoryId
+	 * @param setTimer
 	 * @param isActive
 	 * @param modifiedBy
 	 * @param createdBy
@@ -506,9 +525,10 @@ public class Quiz {
 	 * @param modifiedOn
 	 */
 	public Quiz(int quizId, String title, String description, String url, boolean randomOrder, int maxQuestions,
-			boolean answersAtEnd, boolean examPaper, boolean singleAttempt, int passMark, String successText,
-			String failText, boolean draft, int quizOrderNo, int courseId, int moduleId, int categoryId,
-			boolean isActive, String modifiedBy, String createdBy, Date createdOn, Date modifiedOn,int setTimer) {
+			boolean answersAtEnd, boolean examPaper, boolean singleAttempt, int passMark, int maxMarks,
+			String successText, String failText, boolean draft, int quizOrderNo, int courseId, int moduleId,
+			int categoryId, Integer setTimer, boolean isActive, String modifiedBy, String createdBy, Date createdOn,
+			Date modifiedOn) {
 		super();
 		this.quizId = quizId;
 		this.title = title;
@@ -520,6 +540,7 @@ public class Quiz {
 		this.examPaper = examPaper;
 		this.singleAttempt = singleAttempt;
 		this.passMark = passMark;
+		this.maxMarks = maxMarks;
 		this.successText = successText;
 		this.failText = failText;
 		this.draft = draft;
@@ -527,28 +548,34 @@ public class Quiz {
 		this.courseId = courseId;
 		this.moduleId = moduleId;
 		this.categoryId = categoryId;
+		this.setTimer = setTimer;
 		this.isActive = isActive;
 		this.modifiedBy = modifiedBy;
 		this.createdBy = createdBy;
 		this.createdOn = createdOn;
 		this.modifiedOn = modifiedOn;
-		 this.setTimer = setTimer;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see java.lang.Object#toString()
 	 */
+	public Quiz() {
+		super();
+	}
+
 	@Override
 	public String toString() {
 		return "Quiz [quizId=" + quizId + ", title=" + title + ", description=" + description + ", url=" + url
 				+ ", randomOrder=" + randomOrder + ", maxQuestions=" + maxQuestions + ", answersAtEnd=" + answersAtEnd
 				+ ", examPaper=" + examPaper + ", singleAttempt=" + singleAttempt + ", passMark=" + passMark
-				+ ", successText=" + successText + ", failText=" + failText + ", draft=" + draft + ", quizOrderNo="
-				+ quizOrderNo + ", courseidId=" + courseId + ", moduleId=" + moduleId + ", categoryId=" + categoryId
-				+ ", isActive=" + isActive + ", modifiedBy=" + modifiedBy + ", createdBy=" + createdBy + ", createdOn="
-				+ createdOn + ", modifiedOn=" + modifiedOn + ",setTimer=" + setTimer+"]";
+				+ ", maxMarks=" + maxMarks + ", successText=" + successText + ", failText=" + failText + ", draft="
+				+ draft + ", quizOrderNo=" + quizOrderNo + ", courseId=" + courseId + ", moduleId=" + moduleId
+				+ ", categoryId=" + categoryId + ", setTimer=" + setTimer + ", isActive=" + isActive + ", modifiedBy="
+				+ modifiedBy + ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn
+				+ "]";
 	}
+
+
+
 
 }
