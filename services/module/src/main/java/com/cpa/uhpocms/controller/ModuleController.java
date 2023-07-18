@@ -43,12 +43,10 @@ public class ModuleController {
 
 	@Autowired
 	private ModuleService moduleService;
-	
-	
+
 	@Autowired
 	private ModuleRepo moduleRepo;
-	
-	
+
 	@Value("${file.base-path}")
 	private String basePath;
 
@@ -67,21 +65,17 @@ public class ModuleController {
 
 		Module createdModule = null;
 		try {
-			
-			List<Module> moduleData=moduleRepo.findModules(module.getCourseId_id());
+
+			List<Module> moduleData = moduleRepo.findModules(module.getCourseId_id());
 			System.out.println(moduleData);
-			
-			for(Module mod:moduleData)
-			{
-				if(mod.getCourseId_id() == module.getCourseId_id())
-				{
-					if(mod.getModuleName().equalsIgnoreCase(module.getModuleName()))
-					{
-						 throw new CPException("err001", resourceBundle.getString("err001"));
+
+			for (Module mod : moduleData) {
+				if (mod.getCourseId_id() == module.getCourseId_id()) {
+					if (mod.getModuleName().equalsIgnoreCase(module.getModuleName())) {
+						throw new CPException("err001", resourceBundle.getString("err001"));
 					}
 				}
 			}
-
 
 //			Module toCheckModule = moduleService.getModuleByName(module.getModuleName());
 //			logger.debug("existing module :" + toCheckModule);
@@ -96,33 +90,28 @@ public class ModuleController {
 
 				createdModule = moduleService.createModule(module);
 				logger.info("Module created :" + createdModule);
-				
 
-				String courseName=moduleRepo.finByCourseByCourseId(module.getModuleId());
+				String courseName = moduleRepo.finByCourseByCourseId(module.getModuleId());
 				System.out.println(courseName);
 
-				
-				String departmentName=moduleRepo.finByAdminInstitutionId(module.getCourseId_id());
+				String departmentName = moduleRepo.finByAdminInstitutionId(module.getCourseId_id());
 				System.out.println(departmentName);
-				
-				
-				String instituteName=moduleRepo.finByAdminInstitutionNameAndId(module.getCourseId_id());
+
+				String instituteName = moduleRepo.finByAdminInstitutionNameAndId(module.getCourseId_id());
 				System.out.println(instituteName);
-				
-				int instituteId=moduleRepo.finByAdminInstitutionsId(module.getCourseId_id());
+
+				int instituteId = moduleRepo.finByAdminInstitutionsId(module.getCourseId_id());
 				System.out.println(instituteId);
-				
-				String instituteNameAndId=instituteName+"_"+instituteId;
-				
-				
-				
-				
-				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+module.getModuleName());
+
+				String instituteNameAndId = instituteName + "_" + instituteId;
+
+				File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + departmentName + "/"
+						+ courseName + "/" + module.getModuleName());
 				System.out.println(theDir);
-				if (!theDir.exists()){
-				    theDir.mkdirs();
+				if (!theDir.exists()) {
+					theDir.mkdirs();
 				}
-	
+
 				return ResponseHandler.generateResponse(createdModule, HttpStatus.CREATED);
 
 			} else {
@@ -165,7 +154,7 @@ public class ModuleController {
 		}
 
 	}
-	
+
 	@GetMapping("/module/{id}")
 	public ResponseEntity<Object> getModuleById(@PathVariable("id") int moduleId) throws CPException {
 		logger.debug("Entering getModuleById");
@@ -247,7 +236,7 @@ public class ModuleController {
 		}
 
 	}
-	
+
 	@DeleteMapping("/module/moduleId/{id}")
 	public ResponseEntity<Object> deleteModuleById(@PathVariable("id") int moduleId) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -298,7 +287,7 @@ public class ModuleController {
 		}
 
 	}
-	
+
 	@PutMapping("/module/moduleId/{id}")
 	public ResponseEntity<Object> updateModuleById(@RequestBody Module module, @PathVariable("id") int moduleId)
 			throws CPException {
@@ -325,16 +314,16 @@ public class ModuleController {
 		}
 
 	}
-	
+
 	/**
 	 * @author Shradha
-	 * @description api to get all inactive modules 
+	 * @description api to get all inactive modules
 	 * @throws CPException
 	 * @createdOn 10 Feb 2023
 	 */
 	@GetMapping("/module/inactive")
-	public  ResponseEntity<List<Object>> getInactiveModules(@RequestParam(name = "inactivemodules") String inactivemodules) throws CPException 
-	{
+	public ResponseEntity<List<Object>> getInactiveModules(
+			@RequestParam(name = "inactivemodules") String inactivemodules) throws CPException {
 		List<Object> modules = null;
 		try {
 
@@ -357,7 +346,7 @@ public class ModuleController {
 
 		}
 	}
-	
+
 	/**
 	 * @author Shradha
 	 * @description Api to update inactive status to active status
@@ -365,14 +354,13 @@ public class ModuleController {
 	 * @throws CPException
 	 */
 	@PatchMapping("/module/{name}")
-	public ResponseEntity<Object> updateActiveStatus(@PathVariable("name") String name) throws CPException{
-		
+	public ResponseEntity<Object> updateActiveStatus(@PathVariable("name") String name) throws CPException {
+
 		logger.debug("Entering updateActiveStatus");
-		
 
 		Object obj = null;
 
-		try { 
+		try {
 			obj = moduleService.updateActiveStatus(name);
 
 			if (obj == null) {
@@ -389,28 +377,84 @@ public class ModuleController {
 
 		}
 	}
-	
-    @GetMapping(path = "/basicauth")
-    public AuthenticationBean basicauth() {
-        return new AuthenticationBean("You are authenticated");
-    }
-    
-    //get module by courseid
-    @GetMapping(path = "module/courseId/{id}", produces = { "application/json", "application/xml" })
-   	public ResponseEntity<List<Object>> getModuleByCourseId(@PathVariable("id") int courseId)
-   			throws CPException {
-   		try {
-   			List<Object> moduleCourse = moduleService.findByCourseId(courseId);
-   			if (moduleCourse != null) {
-   				logger.info("Getting Module by " + courseId + " performed successfully");
-   				logger.info(moduleCourse);
-   				return new ResponseEntity<List<Object>>(moduleCourse, HttpStatus.OK);
-   			}
-   		}
-   		catch (Exception e) {
-   			logger.error(resourceBundle.getString("err021"));
-   			throw new CPException("err021", resourceBundle.getString("err021"));
-   		}
-   		return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err022");
-   	}
+
+	@GetMapping(path = "/basicauth")
+	public AuthenticationBean basicauth() {
+		return new AuthenticationBean("You are authenticated");
+	}
+
+	// get module by courseid
+	@GetMapping(path = "module/courseId/{id}", produces = { "application/json", "application/xml" })
+	public ResponseEntity<List<Object>> getModuleByCourseId(@PathVariable("id") int courseId) throws CPException {
+		try {
+			List<Object> moduleCourse = moduleService.findByCourseId(courseId);
+			if (moduleCourse != null) {
+				logger.info("Getting Module by " + courseId + " performed successfully");
+				logger.info(moduleCourse);
+				return new ResponseEntity<List<Object>>(moduleCourse, HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			logger.error(resourceBundle.getString("err021"));
+			throw new CPException("err021", resourceBundle.getString("err021"));
+		}
+		return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err022");
+	}
+
+	@GetMapping("/module/assign/profileid/{id}")
+	public ResponseEntity<List<Object>> getModulesOfAssignedCoursesByProfileId(@PathVariable("id") int profileId)
+			throws CPException {
+		logger.debug("Entering getModuleById");
+		logger.info("entered profile id :" + profileId);
+
+		List<Object> modules = null;
+
+		try {
+
+			modules = moduleService.getModulesOfAssignedCoursesByProfileId(profileId);
+			logger.info("fetched Modules :" + modules);
+
+			if (modules != null) {
+				logger.debug("Module fetched generating response");
+				return ResponseHandler.generateListResponse(modules, HttpStatus.OK);
+			} else {
+				logger.debug("Module not found");
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting module : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
+
+	@GetMapping("/module/enroll/profileid/{id}")
+	public ResponseEntity<List<Object>> getModulesOfEnrolledCoursesByProfileId(@PathVariable("id") int profileId)
+			throws CPException {
+		logger.debug("Entering getModuleById");
+		logger.info("entered profile id :" + profileId);
+
+		List<Object> modules = null;
+
+		try {
+
+			modules = moduleService.getModulesOfEnrolledCoursesByProfileId(profileId);
+			logger.info("fetched Modules :" + modules);
+
+			if (modules != null) {
+				logger.debug("Module fetched generating response");
+				return ResponseHandler.generateListResponse(modules, HttpStatus.OK);
+			} else {
+				logger.debug("Module not found");
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting module : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
 }

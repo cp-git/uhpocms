@@ -627,6 +627,31 @@ public class InstituteAdminController {
 		}
 
 	}
+
+	@GetMapping("/profile/profiles/studentid/{id}")
+	public ResponseEntity<Object> getEnrolledProfilesOfCourseByOneStudentId(@PathVariable("id") int profileId) throws CPException {
+
+		logger.info("in getEnrolledProfilesOfCourseByOneStudentId");
+		List<Object> instituteAdmin = null;
+		try {
+			instituteAdmin = instituteAdminService.getEnrolledProfilesOfCourseByOneStudentId(profileId);
+			logger.info("enrolled course profiles Values" + instituteAdmin);
+
+			if (instituteAdmin != null) {
+				return ResponseHandler.generateResponse(instituteAdmin, HttpStatus.OK);
+			} else {
+				logger.debug("Not Found");
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err001");
+
+			}
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+			logger.error("Exception Occured in getEnrolledProfilesOfCourseByOneStudentId Method");
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
 }
 	
 	

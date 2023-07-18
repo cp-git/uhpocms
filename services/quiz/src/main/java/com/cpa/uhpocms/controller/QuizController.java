@@ -385,4 +385,103 @@ public class QuizController {
 		}
 
 	}
+	
+	/**
+	 * @description method to get inactive quizzes from quiz table by profileId
+	 */
+	@GetMapping("/quiz/enroll/inactive/profileid")
+	public ResponseEntity<List<Object>> getAllInactiveQuizzesByStudentId(@RequestParam(name = "id") int studentId)
+			throws CPException {
+		logger.debug("Entering getAllInactiveQuizzesByStudentId");
+		logger.info("Parameter  :" + studentId);
+
+		List<Object> quizzes = null;
+
+		try {
+			quizzes = quizService.getAllInactiveQuizzesByStudentId(studentId);
+			logger.info("Fetched all Quiz :" + quizzes);
+
+			if (quizzes != null) {
+				logger.debug("quizzes fetched generating response");
+				return ResponseHandler.generateListResponse(quizzes, HttpStatus.OK);
+			} else {
+				logger.debug("quizzes not found");
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+			logger.error("Failed getting all quizs : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+		}
+
+	}
+	
+	/**
+	 * @description method to get quizzes from quiz table by profileId
+	 */
+	@GetMapping("/quiz/assign/active/profileid")
+	public ResponseEntity<List<Object>> getAllQuizzesByTeacherId(@RequestParam(name = "id") int profileId)
+			throws CPException {
+		logger.debug("Entering getAllQuizzesByTeacherId");
+		logger.info("Parameter  :" + profileId);
+
+		List<Object> quizzes = null;
+
+		try {
+			quizzes = quizService.getAllQuizzesByTeacherId(profileId);
+			logger.info("Fetched all Quiz :" + quizzes);
+
+			if (quizzes != null) {
+				logger.debug("quizzes fetched generating response");
+				return ResponseHandler.generateListResponse(quizzes, HttpStatus.OK);
+			} else {
+				logger.debug("quizzes not found");
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+			logger.error("Failed getting all quizs : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+		}
+
+	}
+	
+	/**
+	 * @description method to get inactive quizzes from quiz table by profileId
+	 */
+	@GetMapping("/quiz/assign/inactive/profileid")
+	public ResponseEntity<List<Object>> getAllInactiveQuizzesByTeacherId(@RequestParam(name = "id") int profileId)
+			throws CPException {
+		logger.debug("Entering getAllInactiveQuizzesByTeacherId");
+		logger.info("Parameter  :" + profileId);
+
+		List<Object> quizzes = null;
+
+		try {
+			quizzes = quizService.getAllInactiveQuizzesByTeacherId(profileId);
+			logger.info("Fetched all Quiz :" + quizzes);
+
+			if (quizzes != null) {
+				logger.debug("quizzes fetched generating response");
+				return ResponseHandler.generateListResponse(quizzes, HttpStatus.OK);
+			} else {
+				logger.debug("quizzes not found");
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+			logger.error("Failed getting all quizs : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+		}
+
+	}
 }

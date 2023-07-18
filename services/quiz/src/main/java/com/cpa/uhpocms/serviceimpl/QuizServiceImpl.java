@@ -107,13 +107,14 @@ public class QuizServiceImpl implements QuizService {
 			toUpdatedQuiz.setTitle(quiz.getTitle());
 			toUpdatedQuiz.setDescription(quiz.getDescription());
 			toUpdatedQuiz.setUrl(quiz.getUrl());
-			toUpdatedQuiz.setRandomOrder(quiz.getRandomOrder());
+			toUpdatedQuiz.setRandomOrder(quiz.isRandomOrder());
 			toUpdatedQuiz.setMaxQuestions(quiz.getMaxQuestions());
 			toUpdatedQuiz.setAnswersAtEnd(quiz.isAnswersAtEnd());
 			toUpdatedQuiz.setExamPaper(quiz.isExamPaper());
 			;
 			toUpdatedQuiz.setSingleAttempt(quiz.isSingleAttempt());
 			toUpdatedQuiz.setPassMark(quiz.getPassMark());
+			toUpdatedQuiz.setMaxMarks(quiz.getMaxMarks());
 			toUpdatedQuiz.setSuccessText(quiz.getSuccessText());
 			toUpdatedQuiz.setFailText(quiz.getFailText());
 
@@ -213,5 +214,34 @@ public class QuizServiceImpl implements QuizService {
 		// TODO Auto-generated method stub
 		 return quizRepo.getQuizInfoByQuizId(quizId);
 	}
+	
+	@Override
+	public List<Object> getAllInactiveQuizzesByStudentId(int studentId) {
+		logger.debug("Entering getAllQuizzesByProfileId");
 
+		List<Quiz> quizzes = quizRepo.getAllInactiveQuizzesByStudentId(studentId);
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
+		logger.info("Fetched quiz :" + quizzes);
+		return objQuizzes;
+	}
+	
+	@Override
+	public List<Object> getAllQuizzesByTeacherId(int teacherId) {
+		logger.debug("Entering getAllQuizzesByProfileId");
+
+		List<Quiz> quizzes = quizRepo.getAllQuizzesByTeacherId(teacherId);
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
+		logger.info("Fetched quiz :" + quizzes);
+		return objQuizzes;
+	}
+	
+	@Override
+	public List<Object> getAllInactiveQuizzesByTeacherId(int teacherId) {
+		logger.debug("Entering getAllQuizzesByProfileId");
+
+		List<Quiz> quizzes = quizRepo.getAllInactiveQuizzesByTeacherId(teacherId);
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
+		logger.info("Fetched quiz :" + quizzes);
+		return objQuizzes;
+	}
 }

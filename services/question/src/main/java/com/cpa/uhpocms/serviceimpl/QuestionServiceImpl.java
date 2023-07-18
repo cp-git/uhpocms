@@ -252,13 +252,13 @@ public class QuestionServiceImpl implements QuestionService {
 
 	// for additing question and answers
 	@Override
-	public Integer addQuestionsAndAnswers(Question question, Answer[] answers) {
+	public Object addQuestionsAndAnswers(Question question, Answer[] answers) {
 
 		System.out.println("in serv impl");
 		System.out.println(question.getMaxMarks());
 		System.out.println(question);
 		Integer value = 0;
-
+		Question returnedQues = new Question();
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		question.setQuestionCreatedBy("admin");
@@ -299,11 +299,14 @@ public class QuestionServiceImpl implements QuestionService {
 //	    }
 //	    else
 //	    {
-	    	value = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
-				answersJson.get(2), answersJson.get(3), value);
+//	    	value = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
+//				answersJson.get(2), answersJson.get(3), value);
+		
+		returnedQues = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
+			answersJson.get(2), answersJson.get(3), value);
 //	    }
 		logger.info("generated ID" + value.toString());
-		return value;
+		return returnedQues;
 
 	}
 
