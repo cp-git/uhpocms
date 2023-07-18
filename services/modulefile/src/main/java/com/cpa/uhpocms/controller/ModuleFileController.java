@@ -339,8 +339,9 @@ public class ModuleFileController {
 //	}
 
 	@PutMapping("/modulefileById/{id}")
+
 	public ResponseEntity<Object> updateModuleFileById(@RequestPart("admin") ModuleFile modulefile,
-			@PathVariable("id") int id, @RequestParam(value = "files") List<MultipartFile> files) throws CPException {
+			@PathVariable("id") int id, @RequestParam(value = "files") List<MultipartFile> files) throws CPException{
 		logger.debug("Entering updateModuleFile");
 		logger.info("entered  updateModuleFile :" + modulefile);
 
@@ -405,8 +406,8 @@ public class ModuleFileController {
 			}
 			
 			
-			Path fileStorage1 = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName, moduleFileName).toAbsolutePath().normalize();
-			Files.delete(fileStorage1);
+//			Path fileStorage1 = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName, moduleFileName).toAbsolutePath().normalize();
+//			Files.delete(fileStorage1);
 			
 
 			return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
