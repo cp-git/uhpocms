@@ -67,19 +67,14 @@ public class CourseProgressController {
 
 			if (toCheckCourseProgress == null) {
 
-		
-
 				createdCourseProgress = courseprogressService.createCourseProgress(courseprogress);
-				if(createdCourseProgress != null)
-				{
+				if (createdCourseProgress != null) {
 
-				logger.info("CourseProgress created :" + createdCourseProgress);
+					logger.info("CourseProgress created :" + createdCourseProgress);
 
-				return ResponseHandler.generateResponse(createdCourseProgress, HttpStatus.CREATED);
+					return ResponseHandler.generateResponse(createdCourseProgress, HttpStatus.CREATED);
 
-				}
-				else 
-				{
+				} else {
 					logger.error(resourceBunde.getString("err003"));
 					return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
 				}
@@ -96,11 +91,10 @@ public class CourseProgressController {
 	}
 
 	@GetMapping("/courseprog/courseId/{id}")
-	public ResponseEntity<Object> getCourseProgressByCourseId(@PathVariable("id") int id)
-			throws CPException {
+	public ResponseEntity<Object> getCourseProgressByCourseId(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering getCourseProgressByid");
 		logger.info("entered user name :" + id);
-		
+
 		List<Object> courseprogress = null;
 
 		try {
@@ -134,11 +128,11 @@ public class CourseProgressController {
 	 * @desc Get course by course and student id
 	 */
 	@GetMapping("/courseprog/{courId}/{studId}")
-	public ResponseEntity<Object> getCourseProgressByCourseId(@PathVariable("courId") int courId,@PathVariable("studId") int studId)
-			throws CPException {
+	public ResponseEntity<Object> getCourseProgressByCourseId(@PathVariable("courId") int courId,
+			@PathVariable("studId") int studId) throws CPException {
 		logger.debug("Entering getCourseProgressByCourseId");
-		logger.info("entered course and student id :" + courId +"   "+ studId);
-		
+		logger.info("entered course and student id :" + courId + "   " + studId);
+
 		CourseProgress courseprogress = null;
 
 		try {
@@ -162,7 +156,6 @@ public class CourseProgressController {
 
 	}
 
-	
 	/**
 	 * @author shradha
 	 * @param id
@@ -171,11 +164,10 @@ public class CourseProgressController {
 	 * @desc get all entries in table
 	 */
 	@GetMapping("/courseprog")
-	public ResponseEntity<List<Object>> getAllCourseProgresss(@RequestParam(name = "id") String id)
-			throws CPException {
+	public ResponseEntity<List<Object>> getAllCourseProgresss(@RequestParam(name = "id") String id) throws CPException {
 		logger.debug("Entering getAllCourseProgress");
 		logger.info("Parameter  :" + id);
-		
+
 		List<Object> courseprogresss = null;
 
 		try {
@@ -211,8 +203,8 @@ public class CourseProgressController {
 	public ResponseEntity<Object> deleteCourseProgressByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering deleteAuthUser");
 		logger.info("entered deleteCourseProgress  :" + id);
-		//TODO - implement the business logic
-		
+		// TODO - implement the business logic
+
 		int count = 0;
 
 		try {
@@ -229,7 +221,6 @@ public class CourseProgressController {
 			logger.error("Failed to delete CourseProgress :" + ex.getMessage());
 			throw new CPException("err005", resourceBunde.getString("err005"));
 		}
-		
 
 	}
 
@@ -241,7 +232,7 @@ public class CourseProgressController {
 
 		CourseProgress updatedCourseProgress = null;
 
-		try { 
+		try {
 			updatedCourseProgress = courseprogressService.updateCourseProgressByid(courseprogress, id);
 
 			if (updatedCourseProgress == null) {
@@ -259,6 +250,7 @@ public class CourseProgressController {
 		}
 
 	}
+
 	/**
 	 * @author shradha
 	 * @param id
@@ -267,11 +259,10 @@ public class CourseProgressController {
 	 * @desc get en entry by providing id
 	 */
 	@GetMapping("/courseprog/{id}")
-	public ResponseEntity<Object> getCourseProgressByid(@PathVariable("id") int id)
-			throws CPException {
+	public ResponseEntity<Object> getCourseProgressByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering getCourseProgressByid");
 		logger.info("entered user name :" + id);
-		
+
 		CourseProgress courseprogress = null;
 
 		try {
@@ -295,5 +286,15 @@ public class CourseProgressController {
 
 	}
 
+	@DeleteMapping("/courseprog/courseid/{courseId}/studentid/{studentId}")
+	public ResponseEntity<Object> deleteCourseProgressByCourseIdAndStudentId(@PathVariable("courseId") int courseId,
+			@PathVariable("studentId") int studId) {
+		int count = courseprogressService.deleteCourseProgressByCourseIdAndStudentId(courseId, studId);
+		if (count > 0) {
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
 
 }

@@ -83,6 +83,10 @@ public class Quiz {
 
 	@Column(name = "category_id")
 	private int categoryId;
+	
+	@Column(name = "set_timer")
+	private Integer setTimer;
+
 
 	@Column(name = "isactive")
 	private boolean isActive;
@@ -104,6 +108,67 @@ public class Quiz {
 	private Date modifiedOn;
 
 	/**
+
+	public Quiz() {
+		super();
+	}
+
+	/**
+	 * @param quizId
+	 * @param title
+	 * @param description
+	 * @param url
+	 * @param randomOrder
+	 * @param maxQuestions
+	 * @param answersAtEnd
+	 * @param examPaper
+	 * @param singleAttempt
+	 * @param passMark
+	 * @param successText
+	 * @param failText
+	 * @param draft
+	 * @param quizOrderNo
+	 * @param courseidId
+	 * @param moduleId
+	 * @param categoryId
+	 * @param isActive
+	 * @param modifiedBy
+	 * @param createdBy
+	 * @param createdOn
+	 * @param modifiedOn
+	 */
+	public Quiz(int quizId, String title, String description, String url, Boolean randomOrder, int maxQuestions,
+			boolean answersAtEnd, boolean examPaper, boolean singleAttempt, int passMark, String successText,
+			String failText, boolean draft, int quizOrderNo, int courseId, int moduleId, int categoryId,
+			boolean isActive, String modifiedBy, String createdBy, Date createdOn, Date modifiedOn,int setTimer) {
+		super();
+		this.quizId = quizId;
+		this.title = title;
+		this.description = description;
+		this.url = url;
+		this.randomOrder = randomOrder;
+		this.maxQuestions = maxQuestions;
+		this.answersAtEnd = answersAtEnd;
+		this.examPaper = examPaper;
+		this.singleAttempt = singleAttempt;
+		this.passMark = passMark;
+		this.successText = successText;
+		this.failText = failText;
+		this.draft = draft;
+		this.quizOrderNo = quizOrderNo;
+		this.courseId = courseId;
+		this.moduleId = moduleId;
+		this.categoryId = categoryId;
+		this.isActive = isActive;
+		this.modifiedBy = modifiedBy;
+		this.createdBy = createdBy;
+		this.createdOn = createdOn;
+		this.modifiedOn = modifiedOn;
+		 this.setTimer = setTimer;
+	}
+
+	/**
+>>>>>>> development
 	 * @return the quizId
 	 */
 	public int getQuizId() {
@@ -425,6 +490,14 @@ public class Quiz {
 		this.modifiedOn = modifiedOn;
 	}
 
+	public Integer getSetTimer() {
+	    return setTimer;
+	}
+
+	public void setSetTimer(int setTimer) {
+	    this.setTimer = setTimer;
+	}
+
 	/**
 	 * @param quizId
 	 * @param title
@@ -444,6 +517,7 @@ public class Quiz {
 	 * @param courseId
 	 * @param moduleId
 	 * @param categoryId
+	 * @param setTimer
 	 * @param isActive
 	 * @param modifiedBy
 	 * @param createdBy
@@ -453,7 +527,8 @@ public class Quiz {
 	public Quiz(int quizId, String title, String description, String url, boolean randomOrder, int maxQuestions,
 			boolean answersAtEnd, boolean examPaper, boolean singleAttempt, int passMark, int maxMarks,
 			String successText, String failText, boolean draft, int quizOrderNo, int courseId, int moduleId,
-			int categoryId, boolean isActive, String modifiedBy, String createdBy, Date createdOn, Date modifiedOn) {
+			int categoryId, Integer setTimer, boolean isActive, String modifiedBy, String createdBy, Date createdOn,
+			Date modifiedOn) {
 		super();
 		this.quizId = quizId;
 		this.title = title;
@@ -473,6 +548,7 @@ public class Quiz {
 		this.courseId = courseId;
 		this.moduleId = moduleId;
 		this.categoryId = categoryId;
+		this.setTimer = setTimer;
 		this.isActive = isActive;
 		this.modifiedBy = modifiedBy;
 		this.createdBy = createdBy;
@@ -494,9 +570,12 @@ public class Quiz {
 				+ ", examPaper=" + examPaper + ", singleAttempt=" + singleAttempt + ", passMark=" + passMark
 				+ ", maxMarks=" + maxMarks + ", successText=" + successText + ", failText=" + failText + ", draft="
 				+ draft + ", quizOrderNo=" + quizOrderNo + ", courseId=" + courseId + ", moduleId=" + moduleId
-				+ ", categoryId=" + categoryId + ", isActive=" + isActive + ", modifiedBy=" + modifiedBy
-				+ ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn + "]";
+				+ ", categoryId=" + categoryId + ", setTimer=" + setTimer + ", isActive=" + isActive + ", modifiedBy="
+				+ modifiedBy + ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn
+				+ "]";
 	}
+
+
 
 
 }
