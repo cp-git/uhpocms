@@ -221,7 +221,6 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		existingProfile.setAdminCity(instituteAdmin.getAdminCity());
 		existingProfile.setAdminState(instituteAdmin.getAdminState());
 		existingProfile.setAdminZip(instituteAdmin.getAdminZip());
-		existingProfile.setProfilePics(instituteAdmin.getProfilePics());
 		existingProfile.setActiveUser(instituteAdmin.isActiveUser());
 		existingProfile.setInstitutionId(instituteAdmin.getInstitutionId());
 		existingProfile.setUserId(instituteAdmin.getUserId());

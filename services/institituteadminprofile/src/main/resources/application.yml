@@ -34,3 +34,7 @@ server:
   
 file:
   base-path: D:/UHPOCMS
+  
+  
+  spring.http:
+    multipart.enabled=true
