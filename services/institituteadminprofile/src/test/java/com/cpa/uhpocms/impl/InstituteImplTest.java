@@ -48,10 +48,10 @@ class InstituteImplTest {
 		}
 
 		this.admin = new InstituteAdmin(1, "admin", "ravi", "g", "ravi", "12-10-2022", "1223", "Male", 1, "khradi",
-				"kharadi", "pune", "mh", "123", "ad", "admin", createdOn, "admin", modifiedOn, false, 1, 1);
+				"kharadi", "pune", "mh", "123", "ad", "admin", createdOn, "admin", modifiedOn, false, 1, 1,1);
 
 		this.admin1 = new InstituteAdmin(1, "admin", "ravi", "g", "ravi", "12-10-2022", "1223", "Male", 1, "khradi",
-				"kharadi", "pune", "mh", "123", "ad", "admin", createdOn, "admin", modifiedOn, false, 1, 1);
+				"kharadi", "pune", "mh", "123", "ad", "admin", createdOn, "admin", modifiedOn, false, 1, 1,1);
 
 	}
 

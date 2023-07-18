@@ -15,7 +15,7 @@ public class AuthGroupPermission {
 	private Long id;
 
 	@JoinColumn(name = "role_id")
-	private int roleId;
+	private Long roleId;
 
 	@JoinColumn(name = "permission_id")
 	private Long permissionId;
@@ -31,11 +31,11 @@ public class AuthGroupPermission {
 		this.id = id;
 	}
 
-	public int getRoleId() {
+	public Long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(int roleId) {
+	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
 
@@ -55,7 +55,7 @@ public class AuthGroupPermission {
 		this.moduleId = moduleId;
 	}
 
-	public AuthGroupPermission(Long id, int roleId, Long permissionId, Long moduleId) {
+	public AuthGroupPermission(Long id, Long roleId, Long permissionId, Long moduleId) {
 		super();
 		this.id = id;
 		this.roleId = roleId;

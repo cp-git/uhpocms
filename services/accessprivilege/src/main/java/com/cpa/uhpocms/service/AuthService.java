@@ -7,6 +7,7 @@ import com.cpa.uhpocms.entity.AuthGroupPermission;
 import com.cpa.uhpocms.entity.AuthModule;
 import com.cpa.uhpocms.entity.AuthPermission;
 import com.cpa.uhpocms.entity.AuthUserUserPermission;
+import com.cpa.uhpocms.entity.PermissionAssignment;
 
 public interface AuthService {
 
@@ -34,12 +35,19 @@ public interface AuthService {
 	List<AuthPermission> getAllPermissions();
 
 	/**
+	 * Retrieves all permissions.
+	 *
+	 * @return The list of all AuthGroupPermission objects.
+	 */
+	List<AuthGroupPermission> getAllGroupPermissions();
+
+	/**
 	 * Retrieves permissions by role ID.
 	 *
 	 * @param roleId The ID of the role.
 	 * @return The list of AuthGroupPermission objects associated with the role.
 	 */
-	List<AuthGroupPermission> getPermissionsByRoleId(int roleId);
+	List<AuthGroupPermission> getPermissionsByRoleId(Long roleId);
 
 	/**
 	 * Assigns permissions to a role.
@@ -49,7 +57,7 @@ public interface AuthService {
 	 *                    permission IDs as values.
 	 * @return The list of assigned AuthGroupPermission objects.
 	 */
-	List<AuthGroupPermission> assignPermissionToRole(int roleId, Map<Long, List<Long>> permissions);
+	List<AuthGroupPermission> assignPermissionToRole(Long roleId, List<PermissionAssignment> permissions);
 
 	/**
 	 * Revokes permissions from a role.
@@ -59,7 +67,7 @@ public interface AuthService {
 	 *                    permission IDs as values.
 	 * @return The list of revoked AuthGroupPermission objects.
 	 */
-	List<AuthGroupPermission> revokePermission(int roleId, Map<Long, List<Long>> permissions);
+	List<AuthGroupPermission> revokePermission(Long roleId, Map<Long, List<Long>> permissions);
 
 	/**
 	 * Checks if a role has a specific permission for a module.
@@ -69,7 +77,7 @@ public interface AuthService {
 	 * @param moduleId     The ID of the module.
 	 * @return true if the role has the permission for the module, false otherwise.
 	 */
-	boolean checkPermissionForRoleId(int roleId, long permissionId, long moduleId);
+	boolean checkPermissionForRoleId(Long roleId, long permissionId, long moduleId);
 
 	/**
 	 * Retrieves user permissions by user ID.
@@ -78,6 +86,14 @@ public interface AuthService {
 	 * @return The list of AuthUserUserPermission objects associated with the user.
 	 */
 	List<AuthUserUserPermission> getPermissionsByUserId(long userId);
+
+	/**
+	 * Retrieves user permissions by user ID.
+	 *
+	 * @param userId The ID of the user.
+	 * @return The list of AuthUserUserPermission objects associated with the user.
+	 */
+	List<Object> getAllUserPermissions();
 
 	/**
 	 * Assigns permissions to a user.
@@ -116,7 +132,7 @@ public interface AuthService {
 	 * @param roleId The ID of the role.
 	 * @return The list of AuthPermission objects associated with the user and role.
 	 */
-	List<AuthPermission> getPermissionsByUserIdAndRoleId(Long userId, Long roleId);
+	List<AuthUserUserPermission> getUserPermissionsByUserIdAndRoleId(Long userId, Long roleId);
 
 	/**
 	 * Adds a new module.
@@ -140,4 +156,16 @@ public interface AuthService {
 	 * @return The list of all AuthModule objects.
 	 */
 	List<AuthModule> getAllModules();
+
+	/**
+	 * Assigns permissions to a user.
+	 *
+	 * @param userId      The ID of the user to assign permissions to.
+	 * @param roleId      The ID of the role associated with the user.
+	 * @param permissions The list of PermissionRequest objects containing module
+	 *                    IDs and permission IDs.
+	 * @return The list of assigned AuthUserUserPermission objects.
+	 */
+	List<AuthUserUserPermission> assignPermissionToUser(Long userId, Long roleId,
+			List<PermissionAssignment> permissions);
 }

@@ -25,7 +25,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,19 +32,16 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cpa.uhpocms.entity.AdminInstitution;
 import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.ModuleFile;
 import com.cpa.uhpocms.exception.CPException;
@@ -63,12 +59,10 @@ public class ModuleFileController {
 
 	private ResourceBundle resourceBunde;
 	private static Logger logger;
-	
-	
+
 	@Autowired
 	private ModuleFileRepo moduleRepo;
-	
-	
+
 	@Value("${file.base-path}")
 	private String basePath;
 
@@ -78,75 +72,54 @@ public class ModuleFileController {
 	}
 
 	@PostMapping("/modulefile")
-	public ResponseEntity<Object> createModuleFile(@RequestPart("admin") ModuleFile modulefile,@RequestParam(value="files")List<MultipartFile> files) throws CPException {
+	public ResponseEntity<Object> createModuleFile(@RequestPart("admin") ModuleFile modulefile,
+			@RequestParam(value = "files") List<MultipartFile> files) throws CPException {
 		logger.debug("Entering createModuleFile");
 		logger.info("data of creating ModuleFile  :" + modulefile.toString());
 
 		ModuleFile createdModuleFile = null;
 		try {
 
-
-			
 //			
-			List<ModuleFile> ListModuleFile=moduleRepo.getAllModuleFiles(modulefile.getModuleId());
-			//System.out.println(ListModuleFile);
-			
-		
-			
-			List<String> ListModuleFileName=moduleRepo.getAllModuleFilesName(modulefile.getModuleId());
-			System.out.println("File Names.."+ListModuleFileName);
-			
-			
-			
-			
+			List<ModuleFile> ListModuleFile = moduleRepo.getAllModuleFiles(modulefile.getModuleId());
+			// System.out.println(ListModuleFile);
+
+			List<String> ListModuleFileName = moduleRepo.getAllModuleFilesName(modulefile.getModuleId());
+			System.out.println("File Names.." + ListModuleFileName);
+
 			String fileName = null;
 
-
 			for (MultipartFile file : files) {
-				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				fileName = StringUtils.cleanPath(file.getOriginalFilename());
 				System.out.println(fileName);
 			}
 
-			
-			
-			for(ModuleFile module:ListModuleFile)
-			{
-			   System.out.println("Module File.."+module.getModuleFile());
-			   
-			   if(module.getModuleId() == modulefile.getModuleId())
-			   {
-				   System.out.println("Module id"+module.getModuleId());
-				   System.out.println("User input"+modulefile.getModuleId());
-				   
-				   System.out.println("fileName"+fileName);
-				   
-				   if(module.getModuleFile().equals(fileName))
-				   {
-					  
-					   System.out.println("Module file"+module.getModuleFile());
-					   System.out.println("user input"+fileName);
-					   throw new CPException("err001", resourceBunde.getString("err001"));
-				   }
-				   
-					
-				}
-				   
-				 
-				 
+			for (ModuleFile module : ListModuleFile) {
+				System.out.println("Module File.." + module.getModuleFile());
 
-				   
-			 }
-			
-		
-			
+				if (module.getModuleId() == modulefile.getModuleId()) {
+					System.out.println("Module id" + module.getModuleId());
+					System.out.println("User input" + modulefile.getModuleId());
+
+					System.out.println("fileName" + fileName);
+
+					if (module.getModuleFile().equals(fileName)) {
+
+						System.out.println("Module file" + module.getModuleFile());
+						System.out.println("user input" + fileName);
+						throw new CPException("err001", resourceBunde.getString("err001"));
+					}
+
+				}
+
+			}
 
 			if (createdModuleFile == null) {
 
 				// TODO: Uncomment below 2 lines and change the method name as per your Entity
 				// class
-				
-				for(int i=0;i<files.size();i++)
-				{
+
+				for (int i = 0; i < files.size(); i++) {
 					modulefile.setModuleFile(files.get(i).getOriginalFilename());
 				}
 				modulefile.setModuleFileCreatedBy("admin");
@@ -154,55 +127,49 @@ public class ModuleFileController {
 
 				createdModuleFile = modulefileService.createModuleFile(modulefile);
 				logger.info("ModuleFile created :" + createdModuleFile);
-				
-				String moduleName=moduleRepo.finByModuleByModuleId(modulefile.getModuleFileId());
-				//System.out.println(moduleName);
-				
-				
-				String courseName=moduleRepo.finByCourseByModuleId(modulefile.getModuleId());
-				//System.out.println(courseName);
-				
-				
-				String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(modulefile.getModuleFileId());
-				//System.out.println(departmentName);
-				
-				String deptName=departmentName.trim();
+
+				String moduleName = moduleRepo.finByModuleByModuleId(modulefile.getModuleFileId());
+				// System.out.println(moduleName);
+
+				String courseName = moduleRepo.finByCourseByModuleId(modulefile.getModuleId());
+				// System.out.println(courseName);
+
+				String departmentName = moduleRepo
+						.finByAdminDepartmentByCourseDepartmentId(modulefile.getModuleFileId());
+				// System.out.println(departmentName);
+
+				String deptName = departmentName.trim();
 //				
-				
-				String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(modulefile.getModuleFileId());
-				//System.out.println(InstituteName);
-				
-				int InstituteId=moduleRepo.finByAdminInstitutionById(modulefile.getModuleFileId());
-				//System.out.println(InstituteId);
-				
-				String instituteNameAndId=InstituteName+"_"+InstituteId;
-				//System.out.println(instituteNameAndId);
-				
-				
-				
-				
-				
-				
-				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+modulefile.getModuleFile());
-				//System.out.println(theDir);
-				if (!theDir.exists()){
-				    theDir.mkdirs();
+
+				String InstituteName = moduleRepo
+						.finByAdminInstitutionByCourseDepartmentId(modulefile.getModuleFileId());
+				// System.out.println(InstituteName);
+
+				int InstituteId = moduleRepo.finByAdminInstitutionById(modulefile.getModuleFileId());
+				// System.out.println(InstituteId);
+
+				String instituteNameAndId = InstituteName + "_" + InstituteId;
+				// System.out.println(instituteNameAndId);
+
+				File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + departmentName + "/"
+						+ courseName + "/" + moduleName + "/" + modulefile.getModuleFile());
+				// System.out.println(theDir);
+				if (!theDir.exists()) {
+					theDir.mkdirs();
 				}
-				
+
 				List<String> fileNames = new ArrayList<>();
 
 				for (MultipartFile file : files) {
-					 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+					fileName = StringUtils.cleanPath(file.getOriginalFilename());
 					System.out.println(fileName);
-					Path fileStorage = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
+					Path fileStorage = Paths.get(basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/"
+							+ courseName + "/" + moduleName, fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 					fileNames.add(fileName);
 				}
 
-
 				return ResponseHandler.generateResponse(createdModuleFile, HttpStatus.CREATED);
-				
-				
 
 			} else {
 
@@ -243,10 +210,10 @@ public class ModuleFileController {
 		}
 
 	}
-	
-	
+
 	@GetMapping("/modulefile/moduleId/{moduleId}")
-	public ResponseEntity<List<Object>> getAllModuleFiles(@PathVariable(name = "moduleId") int moduleId) throws CPException {
+	public ResponseEntity<List<Object>> getAllModuleFiles(@PathVariable(name = "moduleId") int moduleId)
+			throws CPException {
 		logger.debug("Entering getAllModuleFile");
 		logger.info("Parameter  :" + moduleId);
 
@@ -254,13 +221,11 @@ public class ModuleFileController {
 
 		try {
 
-			
+			modulefiles = modulefileService.getModuleFileByModuleId(moduleId);
+			logger.info("Fetched all ModuleFile :" + modulefiles);
 
-				modulefiles = modulefileService.getModuleFileByModuleId(moduleId);
-				logger.info("Fetched all ModuleFile :" + modulefiles);
+			return ResponseHandler.generateListResponse(modulefiles, HttpStatus.OK);
 
-				return ResponseHandler.generateListResponse(modulefiles, HttpStatus.OK);
-			 
 		} catch (Exception ex) {
 
 			logger.error("Failed getting all modulefiles : " + ex.getMessage());
@@ -268,9 +233,6 @@ public class ModuleFileController {
 
 		}
 	}
-
-	
-	
 
 	@GetMapping("/modulefile")
 	public ResponseEntity<List<Object>> getAllModuleFiles(@RequestParam(name = "file") String file) throws CPException {
@@ -377,8 +339,8 @@ public class ModuleFileController {
 //	}
 
 	@PutMapping("/modulefileById/{id}")
-	public ResponseEntity<Object> updateModuleFileById(@RequestPart("admin") ModuleFile modulefile, @PathVariable("id") int id,@RequestParam(value="files")List<MultipartFile> files)
-			throws CPException {
+	public ResponseEntity<Object> updateModuleFileById(@RequestPart("admin") ModuleFile modulefile,
+			@PathVariable("id") int id, @RequestParam(value = "files") List<MultipartFile> files) throws CPException {
 		logger.debug("Entering updateModuleFile");
 		logger.info("entered  updateModuleFile :" + modulefile);
 
@@ -392,56 +354,52 @@ public class ModuleFileController {
 		System.out.println(moduleFileName);
 
 		try {
-			for(int i=0;i<files.size();i++)
-			{
+			for (int i = 0; i < files.size(); i++) {
 				modulefile.setModuleFile(files.get(i).getOriginalFilename());
 			}
 			updatedModuleFile = modulefileService.updateModuleFileBymoduleFileId(modulefile, id);
 			logger.info("updated modulefile : " + updatedModuleFile);
-			
+
 			System.out.println(updatedModuleFile.getModuleFileId());
-				
-			String moduleName=moduleRepo.finByModuleByModuleId(updatedModuleFile.getModuleFileId());
+
+			String moduleName = moduleRepo.finByModuleByModuleId(updatedModuleFile.getModuleFileId());
 			System.out.println(moduleName);
-			
-			
-			String courseName=moduleRepo.finByCourseByModuleId(updatedModuleFile.getModuleId());
+
+			String courseName = moduleRepo.finByCourseByModuleId(updatedModuleFile.getModuleId());
 			System.out.println(courseName);
-			
-			
-			String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(updatedModuleFile.getModuleFileId());
-			//System.out.println(departmentName);
-			
-			String deptName=departmentName.trim();
+
+			String departmentName = moduleRepo
+					.finByAdminDepartmentByCourseDepartmentId(updatedModuleFile.getModuleFileId());
+			// System.out.println(departmentName);
+
+			String deptName = departmentName.trim();
 			System.out.println(deptName);
 //			
-			
-			String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(updatedModuleFile.getModuleFileId());
+
+			String InstituteName = moduleRepo
+					.finByAdminInstitutionByCourseDepartmentId(updatedModuleFile.getModuleFileId());
 			System.out.println(InstituteName);
-			
-			int InstituteId=moduleRepo.finByAdminInstitutionById(updatedModuleFile.getModuleFileId());
+
+			int InstituteId = moduleRepo.finByAdminInstitutionById(updatedModuleFile.getModuleFileId());
 			System.out.println(InstituteId);
-			
-			String instituteNameAndId=InstituteName+"_"+InstituteId;
-		  System.out.println(instituteNameAndId);
-			
-			
-			
-			
-			
-			
-			File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+departmentName+"/"+courseName+"/"+moduleName+"/"+modulefile.getModuleFile());
+
+			String instituteNameAndId = InstituteName + "_" + InstituteId;
+			System.out.println(instituteNameAndId);
+
+			File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + departmentName + "/"
+					+ courseName + "/" + moduleName + "/" + modulefile.getModuleFile());
 			System.out.println(theDir);
-			if (!theDir.exists()){
-			    theDir.mkdirs();
+			if (!theDir.exists()) {
+				theDir.mkdirs();
 			}
-			
+
 			List<String> fileNames = new ArrayList<>();
 
 			for (MultipartFile file : files) {
-				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				fileName = StringUtils.cleanPath(file.getOriginalFilename());
 				System.out.println(fileName);
-				Path fileStorage = Paths.get(basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName, fileName).toAbsolutePath().normalize();
+				Path fileStorage = Paths.get(basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/"
+						+ courseName + "/" + moduleName, fileName).toAbsolutePath().normalize();
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 				fileNames.add(fileName);
 			}
@@ -451,13 +409,7 @@ public class ModuleFileController {
 			Files.delete(fileStorage1);
 			
 
-				
-				
-				
-			
-
-				return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
-			
+			return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
 
 		} catch (Exception ex) {
 			logger.error("Failed update ModuleFile : " + ex.getMessage());
@@ -554,7 +506,6 @@ public class ModuleFileController {
 			throw new CPException("err006", resourceBunde.getString("err006"));
 		}
 	}
-	
 
 //	@GetMapping(path="getFileById/{moduleFileId}")
 //    ResponseEntity<InputStreamResource> getImageById(@PathVariable int moduleFileId) throws IOException { //download file
@@ -607,49 +558,43 @@ public class ModuleFileController {
 //       
 //        return new ResponseEntity<InputStreamResource>(a, httpHeaders,HttpStatus.OK);
 //    }
-	
-	
-	@GetMapping(path ="files/{moduleFileId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+
+	@GetMapping(path = "files/{moduleFileId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public ResponseEntity<InputStreamResource> getFile(@PathVariable int moduleFileId) {
 		try {
-				// retrieve
+			// retrieve
 
-			ModuleFile myFile =null;
-			 myFile =moduleRepo.findByModuleFileId(moduleFileId);
-	        System.out.println(myFile);
+			ModuleFile myFile = null;
+			myFile = moduleRepo.findByModuleFileId(moduleFileId);
+			System.out.println(myFile);
 
-	        
-	        String moduleName=moduleRepo.finByModuleByModuleId(myFile.getModuleFileId());
+			String moduleName = moduleRepo.finByModuleByModuleId(myFile.getModuleFileId());
 			System.out.println(moduleName);
-			
-			
-			String courseName=moduleRepo.finByCourseByModuleId(myFile.getModuleId());
+
+			String courseName = moduleRepo.finByCourseByModuleId(myFile.getModuleId());
 			System.out.println(courseName);
-			
-			
-			String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
+
+			String departmentName = moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
 			System.out.println(departmentName);
-			
-			String deptName=departmentName.trim();
-			
-			
-			String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(myFile.getModuleFileId());
+
+			String deptName = departmentName.trim();
+
+			String InstituteName = moduleRepo.finByAdminInstitutionByCourseDepartmentId(myFile.getModuleFileId());
 			System.out.println(InstituteName);
-			
-			
-			
-			int InstituteId=moduleRepo.finByAdminInstitutionById(myFile.getModuleFileId());
+
+			int InstituteId = moduleRepo.finByAdminInstitutionById(myFile.getModuleFileId());
 			System.out.println(InstituteId);
-			
-			String instituteNameAndId=InstituteName+"_"+InstituteId;
+
+			String instituteNameAndId = InstituteName + "_" + InstituteId;
 			System.out.println(instituteNameAndId);
-	        
-	       String address =basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+ myFile.getModuleFile();
-	       File file = new File(address);
-	        System.out.println("file"+file);
-	       InputStream inputStream = new FileInputStream(file);
+
+			String address = basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/" + courseName + "/"
+					+ moduleName + "/" + myFile.getModuleFile();
+			File file = new File(address);
+			System.out.println("file" + file);
+			InputStream inputStream = new FileInputStream(file);
 //	        System.out.println(inputStream);
-	       InputStreamResource a = new InputStreamResource(inputStream);
+			InputStreamResource a = new InputStreamResource(inputStream);
 			System.out.println(inputStream.toString());
 			return ResponseEntity.ok().header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"")
 					.contentType(MediaType.APPLICATION_OCTET_STREAM).contentLength(file.length()).body(a);
@@ -659,14 +604,31 @@ public class ModuleFileController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
-	
-	
 
+	@GetMapping(path = "/modulefile/teacher")
+	public ResponseEntity<List<Object>> getModuleFilesByTeacherId(@RequestParam(name = "id") int teacherId)
+			throws CPException {
+		logger.debug("Entering getModuleFilesByTeacherId");
+		logger.info("student id  :" + teacherId);
 
+		List<Object> modulefiles = null;
 
+		try {
+			modulefiles = modulefileService.getModuleFilesByTeacherId(teacherId);
+			if (modulefiles != null) {
+				logger.info("Fetched all ModuleFile :" + modulefiles);
+				return ResponseHandler.generateListResponse(modulefiles, HttpStatus.OK);
+			} else {
+				logger.info(resourceBunde.getString("err006"));
+				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err006");
+			}
 
+		} catch (Exception ex) {
 
+			logger.error("Failed getting all modulefiles by student id : " + ex.getMessage());
+			throw new CPException("err006", resourceBunde.getString("err006"));
 
+		}
+	}
 
 }

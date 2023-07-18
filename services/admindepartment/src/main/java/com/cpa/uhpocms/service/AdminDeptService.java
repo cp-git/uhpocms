@@ -38,4 +38,6 @@ public interface AdminDeptService {
 	AdminDepartment createDepartment(AdminDepartment adminDepartment);
 
 	AdminDepartment getDepartmentByInstitutionIdAndName(int institutionId, String name);
+
+	public List<Object> getInactiveDepartmentsByInstituionId(int institutionId);
 }
