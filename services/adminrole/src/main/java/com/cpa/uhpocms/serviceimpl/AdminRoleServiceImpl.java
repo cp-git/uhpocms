@@ -45,6 +45,8 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 		if (roleName != null) {
 			// Convert to lowercase and replace spaces with hyphens
 			roleName = roleName.toLowerCase().replaceAll("\\s+", "-");
+			 // Remove hyphen after the last word
+	        roleName = roleName.replaceAll("-$", "");
 			adminRole.setRoleName(roleName);
 		}
 
