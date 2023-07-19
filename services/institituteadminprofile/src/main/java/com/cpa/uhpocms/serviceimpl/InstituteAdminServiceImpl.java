@@ -225,6 +225,8 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		existingProfile.setInstitutionId(instituteAdmin.getInstitutionId());
 		existingProfile.setUserId(instituteAdmin.getUserId());
 		existingProfile.setUserRoleId(instituteAdmin.getUserRoleId());
+		existingProfile.setProfilePics(instituteAdmin.getProfilePics());
+		System.out.println("Data..."+existingProfile);
 
 		instituteAdminRepository.save(existingProfile);
 		return existingProfile;

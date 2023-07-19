@@ -504,7 +504,7 @@ public class InstituteAdminController {
 	
 	@PutMapping("/profile/updatedelete/{Id}")
 	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestPart("admin") InstituteAdmin instituteAdmin,
-			@PathVariable("Id") int authUserId, @RequestParam(value="file",required=false)MultipartFile file) throws CPException {
+			@PathVariable("Id") int authUserId,  @RequestParam(value="file",required=false)MultipartFile file) throws CPException {
 
 		logger.info("inside the put method..");
 		InstituteAdmin instituteAdminProfile = null;
@@ -516,15 +516,15 @@ public class InstituteAdminController {
 			instituteAdminProfile = instituteAdminService.getProfileByAuthUserId(authUserId);
 			logger.info("updateInstituteAdmin Values" + instituteAdminProfile);
 			
-//			String PreviousImage=instituteAdminProfile.getProfilePics();
-//			System.out.println(PreviousImage);
+			String PreviousImage=instituteAdminProfile.getProfilePics();
+			System.out.println(PreviousImage);
 			
 			
 			 
 
 
 			
-				
+			
 				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
 				//System.out.println(instituteAdminProfile.getAdminId());
 				
