@@ -43,8 +43,8 @@ public interface QuestionService {
 
 	
 
-//	Integer addQuestionsAndAnswers(Question question, Answer[] answers);
-	Object addQuestionsAndAnswers(Question question, Answer[] answers);
+	Integer addQuestionsAndAnswers(Question question, Answer[] answers);
+//	Object addQuestionsAndAnswers(Question question, Answer[] answers);
 	
 	Question findQuestionById(int questionId);
 }

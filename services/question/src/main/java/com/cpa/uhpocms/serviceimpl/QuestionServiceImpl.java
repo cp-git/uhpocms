@@ -252,7 +252,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	// for additing question and answers
 	@Override
-	public Object addQuestionsAndAnswers(Question question, Answer[] answers) {
+	public Integer addQuestionsAndAnswers(Question question, Answer[] answers) {
 
 		System.out.println("in serv impl");
 		System.out.println(question.getMaxMarks());
@@ -290,23 +290,23 @@ public class QuestionServiceImpl implements QuestionService {
 			e.printStackTrace();
 		}
 
-//		System.out.println("json array " + questionJson);
-//		System.out.println("answer json " + answersJson);
-//
+		System.out.println("json array " + questionJson);
+		System.out.println("answer json " + answersJson);
+
 //	    if((question.isQuestionIsMCQ() == false) && (question.getMaxMarks() == 0 ))
 //	    {
 //	    	
 //	    }
 //	    else
 //	    {
-//	    	value = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
-//				answersJson.get(2), answersJson.get(3), value);
-		
-		returnedQues = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
+	    	value = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
 			answersJson.get(2), answersJson.get(3), value);
+		
+//		returnedQues = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
+//			answersJson.get(2), answersJson.get(3), value);
 //	    }
 		logger.info("generated ID" + value.toString());
-		return returnedQues;
+		return value;
 
 	}
 
