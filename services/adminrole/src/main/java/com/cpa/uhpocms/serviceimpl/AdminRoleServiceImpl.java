@@ -28,38 +28,31 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 	}
 
 	/**
-	 * @author : Kaushik
+	 * @author : Akash
 	 * @param : AdminRole
 	 * @return :createdRole
 	 * @description : For creating/save entry in adminrole table
 	 */
 	@Override
 	public AdminRole saveAdminRole(AdminRole adminRole) {
-		// TODO Auto-generated method stub
 		logger.debug("Entering createRole");
-		ArrayList<String> role = new ArrayList<String>();
-		role.add("admin");
-		role.add("coadmin");
-		role.add("teacher");
-		role.add("student");
-
 		AdminRole createdRole = null;
 
-		if (role.contains(adminRole.getRoleName())) {
+		adminRole.setCreatedBy("admin");
+		adminRole.setModifiedBy("admin");
 
-			AdminRole checkAdminRole = adminRoleRepository.findByRoleName(adminRole.getRoleName());
-
-			if (checkAdminRole == null) {
-				adminRole.setCreatedBy("admin");
-				adminRole.setModifiedBy("admin");
-				createdRole = adminRoleRepository.save(adminRole);
-			}
+		String roleName = adminRole.getRoleName();
+		if (roleName != null) {
+			// Convert to lowercase and replace spaces with hyphens
+			roleName = roleName.toLowerCase().replaceAll("\\s+", "-");
+			adminRole.setRoleName(roleName);
 		}
 
-		logger.info("created Role :" + createdRole);
+		createdRole = adminRoleRepository.save(adminRole);
+
+		logger.info("created Role: " + createdRole);
 		return createdRole;
 	}
-
 	/**
 	 * @author : Kaushik
 	 * @return : adminrole
@@ -110,43 +103,31 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 	}
 
 	/**
-	 * @author : Kaushik
+	 * @author : Akash
 	 * @param : AdminRole adminRole, String roleName
 	 * @return : object
 	 * @description : For updating entry in adminrole table
 	 */
 	@Override
-	public AdminRole updateRoleNameByRoleName(AdminRole adminRole, String roleName) {
+	public AdminRole updateRoleNameByRoleName(AdminRole adminRole) {
 		// TODO Auto-generated method stub
 		logger.debug("update role by role name");
-		ArrayList<String> role = new ArrayList<String>();
-		role.add("admin");
-		role.add("coadmin");
-		role.add("teacher");
-		role.add("student");
 
-		AdminRole updateRole = null;
-		try {
+		AdminRole RoleNamePresent = null;
+		AdminRole updatedRole = null;
 
-			if (role.contains(roleName)) {
+		RoleNamePresent = adminRoleRepository.findByRoleName(adminRole.getRoleName());
 
-				AdminRole existingAdminRole = adminRoleRepository.findByRoleName(adminRole.getRoleName());
+		if (RoleNamePresent != null) {
 
-				if (existingAdminRole != null) {
-
-					existingAdminRole.setRoleName(adminRole.getRoleName());
-					existingAdminRole.setRoleDescription(adminRole.getRoleDescription());
-					existingAdminRole.setActive(adminRole.isActive());
-					updateRole = adminRoleRepository.save(existingAdminRole);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			RoleNamePresent.setRoleName(adminRole.getRoleName());
+			RoleNamePresent.setRoleDescription(adminRole.getRoleDescription());
+			RoleNamePresent.setActive(adminRole.isActive());
+			updatedRole = adminRoleRepository.save(RoleNamePresent);
 		}
-		logger.info("---update role :" + updateRole);
-		return updateRole;
+		logger.info("---update role :" + updatedRole);
+		return updatedRole;
 	}
-
 	/**
 	 * @param : int roleId
 	 * @return : int - count of updated /activated roles

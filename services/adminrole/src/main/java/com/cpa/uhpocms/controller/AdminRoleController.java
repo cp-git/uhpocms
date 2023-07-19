@@ -161,7 +161,7 @@ public class AdminRoleController {
 	}
 
 	/**
-	 * @author : Kaushik
+	 * @author : Akash
 	 * @param : AdminRole adminRole
 	 * @return : Response entity object
 	 * @description : update the role details by role name
@@ -173,7 +173,7 @@ public class AdminRoleController {
 		logger.debug("Entering in updateRoleByRoleName");
 		AdminRole updateRole = null;
 		try {
-			updateRole = adminRoleService.updateRoleNameByRoleName(adminRole, roleName);
+			updateRole = adminRoleService.updateRoleNameByRoleName(adminRole);
 
 			if (updateRole != null) {
 				return ResponseHandler.generateResponse(updateRole, HttpStatus.CREATED);
@@ -187,7 +187,6 @@ public class AdminRoleController {
 		}
 
 	}
-
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {
 		return new AuthenticationBean("You are authenticated");
