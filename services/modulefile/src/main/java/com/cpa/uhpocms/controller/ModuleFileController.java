@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -348,6 +349,7 @@ public class ModuleFileController {
 		ModuleFile updatedModuleFile = null;
 		String fileName=null;
 		
+		files=new ArrayList<>();
 		ModuleFile moduleFile = modulefileService.getModuleFileById(id);
 		System.out.println("Details of Modulefile..."+moduleFile);
 		
@@ -355,7 +357,7 @@ public class ModuleFileController {
 		System.out.println(moduleFileName);
 
 		try {
-			for (int i = 0; i < files.size(); i++) {
+			for (int i = 0; i <files.size(); i++) {
 				modulefile.setModuleFile(files.get(i).getOriginalFilename());
 			}
 			updatedModuleFile = modulefileService.updateModuleFileBymoduleFileId(modulefile, id);
@@ -560,7 +562,7 @@ public class ModuleFileController {
 //        return new ResponseEntity<InputStreamResource>(a, httpHeaders,HttpStatus.OK);
 //    }
 
-	@GetMapping(path = "files/{moduleFileId}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	@GetMapping(path = "files/{moduleFileId}")
 	public ResponseEntity<InputStreamResource> getFile(@PathVariable int moduleFileId) {
 		try {
 			// retrieve
@@ -630,6 +632,36 @@ public class ModuleFileController {
 			throw new CPException("err006", resourceBunde.getString("err006"));
 
 		}
+	}
+	
+	
+	//Updating the Modulefile Along with  Json Object
+	
+	
+	@PutMapping(value="/moduleupdatejson/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+
+	public ResponseEntity<Object> updateModulejson(@RequestBody ModuleFile modulefile,
+			@PathVariable("id") int id) throws CPException{
+		logger.debug("Entering updateModuleFile");
+		logger.info("entered  updateModuleFile :" + modulefile);
+
+		ModuleFile updatedModuleFile = null;
+	
+	
+		try {	
+			
+			updatedModuleFile = modulefileService.getModuleFileById(id);
+			System.out.println("Details of Modulefile..."+updatedModuleFile.getModuleFile());
+			
+			updatedModuleFile.setModuleFile(modulefile.getModuleFile());
+			updatedModuleFile = modulefileService.updateModuleFileBymoduleFileId(modulefile, id);
+			return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
+		} catch (Exception ex) {
+			logger.error("Failed update ModuleFile : " + ex.getMessage());
+			throw new CPException("err004", resourceBunde.getString("err004"));
+
+		}
+
 	}
 
 }
