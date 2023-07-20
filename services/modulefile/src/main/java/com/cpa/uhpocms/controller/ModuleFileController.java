@@ -341,7 +341,7 @@ public class ModuleFileController {
 	@PutMapping("/modulefileById/{id}")
 
 	public ResponseEntity<Object> updateModuleFileById(@RequestPart("admin") ModuleFile modulefile,
-			@PathVariable("id") int id, @RequestParam(value = "files") List<MultipartFile> files) throws CPException{
+			@PathVariable("id") int id, @RequestParam(value = "files",required=false) List<MultipartFile> files) throws CPException{
 		logger.debug("Entering updateModuleFile");
 		logger.info("entered  updateModuleFile :" + modulefile);
 
