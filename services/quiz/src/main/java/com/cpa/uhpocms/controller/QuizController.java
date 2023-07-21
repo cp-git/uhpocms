@@ -175,6 +175,38 @@ public class QuizController {
 
 		}
 	}
+	
+	
+	
+	@GetMapping("/quiz/actInactQuizzes")
+	public ResponseEntity<List<Object>> getAllActInacQuizzes(@RequestParam(name = "actInac") String actInac) throws CPException {
+		logger.debug("Entering getAllQuiz");
+		logger.info("Parameter  :" + actInac);
+
+		List<Object> quizs = null;
+
+		try {
+
+			if (actInac.equalsIgnoreCase("all")) {
+
+				quizs = quizService.getAllActInacQuizzes();
+				logger.info("Fetched all Quiz :" + quizs);
+
+				return ResponseHandler.generateListResponse(quizs, HttpStatus.OK);
+			} else {
+
+				logger.info(resourceBundle.getString("err002"));
+				return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err002");
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+			logger.error("Failed getting all quizs : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+		}
+	}
 
 	/**
 	 * 
