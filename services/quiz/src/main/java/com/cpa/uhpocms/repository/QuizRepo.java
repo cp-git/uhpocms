@@ -22,6 +22,7 @@ import com.cpa.uhpocms.entity.Quiz;
 public interface QuizRepo extends JpaRepository<Quiz, Integer> {
 
 	public Quiz findBytitle(String title);
+	public  Quiz findByQuizId(int quizId);
 
 	public List<Object> findByIsActiveTrue();
 	
