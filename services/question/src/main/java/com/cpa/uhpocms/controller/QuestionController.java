@@ -457,6 +457,10 @@ public class QuestionController {
 		Answer[] answers = request.getAnswers();
 
 		Integer questionId = 0;
+		
+		System.out.println();
+		
+		
 	
 		
 		
@@ -476,6 +480,8 @@ public class QuestionController {
 		            if (file != null && !file.isEmpty()) {
 		                // File is not null and has content
 		                // Process the file and perform the insertion logic
+		            	
+		            	
 		                String fileName = file.getOriginalFilename();
 		                // Insert the file into the database or perform any other necessary operations
 		                System.out.println("File inserted: " + fileName);
@@ -558,8 +564,26 @@ public class QuestionController {
 				List<String> fileNames = new ArrayList<>();
 
 				for (MultipartFile file : files) {
-					String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-					System.out.println(fileName);
+					
+					String fileName;
+					
+					String fileData=file.getOriginalFilename();
+					
+					if(fileData == file.getOriginalFilename()) {
+						String fileDataName=questionId+"_"+file.getOriginalFilename();
+						 fileName = StringUtils.cleanPath(fileDataName);
+						System.out.println(fileName);
+					}
+					else {
+						 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+						System.out.println(fileName);
+						
+					}
+					
+						System.out.println(file.getOriginalFilename());
+					
+					
+					
 					Path fileStorage = Paths.get(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/", fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 					fileNames.add(fileName);
@@ -637,9 +661,11 @@ public class QuestionController {
 		String QuestionData=quizName+"_"+quizId;
 		
 		System.out.println(myFile.getQuestionFigure());
+		
+		String imageName=myFile.getQuestionId()+"_"+myFile.getQuestionFigure();
         
         
-       String address =basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/"+myFile.getQuestionFigure();
+       String address =basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/"+imageName;
        File file = new File(address);
         System.out.println("file"+file);
        InputStream inputStream = new FileInputStream(file);
