@@ -319,15 +319,15 @@ public class QuizController {
 	 * @return
 	 * @throws CPException
 	 */
-	@PatchMapping("/quiz/{title}")
-	public ResponseEntity<Object> updateActiveStatus(@PathVariable("title") String title) throws CPException {
+	@PatchMapping("/quiz/{id}")
+	public ResponseEntity<Object> updateActiveStatus(@PathVariable("id") int quizId) throws CPException {
 
 		logger.debug("Entering updateActiveStatus");
 
 		Object obj = null;
 
 		try {
-			obj = quizService.updateActiveStatus(title);
+			obj = quizService.updateActiveStatus(quizId);
 
 			if (obj == null) {
 				logger.info(resourceBundle.getString("err004"));

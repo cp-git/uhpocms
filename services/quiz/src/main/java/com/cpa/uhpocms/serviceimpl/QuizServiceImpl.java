@@ -171,14 +171,14 @@ public class QuizServiceImpl implements QuizService {
 	 * 
 	 */
 	@Override
-	public Object updateActiveStatus(String title) {
+	public Object updateActiveStatus(int quizId) {
 		// TODO Auto-generated method stub
 
 		logger.debug("Entering getInActiveQuestions ");
 		List<Object> quizzes = getInactiveQuizzes();
 
 		if (quizzes.size() >= 1) {
-			Object object = quizRepo.findBytitle(title);
+			Object object = quizRepo.findById(quizId);
 
 			Quiz quiz = (Quiz) object;
 			quiz.setActive(true);
