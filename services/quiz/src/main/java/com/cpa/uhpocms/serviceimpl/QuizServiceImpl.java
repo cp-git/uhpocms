@@ -178,7 +178,7 @@ public class QuizServiceImpl implements QuizService {
 		List<Object> quizzes = getInactiveQuizzes();
 
 		if (quizzes.size() >= 1) {
-			Object object = quizRepo.findById(quizId);
+			Object object = quizRepo.findByQuizId(quizId);
 
 			Quiz quiz = (Quiz) object;
 			quiz.setActive(true);
