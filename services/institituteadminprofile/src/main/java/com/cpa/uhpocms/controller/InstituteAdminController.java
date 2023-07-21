@@ -28,6 +28,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -504,7 +505,7 @@ public class InstituteAdminController {
 	
 	@PutMapping("/profile/updatedelete/{Id}")
 	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestPart("admin") InstituteAdmin instituteAdmin,
-			@PathVariable("Id") int authUserId,  @RequestParam(value="file",required=false)MultipartFile file) throws CPException {
+			@PathVariable("Id") int authUserId,@RequestParam(value="file",required=false)MultipartFile file) throws CPException {
 
 		logger.info("inside the put method..");
 		InstituteAdmin instituteAdminProfile = null;
@@ -516,15 +517,25 @@ public class InstituteAdminController {
 			instituteAdminProfile = instituteAdminService.getProfileByAuthUserId(authUserId);
 			logger.info("updateInstituteAdmin Values" + instituteAdminProfile);
 			
+			System.out.println(instituteAdminProfile.getProfilePics());
+			
 			String PreviousImage=instituteAdminProfile.getProfilePics();
 			System.out.println(PreviousImage);
 			
-			
 			 
-
-
-			
-			
+			 
+				if (file != null && !file.isEmpty()) {
+	                // File is not null and has content
+	                // Process the file and perform the insertion logic
+	                String fileName = file.getOriginalFilename();
+	                // Insert the file into the database or perform any other necessary operations
+	                System.out.println("File inserted: " + fileName);
+	            } else {
+	                // File is null or empty
+	                // Perform your desired action here, such as logging an error or returning a response
+	                System.out.println("Null or empty file found");
+	            }
+				
 				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
 				//System.out.println(instituteAdminProfile.getAdminId());
 				
@@ -537,10 +548,12 @@ public class InstituteAdminController {
 				}
 				
 				//Path path = theDir.toPath();
+				
 				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 				System.out.println(fileName);
 				Path fileStorage = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, fileName).toAbsolutePath().normalize();
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
+				
 				
 				
 //				Path fileStorage1 = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, PreviousImage).toAbsolutePath().normalize();
