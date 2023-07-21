@@ -27,7 +27,7 @@ public interface QuizService {
 	
 	List<Object> getAllQuizzesByModuleId(int moduleId) ;
 
-	Object updateActiveStatus(String figure);
+	Object updateActiveStatus(int quizID);
 
 	List<Object> getInactiveQuizzes();
 	
