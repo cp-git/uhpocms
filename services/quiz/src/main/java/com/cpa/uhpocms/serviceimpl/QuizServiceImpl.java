@@ -200,14 +200,26 @@ public class QuizServiceImpl implements QuizService {
 	}
 
 	
-	public List<Object> getAllQuizzesByModuleId(int moduleId) {
+	public List<Object> getAllActInacQuizzes() {
 		logger.debug("Entering getAllQuizzesByModuleId");
 
-		List<Quiz> quizzes = quizRepo.findByModuleId(moduleId);
+		List<Quiz> quizzes = quizRepo.findAll();
+		
 		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
 		logger.info("Fetched quiz :" + quizzes);
 		return objQuizzes;
 	}
+	
+	public List<Object> getAllQuizzesByModuleId(int moduleId) {
+		logger.debug("Entering getAllQuizzesByModuleId");
+
+		List<Quiz> quizzes = quizRepo.findByModuleId(moduleId);
+		
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
+		logger.info("Fetched quiz :" + quizzes);
+		return objQuizzes;
+	}
+
 
 	@Override
 	public List<Object[]> getQuizInfoByQuizId(int quizId) {

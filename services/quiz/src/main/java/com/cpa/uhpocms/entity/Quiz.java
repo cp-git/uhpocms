@@ -1,5 +1,5 @@
 /**
- * @author  - Code Generator
+..t y * @author  - Code Generator
  * @createdOn -  06-12-2022
  * @Description Entity class for Teacher_quiz
  * 

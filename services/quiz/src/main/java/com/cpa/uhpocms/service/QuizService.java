@@ -38,4 +38,6 @@ public interface QuizService {
 	List<Object> getAllQuizzesByTeacherId(int teacherId);
 
 	List<Object> getAllInactiveQuizzesByTeacherId(int teacherId);
+	
+	public List<Object> getAllActInacQuizzes() ;
 }
