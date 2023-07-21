@@ -56,11 +56,6 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
 			@Param("generatedId") Integer questionId);
 	
 	
-//	@Query(value = "CALL add_question_with_answers_mcq(CAST(:question AS json), CAST(:option1 AS json), CAST(:option2 AS json), CAST(:option3 AS json), CAST(:option4 AS json), :generatedId)", nativeQuery = true)
-//	Question addQuestionWithAnswers(@Param("question") String question, @Param("option1") String answer1,
-//	                                @Param("option2") String answer2, @Param("option3") String answer3,
-//	                                @Param("option4") String answer4, @Param("generatedId") Integer questionId);
-
 	//Finding the institute by using the questionId
 	@Query(value = "SELECT admin_institution.name FROM teacher_course,teacher_module, admin_institution, admin_department, teacher_course_departmentid, teacher_quiz,teacher_question WHERE  admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_quiz.module_id AND teacher_quiz.quizid=teacher_question.quizid_id AND teacher_question.id=?1", nativeQuery = true)
 	public String getInstituteByQuestion(int questionId);

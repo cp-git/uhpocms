@@ -258,7 +258,7 @@ public class QuestionServiceImpl implements QuestionService {
 		System.out.println(question.getMaxMarks());
 		System.out.println(question);
 		Integer value = 0;
-		Question returnedQues = new Question();
+
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		question.setQuestionCreatedBy("admin");
@@ -290,9 +290,9 @@ public class QuestionServiceImpl implements QuestionService {
 			e.printStackTrace();
 		}
 
-		System.out.println("json array " + questionJson);
-		System.out.println("answer json " + answersJson);
-
+//		System.out.println("json array " + questionJson);
+//		System.out.println("answer json " + answersJson);
+//
 //	    if((question.isQuestionIsMCQ() == false) && (question.getMaxMarks() == 0 ))
 //	    {
 //	    	
@@ -300,10 +300,7 @@ public class QuestionServiceImpl implements QuestionService {
 //	    else
 //	    {
 	    	value = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
-			answersJson.get(2), answersJson.get(3), value);
-		
-//		returnedQues = questionRepo.addQuestionWithAnswers(questionJson, answersJson.get(0), answersJson.get(1),
-//			answersJson.get(2), answersJson.get(3), value);
+				answersJson.get(2), answersJson.get(3), value);
 //	    }
 		logger.info("generated ID" + value.toString());
 		return value;
