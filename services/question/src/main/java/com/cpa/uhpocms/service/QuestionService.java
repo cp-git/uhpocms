@@ -39,12 +39,8 @@ public interface QuestionService {
 	Object updateActiveStatus(String figure);
 
 	int addQuestionWithAnswers(Question question);
-	
-
-	
 
 	Integer addQuestionsAndAnswers(Question question, Answer[] answers);
-//	Object addQuestionsAndAnswers(Question question, Answer[] answers);
 	
 	Question findQuestionById(int questionId);
 }

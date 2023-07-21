@@ -458,7 +458,7 @@ public class QuestionController {
 
 		Integer questionId = 0;
 	
-//		Object returnedQues = new Question();
+		
 		
 		try {
 
@@ -497,8 +497,7 @@ public class QuestionController {
 			
 			questionId = questionService.addQuestionsAndAnswers(question, answers);
 			
-//			returnedQues = questionService.addQuestionsAndAnswers(question, answers);
-//			System.out.println(returnedQues);
+			System.out.println(question.getQuestionId());
 			
 		
 			logger.info("generated value in controller :" + questionId);
@@ -570,11 +569,10 @@ public class QuestionController {
 				
 
 				logger.debug("added question and answers successfully");
-//				return ResponseHandler.generateResponse(questionId, HttpStatus.OK);
 				return ResponseHandler.generateResponse(questionId, HttpStatus.OK);
 			} else {
 				logger.debug("Failed to add question and answers");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err003");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err006");
 			}
 
 		} catch (Exception ex) {
