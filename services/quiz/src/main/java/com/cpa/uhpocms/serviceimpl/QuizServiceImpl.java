@@ -171,14 +171,14 @@ public class QuizServiceImpl implements QuizService {
 	 * 
 	 */
 	@Override
-	public Object updateActiveStatus(String title) {
+	public Object updateActiveStatus(int quizId) {
 		// TODO Auto-generated method stub
 
 		logger.debug("Entering getInActiveQuestions ");
 		List<Object> quizzes = getInactiveQuizzes();
 
 		if (quizzes.size() >= 1) {
-			Object object = quizRepo.findBytitle(title);
+			Object object = quizRepo.findByQuizId(quizId);
 
 			Quiz quiz = (Quiz) object;
 			quiz.setActive(true);
@@ -200,14 +200,26 @@ public class QuizServiceImpl implements QuizService {
 	}
 
 	
-	public List<Object> getAllQuizzesByModuleId(int moduleId) {
+	public List<Object> getAllActInacQuizzes() {
 		logger.debug("Entering getAllQuizzesByModuleId");
 
-		List<Quiz> quizzes = quizRepo.findByModuleId(moduleId);
+		List<Quiz> quizzes = quizRepo.findAll();
+		
 		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
 		logger.info("Fetched quiz :" + quizzes);
 		return objQuizzes;
 	}
+	
+	public List<Object> getAllQuizzesByModuleId(int moduleId) {
+		logger.debug("Entering getAllQuizzesByModuleId");
+
+		List<Quiz> quizzes = quizRepo.findByModuleId(moduleId);
+		
+		List<Object> objQuizzes = new ArrayList<Object>(quizzes);
+		logger.info("Fetched quiz :" + quizzes);
+		return objQuizzes;
+	}
+
 
 	@Override
 	public List<Object[]> getQuizInfoByQuizId(int quizId) {

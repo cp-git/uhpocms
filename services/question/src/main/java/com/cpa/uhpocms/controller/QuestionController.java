@@ -457,8 +457,12 @@ public class QuestionController {
 		Answer[] answers = request.getAnswers();
 
 		Integer questionId = 0;
+		
+		System.out.println();
+		files = new ArrayList<>();
+		
 	
-//		Object returnedQues = new Question();
+		
 		
 		try {
 
@@ -471,11 +475,14 @@ public class QuestionController {
 		        // List is null or empty
 		        // Perform your desired action here, such as logging an error or returning a response
 		        System.out.println("Null or empty list of files found");
+		        
 		    } else {
 		        for (MultipartFile file : files) {
 		            if (file != null && !file.isEmpty()) {
 		                // File is not null and has content
 		                // Process the file and perform the insertion logic
+		            	
+		            	
 		                String fileName = file.getOriginalFilename();
 		                // Insert the file into the database or perform any other necessary operations
 		                System.out.println("File inserted: " + fileName);
@@ -497,8 +504,7 @@ public class QuestionController {
 			
 			questionId = questionService.addQuestionsAndAnswers(question, answers);
 			
-//			returnedQues = questionService.addQuestionsAndAnswers(question, answers);
-//			System.out.println(returnedQues);
+			System.out.println(question.getQuestionId());
 			
 		
 			logger.info("generated value in controller :" + questionId);
@@ -559,8 +565,26 @@ public class QuestionController {
 				List<String> fileNames = new ArrayList<>();
 
 				for (MultipartFile file : files) {
-					String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-					System.out.println(fileName);
+					
+					String fileName;
+					
+					String fileData=file.getOriginalFilename();
+					
+					if(fileData == file.getOriginalFilename()) {
+						String fileDataName=questionId+"_"+file.getOriginalFilename();
+						 fileName = StringUtils.cleanPath(fileDataName);
+						System.out.println(fileName);
+					}
+					else {
+						 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+						System.out.println(fileName);
+						
+					}
+					
+						System.out.println(file.getOriginalFilename());
+					
+					
+					
 					Path fileStorage = Paths.get(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/", fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 					fileNames.add(fileName);
@@ -570,11 +594,10 @@ public class QuestionController {
 				
 
 				logger.debug("added question and answers successfully");
-//				return ResponseHandler.generateResponse(questionId, HttpStatus.OK);
 				return ResponseHandler.generateResponse(questionId, HttpStatus.OK);
 			} else {
 				logger.debug("Failed to add question and answers");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err003");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err006");
 			}
 
 		} catch (Exception ex) {
@@ -639,9 +662,11 @@ public class QuestionController {
 		String QuestionData=quizName+"_"+quizId;
 		
 		System.out.println(myFile.getQuestionFigure());
+		
+		String imageName=myFile.getQuestionId()+"_"+myFile.getQuestionFigure();
         
         
-       String address =basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/"+myFile.getQuestionFigure();
+       String address =basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/"+imageName;
        File file = new File(address);
         System.out.println("file"+file);
        InputStream inputStream = new FileInputStream(file);
