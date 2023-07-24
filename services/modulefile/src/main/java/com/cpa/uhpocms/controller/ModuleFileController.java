@@ -151,9 +151,13 @@ public class ModuleFileController {
 
 				String instituteNameAndId = InstituteName + "_" + InstituteId;
 				// System.out.println(instituteNameAndId);
+				
+				
+				
+				
 
 				File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + departmentName + "/"
-						+ courseName + "/" + moduleName + "/" + modulefile.getModuleFile());
+						+ courseName + "/" + moduleName);
 				// System.out.println(theDir);
 				if (!theDir.exists()) {
 					theDir.mkdirs();
@@ -162,7 +166,8 @@ public class ModuleFileController {
 				List<String> fileNames = new ArrayList<>();
 
 				for (MultipartFile file : files) {
-					fileName = StringUtils.cleanPath(file.getOriginalFilename());
+					String fileData=modulefile.getModuleFileId()+file.getOriginalFilename();
+					fileName = StringUtils.cleanPath(fileData);
 					System.out.println(fileName);
 					Path fileStorage = Paths.get(basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/"
 							+ courseName + "/" + moduleName, fileName).toAbsolutePath().normalize();
@@ -349,7 +354,7 @@ public class ModuleFileController {
 		ModuleFile updatedModuleFile = null;
 		String fileName=null;
 		
-		files=new ArrayList<>();
+	
 		ModuleFile moduleFile = modulefileService.getModuleFileById(id);
 		System.out.println("Details of Modulefile..."+moduleFile);
 		
@@ -390,7 +395,7 @@ public class ModuleFileController {
 			System.out.println(instituteNameAndId);
 
 			File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + departmentName + "/"
-					+ courseName + "/" + moduleName + "/" + modulefile.getModuleFile());
+					+ courseName + "/" + moduleName);
 			System.out.println(theDir);
 			if (!theDir.exists()) {
 				theDir.mkdirs();
@@ -399,12 +404,19 @@ public class ModuleFileController {
 			List<String> fileNames = new ArrayList<>();
 
 			for (MultipartFile file : files) {
-				fileName = StringUtils.cleanPath(file.getOriginalFilename());
+				String fileData=modulefile.getModuleFileId()+file.getOriginalFilename();
+				fileName = StringUtils.cleanPath(fileData);
 				System.out.println(fileName);
 				Path fileStorage = Paths.get(basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/"
 						+ courseName + "/" + moduleName, fileName).toAbsolutePath().normalize();
+				try {
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 				fileNames.add(fileName);
+				}catch (IOException ex) {
+				    System.out.println(ex);
+
+				}
+				
 			}
 			
 			
@@ -590,14 +602,17 @@ public class ModuleFileController {
 
 			String instituteNameAndId = InstituteName + "_" + InstituteId;
 			System.out.println(instituteNameAndId);
+			
+			String fileData=myFile.getModuleFileId()+myFile.getModuleFile();
 
 			String address = basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/" + courseName + "/"
-					+ moduleName + "/" + myFile.getModuleFile();
+					+ moduleName + "/" +fileData;
 			File file = new File(address);
 			System.out.println("file" + file);
 			InputStream inputStream = new FileInputStream(file);
 //	        System.out.println(inputStream);
 			InputStreamResource a = new InputStreamResource(inputStream);
+			
 			System.out.println(inputStream.toString());
 			return ResponseEntity.ok().header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"")
 					.contentType(MediaType.APPLICATION_OCTET_STREAM).contentLength(file.length()).body(a);

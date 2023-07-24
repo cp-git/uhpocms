@@ -229,6 +229,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		System.out.println("Data..."+existingProfile);
 
 		instituteAdminRepository.save(existingProfile);
+		
 		return existingProfile;
 	}
 
