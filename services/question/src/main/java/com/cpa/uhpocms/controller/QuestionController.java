@@ -459,7 +459,7 @@ public class QuestionController {
 		Integer questionId = 0;
 		
 		System.out.println();
-		
+		files = new ArrayList<>();
 		
 	
 		
@@ -475,6 +475,7 @@ public class QuestionController {
 		        // List is null or empty
 		        // Perform your desired action here, such as logging an error or returning a response
 		        System.out.println("Null or empty list of files found");
+		        
 		    } else {
 		        for (MultipartFile file : files) {
 		            if (file != null && !file.isEmpty()) {
