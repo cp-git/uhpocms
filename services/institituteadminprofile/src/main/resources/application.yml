@@ -6,7 +6,7 @@ spring.jpa:
   
   servlet:
      multipart:
-      max-file-size: 500MB
+      max-file-size: 800MB
       max-request-size: 500MB
 
 

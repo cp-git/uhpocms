@@ -509,6 +509,8 @@ public class InstituteAdminController {
 
 		logger.info("inside the put method..");
 		InstituteAdmin instituteAdminProfile = null;
+		
+		
 	
 		
 	
@@ -524,17 +526,6 @@ public class InstituteAdminController {
 			
 			 
 			 
-				if (file != null && !file.isEmpty()) {
-	                // File is not null and has content
-	                // Process the file and perform the insertion logic
-	                String fileName = file.getOriginalFilename();
-	                // Insert the file into the database or perform any other necessary operations
-	                System.out.println("File inserted: " + fileName);
-	            } else {
-	                // File is null or empty
-	                // Perform your desired action here, such as logging an error or returning a response
-	                System.out.println("Null or empty file found");
-	            }
 				
 				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
 				//System.out.println(instituteAdminProfile.getAdminId());
