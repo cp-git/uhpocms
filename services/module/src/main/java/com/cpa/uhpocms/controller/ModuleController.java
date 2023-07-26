@@ -377,6 +377,31 @@ public class ModuleController {
 
 		}
 	}
+	
+	@PatchMapping("/module/activate/{moduleid}")
+	public ResponseEntity<Object> updateActiveStatusByModuleId(@PathVariable("moduleid") int moduleid) throws CPException {
+
+		logger.debug("Entering updateActiveStatus");
+
+		Object obj = null;
+
+		try {
+			obj = moduleService.updateActiveStatusByModuleId(moduleid);
+
+			if (obj == null) {
+				logger.info(resourceBundle.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated module : " + obj);
+				return ResponseHandler.generateResponse(obj, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update module : " + ex.getMessage());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+	}
 
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {

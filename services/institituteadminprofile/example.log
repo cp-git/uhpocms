@@ -3839,3 +3839,5 @@
 2023-Jul-21 13:04:23 INFO [restartedMain] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:15) - in Main class
 2023-Jul-21 13:37:01 INFO [restartedMain] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:15) - in Main class
 
+2023-Jul-26 11:41:02 DEBUG [main      ] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.deleteInstitutionProfileByName(InstituteAdminServiceImpl.java:107) - in deleteByInstituteAdmin Name
+2023-Jul-26 11:50:18 DEBUG [main      ] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.deleteInstitutionProfileByName(InstituteAdminServiceImpl.java:107) - in deleteByInstituteAdmin Name
