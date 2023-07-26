@@ -47,6 +47,6 @@ public interface QuizRepo extends JpaRepository<Quiz, Integer> {
 	@Query(value = "SELECT quiz.* FROM public.teacher_quiz quiz JOIN public.teacher_course_assigntoteacher assigncourses ON quiz.courseid_id=assigncourses.course_id WHERE assigncourses.profile_id=?1 AND quiz.isactive=false", nativeQuery = true)
 	public List<Quiz> getAllInactiveQuizzesByTeacherId(int profileId);
 	
-	@Query(value = "SELECT quiz.* FROM public.teacher_quiz quiz JOIN public.teacher_course_assigntoteacher assigncourses ON quiz.courseid_id=assigncourses.course_id WHERE assigncourses.profile_id=?1 AND quiz.isactive=true", nativeQuery = true)
+	@Query(value = "SELECT quiz.* FROM public.teacher_quiz quiz JOIN public.teacher_course_assigntoteacher assigncourses ON quiz.courseid_id = assigncourses.course_id JOIN public.teacher_course tc ON quiz.courseid_id = tc.courseid AND tc.isactive = true JOIN public.teacher_module tm ON quiz.module_id = tm.moduleid AND tm.isactive = true WHERE assigncourses.profile_id = ?1 AND quiz.isactive = true", nativeQuery = true)
 	public List<Quiz> getAllQuizzesByTeacherId(int profileId);
 }
