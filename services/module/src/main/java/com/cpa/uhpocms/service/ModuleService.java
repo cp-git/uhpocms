@@ -30,6 +30,8 @@ public interface ModuleService {
 	List<Object> getAllInactiveModules();
 
 	Object updateActiveStatus(String name);
+	
+	Object updateActiveStatusByModuleId (int moduleid);
 
 	int deleteModuleBymoduleId(int moduleid);
 

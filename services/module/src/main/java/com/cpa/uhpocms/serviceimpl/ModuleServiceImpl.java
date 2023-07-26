@@ -264,4 +264,26 @@ public class ModuleServiceImpl implements ModuleService {
 		return objectModules;
 	}
 
+	@Override
+	public Object updateActiveStatusByModuleId(int moduleid) {
+		// TODO Auto-generated method stub
+				System.out.println(moduleid);
+				logger.debug("Entering getInActiveQuestions ");
+				List<Object> modules = getAllInactiveModules();
+
+				if (modules.size() >= 1) {
+					Object object = moduleRepo.findById(moduleid);
+
+					System.out.println("Entered  instanceof loop");
+					Module module = (Module) object;
+
+					module.setModuleIsActive(true);
+
+					logger.info("question object" + object);
+					return moduleRepo.save(module);
+				}
+
+				return null;
+	}
+
 }
