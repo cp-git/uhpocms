@@ -459,7 +459,8 @@ public class QuestionController {
 		Integer questionId = 0;
 		
 		System.out.println();
-		files = new ArrayList<>();
+		//files=new ArrayList<>();
+		 
 		
 	
 		
@@ -470,13 +471,9 @@ public class QuestionController {
 			logger.info("fetched answers :" + answers.length);
 			
 			
-			
-			if (files == null || files.isEmpty()) {
-		        // List is null or empty
-		        // Perform your desired action here, such as logging an error or returning a response
-		        System.out.println("Null or empty list of files found");
-		        
-		    } else {
+			System.out.println("Multi part file");
+			System.out.println(files );
+		
 		        for (MultipartFile file : files) {
 		            if (file != null && !file.isEmpty()) {
 		                // File is not null and has content
@@ -486,13 +483,14 @@ public class QuestionController {
 		                String fileName = file.getOriginalFilename();
 		                // Insert the file into the database or perform any other necessary operations
 		                System.out.println("File inserted: " + fileName);
+//		                files.add(file);
 		            } else {
 		                // File is null or empty
 		                // Perform your desired action here, such as logging an error or returning a response
 		                System.out.println("Null or empty file found");
 		            }
 		        }
-		    }
+		    
 			
 			
 
