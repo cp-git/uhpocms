@@ -474,6 +474,7 @@ public class QuestionController {
 			System.out.println("Multi part file");
 			System.out.println(files );
 		
+			try {
 		        for (MultipartFile file : files) {
 		            if (file != null && !file.isEmpty()) {
 		                // File is not null and has content
@@ -490,6 +491,10 @@ public class QuestionController {
 		                System.out.println("Null or empty file found");
 		            }
 		        }
+			}
+			catch(Exception ee) {
+				System.out.println(ee);
+			}
 		    
 			
 			
