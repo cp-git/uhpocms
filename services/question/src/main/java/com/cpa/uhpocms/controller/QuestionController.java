@@ -16,8 +16,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
@@ -232,6 +234,42 @@ public class QuestionController {
 			if (count >= 1) {
 				// logger.info("deleted Question : Figure = " + figure);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete Question :" + ex.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+		}
+
+	}
+	
+	/**
+	 * @author shradha
+	 * @param questionId
+	 * @return
+	 * @throws CPException
+	 * @explanation DELETE QUE AND ANSWERS BASED ON QUESTION ID
+	 */
+	@DeleteMapping("/question/deletequeansbyid/{questionId}")
+	public ResponseEntity<Object> deleteQuestionAnswerById(@PathVariable("questionId") int questionId) throws CPException {
+		logger.debug("Entering deleteAuthUser");
+		// logger.info("entered deleteQuestion :" + figure);
+		// TODO - implement the business logic
+
+		Integer ansCount = 0;
+		
+	    Integer keyCnt = 0;
+	    Map<Integer, Integer> result = new LinkedHashMap<>();
+		try {
+			
+			
+			result= questionService.deleteQuestionWithAnswersMCQ(questionId);
+			if (result != null) {
+		        System.out.println("Entered IN IF LOOP OF CONTROLLER");
+				return ResponseHandler.generateResponse(result,HttpStatus.OK);
 			} else {
 				logger.info(resourceBundle.getString("err005"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
@@ -489,6 +527,7 @@ public class QuestionController {
 		                // File is null or empty
 		                // Perform your desired action here, such as logging an error or returning a response
 		                System.out.println("Null or empty file found");
+		              
 		            }
 		        }
 			}

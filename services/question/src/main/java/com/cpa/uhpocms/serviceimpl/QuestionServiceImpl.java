@@ -8,7 +8,10 @@
 package com.cpa.uhpocms.serviceimpl;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -335,4 +338,28 @@ public class QuestionServiceImpl implements QuestionService {
 		question=questionRepo.findByQuestionId(questionId);
 		return question;
 	}
+	
+/***
+ * @author shradha
+ */
+  public Map<Integer, Integer> deleteQuestionWithAnswersMCQ(int questionId) {
+        try {
+        	
+        	Integer del_ques_id=0 ;
+        	Integer del_ans_id_arr_cnt =0;
+        	Map<Integer, Integer> result = new LinkedHashMap<Integer,Integer>()  ;
+//        	 for (Integer key :  result.keySet()) {
+//                 Integer value = result.get(key);
+//                 System.out.println("Key: " + key + ", Value: " + value);
+            System.out.println("Before REpo CALL");
+        	result = questionRepo.deleteQuestionWithAnswersMCQ(questionId,del_ans_id_arr_cnt, del_ques_id);
+            // Call the stored procedure using the repository method
+            System.out.println("AFTER REPO CALL");
+//        	 }
+        	 return result;
+        } catch (Exception e) {
+            // Handle any exceptions here
+            return null;
+        }
+    }
 }
