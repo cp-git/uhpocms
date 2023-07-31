@@ -265,7 +265,7 @@ public class QuestionController {
 	    Map<Integer, Integer> result = new LinkedHashMap<>();
 		try {
 			
-			System.out.println("Before IF lOOP");
+			
 			result= questionService.deleteQuestionWithAnswersMCQ(questionId);
 			if (result != null) {
 		        System.out.println("Entered IN IF LOOP OF CONTROLLER");

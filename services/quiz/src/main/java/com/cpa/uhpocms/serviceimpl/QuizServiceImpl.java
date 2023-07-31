@@ -136,6 +136,9 @@ public class QuizServiceImpl implements QuizService {
 		return updatedQuiz;
 	}
 
+	
+	
+
 	/**
 	 * @param : String title
 	 * @return : int (count of record updated)
@@ -150,6 +153,10 @@ public class QuizServiceImpl implements QuizService {
 		logger.info("deleted Quiz count : " + count);
 		return count;
 	}
+    
+	
+	
+
 
 	/**
 	 * @author Shradha
@@ -225,6 +232,17 @@ public class QuizServiceImpl implements QuizService {
 	public List<Object[]> getQuizInfoByQuizId(int quizId) {
 		// TODO Auto-generated method stub
 		 return quizRepo.getQuizInfoByQuizId(quizId);
+	}
+	
+	/**
+	 * @author shradha
+	 * @param quizId
+	 * @return
+	 */
+	@Override
+	public Object getQuizByQuizId(int quizId) {
+		// TODO Auto-generated method stub
+		 return quizRepo.findByQuizId(quizId);
 	}
 	
 	@Override
