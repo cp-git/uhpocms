@@ -69,5 +69,8 @@ public interface ModuleRepo extends JpaRepository<Module, Integer> {
 
 	@Query(value = "SELECT m.* FROM teacher_module AS m JOIN teacher_course AS c ON m.courseid_id = c.courseid JOIN teacher_course_enrolltostudent AS a ON c.courseid = a.course_id WHERE a.profile_id =?1", nativeQuery = true)
 	List<Module> getModulesOfEnrolledCoursesByProfileId(int ProfileId);
+	
+	@Query(value="UPDATE public.teacher_module AS tm SET isactive =CASE WHEN EXISTS (SELECT 1 FROM public.teacher_modulefile AS tmf WHERE tmf.id IN (SELECT id FROM public.teacher_modulefile WHERE moduleid_id = (SELECT moduleid_id FROM public.teacher_modulefile WHERE id = ?1 ) AND isactive = true))THEN true ELSE false END WHERE tm.moduleid = (SELECT tmf.moduleid_id FROM public.teacher_modulefile AS tmf WHERE tmf.id = ?1)",nativeQuery=true)
+	int updateIsActiveInTeacherModule(int id);
 
 }

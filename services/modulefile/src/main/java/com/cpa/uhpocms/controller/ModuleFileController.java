@@ -134,6 +134,8 @@ public class ModuleFileController {
 
 				String courseName = moduleRepo.finByCourseByModuleId(modulefile.getModuleId());
 				// System.out.println(courseName);
+				
+				String cName=courseName.trim();
 
 				String departmentName = moduleRepo
 						.finByAdminDepartmentByCourseDepartmentId(modulefile.getModuleFileId());
@@ -156,9 +158,9 @@ public class ModuleFileController {
 				
 				
 
-				File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + departmentName + "/"
-						+ courseName + "/" + moduleName);
-				// System.out.println(theDir);
+				File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/"+deptName+"/"
+						+ cName + "/" + moduleName);
+				System.out.println(theDir);
 				if (!theDir.exists()) {
 					theDir.mkdirs();
 				}
@@ -169,8 +171,8 @@ public class ModuleFileController {
 					String fileData=modulefile.getModuleFileId()+file.getOriginalFilename();
 					fileName = StringUtils.cleanPath(fileData);
 					System.out.println(fileName);
-					Path fileStorage = Paths.get(basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/"
-							+ courseName + "/" + moduleName, fileName).toAbsolutePath().normalize();
+					Path fileStorage = Paths.get(basePath + "/institute/" + instituteNameAndId + "/"+deptName+"/"
+							+ cName + "/" + moduleName, fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 					fileNames.add(fileName);
 				}
@@ -301,7 +303,7 @@ public class ModuleFileController {
 		int count = 0;
 
 		try {
-			count = modulefileService.deleteModuleFileBymoduleFileId(id);
+			count = modulefileService.deleteTeacherModuleFileAndModule(id);
 			if (count >= 1) {
 
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
@@ -375,6 +377,8 @@ public class ModuleFileController {
 
 			String courseName = moduleRepo.finByCourseByModuleId(updatedModuleFile.getModuleId());
 			System.out.println(courseName);
+			
+			String cName=courseName.trim();
 
 			String departmentName = moduleRepo
 					.finByAdminDepartmentByCourseDepartmentId(updatedModuleFile.getModuleFileId());
@@ -394,8 +398,8 @@ public class ModuleFileController {
 			String instituteNameAndId = InstituteName + "_" + InstituteId;
 			System.out.println(instituteNameAndId);
 
-			File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + departmentName + "/"
-					+ courseName + "/" + moduleName);
+			File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/"
+					+ cName + "/" + moduleName);
 			System.out.println(theDir);
 			if (!theDir.exists()) {
 				theDir.mkdirs();
@@ -408,7 +412,7 @@ public class ModuleFileController {
 				fileName = StringUtils.cleanPath(fileData);
 				System.out.println(fileName);
 				Path fileStorage = Paths.get(basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/"
-						+ courseName + "/" + moduleName, fileName).toAbsolutePath().normalize();
+						+ cName + "/" + moduleName, fileName).toAbsolutePath().normalize();
 				try {
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 				fileNames.add(fileName);
@@ -588,6 +592,8 @@ public class ModuleFileController {
 
 			String courseName = moduleRepo.finByCourseByModuleId(myFile.getModuleId());
 			System.out.println(courseName);
+			
+			String cName=courseName.trim();
 
 			String departmentName = moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
 			System.out.println(departmentName);
@@ -605,7 +611,7 @@ public class ModuleFileController {
 			
 			String fileData=myFile.getModuleFileId()+myFile.getModuleFile();
 
-			String address = basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/" + courseName + "/"
+			String address = basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/" + cName + "/"
 					+ moduleName + "/" +fileData;
 			File file = new File(address);
 			System.out.println("file" + file);

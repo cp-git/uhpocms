@@ -23,6 +23,7 @@ public interface ModuleFileRepo extends JpaRepository<ModuleFile, Integer> {
 
 	public ModuleFile findByModuleFile(String file);
 
+	
 	public List<Object> findByModuleId(int module_id);
 
 	public List<Object> findByModuleFileIsActiveTrue();
@@ -31,10 +32,6 @@ public interface ModuleFileRepo extends JpaRepository<ModuleFile, Integer> {
 
 	public List<Object> findByModuleFileIsActiveFalse();
 
-//	@Transactional
-//	@Modifying
-//	@Query(value = "UPDATE teacher_modulefile SET isactive=false WHERE file = ?1", nativeQuery = true)
-//	public int deleteModuleFileByFile(String file);
 
 	@Query(value = "SELECT tmf.* FROM teacher_modulefile tmf JOIN teacher_module tm ON tmf.moduleid_id=tm.moduleid JOIN teacher_course_enrolltostudent enroll ON tm.courseid_id=enroll.course_id where enroll.profile_id=?1 ORDER BY tmf.fileorderno ", nativeQuery = true)
 	public List<ModuleFile> findModuleFileByStudentId(int studentId);
@@ -80,5 +77,10 @@ public interface ModuleFileRepo extends JpaRepository<ModuleFile, Integer> {
 
 	@Query(value = "SELECT tmf.* FROM teacher_modulefile tmf JOIN teacher_module tm ON tmf.moduleid_id=tm.moduleid JOIN teacher_course_assigntoteacher enroll ON tm.courseid_id=enroll.course_id where enroll.profile_id=?1 ORDER BY tmf.fileorderno", nativeQuery = true)
 	public List<ModuleFile> findModuleFilesByTeacherId(int teacherId);
+	
+	@Transactional
+	@Modifying
+	@Query(value="UPDATE public.teacher_module AS tm SET isactive =CASE WHEN EXISTS (SELECT 1 FROM public.teacher_modulefile AS tmf WHERE tmf.id IN (SELECT id FROM public.teacher_modulefile WHERE moduleid_id = (SELECT moduleid_id FROM public.teacher_modulefile WHERE id = ?1 ) AND isactive = true))THEN true ELSE false END WHERE tm.moduleid = (SELECT tmf.moduleid_id FROM public.teacher_modulefile AS tmf WHERE tmf.id = ?1)",nativeQuery=true)
+	int updateIsActiveInTeacherModule(int id);
 
 }

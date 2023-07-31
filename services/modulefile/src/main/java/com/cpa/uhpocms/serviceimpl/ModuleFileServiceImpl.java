@@ -10,6 +10,8 @@ package com.cpa.uhpocms.serviceimpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -154,16 +156,16 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		return objectModulefiles;
 	}
 
-	@Override
-	public int deleteModuleFileBymoduleFileId(int id) {
-		// TODO Auto-generated method stub
-
-		logger.debug("Entering deleteModuleFileByModuleFileId");
-
-		int count = modulefileRepo.deleteModuleFileByModuleFileId(id);
-		logger.info("deleted ModuleFile count : " + count);
-		return count;
-	}
+//	@Override
+//	public int deleteModuleFileBymoduleFileId(int id) {
+//		// TODO Auto-generated method stub
+//
+//		logger.debug("Entering deleteModuleFileByModuleFileId");
+//
+//		int count = modulefileRepo.deleteModuleFileByModuleFileId(id);
+//		logger.info("deleted ModuleFile count : " + count);
+//		return count;
+//	}
 
 	@Override
 	public ModuleFile updateModuleFileBymoduleFileId(ModuleFile modulefile, int moduleFileId) {
@@ -193,12 +195,13 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		return modulefiles;
 	}
 
-	@Override
+	 @Transactional
 	public int activateModuleFileBymoduleFileId(int id) {
 		// TODO Auto-generated method stub
 		logger.debug("Entering activate ModuleFile By moduleFileId");
 
 		int count = modulefileRepo.activateModuleFileByModuleFileId(id);
+		 modulefileRepo.updateIsActiveInTeacherModule(id);
 		logger.info("activated module file count : " + count);
 		return count;
 	}
@@ -217,5 +220,12 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		// TODO Auto-generated method stub
 		return modulefileRepo.findByModuleFileId(id);
 	}
+
+	 @Transactional
+	    public int deleteTeacherModuleFileAndModule(int id) {
+		int count= modulefileRepo.deleteModuleFileByModuleFileId(id);
+		 modulefileRepo.updateIsActiveInTeacherModule(id);
+		 return count;
+	    }
 
 }
