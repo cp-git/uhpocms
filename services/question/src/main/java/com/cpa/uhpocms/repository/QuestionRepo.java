@@ -8,12 +8,14 @@
 package com.cpa.uhpocms.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -88,6 +90,16 @@ public interface QuestionRepo extends JpaRepository<Question, Integer> {
 		@Query(value = "SELECT teacher_quiz.quizid FROM teacher_course,teacher_module, admin_institution, admin_department, teacher_course_departmentid, teacher_quiz,teacher_question WHERE  admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND teacher_course.courseid = teacher_module.courseid_id AND teacher_module.moduleid = teacher_quiz.module_id AND teacher_quiz.quizid=teacher_question.quizid_id AND teacher_question.id=?1", nativeQuery = true)
 		public int getQuizIdByQuestion(int questionId);
 	
-	
+		/**
+		 * @author shradha
+		 * @param questionId
+		 * @param answersCnt
+		 * @param deletedQuesId
+		 * @return
+		 */
+		//Delete Question and Answers based on question id
+		@Query(value = "CALL delete_question_with_answers_mcq(:question_id_to_delete, :deleted_answers_count, :deleted_question_id)", nativeQuery = true)
+		Map<Integer, Integer> deleteQuestionWithAnswersMCQ(@Param("question_id_to_delete") Integer questionId,@Param("deleted_answers_count") Integer answersCnt,  @Param("deleted_question_id") Integer deletedQuesId);
+		
 
 }

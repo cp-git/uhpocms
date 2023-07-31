@@ -137,6 +137,17 @@ public class QuizController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+	
+	
+	@GetMapping("/quiz/quizId/{quizId}")
+	public ResponseEntity<Object> getQuizByQuizId(@PathVariable int quizId) {
+        Object quiz = quizService.getQuizByQuizId(quizId);
+        if (quiz != null) {
+			return ResponseHandler.generateResponse(quiz, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 	/**
 	 * 
