@@ -8,6 +8,9 @@
 package com.cpa.uhpocms.service;
 
 import java.util.List;
+import java.util.Map;
+
+
 
 import com.cpa.uhpocms.entity.Answer;
 import com.cpa.uhpocms.entity.Question;
@@ -39,8 +42,11 @@ public interface QuestionService {
 	Object updateActiveStatus(String figure);
 
 	int addQuestionWithAnswers(Question question);
-
+    
 	Integer addQuestionsAndAnswers(Question question, Answer[] answers);
 	
 	Question findQuestionById(int questionId);
+	
+    Map<Integer, Integer> deleteQuestionWithAnswersMCQ(int questionId);
+
 }
