@@ -301,7 +301,7 @@ public class ModuleFileController {
 		int count = 0;
 
 		try {
-			count = modulefileService.deleteModuleFileBymoduleFileId(id);
+			count = modulefileService.deleteTeacherModuleFileAndModule(id);
 			if (count >= 1) {
 
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
