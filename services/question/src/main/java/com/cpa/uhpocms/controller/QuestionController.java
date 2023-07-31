@@ -471,10 +471,16 @@ public class QuestionController {
 			logger.info("fetched answers :" + answers.length);
 			
 			
-			System.out.println("Multi part file");
-			System.out.println(files );
+		
+				if(files == null) {
+					files=new ArrayList<>();
+					question.setQuestionFigure(null);
+				}
+			
+			
 		
 			try {
+				
 		        for (MultipartFile file : files) {
 		            if (file != null && !file.isEmpty()) {
 		                // File is not null and has content
