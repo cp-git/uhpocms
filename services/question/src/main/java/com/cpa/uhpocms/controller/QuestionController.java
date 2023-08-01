@@ -512,7 +512,20 @@ public class QuestionController {
 		
 				if(files == null) {
 					files=new ArrayList<>();
-					question.setQuestionFigure(null);
+					
+					 for (MultipartFile file : files) {
+					  if (file != null && !file.isEmpty()) {
+			                // File is not null and has content
+			                // Process the file and perform the insertion logic
+			            	
+			            	
+			                String fileName = file.getOriginalFilename();
+			                // Insert the file into the database or perform any other necessary operations
+			                System.out.println("File inserted: " + fileName);
+//			                files.add(file);
+			            } 
+					 }
+					 
 				}
 			
 			
