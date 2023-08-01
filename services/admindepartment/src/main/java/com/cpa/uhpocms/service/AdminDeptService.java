@@ -25,7 +25,7 @@ public interface AdminDeptService {
 
 	AdminDepartment getDepartmentById(int departmentid);
 
-	List<Object> getDepartmentByProfileId(int profileid);
+	List<Object> findActiveDepartmentOfAssignCoursesByProfileId(int profileid);
 
 	List<Object> findByInstitutionId(int institutionId);
 
@@ -40,4 +40,6 @@ public interface AdminDeptService {
 	AdminDepartment getDepartmentByInstitutionIdAndName(int institutionId, String name);
 
 	public List<Object> getInactiveDepartmentsByInstituionId(int institutionId);
+
+	List<Object> getDepartmentByProfileId(int profileid);
 }

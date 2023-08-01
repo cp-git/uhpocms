@@ -457,7 +457,7 @@ public class AdminDeptController {
 
 		try {
 
-			adminDepartment = adminDeptService.getDepartmentByProfileId(profileid);
+			adminDepartment = adminDeptService.findActiveDepartmentOfAssignCoursesByProfileId(profileid);
 			logger.info("fetched Department :" + adminDepartment);
 
 			if (adminDepartment != null) {
@@ -493,6 +493,33 @@ public class AdminDeptController {
 			} else {
 				logger.debug("Department not found");
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting course : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
+
+	@GetMapping("/department/profileid/{id}")
+	public ResponseEntity<Object> findDepartmentByProfileId(@PathVariable("id") int profileid) throws CPException {
+		logger.debug("Entering getDepartmentByprofileId");
+
+		List<Object> adminDepartment = null;
+
+		try {
+
+			adminDepartment = adminDeptService.getDepartmentByProfileId(profileid);
+			logger.info("fetched Department :" + adminDepartment);
+
+			if (adminDepartment != null) {
+				logger.debug("Department fetched generating response");
+				return ResponseHandler.generateResponse(adminDepartment, HttpStatus.OK);
+			} else {
+				logger.debug("Department not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
 			}
 
 		} catch (Exception ex) {
