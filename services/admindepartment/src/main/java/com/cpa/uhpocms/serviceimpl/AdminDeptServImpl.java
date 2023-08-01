@@ -243,10 +243,10 @@ public class AdminDeptServImpl implements AdminDeptService {
 	}
 
 	@Override
-	public List<Object> getDepartmentByProfileId(int profileid) {
+	public List<Object> findActiveDepartmentOfAssignCoursesByProfileId(int profileid) {
 		// TODO Auto-generated method stub
 		List<Object> objectDepartments = null;
-		List<AdminDepartment> adminDepartment = adminDeptRepo.findActiveDepartmentByProfileId(profileid);
+		List<AdminDepartment> adminDepartment = adminDeptRepo.findActiveDepartmentOfAssignCoursesByProfileId(profileid);
 		objectDepartments = new ArrayList<Object>(adminDepartment);
 		return objectDepartments;
 	}
@@ -255,5 +255,17 @@ public class AdminDeptServImpl implements AdminDeptService {
 		List<Object> adminDepartments = adminDeptRepo.findByInstitutionIdAndIsActive(institutionId, false);
 
 		return adminDepartments;
+	}
+	
+	/*
+	 * fetching department by profile id
+	 */
+	@Override
+	public List<Object> getDepartmentByProfileId(int profileid) {
+		// TODO Auto-generated method stub
+		List<Object> objectDepartments = null;
+		List<AdminDepartment> adminDepartment = adminDeptRepo.findDepartmentByProfileId(profileid);
+		objectDepartments = new ArrayList<Object>(adminDepartment);
+		return objectDepartments;
 	}
 }

@@ -6,7 +6,6 @@
 package com.cpa.uhpocms.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cpa.uhpocms.entity.AdminDepartment;
-import com.cpa.uhpocms.entity.AdminInstitution;
 
 @Repository
 public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
@@ -50,17 +48,14 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	@Query(value = "UPDATE admin_department SET isactive=true WHERE departmentid=?1", nativeQuery = true)
 	public int activateAdminDepartmentById(int departmentId);
 
-
-	//To Find InstituteName using adminDepartment
-	@Query(value="Select dp.name from admin_institution dp JOIN admin_department tc  ON tc.institutionid = dp.institutionid where tc.departmentid=?1",nativeQuery=true)
+	// To Find InstituteName using adminDepartment
+	@Query(value = "Select dp.name from admin_institution dp JOIN admin_department tc  ON tc.institutionid = dp.institutionid where tc.departmentid=?1", nativeQuery = true)
 	public String finByAdminInstitutionId(int id);
-	
-	//To Find InstituteId using the adminDepartment
-	
-	@Query(value="Select dp.institutionid from admin_institution dp JOIN admin_department tc  ON tc.institutionid = dp.institutionid where tc.departmentid=?1",nativeQuery=true)
-	public int finByAdminInstitutionsId(int id);
-	
 
+	// To Find InstituteId using the adminDepartment
+
+	@Query(value = "Select dp.institutionid from admin_institution dp JOIN admin_department tc  ON tc.institutionid = dp.institutionid where tc.departmentid=?1", nativeQuery = true)
+	public int finByAdminInstitutionsId(int id);
 
 	// Method to find active departments of active institutions
 	@Query(value = "SELECT dept.* FROM admin_department dept JOIN admin_institution inst ON dept.institutionid= inst.institutionid where inst.isactive=true and dept.isactive=true", nativeQuery = true)
@@ -70,18 +65,17 @@ public interface AdminDeptRepo extends JpaRepository<AdminDepartment, Integer> {
 	@Modifying
 	@Query(value = "SELECT DISTINCT dept.* FROM admin_department dept LEFT JOIN teacher_course_departmentid cd ON dept.departmentid = cd.department_id LEFT JOIN teacher_course_assigntoteacher ca ON cd.course_id = ca.course_id WHERE ca.profile_id = ?1", nativeQuery = true)
 
-	List<AdminDepartment> findActiveDepartmentByProfileId(int profileId);
-	
-	
-	
-	//To find Departments Based on Institute Names
-	
-	@Query(value="Select * from admin_department dp where dp.institutionid=?1",nativeQuery=true)
+	List<AdminDepartment> findActiveDepartmentOfAssignCoursesByProfileId(int profileId);
+
+	// To find Departments Based on Institute Names
+
+	@Query(value = "Select * from admin_department dp where dp.institutionid=?1", nativeQuery = true)
 	public List<AdminDepartment> findDepartmentByAdminInstitutionId(int institutionId);
-	
-	
+
 	Boolean existsByInstitutionId(int institutionId);
 
-	
-
+	@Transactional
+	@Modifying
+	@Query(value = "SELECT dept.* from admin_department dept JOIN instituteadmin_profile profile ON dept.departmentid = profile.department WHERE profile.id = ?1", nativeQuery = true)
+	List<AdminDepartment> findDepartmentByProfileId(int profileId);
 }
