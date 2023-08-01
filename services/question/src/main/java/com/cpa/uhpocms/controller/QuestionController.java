@@ -16,8 +16,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
@@ -232,6 +234,42 @@ public class QuestionController {
 			if (count >= 1) {
 				// logger.info("deleted Question : Figure = " + figure);
 				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+			} else {
+				logger.info(resourceBundle.getString("err005"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed to delete Question :" + ex.getMessage());
+			throw new CPException("err005", resourceBundle.getString("err005"));
+		}
+
+	}
+	
+	/**
+	 * @author shradha
+	 * @param questionId
+	 * @return
+	 * @throws CPException
+	 * @explanation DELETE QUE AND ANSWERS BASED ON QUESTION ID
+	 */
+	@DeleteMapping("/question/deletequeansbyid/{questionId}")
+	public ResponseEntity<Object> deleteQuestionAnswerById(@PathVariable("questionId") int questionId) throws CPException {
+		logger.debug("Entering deleteAuthUser");
+		// logger.info("entered deleteQuestion :" + figure);
+		// TODO - implement the business logic
+
+		Integer ansCount = 0;
+		
+	    Integer keyCnt = 0;
+	    Map<Integer, Integer> result = new LinkedHashMap<>();
+		try {
+			
+			
+			result= questionService.deleteQuestionWithAnswersMCQ(questionId);
+			if (result != null) {
+		        System.out.println("Entered IN IF LOOP OF CONTROLLER");
+				return ResponseHandler.generateResponse(result,HttpStatus.OK);
 			} else {
 				logger.info(resourceBundle.getString("err005"));
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
@@ -471,10 +509,29 @@ public class QuestionController {
 			logger.info("fetched answers :" + answers.length);
 			
 			
-			System.out.println("Multi part file");
-			System.out.println(files );
+		
+				if(files == null) {
+					files=new ArrayList<>();
+					
+					 for (MultipartFile file : files) {
+					  if (file != null && !file.isEmpty()) {
+			                // File is not null and has content
+			                // Process the file and perform the insertion logic
+			            	
+			            	
+			                String fileName = file.getOriginalFilename();
+			                // Insert the file into the database or perform any other necessary operations
+			                System.out.println("File inserted: " + fileName);
+//			                files.add(file);
+			            } 
+					 }
+					 
+				}
+			
+			
 		
 			try {
+				
 		        for (MultipartFile file : files) {
 		            if (file != null && !file.isEmpty()) {
 		                // File is not null and has content
@@ -489,6 +546,7 @@ public class QuestionController {
 		                // File is null or empty
 		                // Perform your desired action here, such as logging an error or returning a response
 		                System.out.println("Null or empty file found");
+		              
 		            }
 		        }
 			}
@@ -540,6 +598,8 @@ public class QuestionController {
 				String courseName=questionRepo.getCourseByQuestion(questionId);
 				System.out.println("Course Name"+courseName);
 				
+				String cName=courseName.trim();
+				
 				//Module Name
 				
 				String moduleName=questionRepo.getModuleByQuestion(questionId);
@@ -559,7 +619,7 @@ public class QuestionController {
 				
 				
 				
-				File theDir = new File(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData);
+				File theDir = new File(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+cName+"/"+moduleName+"/"+QuestionData);
 				System.out.println("the directory path"+theDir);
 				if (!theDir.exists()){
 				    theDir.mkdirs();
@@ -588,7 +648,7 @@ public class QuestionController {
 					
 					
 					
-					Path fileStorage = Paths.get(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/", fileName).toAbsolutePath().normalize();
+					Path fileStorage = Paths.get(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+cName+"/"+moduleName+"/"+QuestionData+"/", fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 					fileNames.add(fileName);
 				}
@@ -649,6 +709,8 @@ public class QuestionController {
 		String courseName=questionRepo.getCourseByQuestion(questionId);
 		System.out.println("Course Name"+courseName);
 		
+		String cName=courseName.trim();
+		
 		//Module Name
 		
 		String moduleName=questionRepo.getModuleByQuestion(questionId);
@@ -669,7 +731,7 @@ public class QuestionController {
 		String imageName=myFile.getQuestionId()+"_"+myFile.getQuestionFigure();
         
         
-       String address =basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/"+imageName;
+       String address =basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+cName+"/"+moduleName+"/"+QuestionData+"/"+imageName;
        File file = new File(address);
         System.out.println("file"+file);
        InputStream inputStream = new FileInputStream(file);

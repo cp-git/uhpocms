@@ -26,6 +26,7 @@ public interface QuizRepo extends JpaRepository<Quiz, Integer> {
 
 	public List<Object> findByIsActiveTrue();
 	
+
 	public List<Quiz> findByModuleId(int moduleId);
 
 	@Transactional

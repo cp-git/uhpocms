@@ -33,6 +33,7 @@ public interface QuizService {
 	
 	List<Object[]> getQuizInfoByQuizId(int quizId);
 	
+	 Object getQuizByQuizId(int quizId);
 	List<Object> getAllInactiveQuizzesByStudentId(int studentId);
 
 	List<Object> getAllQuizzesByTeacherId(int teacherId);

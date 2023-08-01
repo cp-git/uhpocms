@@ -9,7 +9,7 @@
 		<artifactId>uhpocms</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
+	
 	<groupId>com.cpa.uhpocms.ms.services</groupId>
 	<artifactId>question</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
