@@ -598,6 +598,8 @@ public class QuestionController {
 				String courseName=questionRepo.getCourseByQuestion(questionId);
 				System.out.println("Course Name"+courseName);
 				
+				String cName=courseName.trim();
+				
 				//Module Name
 				
 				String moduleName=questionRepo.getModuleByQuestion(questionId);
@@ -617,7 +619,7 @@ public class QuestionController {
 				
 				
 				
-				File theDir = new File(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData);
+				File theDir = new File(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+cName+"/"+moduleName+"/"+QuestionData);
 				System.out.println("the directory path"+theDir);
 				if (!theDir.exists()){
 				    theDir.mkdirs();
@@ -646,7 +648,7 @@ public class QuestionController {
 					
 					
 					
-					Path fileStorage = Paths.get(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/", fileName).toAbsolutePath().normalize();
+					Path fileStorage = Paths.get(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+cName+"/"+moduleName+"/"+QuestionData+"/", fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 					fileNames.add(fileName);
 				}
@@ -707,6 +709,8 @@ public class QuestionController {
 		String courseName=questionRepo.getCourseByQuestion(questionId);
 		System.out.println("Course Name"+courseName);
 		
+		String cName=courseName.trim();
+		
 		//Module Name
 		
 		String moduleName=questionRepo.getModuleByQuestion(questionId);
@@ -727,7 +731,7 @@ public class QuestionController {
 		String imageName=myFile.getQuestionId()+"_"+myFile.getQuestionFigure();
         
         
-       String address =basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+QuestionData+"/"+imageName;
+       String address =basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+cName+"/"+moduleName+"/"+QuestionData+"/"+imageName;
        File file = new File(address);
         System.out.println("file"+file);
        InputStream inputStream = new FileInputStream(file);
