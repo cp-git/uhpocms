@@ -105,9 +105,8 @@ public class AuthUserServiceImpl implements AuthUserService {
 			toUpdatedAuthUser.setAuthUserFirstName(authUser.getAuthUserFirstName());
 			toUpdatedAuthUser.setAuthUserLastName(authUser.getAuthUserLastName());
 			toUpdatedAuthUser.setAuthUserEmail(authUser.getAuthUserEmail());
-			toUpdatedAuthUser.setAuthUserIsStaff(authUser.isAuthUserIsStaff());
+	
 			toUpdatedAuthUser.setAuthUserIsActive(authUser.isAuthUserIsActive());
-			toUpdatedAuthUser.setAuthUserIsSuperUser(authUser.isAuthUserIsSuperUser());
 			toUpdatedAuthUser.setAuthUserDateJoined(authUser.getAuthUserDateJoined());
 
 			updatedUser = authUserRepo.save(toUpdatedAuthUser);

@@ -49,14 +49,11 @@ public class AuthUser {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, timezone = "Asia/Kolkata")
 	private Date authUserLastLogin;
 
-	@Column(name = "is_staff", nullable = false)
-	private boolean authUserIsStaff;
 
 	@Column(name = "is_active", nullable = false)
 	private boolean authUserIsActive;
 
-	@Column(name = "is_superuser", nullable = false)
-	private boolean authUserIsSuperUser;
+	
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING , pattern = "yyyy-MM-dd")
 	@Column(name = "date_joined", nullable = false)
@@ -96,7 +93,7 @@ public class AuthUser {
 	 * @param authUserDateJoined
 	 */
 	public AuthUser(String authUserName, String authUserPassword, String authUserFirstName, String authUserLastName,
-			String authUserEmail, boolean authUserIsStaff, boolean authUserIsActive, boolean authUserIsSuperUser,
+			String authUserEmail, boolean authUserIsActive,
 			Date authUserDateJoined) {
 		super();
 		this.authUserName = authUserName;
@@ -104,9 +101,9 @@ public class AuthUser {
 		this.authUserFirstName = authUserFirstName;
 		this.authUserLastName = authUserLastName;
 		this.authUserEmail = authUserEmail;
-		this.authUserIsStaff = authUserIsStaff;
+	
 		this.authUserIsActive = authUserIsActive;
-		this.authUserIsSuperUser = authUserIsSuperUser;
+
 		this.authUserDateJoined = authUserDateJoined;
 	}
 
@@ -139,9 +136,9 @@ public class AuthUser {
 		this.authUserLastName = authUserLastName;
 		this.authUserEmail = authUserEmail;
 		this.authUserLastLogin = authUserLastLogin;
-		this.authUserIsStaff = authUserIsStaff;
+		
 		this.authUserIsActive = authUserIsActive;
-		this.authUserIsSuperUser = authUserIsSuperUser;
+		
 		this.authUserDateJoined = authUserDateJoined;
 		this.authUserCreatedBy = authUserCreatedBy;
 		this.authUserCreatedOn = authUserCreatedOn;
@@ -252,19 +249,7 @@ public class AuthUser {
 		this.authUserLastLogin = authUserLastLogin;
 	}
 
-	/**
-	 * @return the authUserIsStaff
-	 */
-	public boolean isAuthUserIsStaff() {
-		return authUserIsStaff;
-	}
-
-	/**
-	 * @param authUserIsStaff the authUserIsStaff to set
-	 */
-	public void setAuthUserIsStaff(boolean authUserIsStaff) {
-		this.authUserIsStaff = authUserIsStaff;
-	}
+	
 
 	/**
 	 * @return the authUserIsActive
@@ -280,19 +265,6 @@ public class AuthUser {
 		this.authUserIsActive = authUserIsActive;
 	}
 
-	/**
-	 * @return the authUserIsSuperUser
-	 */
-	public boolean isAuthUserIsSuperUser() {
-		return authUserIsSuperUser;
-	}
-
-	/**
-	 * @param authUserIsSuperUser the authUserIsSuperUser to set
-	 */
-	public void setAuthUserIsSuperUser(boolean authUserIsSuperUser) {
-		this.authUserIsSuperUser = authUserIsSuperUser;
-	}
 
 	/**
 	 * @return the authUserDateJoined
@@ -369,8 +341,8 @@ public class AuthUser {
 		return "AuthUser [authUserId=" + authUserId + ", authUserName=" + authUserName + ", authUserPassword="
 				+ authUserPassword + ", authUserFirstName=" + authUserFirstName + ", authUserLastName="
 				+ authUserLastName + ", authUserEmail=" + authUserEmail + ", authUserLastLogin=" + authUserLastLogin
-				+ ", authUserIsStaff=" + authUserIsStaff + ", authUserIsActive=" + authUserIsActive
-				+ ", authUserIsSuperUser=" + authUserIsSuperUser + ", authUserDateJoined=" + authUserDateJoined
+			 +"authUserIsActive=" + authUserIsActive
+				+ " authUserDateJoined=" + authUserDateJoined
 				+ ", authUserCreatedBy=" + authUserCreatedBy + ", authUserCreatedOn=" + authUserCreatedOn
 				+ ", authUserModifiedBy=" + authUserModifiedBy + ", authUserModifiedOn=" + authUserModifiedOn + "]";
 	}

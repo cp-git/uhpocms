@@ -95,7 +95,7 @@ public class AuthUserServiceImplTest {
 		}
 
 		// creating auth user to create entry in table
-		AuthUser authUser = new AuthUser("user", "pass123", "hello", "world", "abc@test.com", true, true, true,
+		AuthUser authUser = new AuthUser("user", "pass123", "hello", "world", "abc@test.com",  true,
 				joinedDate);
 
 		// setting up createdBy and modifiedBy value which we are entring manually
@@ -130,7 +130,7 @@ public class AuthUserServiceImplTest {
 				joinedDate, "admin", createdOn, "admin", modifiedOn);
 
 		// updating auth user to update entry in table
-		AuthUser authUser = new AuthUser("user", "pass123", "Mayur", "Patil", "abc@test.com", true, true, true,
+		AuthUser authUser = new AuthUser("user", "pass123", "Mayur", "Patil", "abc@test.com", true, 
 				joinedDate);
 
 		// expected auth user
