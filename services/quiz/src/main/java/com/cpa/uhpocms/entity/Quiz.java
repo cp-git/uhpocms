@@ -38,20 +38,13 @@ public class Quiz {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "url")
-	private String url;
+	
 
 	@Column(name = "random_order")
 	private boolean randomOrder;
 
 	@Column(name = "max_questions")
 	private int maxQuestions;
-
-	@Column(name = "answers_at_end")
-	private boolean answersAtEnd;
-
-	@Column(name = "exam_paper")
-	private boolean examPaper;
 
 	@Column(name = "single_attempt")
 	private boolean singleAttempt;
@@ -69,8 +62,7 @@ public class Quiz {
 	@Column(name = "fail_text")
 	private String failText;
 
-	@Column(name = "draft")
-	private boolean draft;
+
 
 	@Column(name = "quizorderno")
 	private int quizOrderNo;
@@ -137,24 +129,23 @@ public class Quiz {
 	 * @param createdOn
 	 * @param modifiedOn
 	 */
-	public Quiz(int quizId, String title, String description, String url, Boolean randomOrder, int maxQuestions,
-			boolean answersAtEnd, boolean examPaper, boolean singleAttempt, int passMark, String successText,
-			String failText, boolean draft, int quizOrderNo, int courseId, int moduleId, int categoryId,
+	public Quiz(int quizId, String title, String description,  Boolean randomOrder, int maxQuestions,
+		 boolean singleAttempt, int passMark, String successText,
+			String failText,  int quizOrderNo, int courseId, int moduleId, int categoryId,
 			boolean isActive, String modifiedBy, String createdBy, Date createdOn, Date modifiedOn,int setTimer) {
 		super();
 		this.quizId = quizId;
 		this.title = title;
 		this.description = description;
-		this.url = url;
+
 		this.randomOrder = randomOrder;
 		this.maxQuestions = maxQuestions;
-		this.answersAtEnd = answersAtEnd;
-		this.examPaper = examPaper;
+
 		this.singleAttempt = singleAttempt;
 		this.passMark = passMark;
 		this.successText = successText;
 		this.failText = failText;
-		this.draft = draft;
+
 		this.quizOrderNo = quizOrderNo;
 		this.courseId = courseId;
 		this.moduleId = moduleId;
@@ -168,7 +159,7 @@ public class Quiz {
 	}
 
 	/**
->>>>>>> development
+
 	 * @return the quizId
 	 */
 	public int getQuizId() {
@@ -210,20 +201,7 @@ public class Quiz {
 		this.description = description;
 	}
 
-	/**
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
-
-	/**
-	 * @param url the url to set
-	 */
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
+	
 	/**
 	 * @return the randomOrder
 	 */
@@ -252,33 +230,9 @@ public class Quiz {
 		this.maxQuestions = maxQuestions;
 	}
 
-	/**
-	 * @return the answersAtEnd
-	 */
-	public boolean isAnswersAtEnd() {
-		return answersAtEnd;
-	}
+	
 
-	/**
-	 * @param answersAtEnd the answersAtEnd to set
-	 */
-	public void setAnswersAtEnd(boolean answersAtEnd) {
-		this.answersAtEnd = answersAtEnd;
-	}
-
-	/**
-	 * @return the examPaper
-	 */
-	public boolean isExamPaper() {
-		return examPaper;
-	}
-
-	/**
-	 * @param examPaper the examPaper to set
-	 */
-	public void setExamPaper(boolean examPaper) {
-		this.examPaper = examPaper;
-	}
+	
 
 	/**
 	 * @return the singleAttempt
@@ -353,16 +307,6 @@ public class Quiz {
 	/**
 	 * @return the draft
 	 */
-	public boolean isDraft() {
-		return draft;
-	}
-
-	/**
-	 * @param draft the draft to set
-	 */
-	public void setDraft(boolean draft) {
-		this.draft = draft;
-	}
 
 	/**
 	 * @return the quizOrderNo
@@ -524,7 +468,7 @@ public class Quiz {
 	 * @param createdOn
 	 * @param modifiedOn
 	 */
-	public Quiz(int quizId, String title, String description, String url, boolean randomOrder, int maxQuestions,
+	public Quiz(int quizId, String title, String description,  boolean randomOrder, int maxQuestions,
 			boolean answersAtEnd, boolean examPaper, boolean singleAttempt, int passMark, int maxMarks,
 			String successText, String failText, boolean draft, int quizOrderNo, int courseId, int moduleId,
 			int categoryId, Integer setTimer, boolean isActive, String modifiedBy, String createdBy, Date createdOn,
@@ -533,17 +477,16 @@ public class Quiz {
 		this.quizId = quizId;
 		this.title = title;
 		this.description = description;
-		this.url = url;
+	
 		this.randomOrder = randomOrder;
 		this.maxQuestions = maxQuestions;
-		this.answersAtEnd = answersAtEnd;
-		this.examPaper = examPaper;
+
 		this.singleAttempt = singleAttempt;
 		this.passMark = passMark;
 		this.maxMarks = maxMarks;
 		this.successText = successText;
 		this.failText = failText;
-		this.draft = draft;
+
 		this.quizOrderNo = quizOrderNo;
 		this.courseId = courseId;
 		this.moduleId = moduleId;
@@ -565,11 +508,9 @@ public class Quiz {
 
 	@Override
 	public String toString() {
-		return "Quiz [quizId=" + quizId + ", title=" + title + ", description=" + description + ", url=" + url
-				+ ", randomOrder=" + randomOrder + ", maxQuestions=" + maxQuestions + ", answersAtEnd=" + answersAtEnd
-				+ ", examPaper=" + examPaper + ", singleAttempt=" + singleAttempt + ", passMark=" + passMark
-				+ ", maxMarks=" + maxMarks + ", successText=" + successText + ", failText=" + failText + ", draft="
-				+ draft + ", quizOrderNo=" + quizOrderNo + ", courseId=" + courseId + ", moduleId=" + moduleId
+		return "Quiz [quizId=" + quizId + ", title=" + title + ", description=" + description + 
+				 ", randomOrder=" + randomOrder + ", maxQuestions=" + maxQuestions + ", singleAttempt=" + singleAttempt + ", passMark=" + passMark
+				+ ", maxMarks=" + maxMarks + ", successText=" + successText + ", failText=" + failText + ",  quizOrderNo=" + quizOrderNo + ", courseId=" + courseId + ", moduleId=" + moduleId
 				+ ", categoryId=" + categoryId + ", setTimer=" + setTimer + ", isActive=" + isActive + ", modifiedBy="
 				+ modifiedBy + ", createdBy=" + createdBy + ", createdOn=" + createdOn + ", modifiedOn=" + modifiedOn
 				+ "]";

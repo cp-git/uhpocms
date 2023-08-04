@@ -10,6 +10,11 @@ spring.datasource:
   username: postgres
   password: Pass1word
   
+  
+  
+  
+  
+
 server:
   port : 8090
   
