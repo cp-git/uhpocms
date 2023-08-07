@@ -435,7 +435,9 @@ public class AuthServiceImpl implements AuthService {
 				AuthGroupPermission groupPermission = groupPermissionRepository
 						.findByRoleIdAndModuleIdAndPermissionId(roleId, moduleId, permissionId);
 
-				if (groupPermission == null) {
+				AuthPermission authPermission = permissionRepository.findByName("VIEW");
+
+				if (groupPermission == null || permissionId == authPermission.getId()) {
 					assignedPermissions.add(userPermissionRepository.save(userPermission));
 				}
 
