@@ -21,4 +21,5 @@ public interface AuthPermissionRepository extends JpaRepository<AuthPermission, 
 	@Query(value = "SELECT * FROM public.auth_permission where id IN (SELECT uup.id FROM auth_user_user_permissions uup WHERE uup.userid = ?1 UNION SELECT agp.permissionId FROM auth_group_permissions agp WHERE agp.roleid = ?2)", nativeQuery = true)
 	List<AuthPermission> findPermissionByUserIdAndRoleId(Long userId, Long roleId);
 
+	AuthPermission findById(int id);
 }
