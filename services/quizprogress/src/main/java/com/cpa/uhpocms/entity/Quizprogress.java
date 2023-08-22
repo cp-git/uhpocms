@@ -39,12 +39,27 @@ public class Quizprogress {
 
 	@Column(name = "studentid_id")
 	private int studentId;
-
+	
+	@Column(name = "courseid_id")
+	private int courseId;
 	/**
 	 * 
 	 */
 	public Quizprogress() {
 		super();
+	}
+	
+	
+	public Quizprogress(int id, int score, boolean isCompleted, int numberOfAttempts, int quizId, int studentId,
+			int courseId) {
+		super();
+		this.id = id;
+		this.score = score;
+		this.isCompleted = isCompleted;
+		this.numberOfAttempts = numberOfAttempts;
+		this.quizId = quizId;
+		this.studentId = studentId;
+		this.courseId = courseId;
 	}
 
 	/**
@@ -55,22 +70,17 @@ public class Quizprogress {
 	 * @param quizId
 	 * @param studentId
 	 */
-	public Quizprogress(int id, int score, boolean isCompleted, int numberOfAttempts, int quizId, int studentId) {
-		super();
-		this.id = id;
-		this.score = score;
-		this.isCompleted = isCompleted;
-		this.numberOfAttempts = numberOfAttempts;
-		this.quizId = quizId;
-		this.studentId = studentId;
-	}
-
+	
 	/**
 	 * @return the id
 	 */
 	public int getId() {
 		return id;
 	}
+
+	
+
+	
 
 	/**
 	 * @param id the id to set
@@ -147,6 +157,14 @@ public class Quizprogress {
 	 */
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
+	}
+	
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
 	}
 
 }

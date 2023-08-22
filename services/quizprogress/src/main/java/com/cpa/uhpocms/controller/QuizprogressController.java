@@ -28,9 +28,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cpa.uhpocms.entity.Quizprogress;
+import com.cpa.uhpocms.entity.StudentProgress;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.repository.QuizprogressRepo;
+import com.cpa.uhpocms.repository.studentRepo;
 import com.cpa.uhpocms.service.QuizprogressService;
+import com.cpa.uhpocms.service.StudentProgressService;
 
 @RestController
 @RequestMapping("/uhpocms")
@@ -38,7 +42,24 @@ import com.cpa.uhpocms.service.QuizprogressService;
 public class QuizprogressController {
 
 	@Autowired
-	private QuizprogressService quizprogressService;;
+	private QuizprogressService quizprogressService;
+	
+	@Autowired
+	private QuizprogressRepo quizRepo;
+	
+	
+	@Autowired
+	private StudentProgressService StudentService;
+	
+	
+	
+	@Autowired
+	private studentRepo finalRepo;
+	
+	
+	
+	
+	
 
 	private ResourceBundle resourceBunde;
 	private static Logger logger;
@@ -63,11 +84,57 @@ public class QuizprogressController {
 			Quizprogress toCheckQuizprogress = quizprogressService
 					.getQuizprogressByStudentIdAndQuizId(quizprogress.getStudentId(), quizprogress.getQuizId());
 			logger.debug("existing quizprogress :" + toCheckQuizprogress);
-
+			
+		
 			if (toCheckQuizprogress == null) {
 
+			
 				createdQuizprogress = quizprogressService.createQuizprogress(quizprogress);
 				logger.info("Quizprogress created :" + createdQuizprogress);
+				
+				
+				//Max Marks for quiz table
+				List<Integer> datanum=quizRepo.getMarksByid(quizprogress.getCourseId());
+				System.out.println("Data"+datanum);
+				
+				int maxVal=0;
+				
+				for(int i=0;i<datanum.size();i++) {
+					maxVal=maxVal+datanum.get(i);
+				}
+				System.out.println("Total MaxMarks..."+maxVal);
+				
+				//marks obtained by student
+				
+				List<Integer> studentMarks=quizRepo.getStudentMarksid(quizprogress.getStudentId());
+				System.out.println("Data"+studentMarks);
+				
+				int studentmaxVal=0;
+				
+				for(int i=0;i<studentMarks.size();i++) {
+					studentmaxVal=studentmaxVal+studentMarks.get(i);
+				}
+				System.out.println("Student Total MaxMarks..."+studentmaxVal);
+				
+				
+				//Calculate Percenatage
+				int percentageval=0;
+				 
+				percentageval= (studentmaxVal *100) /maxVal;
+				System.out.println("PercentageVal"+percentageval);
+				
+				StudentProgress std=new StudentProgress();
+				std.setId(std.getId());
+				std.setCourseId(quizprogress.getCourseId());
+				std.setStudentId(quizprogress.getStudentId());
+				std.setStudentGrade('A');
+				std.setObtainMarks(studentmaxVal);
+				std.setMaxMarks(maxVal);
+				std.setPercentAge(percentageval);
+				finalRepo.save(std);
+				
+				
+				
 
 				return ResponseHandler.generateResponse(createdQuizprogress, HttpStatus.CREATED);
 
@@ -304,6 +371,42 @@ public class QuizprogressController {
 				throw new CPException("err002", resourceBunde.getString("err002"));
 
 			}
+		}
+		
+		//New Api
+		
+		@PostMapping("/allquizprogress")
+		public ResponseEntity<Object> createAllQuizprogress(@RequestBody StudentProgress studentprogress) throws CPException {
+
+			logger.debug("Entering createQuizprogress");
+			
+
+			StudentProgress createdQuizAllprogress = null;
+
+			try {
+
+			
+				
+			
+				if (createdQuizAllprogress == null) {
+
+				
+					createdQuizAllprogress = StudentService.createQuizprogress(studentprogress);
+					logger.info("Quizprogress created :" + createdQuizAllprogress);
+					
+					
+				
+					
+
+					return ResponseHandler.generateResponse(createdQuizAllprogress, HttpStatus.CREATED);
+
+				}
+
+			} catch (Exception ex) {
+				logger.error("Failed Quizprogress creation : " + ex.getMessage());
+				throw new CPException("err003", resourceBunde.getString("err003"));
+			}
+			return null;
 		}
 
 }
