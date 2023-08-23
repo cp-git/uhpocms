@@ -85,7 +85,9 @@ public class QuizprogressController {
 					.getQuizprogressByStudentIdAndQuizId(quizprogress.getStudentId(), quizprogress.getQuizId());
 			logger.debug("existing quizprogress :" + toCheckQuizprogress);
 			
-		
+		 
+			
+			//Quiz Taking 
 			if (toCheckQuizprogress == null) {
 
 			
@@ -119,15 +121,39 @@ public class QuizprogressController {
 				
 				//Calculate Percenatage
 				int percentageval=0;
+				
+				char Grade=' ';
 				 
 				percentageval= (studentmaxVal *100) /maxVal;
 				System.out.println("PercentageVal"+percentageval);
 				
+				if(percentageval >=0 && percentageval <=25)
+				{
+					System.out.println("D Grade");
+					Grade='D';
+				}
+				else if(percentageval >=25 && percentageval <=50) {
+					System.out.println("C Grade");
+					Grade ='C';
+				}
+				
+				else if(percentageval >=50 && percentageval <=75) {
+					System.out.println("B Grade");
+					Grade='B';
+					
+				}
+				else if(percentageval >=75 && percentageval <=100) {
+					System.out.println("A Grade");
+					Grade='A';
+					
+				}
+				
 				StudentProgress std=new StudentProgress();
+				
 				std.setId(std.getId());
 				std.setCourseId(quizprogress.getCourseId());
 				std.setStudentId(quizprogress.getStudentId());
-				std.setStudentGrade('A');
+				std.setStudentGrade(Grade);
 				std.setObtainMarks(studentmaxVal);
 				std.setMaxMarks(maxVal);
 				std.setPercentAge(percentageval);
@@ -139,8 +165,85 @@ public class QuizprogressController {
 				return ResponseHandler.generateResponse(createdQuizprogress, HttpStatus.CREATED);
 
 			} else {
+				
+				//Retake the Quiz...
 				createdQuizprogress = quizprogressService.updateQuizprogressByStudentIdAndQuizId(quizprogress);
 				logger.info("Quizprogress created :" + createdQuizprogress);
+				
+				System.out.println("The Updated Data..."+createdQuizprogress.getScore());
+				
+				
+				//Max Marks for quiz table
+				List<Integer> datanum=quizRepo.getMarksByid(quizprogress.getCourseId());
+				System.out.println("Data"+datanum);
+				
+				int maxVal=0;
+				
+				for(int i=0;i<datanum.size();i++) {
+					maxVal=maxVal+datanum.get(i);
+				}
+				System.out.println("Total MaxMarks..."+maxVal);
+				
+				//marks obtained by student
+				
+				List<Integer> studentMarks=quizRepo.getStudentMarksid(quizprogress.getStudentId());
+				System.out.println("Data"+studentMarks);
+				
+				int studentmaxVal=0;
+				
+				for(int i=0;i<studentMarks.size();i++) {
+					studentmaxVal=studentmaxVal+studentMarks.get(i);
+				}
+				System.out.println("Student Total MaxMarks..."+studentmaxVal);
+				
+				
+				//Calculate Percenatage
+				int percentageval=0;
+				 
+				percentageval= (studentmaxVal *100) /maxVal;
+				System.out.println("PercentageVal"+percentageval);
+				
+				char Grade=' ';
+				
+				if(percentageval >=0 && percentageval <=25)
+				{
+					System.out.println("D Grade");
+					Grade='D';
+				}
+				else if(percentageval >=25 && percentageval <=50) {
+					System.out.println("C Grade");
+					Grade ='C';
+				}
+				
+				else if(percentageval >=50 && percentageval <=75) {
+					System.out.println("B Grade");
+					Grade='B';
+					
+				}
+				else if(percentageval >=75 && percentageval <=100) {
+					System.out.println("A Grade");
+					Grade='A';
+					
+				}
+				
+				StudentProgress std=new StudentProgress();
+				std.setId(std.getId());
+				std.setCourseId(quizprogress.getCourseId());
+				std.setStudentId(quizprogress.getStudentId());
+				std.setStudentGrade(Grade);
+				std.setObtainMarks(studentmaxVal);
+				std.setMaxMarks(maxVal);
+				std.setPercentAge(percentageval);
+				finalRepo.save(std);
+				
+				
+				
+				
+			
+
+				
+				
+				 
 //				logger.error(resourceBunde.getString("err003"));
 //				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
 				return ResponseHandler.generateResponse(createdQuizprogress, HttpStatus.CREATED);
@@ -373,40 +476,62 @@ public class QuizprogressController {
 			}
 		}
 		
-		//New Api
+	
 		
-		@PostMapping("/allquizprogress")
-		public ResponseEntity<Object> createAllQuizprogress(@RequestBody StudentProgress studentprogress) throws CPException {
-
-			logger.debug("Entering createQuizprogress");
+		@GetMapping("/studentprogress/{studentId}")
+		public List<Object> getStudentProgresssByStudentId(@PathVariable("studentId") int studentId)
+				throws CPException {
+			logger.debug("Entering getAllQuizprogresssByStudentId");
 			
 
-			StudentProgress createdQuizAllprogress = null;
-
+			
+			List<Object> quizprogresses=null;
 			try {
 
+				quizprogresses = finalRepo.getStudentMarksid(studentId);
+				logger.info("fetched Quizprogress :" + quizprogresses);
+
 			
-				
+
+			} catch (Exception ex) {
+
+				logger.error("Failed getting all quizprogresss : " + ex.getMessage());
+				throw new CPException("err002", resourceBunde.getString("err002"));
+
+			}
+			return quizprogresses;
 			
-				if (createdQuizAllprogress == null) {
+			
+		}
+		
+		//Update the data...
+		
+		@PutMapping("/updatestudentprogress/{studentId}")
+		public ResponseEntity<Object> updateQuizprogressBystudentId(@RequestBody StudentProgress studentProgress,
+				@PathVariable("studentId") int studentId) throws CPException {
+			logger.debug("Entering updateQuizprogress");
+			//logger.info("entered  updateQuizprogress :" + quizprogress);
 
-				
-					createdQuizAllprogress = StudentService.createQuizprogress(studentprogress);
-					logger.info("Quizprogress created :" + createdQuizAllprogress);
-					
-					
-				
-					
+			StudentProgress updatedStudentprogress = null;
 
-					return ResponseHandler.generateResponse(createdQuizAllprogress, HttpStatus.CREATED);
+			try {
+				updatedStudentprogress = StudentService.updateQuizprogressByStudentIdAndQuizId(studentProgress);
 
+				if (updatedStudentprogress == null) {
+					logger.info(resourceBunde.getString("err004"));
+					return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+				} else {
+					logger.info("updated quizprogress : " + updatedStudentprogress);
+					return ResponseHandler.generateResponse(updatedStudentprogress, HttpStatus.CREATED);
 				}
 
 			} catch (Exception ex) {
-				logger.error("Failed Quizprogress creation : " + ex.getMessage());
-				throw new CPException("err003", resourceBunde.getString("err003"));
+				logger.error("Failed update Quizprogress : " + ex.getMessage());
+				throw new CPException("err004", resourceBunde.getString("err004"));
+
 			}
-			return null;
+
 		}
+		
 
 }

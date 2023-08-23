@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="student_progress")
+@Table(name="student_course_grade")
 public class StudentProgress {
 	
 	@Column(name = "id")
@@ -36,7 +36,7 @@ public class StudentProgress {
 	
 	
 	@Column(name = "grade")
-	private int studentGrade;
+	private char studentGrade;
 	
 
 
@@ -111,12 +111,12 @@ public class StudentProgress {
 	}
 
 
-	public int getStudentGrade() {
+	public char getStudentGrade() {
 		return studentGrade;
 	}
 
 
-	public void setStudentGrade(int studentGrade) {
+	public void setStudentGrade(char studentGrade) {
 		this.studentGrade = studentGrade;
 	}
 	
