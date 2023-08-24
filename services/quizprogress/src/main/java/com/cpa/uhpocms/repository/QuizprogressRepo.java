@@ -39,8 +39,8 @@ public interface QuizprogressRepo extends JpaRepository<Quizprogress, Integer> {
 	@Query(value = "SELECT quiz.courseid_id FROM teacher_quiz quiz JOIN teacher_studentquizprogress student ON quiz.quizid= student.quizid_id where student.quizid_id=?1", nativeQuery = true)
 	Integer getCourseByid(int quizId);
 	
-	@Query(value = "SELECT distinct quiz.max_marks FROM teacher_quiz quiz JOIN teacher_studentquizprogress student ON quiz.courseid_id= student.courseid_id where student.courseid_id=?1", nativeQuery = true)
-	List<Integer> getMarksByid(int quizId);
+	@Query(value = "SELECT quiz.max_marks FROM teacher_quiz quiz JOIN teacher_studentquizprogress student ON quiz.quizid= student.quizid_id where student.courseid_id=?1", nativeQuery = true)
+	List<Integer> getMarksByid(int courseId);
 	
 	
 	@Query(value = "SELECT score from teacher_studentquizprogress quiz where quiz.studentid_id=?1", nativeQuery = true)
