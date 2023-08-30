@@ -156,7 +156,14 @@ public class AuthUserController {
 				authUsers = authUserService.getAllInactiveAuthUsers();
 				logger.info("Fetched all inactive auth users :" + authUsers);
 				return ResponseHandler.generateListResponse(authUsers, HttpStatus.OK);
-			} else {
+			}else if (authUserName.equalsIgnoreCase("inactiveprofile")) {
+				 	authUsers = authUserService.getAllInactiveProfiles();
+					logger.info("Fetched all inactive auth users :" + authUsers);
+					return ResponseHandler.generateListResponse(authUsers, HttpStatus.OK);
+				} 
+			
+			
+			else {
 				logger.info(resourceBundle.getString("err002"));
 				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
 			}

@@ -28,4 +28,6 @@ public interface AuthUserService {
 	int activateAuthUserById(int authUserId);
 	
 	AuthUser getAuthUserById(int authUserId);
+	
+	List<Object> getAllInactiveProfiles();
 }

@@ -63,5 +63,13 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	public int activateAuthUserById(int authUserId);
 	
 	public AuthUser findByAuthUserId(int authUserId);
+	
+
+	@Query(value = "SELECT T.* FROM auth_user T WHERE NOT EXISTS( SELECT 1 FROM instituteadmin_profile U WHERE U.user_id = T.id);", nativeQuery = true)
+	public List<AuthUser> findByInactiveProfile();
+	
+	
+	
+	
 
 }
