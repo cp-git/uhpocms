@@ -7,6 +7,7 @@
 
 package com.cpa.uhpocms.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -178,5 +179,15 @@ public class AuthUserServiceImpl implements AuthUserService {
 		logger.info("Founded authUser :" + authUser);
 
 		return authUser;
+	}
+
+	@Override
+	public List<Object> getAllInactiveProfiles() {
+		// TODO Auto-generated method stub
+
+		List<AuthUser> authUsers = authUserRepo.findByInactiveProfile();
+		List<Object> authUsersObject = new ArrayList<>(authUsers);
+		logger.info("Fetched all inactive profile.. :" + authUsers);
+		return authUsersObject;
 	}
 }
