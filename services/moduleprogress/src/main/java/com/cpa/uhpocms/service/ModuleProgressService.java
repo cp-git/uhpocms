@@ -19,14 +19,13 @@ public interface ModuleProgressService {
 	
     ModuleProgress getModuleProgressBymodstudId(int modId, int studId);
 
-	List<Object> getAllModuleProgresss();
+	
 
 	ModuleProgress updateModuleProgressByid(ModuleProgress moduleprogress, int id);
 
-	int deleteModuleProgressByid(int id);
 	
-	public List<Object> getAllModuleProgresssByCourseId(int courseId);
 	
+
 	List<Object> getAllModuleProgresssByCourseIdAndStudentId(int courseId, int studentId);
 	
 }

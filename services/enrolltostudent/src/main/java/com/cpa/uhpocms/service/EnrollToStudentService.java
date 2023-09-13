@@ -19,17 +19,11 @@ public interface EnrollToStudentService {
 	
 	List<Object> getProfilesByInstIdandCourId(int instId,int courId);
 	
-	EnrollToStudent getEnrollToStudentBycourseId(int courseid);
 
-//	List<Object> getAllEnrollToStudents();
 	
 	List<Object> getStudentByCourseId(int courseid);
 
-	EnrollToStudent updateEnrollToStudentBycourseId(EnrollToStudent enrolltostudent, int courseid);
 
-	int deleteEnrollToStudentBycourseId(int courseid);
-	
-//	void insertCourseAndProfile(int courseId,int profileId);
 	
 	  int deleteEnrollToStudentByCourseIdAndProfileId(int courseId, int profileId);
 

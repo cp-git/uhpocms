@@ -87,7 +87,7 @@ public class QuizprogressController {
 			
 		 
 			
-			//Quiz Taking 
+			
 			if (toCheckQuizprogress == null) {
 
 			
@@ -104,19 +104,19 @@ public class QuizprogressController {
 				for(int i=0;i<datanum.size();i++) {
 					maxVal=maxVal+datanum.get(i);
 				}
-				System.out.println("Total MaxMarks..."+maxVal);
+				
 				
 				//marks obtained by student
 				
 				List<Integer> studentMarks=quizRepo.getStudentMarksid(quizprogress.getStudentId());
-				System.out.println("Data"+studentMarks);
+				
 				
 				int studentmaxVal=0;
 				
 				for(int i=0;i<studentMarks.size();i++) {
 					studentmaxVal=studentmaxVal+studentMarks.get(i);
 				}
-				System.out.println("Student Total MaxMarks..."+studentmaxVal);
+			
 				
 				
 				//Calculate Percenatage
@@ -175,7 +175,7 @@ public class QuizprogressController {
 				
 				//Max Marks for quiz table
 				List<Integer> datanum=quizRepo.getMarksByid(quizprogress.getCourseId());
-				System.out.println("Data"+datanum);
+				
 				
 				int maxVal=0;
 				
@@ -187,21 +187,21 @@ public class QuizprogressController {
 				//marks obtained by student
 				
 				List<Integer> studentMarks=quizRepo.getStudentMarksid(quizprogress.getStudentId());
-				System.out.println("Data"+studentMarks);
+				
 				
 				int studentmaxVal=0;
 				
 				for(int i=0;i<studentMarks.size();i++) {
 					studentmaxVal=studentmaxVal+studentMarks.get(i);
 				}
-				System.out.println("Student Total MaxMarks..."+studentmaxVal);
+				
 				
 				
 				//Calculate Percenatage
 				int percentageval=0;
 				 
 				percentageval= (studentmaxVal *100) /maxVal;
-				System.out.println("PercentageVal"+percentageval);
+				
 				
 				char Grade=' ';
 				
@@ -286,45 +286,7 @@ public class QuizprogressController {
 
 	}
 
-	/**
-	 * @author shradha
-	 * @param studentId
-	 * @param quizId
-	 * @return
-	 * @throws CPException
-	 * @Description For getting quiz progress data from table using student id and quizId and is completed status as true
-
-	 */
-	// For getting quiz progress data from table using student id and quizId and is completed status as true
-		@GetMapping("/quizprogress/progress/{quizId}/{studentId}")
-		public ResponseEntity<Object> getQuizprogressByStudentIdAndQuizIdProg(@PathVariable("studentId") int studentId,
-				@PathVariable("quizId") int quizId) throws CPException {
-
-			logger.debug("Entering getQuizprogressByStudentIdAndQuizIdProg");
-			logger.info("entered user name : " + studentId + " quizid : " + quizId);
-
-			Quizprogress quizprogress = null;
-
-			try {
-
-				quizprogress = quizprogressService.getQuizprogressByStudentIdAndQuizIdProg(studentId, quizId);
-				logger.info("fetched Quizprogress :" + quizprogress);
-
-				if (quizprogress != null) {
-					logger.debug("Quizprogress fetched generating response");
-					return ResponseHandler.generateResponse(quizprogress, HttpStatus.OK);
-				} else {
-					logger.debug("Quizprogress not found");
-					return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-				}
-
-			} catch (Exception ex) {
-
-				logger.error("Failed getting quizprogress : " + ex.getMessage());
-				throw new CPException("err001", resourceBunde.getString("err001"));
-			}
-
-		}
+	
 
 	
 	
@@ -390,32 +352,7 @@ public class QuizprogressController {
 		}
 	}
 
-	// For deleting quiz progress data from table using student id and quizId
-	@DeleteMapping("/quizprogress/{quizId}/{studentId}")
-	public ResponseEntity<Object> deleteQuizprogressByStudentIdAndQuizId(@PathVariable("quizId") int quizId,
-			@PathVariable("studentId") int studentId) throws CPException {
-		logger.debug("Entering deleteAuthUser");
-		logger.info("entered deleteQuizprogress  :" + studentId);
-		// TODO - implement the business logic
 
-		int count = 0;
-
-		try {
-			count = quizprogressService.deleteQuizprogressByStudentIdAndQuizId(studentId, quizId);
-			if (count >= 1) {
-				logger.info("deleted Quizprogress : studentId = " + studentId);
-				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-			} else {
-				logger.info(resourceBunde.getString("err005"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed to delete Quizprogress :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
-		}
-
-	}
 
 	// For update quiz progress data in table using student id and quizId
 	@PutMapping("/quizprogress/{quizId}/{studentId}")

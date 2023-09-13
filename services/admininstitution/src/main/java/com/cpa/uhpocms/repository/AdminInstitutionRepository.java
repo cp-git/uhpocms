@@ -21,14 +21,7 @@ import com.cpa.uhpocms.entity.AdminInstitution;
 public interface AdminInstitutionRepository extends JpaRepository<AdminInstitution, Integer> {
 	boolean adminInstitutionIsActive = true;
 
-	/**
-	 * @author: Akash
-	 * @param : String adminInstitutionName
-	 * @return : AdminInstitution
-	 * @description: To find the all data using Institution name from
-	 *               AdminInstitution table
-	 */
-	AdminInstitution findByAdminInstitutionName(String adminInstitutionName);
+
 
 	/**
 	 * @author: Akash
@@ -37,26 +30,12 @@ public interface AdminInstitutionRepository extends JpaRepository<AdminInstituti
 	 *               in active state
 	 * 
 	 */
+	
 	public List<Object> findByAdminInstitutionIsActiveTrue();
 
-	/**
-	 * @author: Akash
-	 * @param : String adminInstitutionName
-	 * @return : AdminInstitution
-	 * @description: To soft delete admin institution by adminInstitutionName (by
-	 *               setting is_active to false)
-	 */
-	@Transactional
-	@Modifying
-	@Query(value = "UPDATE admin_institution SET isactive=false WHERE name=?1", nativeQuery = true)
-	public int deleteAdminInstitutionByInstitutionName(String adminInstitutionName);
 
-	/**
-	 * @return : List<AdminInstitution>
-	 * @description: To find the all data of institution where admin institution is
-	 *               in inactive state
-	 * 
-	 */
+	
+	
 	public List<Object> findByAdminInstitutionIsActiveFalse();
 
 	/**
@@ -65,6 +44,8 @@ public interface AdminInstitutionRepository extends JpaRepository<AdminInstituti
 	 * @description: To reactivate admin institution by adminInstitutionName (by
 	 *               setting is_active to true)
 	 */
+	
+	
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE admin_institution SET isactive=true WHERE institutionid=?1", nativeQuery = true)
@@ -76,10 +57,12 @@ public interface AdminInstitutionRepository extends JpaRepository<AdminInstituti
 	
 	
 
+	
 	@Transactional
 	@Modifying
 	@Query(value = "SELECT ai.* FROM admin_institution ai JOIN instituteadmin_profile iap ON ai.institutionid = iap.institutionid_id WHERE iap.id =?1", nativeQuery = true)
 	List<AdminInstitution> findActiveInstitutionByProfileId(int profileId);
+	
 	
 	
 	@Transactional

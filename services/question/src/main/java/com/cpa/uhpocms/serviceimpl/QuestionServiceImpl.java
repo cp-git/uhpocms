@@ -56,20 +56,6 @@ public class QuestionServiceImpl implements QuestionService {
 		return createdQuestion;
 	}
 
-	/**
-	 * @param : String figure
-	 * @return : Question question
-	 * @description : For get entry in teacher_question table
-	 */
-	@Override
-	public Question getQuestionByFigure(String figure) {
-		logger.debug("Entering getQuestionByFigure");
-
-		Question question = questionRepo.findByQuestionFigure(figure);
-		logger.info("Founded question :" + question);
-
-		return question;
-	}
 
 	/**
 	 * @return : List<Object> question
@@ -167,12 +153,7 @@ public class QuestionServiceImpl implements QuestionService {
 		return count;
 	}
 
-	@Override
-	public int deleteQuestionById(int questionId) {
-		int count = questionRepo.deleteQuestionByQuestionId(questionId);
-		logger.info("deleted Question count : " + count);
-		return count;
-	}
+
 
 	/**
 	 * @author Shradha

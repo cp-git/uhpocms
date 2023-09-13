@@ -244,37 +244,6 @@ public class ModuleFileProgressController {
 		}
 	}
 
-	/**
-	 * @author shradha
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 * @desc Api to delete an entry in respective table by providing Id
-	 */
-	@DeleteMapping("/modulefileprog/{id}")
-	public ResponseEntity<Object> deleteModuleFileProgressByid(@PathVariable("id") int id) throws CPException {
-		logger.debug("Entering deleteAuthUser");
-		logger.info("entered deleteModuleFileProgress  :" + id);
-		// TODO - implement the business logic
-
-		int count = 0;
-
-		try {
-			count = modulefileprogressService.deleteModuleFileProgressByid(id);
-			if (count >= 1) {
-				logger.info("deleted ModuleFileProgress : id = " + id);
-				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-			} else {
-				logger.info(resourceBunde.getString("err005"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed to delete ModuleFileProgress :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
-		}
-
-	}
 
 	/**
 	 * @author shradha

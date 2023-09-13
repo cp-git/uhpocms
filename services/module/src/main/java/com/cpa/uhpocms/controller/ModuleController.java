@@ -127,61 +127,8 @@ public class ModuleController {
 		}
 	}
 
-	@GetMapping("/module/{name}")
-	public ResponseEntity<Object> getModuleByName(@PathVariable("name") String name) throws CPException {
-		logger.debug("Entering getModuleByname");
-		logger.info("entered user name :" + name);
 
-		Module module = null;
 
-		try {
-
-			module = moduleService.getModuleByName(name);
-			logger.info("fetched Module :" + module);
-
-			if (module != null) {
-				logger.debug("Module fetched generating response");
-				return ResponseHandler.generateResponse(module, HttpStatus.OK);
-			} else {
-				logger.debug("Module not found");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting module : " + ex.getMessage());
-			throw new CPException("err001", resourceBundle.getString("err001"));
-		}
-
-	}
-
-	@GetMapping("/module/{id}")
-	public ResponseEntity<Object> getModuleById(@PathVariable("id") int moduleId) throws CPException {
-		logger.debug("Entering getModuleById");
-		logger.info("entered user name :" + moduleId);
-
-		Module module = null;
-
-		try {
-
-			module = moduleService.getModuleById(moduleId);
-			logger.info("fetched Module :" + module);
-
-			if (module != null) {
-				logger.debug("Module fetched generating response");
-				return ResponseHandler.generateResponse(module, HttpStatus.OK);
-			} else {
-				logger.debug("Module not found");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting module : " + ex.getMessage());
-			throw new CPException("err001", resourceBundle.getString("err001"));
-		}
-
-	}
 
 	@GetMapping("/module")
 	public ResponseEntity<List<Object>> getAllModules(@RequestParam(name = "name") String name) throws CPException {
@@ -347,36 +294,6 @@ public class ModuleController {
 		}
 	}
 
-	/**
-	 * @author Shradha
-	 * @description Api to update inactive status to active status
-	 * @return
-	 * @throws CPException
-	 */
-	@PatchMapping("/module/{name}")
-	public ResponseEntity<Object> updateActiveStatus(@PathVariable("name") String name) throws CPException {
-
-		logger.debug("Entering updateActiveStatus");
-
-		Object obj = null;
-
-		try {
-			obj = moduleService.updateActiveStatus(name);
-
-			if (obj == null) {
-				logger.info(resourceBundle.getString("err004"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-			} else {
-				logger.info("updated module : " + obj);
-				return ResponseHandler.generateResponse(obj, HttpStatus.CREATED);
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed update module : " + ex.getMessage());
-			throw new CPException("err004", resourceBundle.getString("err004"));
-
-		}
-	}
 	
 	@PatchMapping("/module/activate/{moduleid}")
 	public ResponseEntity<Object> updateActiveStatusByModuleId(@PathVariable("moduleid") int moduleid) throws CPException {

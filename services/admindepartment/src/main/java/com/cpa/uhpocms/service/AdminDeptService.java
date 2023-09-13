@@ -11,35 +11,36 @@ import com.cpa.uhpocms.entity.AdminDepartment;
 
 public interface AdminDeptService {
 
+	//insert the department 
 	public AdminDepartment insertDept(AdminDepartment adminDepartment);
 
+	//getting the list of department  
 	public List<Object> getAdminDepartments();
 
-	public Object updateDept(AdminDepartment adminDepartment, String name);
-
-	public void deleteDept(String name);
-
+	
+	//delete the department by id  
 	int deleteDeptById(int departmentid);
 
-	public AdminDepartment getDeptByName(String name);
-
-	AdminDepartment getDepartmentById(int departmentid);
-
+	
+	//finding the active department by assignrd courses by profile id 
 	List<Object> findActiveDepartmentOfAssignCoursesByProfileId(int profileid);
 
+	//find institute using institute id 
 	List<Object> findByInstitutionId(int institutionId);
 
+	//getting all inactive departments 
 	public List<Object> getAllInactiveDepartments();
 
+	
+	//activate department using department id 
 	public int activateDepartment(int departmentId);
 
+	//update the department by department id 
 	public AdminDepartment updateDepartmentById(AdminDepartment adminDepartment, int departmentid);
 
-	AdminDepartment createDepartment(AdminDepartment adminDepartment);
 
-	AdminDepartment getDepartmentByInstitutionIdAndName(int institutionId, String name);
-
+	//Getting inactive department by institution id 
 	public List<Object> getInactiveDepartmentsByInstituionId(int institutionId);
 
-	List<Object> getDepartmentByProfileId(int profileid);
+	
 }

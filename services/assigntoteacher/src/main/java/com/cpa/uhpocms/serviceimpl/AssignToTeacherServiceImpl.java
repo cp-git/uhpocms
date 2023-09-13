@@ -77,47 +77,8 @@ public class AssignToTeacherServiceImpl implements AssignToTeacherService {
 //		return assigntoteachers;
 //	}
 
-	/**
-	 * @param : AssignToTeacher to update
-	 * @return : assigntoteacher
-	 * @description : For updating assigntoteacher of teacher_course_assigntoteacher table
-	 */
-	public AssignToTeacher updateAssignToTeacherBycourseId(AssignToTeacher assigntoteacher, int courseid) {
-		logger.debug("Entering updateAssignToTeacher");
 
-		AssignToTeacher toUpdatedAssignToTeacher = null;
-		AssignToTeacher updatedAssignToTeacher = null;
-
-		toUpdatedAssignToTeacher = assigntoteacherRepo.findByCourseId(courseid);
-		logger.info("exisitng AssignToTeacher :: " + toUpdatedAssignToTeacher);
-
-		if (toUpdatedAssignToTeacher != null) {
-			logger.debug("setting new data of AssignToTeacher to exisitng AssignToTeacher");
-
-//			assigntoteacher.setModifiedBy("admin");
-						
-			updatedAssignToTeacher = assigntoteacherRepo.save(assigntoteacher);
-
-			logger.info("updated AssignToTeacher :" + updatedAssignToTeacher);
-		}
-
-		return updatedAssignToTeacher;
-	}
-
-	/**
-	 * @param : String courseid
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of AssignToTeacher
-	 * 
-	 */
 	
-	public int deleteAssignToTeacherBycourseId(int courseid) {
-		logger.debug("Entering deleteAssignToTeacherBycourseId");
-
-		int count =  assigntoteacherRepo.deleteAssignToTeacherBycourseId(courseid);
-		logger.info("deleted AssignToTeacher count : " + count);
-		return count;
-	}
 	
 	@Override
 	public List<Object> getProfilesByInstIdandCourId(int instId, int courId) {

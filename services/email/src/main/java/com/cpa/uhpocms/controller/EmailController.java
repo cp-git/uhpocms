@@ -48,6 +48,8 @@ public class EmailController {
 		logger = Logger.getLogger(EmailController.class);
 	}
 
+	
+	// Insert the email
 	@PostMapping("/email")
 	public ResponseEntity<Object> createEmail(@RequestBody Email email) throws CPException {
 		logger.debug("Entering createEmail");

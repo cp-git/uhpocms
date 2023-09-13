@@ -16,24 +16,34 @@ import com.cpa.uhpocms.entity.AdminInstitution;
 @Service
 public interface AdminInstitutionService {
 
+	
+	//USED
 	AdminInstitution saveAdminInstitution(AdminInstitution adminInstitution);
 
+	
+	//USED
 	List<Object> getAllAdminInstitution();
 
-	int deleteAdminInstitutionByName(String adminInstitutionName);
+	
 
-	AdminInstitution updateAdminInstitutionByName(AdminInstitution adminInstitution, String adminInstitutionName);
-
-	AdminInstitution findByAdminInstitutionName(String adminInstitutionName);
-
+	
+	//USED
 	List<Object> getAdminInstitutionByProfileId(int profileid);
 
+	
+	//USED
 	List<Object> getAllInactiveAdminInstitutions();
 
+	
+	//USED
 	int activateAdminInstitutionById(int adminInstitutionId);
 	
+	
+	//USED
 	AdminInstitution findInstituteById(int adminInstitutionId);
 	
+	
+	//USED
 	 int deleteInstitutionById(int institutionid);
 	
 	

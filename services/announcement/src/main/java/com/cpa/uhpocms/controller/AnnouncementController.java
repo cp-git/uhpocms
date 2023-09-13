@@ -84,33 +84,7 @@ public class AnnouncementController {
 		}
 	}
 
-//	@GetMapping("/announcement/{title}")
-//	public ResponseEntity<Object> getAnnouncementByTitle(@PathVariable("title") String title) throws CPException {
-//		logger.debug("Entering getAnnouncementBytitle");
-//		logger.info("entered user name :" + title);
-//
-//		Announcement announcement = null;
-//
-//		try {
-//
-//			announcement = announcementService.getAnnouncementByTitle(title);
-//			logger.info("fetched Announcement :" + announcement);
-//
-//			if (announcement != null) {
-//				logger.debug("Announcement fetched generating response");
-//				return ResponseHandler.generateResponse(announcement, HttpStatus.OK);
-//			} else {
-//				logger.debug("Announcement not found");
-//				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-//			}
-//
-//		} catch (Exception ex) {
-//
-//			logger.error("Failed getting announcement : " + ex.getMessage());
-//			throw new CPException("err001", resourceBundle.getString("err001"));
-//		}
-//
-//	}
+
 
 	@GetMapping("/announcement")
 	public ResponseEntity<List<Object>> getAllAnnouncements(@RequestParam(name = "title") String title)
@@ -167,32 +141,7 @@ public class AnnouncementController {
 
 	}
 
-	@PutMapping("/announcement/{title}")
-	public ResponseEntity<Object> updateAnnouncementBytitle(@RequestBody Announcement announcement,
-			@PathVariable("title") String title) throws CPException {
-		logger.debug("Entering updateAnnouncement");
-		logger.info("entered  updateAnnouncement :" + announcement);
 
-		Announcement updatedAnnouncement = null;
-
-		try {
-			updatedAnnouncement = announcementService.updateAnnouncementByTitle(announcement, title);
-
-			if (updatedAnnouncement == null) {
-				logger.info(resourceBundle.getString("err004"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-			} else {
-				logger.info("updated announcement : " + updatedAnnouncement);
-				return ResponseHandler.generateResponse(updatedAnnouncement, HttpStatus.CREATED);
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed update Announcement : " + ex.getMessage());
-			throw new CPException("err004", resourceBundle.getString("err004"));
-
-		}
-
-	}
 
 	@PostMapping("/announcement/send/{id}")
 	public ResponseEntity<Object> sendAnnouncements(@RequestBody Integer[] profilesId,

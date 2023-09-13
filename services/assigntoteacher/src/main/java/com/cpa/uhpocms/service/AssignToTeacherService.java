@@ -19,10 +19,9 @@ public interface AssignToTeacherService {
 
 	//List<Object> getAllAssignToTeachers();
 
-	AssignToTeacher updateAssignToTeacherBycourseId(AssignToTeacher assigntoteacher, int courseid);
+	
 
-	int deleteAssignToTeacherBycourseId(int courseid);
-
+	
 	List<Object> getProfilesByInstIdandCourId(int instId,int courId);
 	
 	   int deleteAssignToTeacherByCourseIdAndProfileId(int courseId, int profileId);

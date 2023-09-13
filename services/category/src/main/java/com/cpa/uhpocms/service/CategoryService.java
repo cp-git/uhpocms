@@ -21,7 +21,7 @@ public interface CategoryService {
 
 	Category updateCategoryByCategoryId(Category category, int categoryId);
 
-	int deleteCategoryByCategory(String category);
+//	int deleteCategoryByCategory(String category);
 
     Object updateActiveStatus(String name);
     

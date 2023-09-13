@@ -39,22 +39,22 @@ public class AdminDeptServImplTest {
 	 *               method in AdminServImpl Service
 	 * @createdOn : 24 Nov 2022
 	 */
-	@Test
-	public void deleteDeptTest() {
-		Date date = new Date();
-
-		AdminDepartment adminDepartment = new AdminDepartment(true, 1, "Forensic", "Forensic", "Admin", date, "Admin",
-				date, 1);
-
-		given(adminDeptRepo.findByName(adminDepartment.getName())).willReturn(adminDepartment);
-
-		adminDeptServ.deleteDept(adminDepartment.getName());
-
-		// deleteDept() is supposed to do soft delete by changing isActive flag to false
-		// so below cond. is applied accordingly
-		assertThat(adminDepartment.isActive()).isNotEqualTo(true);
-
-	}
+//	@Test
+//	public void deleteDeptTest() {
+//		Date date = new Date();
+//
+//		AdminDepartment adminDepartment = new AdminDepartment(true, 1, "Forensic", "Forensic", "Admin", date, "Admin",
+//				date, 1);
+//
+//		given(adminDeptRepo.findByName(adminDepartment.getName())).willReturn(adminDepartment);
+//
+//		adminDeptServ.deleteDept(adminDepartment.getName());
+//
+//		// deleteDept() is supposed to do soft delete by changing isActive flag to false
+//		// so below cond. is applied accordingly
+//		assertThat(adminDepartment.isActive()).isNotEqualTo(true);
+//
+//	}
 
 	/**
 	 * @author Shradha
@@ -85,20 +85,20 @@ public class AdminDeptServImplTest {
 	 * @createdOn : 24 Nov 2022
 	 */
 
-	@Test
-	public void getDeptByNameTest() {
-		Date date = new Date();
-
-		AdminDepartment adminDepartment = new AdminDepartment(true, 1, "Forensic", "Forensic", "Admin", date, "Admin",
-				date, 1);
-
-		given(adminDeptRepo.findByName(adminDepartment.getName())).willReturn(adminDepartment);
-
-		AdminDepartment adminDepartment2 = (AdminDepartment) adminDeptServ.getDeptByName(adminDepartment.getName());
-
-		assertThat(adminDepartment2).isNotNull();
-
-	}
+//	@Test
+//	public void getDeptByNameTest() {
+//		Date date = new Date();
+//
+//		AdminDepartment adminDepartment = new AdminDepartment(true, 1, "Forensic", "Forensic", "Admin", date, "Admin",
+//				date, 1);
+//
+//		given(adminDeptRepo.findByName(adminDepartment.getName())).willReturn(adminDepartment);
+//
+//		AdminDepartment adminDepartment2 = (AdminDepartment) adminDeptServ.getDeptByName(adminDepartment.getName());
+//
+//		assertThat(adminDepartment2).isNotNull();
+//
+//	}
 
 	/**
 	 * @author Shradha
@@ -143,32 +143,32 @@ public class AdminDeptServImplTest {
 	 * @createdOn : 24 Nov 2022
 	 */
 
-	@Test
-	public void updateDeptTest() {
-		Date date = new Date();
-
-		AdminDepartment adminDepartment = new AdminDepartment(true, 1, "Forensic", "Forensic", "Admin", date, "Admin",
-				date, 1);
-
-		given(adminDeptRepo.save(adminDepartment)).willReturn(adminDepartment);
-		given(adminDeptRepo.findByName(adminDepartment.getName())).willReturn(adminDepartment);
-
-		AdminDepartment adminDepartment2 = new AdminDepartment();
-		adminDepartment2.setActive(false);
-		adminDepartment2.setName("Micro");
-		adminDepartment2.setDescription("Micro");
-		adminDepartment2.setInstitutionId(1);
-
-		System.out.println("test object");
-		System.out.println(adminDepartment);
-		System.out.println(adminDepartment2);
-		AdminDepartment updatedDepartment = (AdminDepartment) adminDeptServ.updateDept(adminDepartment2, "Forensic");
-
-		assertThat(updatedDepartment.getName()).isNotEqualTo("Forensic");
-		assertThat(updatedDepartment.getDescription()).isNotEqualTo("Forensic");
-		assertThat(updatedDepartment.isActive()).isNotEqualTo(true);
-		assertThat(updatedDepartment.getInstitutionId()).isEqualTo(1);
-
-	}
+//	@Test
+//	public void updateDeptTest() {
+//		Date date = new Date();
+//
+//		AdminDepartment adminDepartment = new AdminDepartment(true, 1, "Forensic", "Forensic", "Admin", date, "Admin",
+//				date, 1);
+//
+//		given(adminDeptRepo.save(adminDepartment)).willReturn(adminDepartment);
+//		given(adminDeptRepo.findByName(adminDepartment.getName())).willReturn(adminDepartment);
+//
+//		AdminDepartment adminDepartment2 = new AdminDepartment();
+//		adminDepartment2.setActive(false);
+//		adminDepartment2.setName("Micro");
+//		adminDepartment2.setDescription("Micro");
+//		adminDepartment2.setInstitutionId(1);
+//
+//		System.out.println("test object");
+//		System.out.println(adminDepartment);
+//		System.out.println(adminDepartment2);
+//		AdminDepartment updatedDepartment = (AdminDepartment) adminDeptServ.updateDept(adminDepartment2, "Forensic");
+//
+//		assertThat(updatedDepartment.getName()).isNotEqualTo("Forensic");
+//		assertThat(updatedDepartment.getDescription()).isNotEqualTo("Forensic");
+//		assertThat(updatedDepartment.isActive()).isNotEqualTo(true);
+//		assertThat(updatedDepartment.getInstitutionId()).isEqualTo(1);
+//
+//	}
 
 }

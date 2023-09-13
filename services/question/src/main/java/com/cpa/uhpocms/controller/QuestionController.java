@@ -112,33 +112,6 @@ public class QuestionController {
 //		}
 //	}
 
-	@GetMapping("/question/{figure}")
-	public ResponseEntity<Object> getQuestionByFigure(@PathVariable("figure") String figure) throws CPException {
-		logger.debug("Entering getQuestionByfigure");
-		logger.info("entered user name :" + figure);
-
-		Question question = null;
-
-		try {
-
-			question = questionService.getQuestionByFigure(figure);
-			logger.info("fetched Question :" + question);
-
-			if (question != null) {
-				logger.debug("Question fetched generating response");
-				return ResponseHandler.generateResponse(question, HttpStatus.OK);
-			} else {
-				logger.debug("Question not found");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting question : " + ex.getMessage());
-			throw new CPException("err001", resourceBundle.getString("err001"));
-		}
-
-	}
 
 	@GetMapping("/question/inactive")
 	public ResponseEntity<List<Object>> getInactiveQuestions(
@@ -221,30 +194,7 @@ public class QuestionController {
 
 	}
 
-	@DeleteMapping("/question/deletebyid/{questionId}")
-	public ResponseEntity<Object> deleteQuestionById(@PathVariable("questionId") int questionId) throws CPException {
-		logger.debug("Entering deleteAuthUser");
-		// logger.info("entered deleteQuestion :" + figure);
-		// TODO - implement the business logic
-
-		int count = 0;
-
-		try {
-			count = questionService.deleteQuestionById(questionId);
-			if (count >= 1) {
-				// logger.info("deleted Question : Figure = " + figure);
-				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-			} else {
-				logger.info(resourceBundle.getString("err005"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed to delete Question :" + ex.getMessage());
-			throw new CPException("err005", resourceBundle.getString("err005"));
-		}
-
-	}
+	
 	
 	/**
 	 * @author shradha
@@ -336,49 +286,7 @@ public class QuestionController {
 
 	}
 
-	@PostMapping("/question")
-	public ResponseEntity<Object> createOrUpdateQuestion(@RequestBody Question question) throws CPException {
-		logger.debug("Entering createOrUpdateQuestion");
-		logger.info("data of creating/updating Question  :" + question.toString());
-
-		Integer value = 0;
-
-		try {
-			Question toCheckQuestion = questionService.getQuestionById(question.getQuestionId());
-			logger.debug("existing question :" + toCheckQuestion);
-
-			Question createdOrUpdateQuestion;
-			HttpStatus httpStatus;
-
-			if (toCheckQuestion == null) {
-				// Create a new question
-				// TODO: Uncomment below 2 lines and change the method name as per your Entity
-				// class
-				// question.setCreatedby("admin");
-				// question.setUpdatedby("admin");
-
-				value = questionService.addQuestionWithAnswers(question);
-				System.out.println("here is value " + value);
-//				createdOrUpdateQuestion = questionService.createQuestion(question);
-				logger.info("Question created :" + value);
-
-				httpStatus = HttpStatus.CREATED;
-			} else {
-				// Update an existing question
-				value = questionService.addQuestionWithAnswers(question);
-//				createdOrUpdateQuestion = questionService.updateQuestionById(question, toCheckQuestion.getQuestionId());
-				logger.info("Question updated :" + value);
-
-				httpStatus = HttpStatus.OK;
-			}
-
-			return ResponseHandler.generateResponse(value, httpStatus);
-
-		} catch (Exception ex) {
-			logger.error("Failed Question creation/updation : " + ex.getMessage());
-			throw new CPException("err003", resourceBundle.getString("err003"));
-		}
-	}
+	
 
 	/**
 	 * @author Shradha

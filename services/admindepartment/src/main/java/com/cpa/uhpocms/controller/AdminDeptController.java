@@ -68,39 +68,10 @@ public class AdminDeptController {
 		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 	}
 
-	/**
-	 * @author Shradha
-	 * @throws CPException
-	 * @description: Method that provides mapping to soft delete the entry in
-	 *               AdminDepartment by providing department name
-	 * @createdOn : 24 Nov 2022
-	 */
+	
 
-	@DeleteMapping(value = "/department/{name}", produces = { "application/json", "application/xml" })
-	public ResponseEntity<Object> deleteDepartment(@PathVariable("name") String name) throws CPException {
-
-		logger.debug("Entered deleteDepartment() ");
-		Object adminDept = null;
-		try {
-			adminDept = adminDeptService.getDeptByName(name);
-			if (adminDept != null) {
-				adminDeptService.deleteDept(name);
-
-				logger.info("AdminDepartment soft delete performed successfully");
-				logger.info(adminDept);
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-
-		} catch (Exception e) {
-			logger.info("Unable to perform delete operation due to exception occurence");
-			throw new CPException("err005", resourceBundle.getString("err005"));
-
-		}
-		logger.error(resourceBundle.getString("err005"));
-		return ResponseHandler.generateResponse("err005", HttpStatus.INTERNAL_SERVER_ERROR);
-
-	}
-
+	
+	//API for delete the Department by Id
 	@DeleteMapping("/department/deptId/{id}")
 	public ResponseEntity<Object> deleteDepartmentById(@PathVariable("id") int departmentid) throws CPException {
 
@@ -130,8 +101,11 @@ public class AdminDeptController {
 	 * @createdOn : 24 Nov 2022
 	 */
 
+	
+	
+	
+	//API For Getting All Departments
 	@GetMapping(value = "/getdept", produces = { "application/json", "application/xml" })
-
 	public ResponseEntity<List<Object>> getDepartment(@RequestParam("name") String name) throws CPException {
 
 		try {
@@ -162,64 +136,11 @@ public class AdminDeptController {
 
 	}
 
-	/**
-	 * @author Shradha
-	 * @description: Method that provides mapping for getting department in
-	 *               AdminDepartment Entity by providing department name
-	 * @createdOn : 24 Nov 2022
-	 */
+	
 
-	@GetMapping(value = "/getdept/{name}", produces = { "application/json", "application/xml" })
-	public ResponseEntity<Object> getDepartmentByName(@PathVariable("name") String name) throws CPException {
+	
 
-		try {
-			System.out.println("in controller...");
-			AdminDepartment adminDept = adminDeptService.getDeptByName(name);
-			System.out.println(adminDept);
-			if (adminDept != null) {
 
-				logger.info("Getting AdminDepartment by " + name + " performed successfully");
-				logger.info(adminDept);
-				return new ResponseEntity<>(adminDept, HttpStatus.OK);
-			}
-		}
-
-		catch (Exception e) {
-
-			logger.error(resourceBundle.getString("err021"));
-			throw new CPException("err021", resourceBundle.getString("err021"));
-
-		}
-		logger.info("Unable to fetch data belonging to name" + name + "due to exception occurence");
-		return ResponseHandler.generateResponse("err021", HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-
-	@GetMapping("/department/deptId/{id}")
-	public ResponseEntity<Object> getDepartmentById(@PathVariable("id") int departmentid) throws CPException {
-		logger.debug("Entering getDepartmentById");
-
-		AdminDepartment adminDepartment = null;
-
-		try {
-
-			adminDepartment = adminDeptService.getDepartmentById(departmentid);
-			logger.info("fetched Department :" + adminDepartment);
-
-			if (adminDepartment != null) {
-				logger.debug("Department fetched generating response");
-				return ResponseHandler.generateResponse(adminDepartment, HttpStatus.OK);
-			} else {
-				logger.debug("Department not found");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting course : " + ex.getMessage());
-			throw new CPException("err001", resourceBundle.getString("err001"));
-		}
-
-	}
 
 	/**
 	 * @author Shradha
@@ -257,14 +178,14 @@ public class AdminDeptController {
 				
 				
 				String instituteName=adminDeptrepo.finByAdminInstitutionId(adminDepartment.getId());
- 				//System.out.println(instituteName);
+ 				
  				
  				int instituteId=adminDeptrepo.finByAdminInstitutionsId(adminDepartment.getId());
- 				//System.out.println(instituteId);
+ 				
 				
  				
  				String instituteNameAndId=instituteName+"_"+instituteId;
- 				//System.out.println(instituteNameAndId);
+ 				
  				
  				File theDir = new File(basePath+"/institute/"+instituteNameAndId+"/"+adminDepartment.getName());
 				if (!theDir.exists()){
@@ -285,73 +206,9 @@ public class AdminDeptController {
 		return ResponseHandler.generateResponse("err013", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@PostMapping("/dept")
-	public ResponseEntity<Object> createDepartment(@RequestBody AdminDepartment adminDepartment) throws CPException {
-		logger.debug("Entering createDepartment");
-		logger.info("data of creating Department  :" + adminDepartment.toString());
+	
 
-		AdminDepartment createdDepartment = null;
-		try {
-
-			AdminDepartment toCheckDepartment = adminDeptService
-					.getDepartmentByInstitutionIdAndName(adminDepartment.getInstitutionId(), adminDepartment.getName());
-
-			logger.debug("existing admindepartment :" + toCheckDepartment);
-
-			if (toCheckDepartment == null) {
-
-				// TODO: Uncomment below 2 lines and change the method name as per your Entity
-				// class
-				adminDepartment.setModifiedBy("admin");
-				adminDepartment.setCreatedBy("admin");
-
-				createdDepartment = adminDeptService.createDepartment(adminDepartment);
-
-				logger.info("Department created :" + createdDepartment);
-
-				return ResponseHandler.generateResponse(createdDepartment, HttpStatus.CREATED);
-
-			} else {
-
-				logger.error(resourceBundle.getString("err003"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed Course creation : " + ex.getMessage());
-			throw new CPException("err003", resourceBundle.getString("err003"));
-		}
-	}
-
-	/**
-	 * @author Shradha
-	 * @description: Method that provides mapping for updating a departments in
-	 *               AdminDepartment Entity by providing department name
-	 * @createdOn : 24 Nov 2022
-	 *
-	 */
-
-	@PutMapping(value = "department/{name}", produces = { "application/json", "application/xml" })
-	public ResponseEntity<Object> updateDepartment(@PathVariable("name") String name,
-			@RequestBody AdminDepartment adminDepartment, HttpServletResponse response) throws CPException {
-		try {
-			AdminDepartment refAdminDepartment;
-			Object adminDept = adminDeptService.getDeptByName(name);
-			if (adminDept != null) {
-				refAdminDepartment = (AdminDepartment) adminDeptService.updateDept(adminDepartment, name);
-				logger.info("Updating admin department for " + name + " performed successfully");
-				logger.info(refAdminDepartment);
-				return new ResponseEntity<>(refAdminDepartment, HttpStatus.CREATED);
-			}
-		} catch (Exception e) {
-
-			logger.info("Unable to update entry in Admin_Department table due to exception occurence");
-			throw new CPException("err004", resourceBundle.getString("err004"));
-
-		}
-		logger.error(resourceBundle.getString("err004"));
-		return ResponseHandler.generateResponse("err004", HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+	
 
 	@PutMapping("/department/departmentID/{id}")
 	public ResponseEntity<Object> updateDepartmentById(@RequestBody AdminDepartment adminDepartment,
@@ -385,6 +242,7 @@ public class AdminDeptController {
 		return new AuthenticationBean("You are authenticated");
 	}
 
+	//API for getting inactive department by institute id
 	@GetMapping(path = "department/institutionId/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<List<Object>> getInactiveDepartmentByInstitutionId(@PathVariable("id") int institutionId)
 			throws CPException {
@@ -413,6 +271,8 @@ public class AdminDeptController {
 	 * @description: for activating deactivated department by using department id
 	 *
 	 */
+	
+	//Activate the department by id
 	@PatchMapping(path = "/department/activate/{id}")
 	public ResponseEntity<Object> ActivateAdminDepartmentById(@PathVariable("id") int departmentId) throws CPException {
 		logger.debug("activate institution by id " + departmentId);
@@ -436,19 +296,10 @@ public class AdminDeptController {
 
 	}
 	
-//	@GetMapping("data/{id}")
-//	
-//	public List<String> getDepartmets(@PathVariable("id")int id) {
-//		
-//		List<String> dept;
-//		
-//		dept=adminDeptrepo.finByAdminInstitutionId(id);
-//		System.out.println(dept);
-//		
-//		
-//		return dept;
-//	}
 
+
+	
+	//API for getting Department by profile id
 	@GetMapping("/department/profile/{id}")
 	public ResponseEntity<Object> getDepartmentByprofileId(@PathVariable("id") int profileid) throws CPException {
 		logger.debug("Entering getDepartmentByprofileId");
@@ -476,6 +327,8 @@ public class AdminDeptController {
 
 	}
 	
+	
+	//API for getting inactive Department by institute 
 	@GetMapping("/department/inactive/instid/{id}")
 	public ResponseEntity<List<Object>> getInactiveDepartmentsByInstitutionId(@PathVariable("id") int institutionId) throws CPException {
 		logger.debug("Entering getInactiveDepartmentsByInstitutionId");
@@ -502,33 +355,8 @@ public class AdminDeptController {
 		}
 
 	}
+	
 
-	@GetMapping("/department/profileid/{id}")
-	public ResponseEntity<Object> findDepartmentByProfileId(@PathVariable("id") int profileid) throws CPException {
-		logger.debug("Entering getDepartmentByprofileId");
-
-		List<Object> adminDepartment = null;
-
-		try {
-
-			adminDepartment = adminDeptService.getDepartmentByProfileId(profileid);
-			logger.info("fetched Department :" + adminDepartment);
-
-			if (adminDepartment != null) {
-				logger.debug("Department fetched generating response");
-				return ResponseHandler.generateResponse(adminDepartment, HttpStatus.OK);
-			} else {
-				logger.debug("Department not found");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting course : " + ex.getMessage());
-			throw new CPException("err001", resourceBundle.getString("err001"));
-		}
-
-	}
 
 
 }

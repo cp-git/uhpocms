@@ -96,34 +96,7 @@ public class EnrollToStudentController {
 		}
 	}
 
-	@GetMapping("/enrollstudent/{courseId}")
-	public ResponseEntity<Object> getEnrollToStudentBycourseId(@PathVariable("courseId") int courseId)
-			throws CPException {
-		logger.debug("Entering getEnrollToStudentBycourseId");
-		logger.info("entered user name :" + courseId);
-		
-		EnrollToStudent enrolltostudent = null;
 
-		try {
-
-			enrolltostudent = enrolltostudentService.getEnrollToStudentBycourseId(courseId);
-			logger.info("fetched EnrollToStudent :" + enrolltostudent);
-
-			if (enrolltostudent != null) {
-				logger.debug("EnrollToStudent fetched generating response");
-				return ResponseHandler.generateResponse(enrolltostudent, HttpStatus.OK);
-			} else {
-				logger.debug("EnrollToStudent not found");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting enrolltostudent : " + ex.getMessage());
-			throw new CPException("err001", resourceBunde.getString("err001"));
-		}
-
-	}
 	
 	@GetMapping("enrollstudent/courseid/{courseId}")
 	public ResponseEntity<Object> getStudentByCourseId(@PathVariable("courseId") int courseId)
@@ -154,88 +127,11 @@ public class EnrollToStudentController {
 
 	}
 
-//	@GetMapping("/enrollstudent")
-//	public ResponseEntity<List<Object>> getAllEnrollToStudents(@RequestParam(name = "courseId") String courseId)
-//			throws CPException {
-//		logger.debug("Entering getAllEnrollToStudent");
-//		logger.info("Parameter  :" + courseId);
-//		
-//		List<Object> enrolltostudents = null;
-//
-//		try {
-//
-//			if (courseId.equalsIgnoreCase("all")) {
-//
-//				enrolltostudents = enrolltostudentService.getAllEnrollToStudents();
-//				logger.info("Fetched all EnrollToStudent :" + enrolltostudents);
-//
-//				return ResponseHandler.generateListResponse(enrolltostudents, HttpStatus.OK);
-//			} else {
-//
-//				logger.info(resourceBunde.getString("err002"));
-//				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
-//			}
-//
-//		} catch (Exception ex) {
-//
-//			logger.error("Failed getting all enrolltostudents : " + ex.getMessage());
-//			throw new CPException("err002", resourceBunde.getString("err002"));
-//
-//		}
-//	}
 
-	@DeleteMapping("/enrollstudent/{courseId}")
-	public ResponseEntity<Object> deleteEnrollToStudentBycourseId(@PathVariable("courseId") int courseId) throws CPException {
-		logger.debug("Entering deleteAuthUser");
-		logger.info("entered deleteEnrollToStudent  :" + courseId);
-		//TODO - implement the business logic
-		
-		int count = 0;
 
-		try {
-			count = enrolltostudentService.deleteEnrollToStudentBycourseId(courseId);
-			if (count >= 1) {
-				logger.info("deleted EnrollToStudent : courseId = " + courseId);
-				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-			} else {
-				logger.info(resourceBunde.getString("err005"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-			}
 
-		} catch (Exception ex) {
-			logger.error("Failed to delete EnrollToStudent :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
-		}
-		
 
-	}
 
-	@PutMapping("/enrollstudent/{courseId}")
-	public ResponseEntity<Object> updateEnrollToStudentBycourseId(@RequestBody EnrollToStudent enrolltostudent,
-			@PathVariable("courseId") int courseId) throws CPException {
-		logger.debug("Entering updateEnrollToStudent");
-		logger.info("entered  updateEnrollToStudent :" + enrolltostudent);
-
-		EnrollToStudent updatedEnrollToStudent = null;
-
-		try { 
-			updatedEnrollToStudent = enrolltostudentService.updateEnrollToStudentBycourseId(enrolltostudent, courseId);
-
-			if (updatedEnrollToStudent == null) {
-				logger.info(resourceBunde.getString("err004"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-			} else {
-				logger.info("updated enrolltostudent : " + updatedEnrollToStudent);
-				return ResponseHandler.generateResponse(updatedEnrollToStudent, HttpStatus.CREATED);
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed update EnrollToStudent : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
-
-		}
-
-	}
 	
 	
 	@GetMapping("enrollstudent/instid_courid/{instId}/{courseId}")

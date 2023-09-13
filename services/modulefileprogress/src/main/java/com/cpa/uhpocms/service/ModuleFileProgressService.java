@@ -21,7 +21,7 @@ public interface ModuleFileProgressService {
 
 	ModuleFileProgress updateModuleFileProgressByid(ModuleFileProgress modulefileprogress, int id);
 
-	int deleteModuleFileProgressByid(int id);
+
 
 	public List<Object> getModuleFileProgressByModStudProg(int modId, int studId);
 

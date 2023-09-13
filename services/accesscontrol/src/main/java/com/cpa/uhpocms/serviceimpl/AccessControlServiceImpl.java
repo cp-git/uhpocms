@@ -123,7 +123,13 @@ public class AccessControlServiceImpl implements AccessControlService {
 		logger.info("deleted AccessControl count : " + count);
 		return count;
 	}
-
+	
+	
+	/**
+	 * @param : String id
+	 * @return : AccessControl accesscontrol
+	 * @description : For get entry in accesscontrol table
+	 */
 	@Override
 	public AccessControl getAccessControlByUserId(int userid) {
 		// TODO Auto-generated method stub
@@ -134,6 +140,13 @@ public class AccessControlServiceImpl implements AccessControlService {
 
 		return accesscontrol;
 	}
+	
+	
+	/**
+	 * @param : accessControl object
+	 * @return : AccessControl accesscontrol
+	 * @description : For get entry in accesscontrol table
+	 */
 	
 	  @Override
 	    public AccessControl updateAccessControl(AccessControl accessControl) {

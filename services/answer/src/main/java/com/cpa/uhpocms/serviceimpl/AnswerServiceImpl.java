@@ -30,38 +30,8 @@ public class AnswerServiceImpl implements AnswerService {
 		logger = Logger.getLogger(AnswerServiceImpl.class);
 	}
 
-	/**
-	 * @param : Answer answer
-	 * @return : Answer createdAnswer
-	 * @description : For creating/inserting entry in Teacher_answer table
-	 */
-	@Override
-	public Answer createAnswer(Answer answer) {
-		logger.debug("Entering createAnswer");
-		Answer createdAnswer = null;
+	
 
-		// answer.setAnswerCreatedBy("admin");
-		// answer.setAnswerModifiedBy("admin");
-
-		createdAnswer = answerRepo.save(answer);
-		logger.info("created Answer :" + createdAnswer);
-		return createdAnswer;
-	}
-
-	/**
-	 * @param : String id
-	 * @return : Answer answer
-	 * @description : For get entry in Teacher_answer table
-	 */
-	@Override
-	public Answer getAnswerById(int id) {
-		logger.debug("Entering getAnswerById");
-
-		Answer answer = answerRepo.findById(id);
-		logger.info("Founded answer :" + answer);
-
-		return answer;
-	}
 
 	/**
 	 * @return : List<Object> answer
@@ -79,50 +49,7 @@ public class AnswerServiceImpl implements AnswerService {
 		return answersObject;
 	}
 
-	/**
-	 * @param : Answer to update
-	 * @return : answer
-	 * @description : For updating answer of Teacher_answer table
-	 */
-	@Override
-	public Answer updateAnswerById(Answer answer, int id) {
-		logger.debug("Entering updateAnswer");
-
-		Answer toUpdatedAnswer = null;
-		Answer updatedAnswer = null;
-
-		toUpdatedAnswer = answerRepo.findById(id);
-		logger.info("exisitng Answer :: " + toUpdatedAnswer);
-
-		if (toUpdatedAnswer != null) {
-			logger.debug("setting new data of Answer to exisitng Answer");
-
-			toUpdatedAnswer.setContent(answer.getContent());
-			toUpdatedAnswer.setCorrect(answer.isCorrect());
-			toUpdatedAnswer.setQuestionorderno(answer.getQuestionorderno());
 	
-
-			updatedAnswer = answerRepo.save(toUpdatedAnswer);
-
-			logger.info("updated Answer :" + updatedAnswer);
-		}
-
-		return updatedAnswer;
-	}
-
-	/**
-	 * @param : String id
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of Answer
-	 * 
-	 */
-	@Override
-	public int deleteAnswerById(int id) {
-		logger.debug("Entering deleteAnswerById");
-
-		int count = answerRepo.deleteAnswerByid(id);
-		logger.info("deleted Answer count : " + count);
-		return count;
-	}
+	
 
 }

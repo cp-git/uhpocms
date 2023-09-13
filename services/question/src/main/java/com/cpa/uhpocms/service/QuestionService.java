@@ -19,7 +19,7 @@ public interface QuestionService {
 
 	Question createQuestion(Question question);
 
-	Question getQuestionByFigure(String figure);
+	
 
 	Question getQuestionById(int questionId);
 
@@ -31,7 +31,7 @@ public interface QuestionService {
 
 	int deleteQuestionByFigure(String figure);
 
-	int deleteQuestionById(int questionId);
+	
 
 	List<Object> getInActiveQuestions();
 

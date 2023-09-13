@@ -49,20 +49,7 @@ public class ModuleServiceImpl implements ModuleService {
 		return createdModule;
 	}
 
-	/**
-	 * @param : String name
-	 * @return : Module module
-	 * @description : For get entry in teacher_module table
-	 */
-	@Override
-	public Module getModuleByName(String name) {
-		logger.debug("Entering getModuleByName");
 
-		Module module = moduleRepo.findByModuleName(name);
-		logger.info("Founded module :" + module);
-
-		return module;
-	}
 
 	/**
 	 * @return : List<Object> module
@@ -154,28 +141,7 @@ public class ModuleServiceImpl implements ModuleService {
 	 * @param accepts module name as parameter
 	 * @return return module object
 	 */
-	@Override
-	public Object updateActiveStatus(String name) {
-		// TODO Auto-generated method stub
-		System.out.println(name);
-		logger.debug("Entering getInActiveQuestions ");
-		List<Object> modules = getAllInactiveModules();
-
-		if (modules.size() >= 1) {
-			Object object = moduleRepo.findByModuleName(name);
-
-			System.out.println("Entered  instanceof loop");
-			Module module = (Module) object;
-
-			module.setModuleIsActive(true);
-
-			logger.info("question object" + object);
-			return moduleRepo.save(module);
-		}
-
-		return null;
-
-	}
+	
 
 	@Override
 	public int deleteModuleBymoduleId(int moduleId) {
@@ -219,22 +185,7 @@ public class ModuleServiceImpl implements ModuleService {
 		return updatedModule;
 	}
 
-	@Override
-	public Module getModuleById(int moduleId) {
-		logger.debug("Entering getModuleById");
 
-		Module module = moduleRepo.findById(moduleId);
-		logger.info("Founded module :" + module);
-
-		return module;
-	}
-
-//
-//	@Override
-//	public int activateModuleBymoduleId(int moduleid) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
 
 	/**
 	 * @return : List<Object> module

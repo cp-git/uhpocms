@@ -17,13 +17,13 @@ public interface QuizprogressService {
 
 	Quizprogress getQuizprogressByStudentIdAndQuizId(int studentId, int quizId);
 	
-	Quizprogress getQuizprogressByStudentIdAndQuizIdProg(int studentId, int quizId) ;
+	
 
 	List<Object> getAllQuizprogress();
 
 	Quizprogress updateQuizprogressByStudentIdAndQuizId(Quizprogress quizprogress);
 
-	int deleteQuizprogressByStudentIdAndQuizId(int studentId, int quizId);
+	
 
 	List<Object> getQuizprogressBystudentId(int studentId);
 	

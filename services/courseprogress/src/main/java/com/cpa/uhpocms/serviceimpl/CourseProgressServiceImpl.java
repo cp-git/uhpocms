@@ -127,22 +127,7 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 		return updatedCourseProgress;
 	}
 
-	/**
-	 * @param : String id
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of
-	 *              CourseProgress
-	 * 
-	 */
-	@Override
-	public int deleteCourseProgressByid(int id) {
-		logger.debug("Entering deleteCourseProgressByid");
-
-		int count = courseprogressRepo.deleteById(id);
-		logger.info("deleted CourseProgress count : " + count);
-		return count;
-	}
-
+	
 	/**
 	 * @author shradha
 	 * @desc get list of entry in table by course Id

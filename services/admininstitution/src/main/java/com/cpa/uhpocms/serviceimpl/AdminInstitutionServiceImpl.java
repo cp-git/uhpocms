@@ -36,6 +36,8 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	 * @return : AdminInstitution createdAdminInstitution
 	 * @description : For creating/inserting entry in admin_institution table
 	 */
+	
+	
 	public AdminInstitution saveAdminInstitution(AdminInstitution adminInstitution) {
 
 		adminInstitution.setAdminInstitutionCreatedBy("Admin");
@@ -61,6 +63,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	 * @description : For Retrieving all entry in admin_institution table
 	 */
 
+	
 	public List<Object> getAllAdminInstitution() {
 		logger.debug("Entering getAllAdminInstitution");
 		List<Object> objectList = adminInstitutionRepository.findByAdminInstitutionIsActiveTrue();
@@ -71,69 +74,10 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 	}
 
-	/**
-	 * @author: Akash
-	 * @param: String adminInstitutionName
-	 * @return : count
-	 * @description : For deleting entry in admin_institution table
-	 */
-	public int deleteAdminInstitutionByName(String adminInstitutionName) {
-		logger.debug("Entering deleteAdminInstitutionByName");
 
-		int count = 0;
-		count = adminInstitutionRepository.deleteAdminInstitutionByInstitutionName(adminInstitutionName);
 
-		logger.info("Deletion count " + count);
-		return count;
-	}
-
-	/**
-	 * @author: Akash
-	 * @param: AdminInstitution adminInstitution,String adminInstitutionName
-	 * @return : AdminInstitution admin.
-	 * @description : For updating entry in admin_institution table
-	 */
-	public AdminInstitution updateAdminInstitutionByName(AdminInstitution adminInstitution,
-			String adminInstitutionName) {
-		logger.debug("Entering updateAdminInstitutionByName");
-
-		AdminInstitution updatedAdminInstitution = null;
-
-		AdminInstitution admin = adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
-		logger.info("Existimg Admin Institution" + admin);
-
-		if (admin != null) {
-			admin.setAdminInstitutionName(adminInstitution.getAdminInstitutionName());
-			admin.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
-			admin.setAdminInstitutionIsActive(adminInstitution.isAdminInstitutionIsActive());
-			admin.setAdminInstitutionPicture(adminInstitution.getAdminInstitutionPicture());
-			updatedAdminInstitution = adminInstitutionRepository.save(admin);
-		}
-
-		logger.info("Updated AdminInstitution data" + updatedAdminInstitution);
-		return updatedAdminInstitution;
-
-	}
-
-	/**
-	 * @author: Akash
-	 * @param: String adminInstitutionName
-	 * @return : adminInstitutionName
-	 * @description : For retrieving the specific entry in admin_institution table
-	 */
-	public AdminInstitution findByAdminInstitutionName(String adminInstitutionName) {
-		logger.debug("Entering getAdminInstitutionByName");
-		AdminInstitution adminInstitution = adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
-
-		logger.info("Fetched AdminInstitution data" + adminInstitution);
-		return adminInstitution;
-	}
-
-	/**
-	 * @return : adminInstitutions - list of institution which are in inactive state
-	 * @description : For retrieving the all entries in admin_institution table
-	 *              which are in inactive state
-	 */
+	
+	
 	@Override
 	public List<Object> getAllInactiveAdminInstitutions() {
 		logger.debug("Entering getAllInactiveAdminInstitutions");
@@ -151,6 +95,8 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	 * @description : For activating the specific entry in admin_institution table
 	 *              by id
 	 */
+	
+	
 	@Override
 	public int activateAdminInstitutionById(int adminInstitutionId) {
 		logger.debug("Entering getAllInactiveAdminInstitutions");
@@ -161,6 +107,8 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		return count;
 	}
 
+	
+	
 	@Override
 	public List<Object> getAdminInstitutionByProfileId(int profileid) {
 		// TODO Auto-generated method stub
@@ -171,6 +119,8 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		return objectAdminInstitutions;
 	}
 
+	
+	
 	@Override
 	public AdminInstitution findInstituteById(int adminInstitutionId) {
 		// TODO Auto-generated method stub
@@ -180,6 +130,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		
 		return  admin;
 	}
+	
 	
 	
 	@Override

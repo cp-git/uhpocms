@@ -55,15 +55,13 @@ import com.cpa.uhpocms.service.AdminInstitutionService;
 @RequestMapping("/uhpocms")
 
 @CrossOrigin
-@RestController
+@RestController	
 public class AdminInstitutionController {
 	// autowire the AdminInstitutionService
 	@Autowired
 	private AdminInstitutionService adminInstitutionService;
 	
-	@Autowired 
-	private AdminInstitutionRepository adminRepo;
-
+	
 	private ResourceBundle resourceBundle;
 
 	private static Logger logger;
@@ -183,101 +181,10 @@ public class AdminInstitutionController {
 
 	}
 
-	/**
-	 * @author: Akash
-	 * @param: String adminInstitutionName
-	 * @return : ResponseEntity
-	 * @throws CPException
-	 * @description :get mapping that retrieves the institution details by Name
-	 */
-	@GetMapping("/institution/{name}")
-	public ResponseEntity<Object> getInstitutionByName(@PathVariable("name") String adminInstitutionName)
-			throws CPException {
-		logger.debug("get institution by name");
 
-		AdminInstitution adminInstitution = null;
-		try {
-			adminInstitution = adminInstitutionService.findByAdminInstitutionName(adminInstitutionName);
-			logger.info("get the data of institution by name" + adminInstitution);
 
-			if (adminInstitution != null) {
 
-				return ResponseHandler.generateResponse(adminInstitution, HttpStatus.OK);
-			} else {
-				logger.error(resourceBundle.getString("err011"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err011");
-			}
-		} catch (Exception ex) {
-
-			logger.error("Failed getting admin institution : " + ex.getMessage());
-			throw new CPException("err011", resourceBundle.getString("err011"));
-		}
-
-	}
-
-	/**
-	 * @author: Akash
-	 * @param: String adminInstitutionName
-	 * @return : ResponseEntity
-	 * @throws CPException
-	 * @description :deleting a specific record by using the method
-	 *              deleteAdminInstitutionByName()
-	 */
-	@DeleteMapping("/institution/{name}")
-	public ResponseEntity<Object> deleteAdminInstitutionByName(@PathVariable("name") String adminInstitutionName)
-			throws CPException {
-		logger.debug("delete institution by name");
-		int count = 0;
-
-		try {
-			count = adminInstitutionService.deleteAdminInstitutionByName(adminInstitutionName);
-
-			if (count >= 1) {
-				logger.info("deleted admin institution : adminInstitutionName = " + adminInstitutionName);
-				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-			} else {
-				logger.info(resourceBundle.getString("err015"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err015");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed to delete admin Institution :" + ex.getMessage());
-			throw new CPException("err015", resourceBundle.getString("err015"));
-		}
-
-	}
-
-	/**
-	 * @author: Akash
-	 * @param: AdminInstitution adminInstitution, String adminInstitutionName
-	 * @return : ResponseEntity<Object>
-	 * @description : Updating a specific record by using the method
-	 *              updateAdminInstitutionByName()
-	 */
-	@PutMapping("/institution/{name}")
-	public ResponseEntity<Object> updateAdminInstitutionByName(@RequestBody AdminInstitution adminInstitution,
-			@PathVariable("name") String adminInstitutionName) throws CPException {
-		logger.debug("Update institution by name ");
-
-		AdminInstitution updateAdminInstitution = null;
-
-		try {
-			updateAdminInstitution = adminInstitutionService.updateAdminInstitutionByName(adminInstitution,
-					adminInstitutionName);
-			if (updateAdminInstitution != null) {
-				logger.info("UpdatedAdminInstitution" + updateAdminInstitution);
-				return ResponseHandler.generateResponse(updateAdminInstitution, HttpStatus.CREATED);
-
-			} else {
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err014");
-			}
-		} catch (Exception e) {
-			logger.error(resourceBundle.getString("err014"));
-			throw new CPException("err014", resourceBundle.getString("err014"));
-
-		}
-
-	}
+	
 
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {

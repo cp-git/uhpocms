@@ -191,33 +191,33 @@ public class ModuleFileController {
 		}
 	}
 
-	@GetMapping("/modulefile/{file}")
-	public ResponseEntity<Object> getModuleFileByFile(@PathVariable("file") String file) throws CPException {
-		logger.debug("Entering getModuleFileByfile");
-		logger.info("entered user name :" + file);
-
-		ModuleFile modulefile = null;
-
-		try {
-
-			modulefile = modulefileService.getModuleFileByFile(file);
-			logger.info("fetched ModuleFile :" + modulefile);
-
-			if (modulefile != null) {
-				logger.debug("ModuleFile fetched generating response");
-				return ResponseHandler.generateResponse(modulefile, HttpStatus.OK);
-			} else {
-				logger.debug("ModuleFile not found");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting modulefile : " + ex.getMessage());
-			throw new CPException("err001", resourceBunde.getString("err001"));
-		}
-
-	}
+//	@GetMapping("/modulefile/{file}")
+//	public ResponseEntity<Object> getModuleFileByFile(@PathVariable("file") String file) throws CPException {
+//		logger.debug("Entering getModuleFileByfile");
+//		logger.info("entered user name :" + file);
+//
+//		ModuleFile modulefile = null;
+//
+//		try {
+//
+//			modulefile = modulefileService.getModuleFileByFile(file);
+//			logger.info("fetched ModuleFile :" + modulefile);
+//
+//			if (modulefile != null) {
+//				logger.debug("ModuleFile fetched generating response");
+//				return ResponseHandler.generateResponse(modulefile, HttpStatus.OK);
+//			} else {
+//				logger.debug("ModuleFile not found");
+//				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+//			}
+//
+//		} catch (Exception ex) {
+//
+//			logger.error("Failed getting modulefile : " + ex.getMessage());
+//			throw new CPException("err001", resourceBunde.getString("err001"));
+//		}
+//
+//	}
 
 	@GetMapping("/modulefile/moduleId/{moduleId}")
 	public ResponseEntity<List<Object>> getAllModuleFiles(@PathVariable(name = "moduleId") int moduleId)

@@ -6,37 +6,46 @@ import com.cpa.uhpocms.entity.InstituteAdmin;
 
 public interface InstituteAdminService {
 
+	//Used
 	InstituteAdmin saveInstituteAdmin(InstituteAdmin instituteAdmin);
 
-	InstituteAdmin getInstituteByName(String firstName);
+	
 
+	//Used
 	public InstituteAdmin getProfileById(int id);
 	
+	
+	//Used
 	public InstituteAdmin findByUserId(int userId);
 
+	
+	//Used
 	List<Object> getAllInstitute();
 
-	InstituteAdmin updateInstituteAdmin(InstituteAdmin instituteAdmin, String firstName);
+	
+	
 
-	List<Object> getProfileByDepartmentId(int department_id);
-
-	int deleteInstitutionProfileByName(String firstName);
-
+	//Used
 	List<Object> getAllInactiveInstitute();
 
+	//Used
 	int activateInstituteProfileById(int profileId);
 
 
+	//Used
 	List<Object> getProfileByInstitutionIdAndUserRole(Integer institutionId, String userRole);
 
+	//Used
 	InstituteAdmin updateProfileByAuthUserId(InstituteAdmin instituteAdmin, int userId);
 
+	//Used
 	InstituteAdmin getProfileByAuthUserId(int userId);
 	
 	List<Object> getProfileCourseAssignedTeacher(int profileId);
 
 	
+	//Used
 	InstituteAdmin getInstituteDetails(int adminId);
 
-	List<Object> getEnrolledProfilesOfCourseByOneStudentId(int profileId);
+	
 }

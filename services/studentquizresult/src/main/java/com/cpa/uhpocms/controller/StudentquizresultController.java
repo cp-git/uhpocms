@@ -86,34 +86,7 @@ public class StudentquizresultController {
 
 	}
 
-	@GetMapping("/quizresult/{quizid}")
-	public ResponseEntity<List<Object>> getStudentquizresultByQuizId(@PathVariable("quizid") int quizid)
-			throws CPException {
-		logger.debug("Entering getStudentquizresultByQuizId");
-		logger.info("entered quiz id:" + quizid);
 
-		List<Object> objectResult = null;
-
-		try {
-
-			List<Object> studentquizresult = studentquizresultService.getStudentquizresultByQuizId(quizid);
-			logger.info("fetched Studentquizresult :" + studentquizresult);
-
-			if (!studentquizresult.isEmpty()) {
-				logger.debug("Studentquizresult fetched generating response");
-				return ResponseHandler.generateListResponse(studentquizresult, HttpStatus.OK);
-			} else {
-				logger.debug("Studentquizresult not found");
-				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err001");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting studentquizresult : " + ex.getMessage());
-			throw new CPException("err001", resourceBunde.getString("err001"));
-		}
-
-	}
 
 	@GetMapping("/quizresult/{studentid}/{quizid}")
 	public ResponseEntity<List<Object>> getStudentAnswerByStudentIdAndQuizId(@PathVariable("studentid") int studentid,
@@ -144,89 +117,7 @@ public class StudentquizresultController {
 		}
 
 	}
-
-//	@GetMapping("/quizresult")
-//	public ResponseEntity<List<Object>> getAllStudentquizresults(@RequestParam(name = "questionid") String questionid)
-//			throws CPException {
-//		logger.debug("Entering getAllStudentquizresult");
-//		logger.info("Parameter  :" + questionid);
-//		
-//		List<Object> studentquizresults = null;
-//
-//		try {
-//
-//			if (questionid.equalsIgnoreCase("all")) {
-//
-//				studentquizresults = studentquizresultService.getAllStudentquizresults();
-//				logger.info("Fetched all Studentquizresult :" + studentquizresults);
-//
-//				return ResponseHandler.generateListResponse(studentquizresults, HttpStatus.OK);
-//			} else {
-//
-//				logger.info(resourceBunde.getString("err002"));
-//				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
-//			}
-//
-//		} catch (Exception ex) {
-//
-//			logger.error("Failed getting all studentquizresults : " + ex.getMessage());
-//			throw new CPException("err002", resourceBunde.getString("err002"));
-//
-//		}
-//	}
-//}
-
-//	@DeleteMapping("/quizresult/{questionid}")
-//	public ResponseEntity<Object> deleteStudentquizresultByquestionid(@PathVariable("questionid") int questionid) throws CPException {
-//		logger.debug("Entering deleteAuthUser");
-//		logger.info("entered deleteStudentquizresult  :" + questionid);
-//		//TODO - implement the business logic
-//		
-//		int count = 0;
-//
-//		try {
-//			count = studentquizresultService.deleteStudentquizresultByquestionid(questionid);
-//			if (count >= 1) {
-//				logger.info("deleted Studentquizresult : questionid = " + questionid);
-//				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-//			} else {
-//				logger.info(resourceBunde.getString("err005"));
-//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-//			}
-//
-//		} catch (Exception ex) {
-//			logger.error("Failed to delete Studentquizresult :" + ex.getMessage());
-//			throw new CPException("err005", resourceBunde.getString("err005"));
-//		}
-//		
-//
-//	}
-//}
-//	@PutMapping("/quizresult/{questionid}")
-//	public ResponseEntity<Object> updateStudentquizresultByquestionid(@RequestBody Studentquizresult studentquizresult,
-//			@PathVariable("questionid") String questionid) throws CPException {
-//		logger.debug("Entering updateStudentquizresult");
-//		logger.info("entered  updateStudentquizresult :" + studentquizresult);
-//
-//		Studentquizresult updatedStudentquizresult = null;
-//
-//		try { 
-//			updatedStudentquizresult = studentquizresultService.updateStudentquizresultByquestionid(studentquizresult, questionid);
-//
-//			if (updatedStudentquizresult == null) {
-//				logger.info(resourceBunde.getString("err004"));
-//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-//			} else {
-//				logger.info("updated studentquizresult : " + updatedStudentquizresult);
-//				return ResponseHandler.generateResponse(updatedStudentquizresult, HttpStatus.CREATED);
-//			}
-//
-//		} catch (Exception ex) {
-//			logger.error("Failed update Studentquizresult : " + ex.getMessage());
-//			throw new CPException("err004", resourceBunde.getString("err004"));
-//
-//		}
-//
-//	}
-//
 }
+
+
+

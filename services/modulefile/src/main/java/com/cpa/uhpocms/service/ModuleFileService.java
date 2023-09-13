@@ -15,7 +15,7 @@ public interface ModuleFileService {
 
 	ModuleFile createModuleFile(ModuleFile modulefile);
 
-	ModuleFile getModuleFileByFile(String file);
+	
 
 	List<Object> getAllModuleFiles();
 

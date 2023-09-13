@@ -13,22 +13,19 @@ import com.cpa.uhpocms.entity.Studentquizresult;
 
 public interface StudentquizresultService {
 
+
 	Studentquizresult createStudentquizresult(Studentquizresult studentquizresult);
 
-	List<Object> getStudentquizresultByQuizId(int quizid);
+
+
 
 	List<Object> getStudentquizresultByStudentAndQuizId(int studentId, int quizId);
 
-	Studentquizresult getStudentAnswerByProfileIdAndQuestionId(int studentId, int questionId);
 
-	/**
-	 * @param : Studentquizresult to update
-	 * @return : studentquizresult
-	 * @description : For updating studentquizresult of teacher_studentquizresult
-	 *              table
-	 */
+	Studentquizresult getStudentAnswerByProfileIdAndQuestionId(int studentId, int questionId);
+	
 	Studentquizresult updateStudentquizresultByquestionid(Studentquizresult studentquizresult);
 
-//	int deleteStudentquizresultByquestionid(int questionid);
+	
 
 }

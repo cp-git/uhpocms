@@ -99,36 +99,8 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 		return moduleprogress;
 	}
 
-	/**
-	 * @return : List<Object> moduleprogress
-	 * @description : For fetching all moduleprogress which are active state from Teacher_studentmoduleprogress table
-	 */
-	@Override
-	public List<Object> getAllModuleProgresss() {
-		logger.debug("Entering getAllModuleProgresss");
 
-		List<Object> objectModuleProgresss = null;
-		List<ModuleProgress> moduleProgresses  = moduleprogressRepo.findAll();
-		logger.info("Fetched all active moduleprogress :" + moduleProgresses);
-		objectModuleProgresss = new ArrayList<Object>(moduleProgresses);
-		return objectModuleProgresss;
-	}
-
-	/**
-	 * @author shradha
-	 * @createdDate :24-09-2023
-	 * @desc Function to get list of entries by providing courseId
-	 */
-	public List<Object> getAllModuleProgresssByCourseId(int courseId) {
-		logger.debug("Entering getAllModuleProgresss");
-
-		List<Object> objectModuleProgresss = null;
-		List<ModuleProgress> moduleProgresses  = moduleprogressRepo.findByCourseId(courseId);
-		logger.info("Fetched all active moduleprogress :" + moduleProgresses);
-		objectModuleProgresss = new ArrayList<Object>(moduleProgresses);
-		return objectModuleProgresss;
-	}
-
+	
 	/**
 	 * @param : ModuleProgress to update
 	 * @return : moduleprogress
@@ -161,20 +133,6 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 		return toUpdatedModuleProgress;
 	}
 
-	/**
-	 * @param : String id
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of ModuleProgress
-	 * 
-	 */
-	@Override
-	public int deleteModuleProgressByid(int id) {
-		logger.debug("Entering deleteModuleProgressByid");
-
-		int count =  moduleprogressRepo.deleteById(id);
-		logger.info("deleted ModuleProgress count : " + count);
-		return count;
-	}
 	
 	/**
 	 * @desc Function to get list of entries by providing courseId

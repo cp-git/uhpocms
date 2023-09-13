@@ -113,14 +113,14 @@ public class CategoryServiceImpl implements CategoryService {
 	 * @description : This is function is used to soft delete the record of Category
 	 * 
 	 */
-	@Override
-	public int deleteCategoryByCategory(String name) {
-		logger.debug("Entering deleteCategoryByCategory");
-
-		int count = categoryRepo.deleteCategoryByCategory(name);
-		logger.info("deleted Category count : " + count);
-		return count;
-	}
+//	@Override
+//	public int deleteCategoryByCategory(String name) {
+//		logger.debug("Entering deleteCategoryByCategory");
+//
+//		int count = categoryRepo.deleteCategoryByCategory(name);
+//		logger.info("deleted Category count : " + count);
+//		return count;
+//	}
 	
 	/**
 	 * @author Shradha

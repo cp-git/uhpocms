@@ -50,21 +50,7 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		return createdModuleFile;
 	}
 
-	/**
-	 * @param : String file
-	 * @return : ModuleFile modulefile
-	 * @description : For get entry in teacher_modulefile table
-	 */
-	@Override
-	public ModuleFile getModuleFileByFile(String file) {
-		logger.debug("Entering getModuleFileByFile");
-		List<Object> modulefiles = null;
-		ModuleFile modulefile = modulefileRepo.findByModuleFile(file);
-		logger.info("Founded modulefile :" + modulefile);
-
-		return modulefile;
-
-	}
+	
 
 	/**
 	 * @author shradha

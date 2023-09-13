@@ -192,37 +192,7 @@ public class CourseProgressController {
 		}
 	}
 
-	/**
-	 * @author shradha
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 * @desc dekte an entry in table
-	 */
-	@DeleteMapping("/courseprog/{id}")
-	public ResponseEntity<Object> deleteCourseProgressByid(@PathVariable("id") int id) throws CPException {
-		logger.debug("Entering deleteAuthUser");
-		logger.info("entered deleteCourseProgress  :" + id);
-		// TODO - implement the business logic
-
-		int count = 0;
-
-		try {
-			count = courseprogressService.deleteCourseProgressByid(id);
-			if (count >= 1) {
-				logger.info("deleted CourseProgress : id = " + id);
-				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-			} else {
-				logger.info(resourceBunde.getString("err005"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed to delete CourseProgress :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
-		}
-
-	}
+	
 
 	@PutMapping("/courseprog/{id}")
 	public ResponseEntity<Object> updateCourseProgressByid(@RequestBody CourseProgress courseprogress,

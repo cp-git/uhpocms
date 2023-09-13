@@ -70,87 +70,7 @@ public class InstituteAdminController {
 	@Value("${file.base-path}")
 	private String basePath;
 
-	/**
-	 * @author : Anmesh
-	 * @param : InstituteAdmin
-	 * @return : InstituteAdmin
-	 * @description : For Saving All the data
-	 */
 
-	@PostMapping("/profile")
-
-	public ResponseEntity<Object> saveInstituteAdmin(@RequestPart("admin") InstituteAdmin instituteAdmin,@RequestParam("file")MultipartFile file) throws CPException {
-		InstituteAdmin institueAdminProfile = null;
-		
-		String fileName=null;
-		logger.info("In Post Method...");
-		try {
-			InstituteAdmin institutionAdmin = instituteAdminService.findByUserId(instituteAdmin.getUserId());
-
-			if (institutionAdmin == null) {
-				
-				instituteAdmin.setProfilePics(file.getOriginalFilename());
-				institueAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
-				
-				String instituteAdminProfileNameAndId=instituteAdmin.getFirstName()+"_"+instituteAdmin.getAdminId();
-				
-				File theDir = new File(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId);
-				if (!theDir.exists()){
-				    theDir.mkdirs();
-				}
-				
-				//Path path = theDir.toPath();
-				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
-				System.out.println(fileName);
-				Path fileStorage = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, fileName).toAbsolutePath().normalize();
-				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
-
-				logger.info("created profile :" + institueAdminProfile);
-
-				return ResponseHandler.generateResponse(institueAdminProfile, HttpStatus.CREATED);
-			} else {
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
-
-			}
-		} catch (Exception ee) {
-			logger.error("User Creation failed in post method..");
-			throw new CPException("err013", resourceBundle.getString("err003"));
-
-		}
-
-	}
-
-	/**
-	 * @author : Anmesh
-	 * @param : getInstituteByName
-	 * @return : ResponseEntity<Object>
-	 * @description : For Getting Data using firstName
-	 */
-
-	@GetMapping("/profile/{firstName}")
-	public ResponseEntity<Object> getIntituteByName(@PathVariable("firstName") String firstName) throws CPException {
-
-		logger.info("in getByName");
-		InstituteAdmin instituteAdmin = null;
-		try {
-			instituteAdmin = instituteAdminService.getInstituteByName(firstName);
-			logger.info("GetInstituteByName Values" + instituteAdmin);
-
-			if (instituteAdmin != null) {
-				return ResponseHandler.generateResponse(instituteAdmin, HttpStatus.OK);
-			} else {
-				logger.debug("Not Found");
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err001");
-
-			}
-
-		} catch (Exception ee) {
-			ee.printStackTrace();
-			logger.error("Exception Occured in getNameInstitute Method");
-			throw new CPException("err001", resourceBundle.getString("err001"));
-		}
-
-	}
 	
 	
 	
@@ -216,40 +136,7 @@ public class InstituteAdminController {
 
 	}
 
-//	/**
-//	 * @author : Anmesh
-//	 * @param : updateInstituteAdmin
-//	 * @return : ResponseEntity<Object>
-//	 * @description : For Updating Data using firstName
-//	 */
-//
-//	@PutMapping("/profile/{firstName}")
-//	public ResponseEntity<Object> updateInstituteAdmin(@RequestBody InstituteAdmin instituteAdmin,
-//			@PathVariable("firstName") String firstName) throws CPException {
-//
-//		logger.info("inside the put method..");
-//		InstituteAdmin adminProfileFirstName = null;
-//		try {
-//			adminProfileFirstName = instituteAdminService.getInstituteByName(firstName);
-//			logger.info("updateInstituteAdmin Values" + adminProfileFirstName);
-//
-//			if (adminProfileFirstName == null) {
-//				logger.info("Update Operation is failed...");
-//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-//			} else {
-//				adminProfileFirstName = instituteAdminService.updateInstituteAdmin(instituteAdmin, firstName);
-//				return ResponseHandler.generateResponse(adminProfileFirstName, HttpStatus.CREATED);
-//
-//			}
-//
-//		} catch (Exception ee) {
-//
-//			logger.error(ee.toString());
-//			throw new CPException("err004", resourceBundle.getString("err004"));
-//
-//		}
-//
-//	}
+
 
 	/**
 	 * @author : Anmesh
@@ -282,39 +169,6 @@ public class InstituteAdminController {
 			ee.printStackTrace();
 			throw new CPException("err002", resourceBundle.getString("err002"));
 
-		}
-
-	}
-
-	/**
-	 * @author : Anmesh
-	 * @param : ResponseEntity<Object>
-	 * @return : int
-	 * @description : For Deleting Data using firstName
-	 */
-
-	@DeleteMapping("/profile/{firstName}")
-
-	public ResponseEntity<Object> deleteInstitutionProfileByName(@PathVariable("firstName") String firstName)
-			throws CPException {
-		logger.info("inside the delete method...");
-		int status = 0;
-
-		status = instituteAdminService.deleteInstitutionProfileByName(firstName);
-		logger.info("DeleteIntituteAdminProfile Values" + status);
-
-		try {
-			if (status == 1) {
-				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-			} else {
-				logger.error("User Deletion Failed...");
-
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-
-			}
-		} catch (Exception ee) {
-			ee.printStackTrace();
-			throw new CPException("err002", resourceBundle.getString("err005"));
 		}
 
 	}
@@ -379,20 +233,7 @@ public class InstituteAdminController {
 			
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 	@PutMapping("/profile/{id}")
@@ -443,30 +284,7 @@ public class InstituteAdminController {
 
 	}
 	
-	@GetMapping("/profile/profiles/{id}")
-	public ResponseEntity<Object> getEnrolledProfilesOfCoursesAssignedToTeacher(@PathVariable("id") int profileId) throws CPException {
 
-		logger.info("in getProfileByAdminId");
-		List<Object> instituteAdmin = null;
-		try {
-			instituteAdmin = instituteAdminService.getProfileCourseAssignedTeacher(profileId);
-			logger.info("GetIntituteByUserId Values" + instituteAdmin);
-
-			if (instituteAdmin != null) {
-				return ResponseHandler.generateResponse(instituteAdmin, HttpStatus.OK);
-			} else {
-				logger.debug("Not Found");
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err001");
-
-			}
-
-		} catch (Exception ee) {
-			ee.printStackTrace();
-			logger.error("Exception Occured in getProfileByAdminId Method");
-			throw new CPException("err001", resourceBundle.getString("err001"));
-		}
-
-	}
 	
 	
 	
@@ -632,30 +450,7 @@ public class InstituteAdminController {
 
 	}
 
-	@GetMapping("/profile/profiles/studentid/{id}")
-	public ResponseEntity<Object> getEnrolledProfilesOfCourseByOneStudentId(@PathVariable("id") int profileId) throws CPException {
 
-		logger.info("in getEnrolledProfilesOfCourseByOneStudentId");
-		List<Object> instituteAdmin = null;
-		try {
-			instituteAdmin = instituteAdminService.getEnrolledProfilesOfCourseByOneStudentId(profileId);
-			logger.info("enrolled course profiles Values" + instituteAdmin);
-
-			if (instituteAdmin != null) {
-				return ResponseHandler.generateResponse(instituteAdmin, HttpStatus.OK);
-			} else {
-				logger.debug("Not Found");
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err001");
-
-			}
-
-		} catch (Exception ee) {
-			ee.printStackTrace();
-			logger.error("Exception Occured in getEnrolledProfilesOfCourseByOneStudentId Method");
-			throw new CPException("err001", resourceBundle.getString("err001"));
-		}
-
-	}
 }
 	
 	

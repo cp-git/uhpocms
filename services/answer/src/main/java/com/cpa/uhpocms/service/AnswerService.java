@@ -13,14 +13,13 @@ import com.cpa.uhpocms.entity.Answer;
 
 public interface AnswerService {
 
-	Answer createAnswer(Answer answer);
+	
 
-	Answer getAnswerById(int id);
+	
 
 	List<Object> getAllAnswers();
 
-	Answer updateAnswerById(Answer answer, int id);
+	
 
-	int deleteAnswerById(int id);
 
 }

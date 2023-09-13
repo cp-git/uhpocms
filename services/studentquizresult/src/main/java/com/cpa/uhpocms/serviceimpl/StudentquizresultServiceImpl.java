@@ -49,32 +49,30 @@ public class StudentquizresultServiceImpl implements StudentquizresultService {
 		return createdStudentquizresult;
 	}
 
-	/**
-	 * @param : String questionid
-	 * @return : Studentquizresult studentquizresult
-	 * @description : For get entry in teacher_studentquizresult table
-	 */
 
-	/**
-	 * @return : List<Object> studentquizresult
-	 * @description : For fetching all studentquizresult which are active state from
-	 *              teacher_studentquizresult table
-	 */
-//	@Override
-//	public List<Object> getAllStudentquizresults() {
-//		logger.debug("Entering getAllStudentquizresults");
-//
-//		List<Object> studentquizresults = studentquizresultRepo.findByQuizResultIsActiveTrue();
-//		logger.info("Fetched all active studentquizresult :" + studentquizresults);
-//		return studentquizresults;
-//	}
+	@Override
+	public Studentquizresult getStudentAnswerByProfileIdAndQuestionId(int studentId, int questionId) {
+		// TODO Auto-generated method stub
+		Studentquizresult studentquizresults = studentquizresultRepo.findByStudentIdAndQuestionId(studentId,
+				questionId);
+		logger.info("Fetched all active studentquizresult :" + studentquizresults);
+		return studentquizresults;
+	}
+	
+	
 
-	/**
-	 * @param : Studentquizresult to update
-	 * @return : studentquizresult
-	 * @description : For updating studentquizresult of teacher_studentquizresult
-	 *              table
-	 */
+	@Override
+	public List<Object> getStudentquizresultByStudentAndQuizId(int studentId, int quizId) {
+		// TODO Auto-generated method stub
+		List<Object> objectResult = null;
+
+		List<Studentquizresult> studentquizresult = studentquizresultRepo.findByStudentIdAndQuizId(studentId, quizId);
+		logger.info("Founded studentquizresult :" + studentquizresult);
+
+		objectResult = new ArrayList<>(studentquizresult);
+		return objectResult;
+	}
+	
 	@Override
 	public Studentquizresult updateStudentquizresultByquestionid(Studentquizresult studentquizresult) {
 		logger.debug("Entering updateStudentquizresult");
@@ -104,56 +102,6 @@ public class StudentquizresultServiceImpl implements StudentquizresultService {
 		}
 
 		return updatedStudentquizresult;
-	}
-
-	/**
-	 * @param : String questionid
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of
-	 *              Studentquizresult
-	 * 
-	 */
-//	@Override
-//	public int deleteStudentquizresultByquestionid(int questionid) {
-//		logger.debug("Entering deleteStudentquizresultByquestionid");
-//
-//		int count =  studentquizresultRepo.deleteQuizResultByquestionid(questionid);
-//		logger.info("deleted Studentquizresult count : " + count);
-//		return count;
-//	}
-
-	@Override
-	public List<Object> getStudentquizresultByQuizId(int quizid) {
-		// logger.debug("Entering getStudentquizresultByquestionid");
-
-		List<Object> objectResult = null;
-
-		List<Studentquizresult> studentquizresult = studentquizresultRepo.findAllByQuizId(quizid);
-		logger.info("Founded studentquizresult :" + studentquizresult);
-
-		objectResult = new ArrayList<>(studentquizresult);
-		return objectResult;
-	}
-
-	@Override
-	public Studentquizresult getStudentAnswerByProfileIdAndQuestionId(int studentId, int questionId) {
-		// TODO Auto-generated method stub
-		Studentquizresult studentquizresults = studentquizresultRepo.findByStudentIdAndQuestionId(studentId,
-				questionId);
-		logger.info("Fetched all active studentquizresult :" + studentquizresults);
-		return studentquizresults;
-	}
-
-	@Override
-	public List<Object> getStudentquizresultByStudentAndQuizId(int studentId, int quizId) {
-		// TODO Auto-generated method stub
-		List<Object> objectResult = null;
-
-		List<Studentquizresult> studentquizresult = studentquizresultRepo.findByStudentIdAndQuizId(studentId, quizId);
-		logger.info("Founded studentquizresult :" + studentquizresult);
-
-		objectResult = new ArrayList<>(studentquizresult);
-		return objectResult;
 	}
 
 }

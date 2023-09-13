@@ -3841,3 +3841,4 @@
 
 2023-Jul-26 11:41:02 DEBUG [main      ] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.deleteInstitutionProfileByName(InstituteAdminServiceImpl.java:107) - in deleteByInstituteAdmin Name
 2023-Jul-26 11:50:18 DEBUG [main      ] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.deleteInstitutionProfileByName(InstituteAdminServiceImpl.java:107) - in deleteByInstituteAdmin Name
+2023-Sep-08 10:51:49 DEBUG [main      ] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.deleteInstitutionProfileByName(InstituteAdminServiceImpl.java:107) - in deleteByInstituteAdmin Name

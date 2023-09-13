@@ -15,11 +15,7 @@ public interface AnnouncementService {
 
 	Announcement createAnnouncement(Announcement announcement);
 
-	Announcement getAnnouncementByTitle(String title);
-
 	List<Object> getAllAnnouncements();
-
-	Announcement updateAnnouncementByTitle(Announcement announcement, String title);
 
 	int deleteAnnouncementById(int announcementId);
 

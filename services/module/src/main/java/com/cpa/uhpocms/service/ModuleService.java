@@ -15,10 +15,6 @@ public interface ModuleService {
 
 	Module createModule(Module module);
 
-	Module getModuleByName(String name);
-
-	Module getModuleById(int moduleId);
-
 	List<Object> getAllModules();
 
 	Module updateModuleByName(Module module, String name);
@@ -28,8 +24,6 @@ public interface ModuleService {
 	List<Object> findByCourseId(int courseId);
 
 	List<Object> getAllInactiveModules();
-
-	Object updateActiveStatus(String name);
 	
 	Object updateActiveStatusByModuleId (int moduleid);
 

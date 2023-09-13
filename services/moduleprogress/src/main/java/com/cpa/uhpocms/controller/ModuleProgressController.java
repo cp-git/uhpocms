@@ -96,41 +96,7 @@ public class ModuleProgressController {
 		}
 	}
 
-	/**
-	 * @author shradha
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 * @desc Api to get an entry in resp. table by Id
-	 */
-	@GetMapping("/moduleprog/{id}")
-	public ResponseEntity<Object> getModuleProgressByid(@PathVariable("id") int id)
-			throws CPException {
-		logger.debug("Entering getModuleProgressByid");
-		logger.info("entered user name :" + id);
-		
-		ModuleProgress moduleprogress = null;
 
-		try {
-
-			moduleprogress = moduleprogressService.getModuleProgressByid(id);
-			logger.info("fetched ModuleProgress :" + moduleprogress);
-
-			if (moduleprogress != null) {
-				logger.debug("ModuleProgress fetched generating response");
-				return ResponseHandler.generateResponse(moduleprogress, HttpStatus.OK);
-			} else {
-				logger.debug("ModuleProgress not found");
-				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting moduleprogress : " + ex.getMessage());
-			throw new CPException("err001", resourceBunde.getString("err001"));
-		}
-
-	}
 
 	/**
 	 * @author shradha
@@ -169,115 +135,8 @@ public class ModuleProgressController {
 
 	}
 
-	/**
-	 * @author shradha
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 * @desc api to get list of netries in resp table by providing course id
-	 */
-	@GetMapping("/moduleprog/courseId/{courseId}")
-	public ResponseEntity<List<Object>> getAllModuleProgresssByCourseId(@PathVariable(name = "courseId") int courseId)
-			throws CPException {
-		logger.debug("Entering getAllModuleProgress");
-		logger.info("Parameter  :" + courseId);
-		
-		List<Object> moduleprogresss = null;
-
-		try {
-
-			
-
-				moduleprogresss = moduleprogressService.getAllModuleProgresssByCourseId(courseId);
-				
-				if(moduleprogresss != null)
-				{
-				logger.info("Fetched all ModuleProgress :" + moduleprogresss);
-
-				return ResponseHandler.generateListResponse(moduleprogresss, HttpStatus.OK);
-				}
-				else {
-
-				logger.info(resourceBunde.getString("err002"));
-				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
-				}
-		
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting all moduleprogresss : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
-
-		}
-	}
 	
-	/**
-	 * @author shradha
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 */
-	@GetMapping("/moduleprog")
-	public ResponseEntity<List<Object>> getAllModuleProgresss(@RequestParam(name = "id") String id)
-			throws CPException {
-		logger.debug("Entering getAllModuleProgress");
-		logger.info("Parameter  :" + id);
-		
-		List<Object> moduleprogresss = null;
 
-		try {
-
-			if (id.equalsIgnoreCase("all")) {
-
-				moduleprogresss = moduleprogressService.getAllModuleProgresss();
-				logger.info("Fetched all ModuleProgress :" + moduleprogresss);
-
-				return ResponseHandler.generateListResponse(moduleprogresss, HttpStatus.OK);
-			} else {
-
-				logger.info(resourceBunde.getString("err002"));
-				return ResponseHandler.generateListResponse(HttpStatus.NOT_FOUND, "err002");
-			}
-
-		} catch (Exception ex) {
-
-			logger.error("Failed getting all moduleprogresss : " + ex.getMessage());
-			throw new CPException("err002", resourceBunde.getString("err002"));
-
-		}
-	}
-/**
- * @author Shradha
- * @param id
- * @return
- * @throws CPException
- * @desc Api to delete an entry in table
- */
-	@DeleteMapping("/moduleprog/{id}")
-	public ResponseEntity<Object> deleteModuleProgressByid(@PathVariable("id") int id) throws CPException {
-		logger.debug("Entering deleteModuleProgressById");
-		logger.info("entered deleteModuleProgress  :" + id);
-		//TODO - implement the business logic
-		
-		int count = 0;
-
-		try {
-			count = moduleprogressService.deleteModuleProgressByid(id);
-			if (count >= 1) {
-				logger.info("deleted ModuleProgress : id = " + id);
-				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-			} else {
-				logger.info(resourceBunde.getString("err005"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed to delete ModuleProgress :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
-		}
-		
-
-	}
 
 	/**
 	 * @author Shradha

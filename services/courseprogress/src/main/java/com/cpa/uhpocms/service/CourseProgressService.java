@@ -23,7 +23,7 @@ public interface CourseProgressService {
 
 	CourseProgress updateCourseProgressByid(CourseProgress courseprogress, int id);
 
-	int deleteCourseProgressByid(int id);
+	
 	
 	public CourseProgress getCourseProgressByCourseIdStudId(int courseId, int studId);
 	

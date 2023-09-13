@@ -141,58 +141,8 @@ public class AssignToTeacherController {
 //		}
 //	}
 
-	@DeleteMapping("/assigntoteacher/{courseId}")
-	public ResponseEntity<Object> deleteAssignToTeacherBycourseId(@PathVariable("courseId") int courseId) throws CPException {
-		logger.debug("Entering deleteAuthUser");
-		logger.info("entered deleteAssignToTeacher  :" + courseId);
-		//TODO - implement the business logic
-		
-		int count = 0;
 
-		try {
-			count = assigntoteacherService.deleteAssignToTeacherBycourseId(courseId);
-			if (count >= 1) {
-				logger.info("deleted AssignToTeacher : courseId = " + courseId);
-				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-			} else {
-				logger.info(resourceBunde.getString("err005"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed to delete AssignToTeacher :" + ex.getMessage());
-			throw new CPException("err005", resourceBunde.getString("err005"));
-		}
-		
-
-	}
-
-	@PutMapping("/assigntoteacher/{courseId}")
-	public ResponseEntity<Object> updateAssignToTeacherBycourseId(@RequestBody AssignToTeacher assigntoteacher,
-			@PathVariable("courseId") int courseId) throws CPException {
-		logger.debug("Entering updateAssignToTeacher");
-		logger.info("entered  updateAssignToTeacher :" + assigntoteacher);
-
-		AssignToTeacher updatedAssignToTeacher = null;
-
-		try { 
-			updatedAssignToTeacher = assigntoteacherService.updateAssignToTeacherBycourseId(assigntoteacher, courseId);
-
-			if (updatedAssignToTeacher == null) {
-				logger.info(resourceBunde.getString("err004"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-			} else {
-				logger.info("updated assigntoteacher : " + updatedAssignToTeacher);
-				return ResponseHandler.generateResponse(updatedAssignToTeacher, HttpStatus.CREATED);
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed update AssignToTeacher : " + ex.getMessage());
-			throw new CPException("err004", resourceBunde.getString("err004"));
-
-		}
-
-	}
+	
 	
 
 	@GetMapping("assigntoteacher/instid_courid/{instId}/{courseId}")

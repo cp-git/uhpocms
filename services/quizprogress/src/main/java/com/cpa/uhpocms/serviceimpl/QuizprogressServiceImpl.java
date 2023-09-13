@@ -62,21 +62,7 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 	}
 
 
-	/**
-	 * @author shradha
-	 * @param : String studentid
-	 * @return : Quizprogress quizprogress
-	 * @description : For get entry in Teacher_studentquizprogress table by given quiz and student id for completed status as true
-	 */
-	@Override
-	public Quizprogress getQuizprogressByStudentIdAndQuizIdProg(int studentId, int quizId) {
-		logger.debug("Entering getQuizprogressByStudentIdAndQuizIdProg");
 
-		Quizprogress quizprogress = quizprogressRepo.getQuizprogressByStudentIdAndQuizIdAndIsCompletedTrue(studentId, quizId);
-		logger.info("Founded quizprogress :" + quizprogress);
-
-		return quizprogress;
-	}
 
 	
 	
@@ -130,21 +116,7 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 		return updatedQuizprogress;
 	}
 
-	/**
-	 * @param : String studentid
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of
-	 *              Quizprogress
-	 * 
-	 */
-	@Override
-	public int deleteQuizprogressByStudentIdAndQuizId(int studentId, int quizId) {
-		logger.debug("Entering deleteQuizprogressBystudentId");
 
-		int count = quizprogressRepo.deleteQuizprogressByStudentIdAndQuizId(studentId, quizId);
-		logger.info("deleted Quizprogress count : " + count);
-		return count;
-	}
 
 	/**
 	 * @param : String studentid

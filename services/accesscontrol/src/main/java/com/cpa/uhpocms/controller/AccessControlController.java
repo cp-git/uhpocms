@@ -47,6 +47,7 @@ public class AccessControlController {
 		logger = Logger.getLogger(AccessControlController.class);
 	}
 
+	// API 	FOR CREATING THE ACCESS CONTROL 
 	@PostMapping("/access")
 	public ResponseEntity<Object> createAccessControl(@RequestBody AccessControl accesscontrol) throws CPException {
 		logger.debug("Entering createAccessControl");
@@ -82,6 +83,8 @@ public class AccessControlController {
 		}
 	}
 
+	
+	//API FOR GETTING THE DETAILS ABOUT ACCESS CONTROL BY ID
 	@GetMapping("/access/{id}")
 	public ResponseEntity<Object> getAccessControlByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering getAccessControlByid");
@@ -110,6 +113,7 @@ public class AccessControlController {
 
 	}
 
+	//API  FOR GETTING DATA ALL ACCESS CONTROL 
 	@GetMapping("/access")
 	public ResponseEntity<List<Object>> getAllAccessControls(@RequestParam(name = "id") String id) throws CPException {
 		logger.debug("Entering getAllAccessControl");
@@ -139,6 +143,8 @@ public class AccessControlController {
 		}
 	}
 
+	
+	//API FOR DELETING ACCESS CONTROL BY ID
 	@DeleteMapping("/access/{id}")
 	public ResponseEntity<Object> deleteAccessControlByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -164,6 +170,8 @@ public class AccessControlController {
 
 	}
 
+	
+	//API FOR UPDATING ACCESS CONTROL BY ID
 	@PutMapping("/access/{id}")
 	public ResponseEntity<Object> updateAccessControlByid(@RequestBody AccessControl accesscontrol,
 			@PathVariable("id") int id) throws CPException {
@@ -191,6 +199,7 @@ public class AccessControlController {
 
 	}
 
+	//API FOR GETTING ACCESS CONTROL BY USER ID
 	@GetMapping("/access/userid/{userid}")
 	public ResponseEntity<Object> getAccessControlByUserId(@PathVariable("userid") int userid) throws CPException {
 		logger.debug("Entering getAccessControlByid");
@@ -219,6 +228,8 @@ public class AccessControlController {
 
 	}
 	
+	
+	//API FOR ADD AND UPDATE FOR ACCESS CONTROL BY USER ID
 	@PutMapping("/access/userId/{userId}")
 	public ResponseEntity<Object> addOrUpdateAccessControlByUserId(@RequestBody AccessControl accessControl,
 			@PathVariable("userId") int userId) throws CPException {

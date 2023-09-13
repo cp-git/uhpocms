@@ -56,20 +56,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return createdAnnouncement;
 	}
 
-	/**
-	 * @param : String title
-	 * @return : Announcement announcement
-	 * @description : For get entry in teacher_announcements table
-	 */
-	@Override
-	public Announcement getAnnouncementByTitle(String title) {
-		logger.debug("Entering getAnnouncementBytitle");
-
-		Announcement announcement = announcementRepo.findByAnnouncementTitle(title);
-		logger.info("Founded announcement :" + announcement);
-
-		return announcement;
-	}
+	
 
 	/**
 	 * @return : List<Object> announcement
@@ -88,36 +75,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
 	}
 
-	/**
-	 * @param : Announcement to update
-	 * @return : announcement
-	 * @description : For updating announcement of teacher_announcements table
-	 */
-	@Override
-	public Announcement updateAnnouncementByTitle(Announcement announcement, String title) {
-		logger.debug("Entering updateAnnouncement");
 
-		Announcement toUpdatedAnnouncement = null;
-		Announcement updatedAnnouncement = null;
-
-		toUpdatedAnnouncement = announcementRepo.findByAnnouncementTitle(title);
-		logger.info("exisitng Announcement :: " + toUpdatedAnnouncement);
-
-		if (toUpdatedAnnouncement != null) {
-			logger.debug("setting new data of Announcement to exisitng Announcement");
-
-//			announcement.setModifiedBy("admin");
-			toUpdatedAnnouncement.setAnnouncementTitle(announcement.getAnnouncementTitle());
-			toUpdatedAnnouncement.setAnnouncementMessage(announcement.getAnnouncementMessage());
-			toUpdatedAnnouncement.setAnnouncementTo(announcement.getAnnouncementTo());
-			toUpdatedAnnouncement.setAnnouncementSendby(announcement.getAnnouncementSendby());
-			updatedAnnouncement = announcementRepo.save(toUpdatedAnnouncement);
-
-			logger.info("updated Announcement :" + updatedAnnouncement);
-		}
-
-		return updatedAnnouncement;
-	}
 
 	/**
 	 * @param : String title

@@ -142,30 +142,30 @@ public class CategoryController {
 		}
 	}
 
-	@DeleteMapping("/category/{category}")
-	public ResponseEntity<Object> deleteCategoryByCategory(@PathVariable("category") String name) throws CPException {
-		logger.debug("Entering deleteAuthUser");
-		logger.info("entered deleteCategory  :" + name);
-		// TODO - implement the business logic
-
-		int count = 0;
-
-		try {
-			count = categoryService.deleteCategoryByCategory(name);
-			if (count >= 1) {
-				logger.info("deleted Category : Category = " + name);
-				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-			} else {
-				logger.info(resourceBundle.getString("err005"));
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-			}
-
-		} catch (Exception ex) {
-			logger.error("Failed to delete Category :" + ex.getMessage());
-			throw new CPException("err005", resourceBundle.getString("err005"));
-		}
-
-	}
+//	@DeleteMapping("/category/{category}")
+//	public ResponseEntity<Object> deleteCategoryByCategory(@PathVariable("category") String name) throws CPException {
+//		logger.debug("Entering deleteAuthUser");
+//		logger.info("entered deleteCategory  :" + name);
+//		// TODO - implement the business logic
+//
+//		int count = 0;
+//
+//		try {
+//			count = categoryService.deleteCategoryByCategory(name);
+//			if (count >= 1) {
+//				logger.info("deleted Category : Category = " + name);
+//				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
+//			} else {
+//				logger.info(resourceBundle.getString("err005"));
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
+//			}
+//
+//		} catch (Exception ex) {
+//			logger.error("Failed to delete Category :" + ex.getMessage());
+//			throw new CPException("err005", resourceBundle.getString("err005"));
+//		}
+//
+//	}
 
 	@PutMapping("/category/{categoryId}")
 	public ResponseEntity<Object> updateCategoryByCategory(@RequestBody Category category,

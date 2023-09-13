@@ -153,21 +153,6 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 		return updatedModuleFileProgress;
 	}
 
-	/**
-	 * @param : String id
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of
-	 *              ModuleFileProgress
-	 * 
-	 */
-	@Override
-	public int deleteModuleFileProgressByid(int id) {
-		logger.debug("Entering deleteModuleFileProgressByid");
-
-		int count = modulefileprogressRepo.deleteById(id);
-		logger.info("deleted ModuleFileProgress count : " + count);
-		return count;
-	}
 
 	/**
 	 * @param : ModuleFileProgress to update

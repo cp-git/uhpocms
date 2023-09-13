@@ -65,20 +65,7 @@ public class CourseServiceImpl implements CourseService {
 		return createdCourse;
 	}
 
-	/**
-	 * @param : String name
-	 * @return : Course course
-	 * @description : For get entry in teacher_course table
-	 */
-	@Override
-	public Course getCourseByName(String name) {
-		logger.debug("Entering getCourseByName");
-
-		Course course = courseRepo.findByCourseName(name);
-		logger.info("Founded course :" + course);
-
-		return course;
-	}
+	
 
 	/**
 	 * @return : List<Object> course
@@ -96,56 +83,7 @@ public class CourseServiceImpl implements CourseService {
 
 	}
 
-	/**
-	 * @param : Course to update
-	 * @return : course
-	 * @description : For updating course of teacher_course table
-	 */
-	@Override
-	public Course updateCourseByName(Course course, String name) {
-		logger.debug("Entering updateCourse");
 
-		Course toUpdatedCourse = null;
-		Course updatedCourse = null;
-
-		toUpdatedCourse = courseRepo.findByCourseName(name);
-		logger.info("exisitng Course :: " + toUpdatedCourse);
-
-		if (toUpdatedCourse != null) {
-			logger.debug("setting new data of Course to exisitng Course");
-
-//			course.setModifiedBy("admin");
-
-			toUpdatedCourse.setCourseName(course.getCourseName());
-			toUpdatedCourse.setCourseDescription(course.getCourseDescription());
-			toUpdatedCourse.setCourseIsActive(course.isCourseIsActive());
-			toUpdatedCourse.setCourseCode(course.getCourseCode());
-			toUpdatedCourse.setCourseType(course.getCourseType());
-			toUpdatedCourse.setPassingScore(course.getPassingScore());
-			toUpdatedCourse.setInstId(course.getInstId());
-			toUpdatedCourse.setAccessModuleInOrder(course.getAccessModuleInOrder());
-			updatedCourse = courseRepo.save(toUpdatedCourse);
-
-			logger.info("updated Course :" + updatedCourse);
-		}
-
-		return updatedCourse;
-	}
-
-	/**
-	 * @param : String name
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of Course
-	 * 
-	 */
-	@Override
-	public int deleteCourseByName(String name) {
-		logger.debug("Entering deleteCourseByName");
-
-		int count = courseRepo.deleteCourseByName(name);
-		logger.info("deleted Course count : " + count);
-		return count;
-	}
 
 	@Override
 
@@ -208,17 +146,7 @@ public class CourseServiceImpl implements CourseService {
 		return count;
 	}
 
-	@Override
-	public Course getCourseByCourseId(int courseid) {
-		// TODO Auto-generated method stub
 
-		logger.debug("Entering getCourseByCourseId");
-
-		Course course = courseRepo.findByCourseId(courseid);
-		logger.info("Founded course :" + course);
-
-		return course;
-	}
 
 	@Override
 	public int deleteCourseByCourseId(int courseid) {
@@ -297,17 +225,7 @@ public class CourseServiceImpl implements CourseService {
 		return updatedCourse;
 	}
 
-	@Override
-	public List<Object> findCoursesByDepartmentIdAndProfileId(int department_id, int profile_id) {
-		// TODO Auto-generated method stub
-		List<Object> objectCourses = null;
 
-		List<Course> courses = courseRepo.findCourseByDepartmentIdAndProfileId(department_id, profile_id);
-
-		logger.info("Fetched all active course :" + courses);
-		objectCourses = new ArrayList<Object>(courses);
-		return objectCourses;
-	}
 
 	@Override
 	public List<Object> findInactiveCourseByInstitutionId(int institutionId) {

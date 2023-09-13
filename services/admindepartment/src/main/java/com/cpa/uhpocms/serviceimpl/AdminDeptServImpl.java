@@ -29,22 +29,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 	AdminDeptRepo adminDeptRepo;
 	
 
-	/**
-	 * @author Shradha
-	 * @description: Method that performs soft delete for department which sets
-	 *               active flag to false
-	 * @createdOn : 24 Nov 2022
-	 */
-
-	@Override
-	public void deleteDept(String name) {
-		logger.debug("Entered deleteDept");
-		AdminDepartment adminDepartment = adminDeptRepo.findByName(name);
-		adminDepartment.setActive(false);
-		AdminDepartment savedAdminDepartment = adminDeptRepo.save(adminDepartment);
-		logger.debug("AdminDepartment soft delete performed successfully" + savedAdminDepartment);
-
-	}
+	
 
 	/**
 	 * @author Shradha
@@ -61,17 +46,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 		return deptList;
 	}
 
-	@Override
-	public AdminDepartment getDeptByName(String name) {
-		System.out.println("in serviceimpl");
-		logger.debug("Entered getDeptByName()");
-		AdminDepartment adminDepartment = adminDeptRepo.findByName(name);
-		System.out.println( adminDeptRepo.findByName(name));
-		//System.out.println(adminDepartment);
-		// logger.debug(adminDepartment);
-		return adminDepartment;
-	}
-
+	
 	/**
 	 * @author Shradha
 	 * @description: Method that insert new record to database
@@ -93,35 +68,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 		return insertedAdminDepartment;
 	}
 
-	/**
-	 * @author Shradha
-	 * @description: Method that update department by name of department present in
-	 *               database
-	 * @createdOn : 24 Nov 2022
-	 */
-	@Override
-	public Object updateDept(AdminDepartment adminDepartment, String name) {
-		logger.debug("Entered updateDept() ");
-		Date date = new Date();
-		Timestamp ts = new Timestamp(date.getTime());
-		// System.out.println(name);
-		//
-		// System.out.println(adminDeptRepo.findByName(name));
-		AdminDepartment refAdminDepartment = adminDeptRepo.findByName(name);
-
-		// System.out.println(refAdminDepartment);
-
-		refAdminDepartment.setName(adminDepartment.getName());
-		refAdminDepartment.setDescription(adminDepartment.getDescription());
-		refAdminDepartment.setActive(adminDepartment.isActive());
-		refAdminDepartment.setInstitutionId(adminDepartment.getInstitutionId());
-
-		refAdminDepartment.setModifiedOn(ts);
-
-		AdminDepartment updatedAdminDepartment = adminDeptRepo.save(refAdminDepartment);
-		logger.debug(updatedAdminDepartment);
-		return updatedAdminDepartment;
-	}
+	
 
 	@Override
 	public List<Object> findByInstitutionId(int institutionId) {
@@ -208,39 +155,9 @@ public class AdminDeptServImpl implements AdminDeptService {
 		return count;
 	}
 
-	@Override
-	public AdminDepartment getDepartmentById(int departmentid) {
-		// TODO Auto-generated method stub
 
-		logger.debug("Entering getDepartmentById");
 
-		AdminDepartment adminDepartment = adminDeptRepo.findById(departmentid);
-		logger.info("Founded adminDepartment :" + adminDepartment);
-
-		return adminDepartment;
-	}
-
-	@Override
-	public AdminDepartment createDepartment(AdminDepartment adminDepartment) {
-		// TODO Auto-generated method stub
-		logger.debug("Entering createDepartment");
-		AdminDepartment createdDepartment = null;
-
-		adminDepartment.setCreatedBy("admin");
-		adminDepartment.setModifiedBy("admin");
-
-		createdDepartment = adminDeptRepo.save(adminDepartment);
-
-		logger.info("created AdminDepartment :" + createdDepartment);
-		return createdDepartment;
-	}
-
-	@Override
-	public AdminDepartment getDepartmentByInstitutionIdAndName(int institutionId, String name) {
-		// TODO Auto-generated method stub
-		AdminDepartment adminDepartment = adminDeptRepo.findByInstitutionIdAndName(institutionId, name);
-		return adminDepartment;
-	}
+	
 
 	@Override
 	public List<Object> findActiveDepartmentOfAssignCoursesByProfileId(int profileid) {
@@ -260,12 +177,5 @@ public class AdminDeptServImpl implements AdminDeptService {
 	/*
 	 * fetching department by profile id
 	 */
-	@Override
-	public List<Object> getDepartmentByProfileId(int profileid) {
-		// TODO Auto-generated method stub
-		List<Object> objectDepartments = null;
-		List<AdminDepartment> adminDepartment = adminDeptRepo.findDepartmentByProfileId(profileid);
-		objectDepartments = new ArrayList<Object>(adminDepartment);
-		return objectDepartments;
-	}
+	
 }
