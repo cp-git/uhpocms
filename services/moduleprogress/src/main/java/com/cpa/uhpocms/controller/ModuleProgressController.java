@@ -48,13 +48,8 @@ public class ModuleProgressController {
 	}
 	
 	
-/**
- * @author shradha
- * @param moduleprogress
- * @return
- * @throws CPException
- * @desc Api to create an entry in moduleprogress table
- */
+
+	// INSERT MODULE PROGRESS
 	@PostMapping("/moduleprog")
 	public ResponseEntity<Object> createModuleProgress(@RequestBody ModuleProgress moduleprogress) throws CPException {
 		logger.debug("Entering createModuleProgress");
@@ -98,14 +93,7 @@ public class ModuleProgressController {
 
 
 
-	/**
-	 * @author shradha
-	 * @param modId
-	 * @param studId
-	 * @return
-	 * @throws CPException
-	 * @desc Api to get list of entries by providing module and student Id's
-	 */
+	//GET MODULE PROGRESS MBY MODULE ID AND STUDENT ID
 	@GetMapping("/moduleprog/{modId}/{studId}")
 	public ResponseEntity<Object> getModuleProgressBymodIdstudId(@PathVariable("modId") int modId, @PathVariable("studId") int studId)
 			throws CPException {
@@ -138,13 +126,7 @@ public class ModuleProgressController {
 	
 
 
-	/**
-	 * @author Shradha
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 * @desc Api to update an entry in table
-	 */
+	//UPDATE MODULE BY ID
 	@PutMapping("/moduleprog/{id}")
 	public ResponseEntity<Object> updateModuleProgressByid(@RequestBody ModuleProgress moduleprogress,
 			@PathVariable("id") int id) throws CPException {
@@ -172,12 +154,9 @@ public class ModuleProgressController {
 
 	}
 	
-	/**
-	 * @param courseId and studentid
-	 * @return list of progress
-	 * @throws CPException
-	 * @desc api to get list of module progress using course id and student id
-	 */
+
+	
+	//GET ALL MODULE PROGRESS
 	@GetMapping("/moduleprog/id")
 	public ResponseEntity<List<Object>> getModuleProgressesByCourseIdAndStudentId(
 			@RequestParam(name = "courseid") int courseId, @RequestParam(name = "studentid") int studentId)

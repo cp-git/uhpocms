@@ -47,6 +47,8 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	@Query(value = "UPDATE auth_user SET is_active=false WHERE username = ?1", nativeQuery = true)
 	public int deleteAuthUserByUserName(String authUserName);
 
+	
+	// VALIDATE THE USER NAME AND PASSWORD FOR LOGIN 
 	@Query(value = "select * from public.auth_user where username = ?1 AND password = ?2 AND is_active = true", nativeQuery = true)
 	public AuthUser findByUsernameAndPassword(String authUserName, String authUserPassword);
 
@@ -57,14 +59,19 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	 */
 	public List<Object> findByAuthUserIsActiveFalse();
 
+	
+	//ACTIVATE AUTH USER BY AUTH USER ID
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE auth_user SET is_active=true WHERE id = ?1", nativeQuery = true)
 	public int activateAuthUserById(int authUserId);
 	
+	
+	//GET AUTH USER AUTH USER ID
 	public AuthUser findByAuthUserId(int authUserId);
 	
 
+	// GET ALL INACTIVE PROFILES
 	@Query(value = "SELECT T.* FROM auth_user T WHERE NOT EXISTS( SELECT 1 FROM instituteadmin_profile U WHERE U.user_id = T.id);", nativeQuery = true)
 	public List<AuthUser> findByInactiveProfile();
 	

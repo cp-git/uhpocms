@@ -58,6 +58,8 @@ public class ModuleController {
 		logger = Logger.getLogger(ModuleController.class);
 	}
 
+	
+	//INSERT THE MODULE
 	@PostMapping("/module")
 	public ResponseEntity<Object> createModule(@RequestBody Module module) throws CPException {
 		logger.debug("Entering createModule");
@@ -92,17 +94,15 @@ public class ModuleController {
 				logger.info("Module created :" + createdModule);
 
 				String courseName = moduleRepo.finByCourseByCourseId(module.getModuleId());
-				System.out.println(courseName);
-
+			
 				String departmentName = moduleRepo.finByAdminInstitutionId(module.getCourseId_id());
-				System.out.println(departmentName);
+			
 
 				String instituteName = moduleRepo.finByAdminInstitutionNameAndId(module.getCourseId_id());
-				System.out.println(instituteName);
+			
 
 				int instituteId = moduleRepo.finByAdminInstitutionsId(module.getCourseId_id());
-				System.out.println(instituteId);
-
+				
 				String instituteNameAndId = instituteName + "_" + instituteId;
 
 				File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + departmentName + "/"
@@ -130,6 +130,7 @@ public class ModuleController {
 
 
 
+	//GET LIST OF MODULES
 	@GetMapping("/module")
 	public ResponseEntity<List<Object>> getAllModules(@RequestParam(name = "name") String name) throws CPException {
 		logger.debug("Entering getAllModule");
@@ -159,6 +160,7 @@ public class ModuleController {
 		}
 	}
 
+	//DELETE MODULE BY MODULE NAME
 	@DeleteMapping("/module/{name}")
 	public ResponseEntity<Object> deleteModuleByName(@PathVariable("name") String name) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -184,6 +186,7 @@ public class ModuleController {
 
 	}
 
+	//DELETE MODULE BY MODUILE ID
 	@DeleteMapping("/module/moduleId/{id}")
 	public ResponseEntity<Object> deleteModuleById(@PathVariable("id") int moduleId) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -208,6 +211,7 @@ public class ModuleController {
 		}
 	}
 
+	//UPDATE THE MODULE BY MODULE NAME
 	@PutMapping("/module/{name}")
 	public ResponseEntity<Object> updateModuleByName(@RequestBody Module module, @PathVariable("name") String name)
 			throws CPException {
@@ -235,6 +239,7 @@ public class ModuleController {
 
 	}
 
+	//UPDATE THE MODULE BY MODULE ID
 	@PutMapping("/module/moduleId/{id}")
 	public ResponseEntity<Object> updateModuleById(@RequestBody Module module, @PathVariable("id") int moduleId)
 			throws CPException {
@@ -262,12 +267,8 @@ public class ModuleController {
 
 	}
 
-	/**
-	 * @author Shradha
-	 * @description api to get all inactive modules
-	 * @throws CPException
-	 * @createdOn 10 Feb 2023
-	 */
+
+	// GET ALL INACTIVE MODULES
 	@GetMapping("/module/inactive")
 	public ResponseEntity<List<Object>> getInactiveModules(
 			@RequestParam(name = "inactivemodules") String inactivemodules) throws CPException {
@@ -295,6 +296,7 @@ public class ModuleController {
 	}
 
 	
+	//ACTIVATE MODULE BY MODULE ID
 	@PatchMapping("/module/activate/{moduleid}")
 	public ResponseEntity<Object> updateActiveStatusByModuleId(@PathVariable("moduleid") int moduleid) throws CPException {
 
@@ -325,7 +327,8 @@ public class ModuleController {
 		return new AuthenticationBean("You are authenticated");
 	}
 
-	// get module by courseid
+	
+	//GET LIST OF MODULE BY COURSE ID
 	@GetMapping(path = "module/courseId/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<List<Object>> getModuleByCourseId(@PathVariable("id") int courseId) throws CPException {
 		try {
@@ -342,6 +345,8 @@ public class ModuleController {
 		return ResponseHandler.generateListResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err022");
 	}
 
+	
+	//GET MODULES ASSIGNED COURSES BY PROFILE ID
 	@GetMapping("/module/assign/profileid/{id}")
 	public ResponseEntity<List<Object>> getModulesOfAssignedCoursesByProfileId(@PathVariable("id") int profileId)
 			throws CPException {
@@ -371,6 +376,7 @@ public class ModuleController {
 
 	}
 
+	//GET MODULES OF ENROLLED COURSES BY PROFILE ID
 	@GetMapping("/module/enroll/profileid/{id}")
 	public ResponseEntity<List<Object>> getModulesOfEnrolledCoursesByProfileId(@PathVariable("id") int profileId)
 			throws CPException {

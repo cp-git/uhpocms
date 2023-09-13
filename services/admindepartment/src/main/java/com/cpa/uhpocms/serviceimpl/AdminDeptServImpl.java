@@ -29,13 +29,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 	AdminDeptRepo adminDeptRepo;
 	
 
-	
-
-	/**
-	 * @author Shradha
-	 * @description: Method that get all departments present in database
-	 * @createdOn : 24 Nov 2022
-	 */
+	//// GET ALL DEPARTMENT ////
 	@Override
 	public List<Object> getAdminDepartments() {
 		// TODO Auto-generated method stub
@@ -46,12 +40,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 		return deptList;
 	}
 
-	
-	/**
-	 * @author Shradha
-	 * @description: Method that insert new record to database
-	 * @createdOn : 24 Nov 2022
-	 */
+	//////// INSERT DEPARTMENT  ////////////////////////////
 	@Override
 	public AdminDepartment insertDept(AdminDepartment adminDepartment) {
 		
@@ -70,6 +59,8 @@ public class AdminDeptServImpl implements AdminDeptService {
 
 	
 
+	
+	////// FIND BY DEPARTMENT BY INSTITUTION ID ///////////////////////////
 	@Override
 	public List<Object> findByInstitutionId(int institutionId) {
 		// TODO Auto-generated method stub
@@ -78,10 +69,8 @@ public class AdminDeptServImpl implements AdminDeptService {
 		return adminDept;
 	}
 
-	/**
-	 * @description: Method that get all inactive departments present in database
-	 * @createdOn : 13-02-2023
-	 */
+
+	////////////////// GET ALL INACTIVE DEPARTMENT ///////////////////
 	@Override
 	public List<Object> getAllInactiveDepartments() {
 		// TODO Auto-generated method stub
@@ -96,11 +85,8 @@ public class AdminDeptServImpl implements AdminDeptService {
 		return objectDepartments;
 	}
 
-	/**
-	 * @description: Method that performs activated department which sets active
-	 *               flag to true
-	 */
 
+	//////// ACTIVATE DEPARTMENT BY DEPARTMENT ID /////////////////
 	@Override
 	public int activateDepartment(int departmentId) {
 		logger.debug("Entered activateDepartment");
@@ -112,6 +98,8 @@ public class AdminDeptServImpl implements AdminDeptService {
 
 	}
 
+	
+	////////////////////////UPDATE DEPARTMENT BY DEPARTMENT ID /////////////////////////
 	@Override
 	public AdminDepartment updateDepartmentById(AdminDepartment adminDepartment, int departmentid) {
 		// TODO Auto-generated method stub
@@ -143,6 +131,8 @@ public class AdminDeptServImpl implements AdminDeptService {
 		return updatedDepartment;
 	}
 
+	
+	////////////////////DELETE DEPARTMENT BY DEPARTMENT ID /////////////
 	@Override
 	public int deleteDeptById(int departmentid) {
 		// TODO Auto-generated method stub
@@ -158,7 +148,7 @@ public class AdminDeptServImpl implements AdminDeptService {
 
 
 	
-
+///////////////////////////////// FIND ACTIVE DEPARTMENT OF ASSIGNED COURSES BY PROFILE ID ////////////////
 	@Override
 	public List<Object> findActiveDepartmentOfAssignCoursesByProfileId(int profileid) {
 		// TODO Auto-generated method stub
@@ -167,6 +157,9 @@ public class AdminDeptServImpl implements AdminDeptService {
 		objectDepartments = new ArrayList<Object>(adminDepartment);
 		return objectDepartments;
 	}
+	
+	
+	////////////////// GET INACTIVE DEPARTMENT BY INSTITUTION ID /////////////////////
 	@Override
 	public List<Object> getInactiveDepartmentsByInstituionId(int institutionId){
 		List<Object> adminDepartments = adminDeptRepo.findByInstitutionIdAndIsActive(institutionId, false);

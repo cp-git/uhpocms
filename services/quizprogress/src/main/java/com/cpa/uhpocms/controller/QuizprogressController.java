@@ -70,7 +70,7 @@ public class QuizprogressController {
 		logger = Logger.getLogger(QuizprogressController.class);
 	}
 
-	// For adding quiz progress data in table
+	// ADD QUIZ PROGRESS
 	@PostMapping("/quizprogress")
 	public ResponseEntity<Object> createQuizprogress(@RequestBody Quizprogress quizprogress) throws CPException {
 

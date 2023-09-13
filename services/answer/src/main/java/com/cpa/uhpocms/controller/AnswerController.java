@@ -50,7 +50,7 @@ public class AnswerController {
 	
 
 
-
+	//GET ALL ANSWER
 	@GetMapping("/answer")
 	public ResponseEntity<List<Object>> getAllAnswers(@RequestParam(name = "id") String id)
 			throws CPException {

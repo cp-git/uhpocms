@@ -142,13 +142,7 @@ public class AdminDeptController {
 
 
 
-	/**
-	 * @author Shradha
-	 * @throws CPException
-	 * @description: Method that provides mapping for insert a department in
-	 *               AdminDepartment Entity
-	 * @createdOn : 24 Nov 2022
-	 */
+	//Insert the department 
 
 	@PostMapping(value = "/department", consumes = { "application/json", "application/xml" }, produces = {
 			"application/json", "application/xml" })
@@ -209,7 +203,7 @@ public class AdminDeptController {
 	
 
 	
-
+    //update the department by department id
 	@PutMapping("/department/departmentID/{id}")
 	public ResponseEntity<Object> updateDepartmentById(@RequestBody AdminDepartment adminDepartment,
 			@PathVariable("id") int departmentid) throws CPException {

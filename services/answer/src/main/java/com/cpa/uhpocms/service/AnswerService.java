@@ -16,7 +16,7 @@ public interface AnswerService {
 	
 
 	
-
+	//GET ALL ANSWER
 	List<Object> getAllAnswers();
 
 	

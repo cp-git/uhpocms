@@ -40,11 +40,7 @@ public class CourseServiceImpl implements CourseService {
 		logger = Logger.getLogger(CourseServiceImpl.class);
 	}
 
-	/**
-	 * @param : Course course
-	 * @return : Course createdCourse
-	 * @description : For creating/inserting entry in teacher_course table
-	 */
+	//CREATE COURSE
 	@Override
 	public Course createCourse(Course course) {
 		logger.debug("Entering createCourse");
@@ -67,11 +63,7 @@ public class CourseServiceImpl implements CourseService {
 
 	
 
-	/**
-	 * @return : List<Object> course
-	 * @description : For fetching all course which are active state from
-	 *              teacher_course table
-	 */
+	//GET ALL COURSES
 	@Override
 	public List<Object> getAllCourses() {
 		logger.debug("Entering getAllCourses");
@@ -85,8 +77,8 @@ public class CourseServiceImpl implements CourseService {
 
 
 
+	//FIND COURSES BY PROFILE ID
 	@Override
-
 	public List<Object> findCourseByProfileId(int profile_id) {
 
 		List<Object> objectCourses = null;
@@ -97,7 +89,9 @@ public class CourseServiceImpl implements CourseService {
 		objectCourses = new ArrayList<Object>(courses);
 		return objectCourses;
 	}
-
+	
+	
+	//FIND BY INSTITUTION ID
 	public List<Object> findByInstitutionId(int institutionId) {
 		// TODO Auto-generated method stub
 
@@ -111,6 +105,7 @@ public class CourseServiceImpl implements CourseService {
 
 	}
 
+	//FIND COURSES BY DEPARTMENT ID
 	@Override
 	public List<Object> findCoursesByDepartmentId(int department_id) {
 		// TODO Auto-generated method stub
@@ -123,6 +118,8 @@ public class CourseServiceImpl implements CourseService {
 		return objectCourses;
 	}
 
+	
+	//GET ALL INACTIVE COURSES
 	@Override
 	public List<Object> getAllInactiveCourses() {
 		logger.debug("Entering getAllInactiveCourses");
@@ -137,6 +134,8 @@ public class CourseServiceImpl implements CourseService {
 		return objectCourses;
 	}
 
+	
+	//ACTIVATE COURSES BY ID
 	@Override
 	public int activateCourseById(int courseId) {
 		logger.debug("Entering activateCourseByName");
@@ -148,6 +147,7 @@ public class CourseServiceImpl implements CourseService {
 
 
 
+	//DELETE COURSE BY COURSE ID
 	@Override
 	public int deleteCourseByCourseId(int courseid) {
 		// TODO Auto-generated method stub
@@ -159,6 +159,8 @@ public class CourseServiceImpl implements CourseService {
 		return count;
 	}
 
+	
+	//FIND COURSES ASSIGN TO TEACHER
 	@Override
 	public List<Object> findCoursesAssignToTeacher(int profile_id) {
 		// TODO Auto-generated method stub
@@ -171,6 +173,8 @@ public class CourseServiceImpl implements CourseService {
 		return objectCourses;
 	}
 
+	
+	//FIND INACTIVE COURSES ASSIGN TO TEACHER
 	@Override
 	public List<Object> findInactiveCoursesAssignToTeacher(int profile_id) {
 		// TODO Auto-generated method stub
@@ -183,6 +187,8 @@ public class CourseServiceImpl implements CourseService {
 		return objectCourses;
 	}
 
+	
+	//GET COURSE DEPARTMENT 
 	@Override
 	public CourseDepartment assignCourseToDepartment(CourseDepartment courseDepartment) {
 
@@ -192,6 +198,7 @@ public class CourseServiceImpl implements CourseService {
 
 	}
 
+	//UPDATE THE COURSE BY ID 
 	@Override
 	public Course updateCourseById(Course course, int courseid) {
 		// TODO Auto-generated method stub
@@ -227,6 +234,7 @@ public class CourseServiceImpl implements CourseService {
 
 
 
+	//FIND INACTIVE COURSES BY INSTITUTION ID
 	@Override
 	public List<Object> findInactiveCourseByInstitutionId(int institutionId) {
 		// TODO Auto-generated method stub

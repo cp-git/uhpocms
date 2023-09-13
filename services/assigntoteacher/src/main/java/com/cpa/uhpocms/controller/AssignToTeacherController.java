@@ -47,6 +47,7 @@ public class AssignToTeacherController {
 		logger = Logger.getLogger(AssignToTeacherController.class);
 	}
 
+	//ASSIGN COURSE TO TEACHER
 	@PostMapping("/assigntoteacher")
 	public ResponseEntity<Object> createAssignToTeacher(@RequestBody AssignToTeacher assigntoteacher) throws CPException {
 		logger.debug("Entering createAssignToTeacher");
@@ -82,6 +83,8 @@ public class AssignToTeacherController {
 		}
 	}
 
+	
+	//GET ASSIGN TEACHER BASED IN COURSE ID
 	@GetMapping("/assigntoteacher/courseid/{courseId}")
 	public ResponseEntity<Object> getAssignToTeacherBycourseId(@PathVariable("courseId") int courseId)
 			throws CPException {
@@ -144,7 +147,7 @@ public class AssignToTeacherController {
 
 	
 	
-
+	//GET TEACHER BY INSTITUTE ID AND COURSE ID
 	@GetMapping("assigntoteacher/instid_courid/{instId}/{courseId}")
 	public ResponseEntity<Object> getTeachersByInstIdAndCourseId(@PathVariable("instId") int instId,@PathVariable("courseId") int courseId)
 			throws CPException {
@@ -173,7 +176,9 @@ public class AssignToTeacherController {
 		}
 
 
+		
 	}
+	//DELETE ASSIGN TEACHER BY COURESE ID AND PROFILE ID
 	 @DeleteMapping("/assigntoteacher/courseid/{courseId}/profileid/{profileId}")
 	    public ResponseEntity<Object> deleteAssignToTeacherByCourseIdAndProfileId(
 	            @PathVariable("courseId") int courseId, @PathVariable("profileId") int profileId) {

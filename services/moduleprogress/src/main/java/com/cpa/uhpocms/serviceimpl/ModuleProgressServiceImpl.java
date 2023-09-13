@@ -30,12 +30,7 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 		logger = Logger.getLogger(ModuleProgressServiceImpl.class);
 	}
 
-	/**
-	 * @author shradha
-	 * @param : ModuleProgress moduleprogress
-	 * @return : ModuleProgress createdModuleProgress
-	 * @description : For creating/inserting entry in Teacher_studentmoduleprogress table
-	 */
+	//CREATE MODULE PROGRESS
 	@Override
 	public ModuleProgress createModuleProgress(ModuleProgress moduleprogress) {
 		logger.debug("Entering createModuleProgress");
@@ -67,12 +62,8 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 		
 	}
 
-	/**
-	 * @author shradha
-	 * @param : String id
-	 * @return : ModuleProgress moduleprogress
-	 * @description : to get entry in Teacher_studentmoduleprogress table by providing module and student id
-	 */
+	
+	//GET MODULE PROGRESS BY MODULE ID AND STUDENT ID
 	@Override
 	public ModuleProgress getModuleProgressBymodstudId(int modId, int studId) {
 		logger.debug("Entering getModuleProgressBymodstudId");
@@ -84,11 +75,8 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 	}
 
 	
-	/**
-	 * @param : String id
-	 * @return : ModuleProgress moduleprogress
-	 * @description : For get entry in Teacher_studentmoduleprogress table
-	 */
+	
+	//GET MODULE PROGRESS BY ID
 	@Override
 	public ModuleProgress getModuleProgressByid(int id) {
 		logger.debug("Entering getModuleProgressByid");
@@ -101,11 +89,7 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 
 
 	
-	/**
-	 * @param : ModuleProgress to update
-	 * @return : moduleprogress
-	 * @description : For updating moduleprogress of Teacher_studentmoduleprogress table
-	 */
+	//UDPATE MODULE PROGRESS BY ID
 	@Override
 	public ModuleProgress updateModuleProgressByid(ModuleProgress moduleprogress, int id) {
 		logger.debug("Entering updateModuleProgress");
@@ -134,9 +118,8 @@ public class ModuleProgressServiceImpl implements ModuleProgressService {
 	}
 
 	
-	/**
-	 * @desc Function to get list of entries by providing courseId
-	 */
+	
+	//GET ALL MODULE PROGRESS
 	@Override
 	public List<Object> getAllModuleProgresssByCourseIdAndStudentId(int courseId, int studentId) {
 		logger.debug("Entering getAllModuleProgresssByCourseIdAndProfileId");

@@ -30,11 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 		logger = Logger.getLogger(CategoryServiceImpl.class);
 	}
 
-	/**
-	 * @param : Category category
-	 * @return : Category createdCategory
-	 * @description : For creating/inserting entry in teacher_category table
-	 */
+	//CREATE A NEW CATEGORY
 	@Override
 	public Category createCategory(Category category) {
 		logger.debug("Entering createCategory");
@@ -48,11 +44,9 @@ public class CategoryServiceImpl implements CategoryService {
 		return createdCategory;
 	}
 
-	/**
-	 * @param : String category
-	 * @return : Category category
-	 * @description : For get entry in teacher_category table
-	 */
+	
+	
+	//GET CATEGORY BY CATEGORY NAME
 	@Override
 	public Category getCategoryByCategory(String name) {
 		logger.debug("Entering getCategoryByCategory");
@@ -63,11 +57,8 @@ public class CategoryServiceImpl implements CategoryService {
 		return category;
 	}
 
-	/**
-	 * @return : List<Object> category
-	 * @description : For fetching all category which are active state from
-	 *              teacher_category table
-	 */
+
+	//GET ALL CATEGORIES
 	@Override
 	public List<Object> getAllCategorys() {
 		logger.debug("Entering getAllCategorys");
@@ -77,11 +68,8 @@ public class CategoryServiceImpl implements CategoryService {
 		return categorys;
 	}
 
-	/**
-	 * @param : Category to update
-	 * @return : category
-	 * @description : For updating category of teacher_category table
-	 */
+	
+	//UPDATE THE CATEGORY CATEGORY ID
 	@Override
 	public Category updateCategoryByCategoryId(Category category, int categoryId) {
 		logger.debug("Entering updateCategory");
@@ -122,12 +110,8 @@ public class CategoryServiceImpl implements CategoryService {
 //		return count;
 //	}
 	
-	/**
-	 * @author Shradha
-	 * @return : List<Object> question
-	 * @description : For fetching all question which are active state from
-	 *              teacher_question table
-	 */
+	
+	//GET INACTIVE CATEGORIES
 	@Override
 	public List<Object> getInActiveCategories() {
 		// TODO Auto-generated method stub
@@ -138,10 +122,9 @@ public class CategoryServiceImpl implements CategoryService {
 		return categories;
 	}
 
-	/**
-	 * @author Shradha
-	 * 
-	 */
+	
+	
+	//ACTIVATE CATEGORY BY NAME
 	public Object updateActiveStatus(String name)
 	{
 		
@@ -171,6 +154,7 @@ public class CategoryServiceImpl implements CategoryService {
 		return null;
 	}
 
+	//DELETE CATEGORY BY CATEGORY ID
 	@Override
 	public int deleteCategoryByCategoryId(int categoryId) {
 		// TODO Auto-generated method stub

@@ -17,15 +17,14 @@ import com.cpa.uhpocms.entity.Studentquizresult;
 @Repository
 public interface StudentquizresultRepo extends JpaRepository<Studentquizresult, Integer> {
 
+	// GET LIST OF STUDENT QUIZ RESULT USING QUIZ ID
 	public List<Studentquizresult> findAllByQuizId(int quizid);
 
+	//GET STUDENT QUIZ RESULT USING STUDENT ID AND QUESTION ID
 	public Studentquizresult findByStudentIdAndQuestionId(int studentId, int questionId);
 
+	// GET STUDENT QUIZ RESULT USING STUDENT ID AND QUIZ ID
 	public List<Studentquizresult> findByStudentIdAndQuizId(int studentId, int quizId);
 
-//	@Transactional
-//	@Modifying
-//	@Query(value = "UPDATE teacher_studentquizresult SET is_active=false WHERE questionid = ?1", nativeQuery = true)
-//	public int deleteQuizResultByquestionid(int questionid);
-
+	
 }

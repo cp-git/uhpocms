@@ -21,19 +21,27 @@ import com.cpa.uhpocms.entity.Category;
 @Repository
 public interface CategoryRepo extends JpaRepository<Category, Integer> {
 
+	//FIND CATEGORY BY CATEGORY NAME
 	public Category findByCategoryName(String name);
 
+	//FIND CATEGORY BY CATEGORY ID
 	public Category findByCategoryId(int categoryId);
+	//FIND ALL ACTIVE CATEGORY
 	public List<Object> findByIsActiveTrue();
 
+	
+	//DELETE CATEGORY BY NAME
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE teacher_category SET isactive=false WHERE category = ?1", nativeQuery = true)
 	public int deleteCategoryByCategory(String name);
 
+	//GET ALL INACTUVE CATEGORY 
 	public List<Object> findByIsActiveFalse();
 	
 	
+	
+	//DELETE CATEGORY CATEGORY ID
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE teacher_category SET isactive=false WHERE id = ?1", nativeQuery = true)

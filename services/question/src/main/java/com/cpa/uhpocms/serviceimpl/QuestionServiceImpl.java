@@ -38,11 +38,7 @@ public class QuestionServiceImpl implements QuestionService {
 		logger = Logger.getLogger(QuestionServiceImpl.class);
 	}
 
-	/**
-	 * @param : Question question
-	 * @return : Question createdQuestion
-	 * @description : For creating/inserting entry in teacher_question table
-	 */
+	//CREATE QUESTION
 	@Override
 	public Question createQuestion(Question question) {
 		logger.debug("Entering createQuestion");
@@ -57,11 +53,7 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 
-	/**
-	 * @return : List<Object> question
-	 * @description : For fetching all question which are active state from
-	 *              teacher_question table
-	 */
+	//GET ALL QUESTIONS
 	@Override
 	public List<Object> getAllQuestions() {
 		logger.debug("Entering getAllQuestions");
@@ -71,11 +63,8 @@ public class QuestionServiceImpl implements QuestionService {
 		return questions;
 	}
 
-	/**
-	 * @param : Question to update
-	 * @return : question
-	 * @description : For updating question of teacher_question table
-	 */
+	
+	//UPDATE QUESTION BY FIGURE
 	@Override
 	public Question updateQuestionByFigure(Question question, String figure) {
 		logger.debug("Entering updateQuestion");
@@ -107,6 +96,7 @@ public class QuestionServiceImpl implements QuestionService {
 		return updatedQuestion;
 	}
 
+	//UPDATE QUESTION BY ID
 	@Override
 	public Question updateQuestionById(Question question, int questionId) {
 		logger.debug("Entering updateQuestion");
@@ -138,12 +128,8 @@ public class QuestionServiceImpl implements QuestionService {
 		return updatedQuestion;
 	}
 
-	/**
-	 * @param : String figure
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of Question
-	 * 
-	 */
+
+	//DELETE QUESTION BY FIGURE
 	@Override
 	public int deleteQuestionByFigure(String figure) {
 		logger.debug("Entering deleteQuestionByFigure");
@@ -155,11 +141,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 
 
-	/**
-	 * @author Shradha
-	 * @param String
-	 * @return Object
-	 */
+	// ACTIVATE QUESTION BY QUESTION FIGURE
 	public Object updateActiveStatus(String figure) {
 		logger.debug("Entering getInActiveQuestions ");
 		List<Object> questions = getInActiveQuestions();
@@ -177,13 +159,8 @@ public class QuestionServiceImpl implements QuestionService {
 		return null;
 	}
 
-	/**
-	 * @author Shradha
-	 * @return : Object
-	 * @description : Function to get all inactive questions whose active flag is
-	 *              false
-	 * 
-	 */
+	
+	//GET INACTIVE QUESTIONS
 	@Override
 	public List<Object> getInActiveQuestions() {
 		// TODO Auto-generated method stub
@@ -193,7 +170,9 @@ public class QuestionServiceImpl implements QuestionService {
 		logger.info("In active questions : " + questions);
 		return questions;
 	}
-
+	
+	
+	//GET QUESTION BY QUESTION ID
 	@Override
 	public Question getQuestionById(int questionId) {
 		logger.debug("Entering getQuestionByFigure");
@@ -204,6 +183,7 @@ public class QuestionServiceImpl implements QuestionService {
 		return question;
 	}
 
+	//GET ALL QUESTIONS BY QUIZ ID
 	@Override
 	public List<Object> getAllQuestionsByQuizId(int quizId) {
 		logger.debug("Entering getAllQuestionsByQuizId");
@@ -213,28 +193,9 @@ public class QuestionServiceImpl implements QuestionService {
 		return questions;
 	}
 
-//	@Override
-//	public int addQuestionWithAnswers(Question question) {
-//
-//		int value = 0;
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		question.setQuestionCreatedBy("admin");
-//		question.setQuestionModifiedBy("admin");
-//		String questionJson = null;
-//
-//		try {
-//			questionJson = objectMapper.writeValueAsString(question);
-//		} catch (JsonProcessingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		System.out.println("json array " + questionJson);
-//		value = questionRepo.addQuestionWithAnswers(questionJson, value);
-//		return value;
-//	}
 
-	// for additing question and answers
+
+	//ADD AND UPDATE QUESTION AND ANSWER
 	@Override
 	public Integer addQuestionsAndAnswers(Question question, Answer[] answers) {
 
@@ -297,6 +258,7 @@ public class QuestionServiceImpl implements QuestionService {
 		return 0;
 	}
 
+	///GET SHUFFLED QUESTION
 	@Override
 	public List<Object> getShuffledQuestionByQuizId(int quizId) {
 		 logger.debug("Entering getAllQuestionsByQuizId");
@@ -311,6 +273,7 @@ public class QuestionServiceImpl implements QuestionService {
 		    return questionObjects;
 	}
 
+	//FIND QUESTION BY QUESTION ID
 	@Override
 	public Question findQuestionById(int questionId) {
 		// TODO Auto-generated method stub
@@ -320,9 +283,8 @@ public class QuestionServiceImpl implements QuestionService {
 		return question;
 	}
 	
-/***
- * @author shradha
- */
+
+	// DELETE QUESTION BY QUESTION ID
   public Map<Integer, Integer> deleteQuestionWithAnswersMCQ(int questionId) {
         try {
         	

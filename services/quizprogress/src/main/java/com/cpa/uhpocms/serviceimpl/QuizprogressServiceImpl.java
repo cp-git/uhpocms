@@ -30,12 +30,7 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 		logger = Logger.getLogger(QuizprogressServiceImpl.class);
 	}
 
-	/**
-	 * @param : Quizprogress quizprogress
-	 * @return : Quizprogress createdQuizprogress
-	 * @description : For creating/inserting entry in Teacher_studentquizprogress
-	 *              table
-	 */
+	//CREATE QUIZ PROGRESS
 	@Override
 	public Quizprogress createQuizprogress(Quizprogress quizprogress) {
 		logger.debug("Entering createQuizprogress");
@@ -46,11 +41,7 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 		return createdQuizprogress;
 	}
 
-	/**
-	 * @param : String studentid
-	 * @return : Quizprogress quizprogress
-	 * @description : For get entry in Teacher_studentquizprogress table
-	 */
+	//GET QUIZ PROGRESS STUDENT ID AND QUIZ ID
 	@Override
 	public Quizprogress getQuizprogressByStudentIdAndQuizId(int studentId, int quizId) {
 		logger.debug("Entering getQuizprogressBystudentId");
@@ -66,11 +57,7 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 
 	
 	
-	/**
-	 * @return : List<Object> quizprogress
-	 * @description : For fetching all quizprogress which are active state from
-	 *              Teacher_studentquizprogress table
-	 */
+	// GET ALL QUIZ PROGRESS
 	@Override
 	public List<Object> getAllQuizprogress() {
 		logger.debug("Entering getAllQuizprogresss");
@@ -84,11 +71,8 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 		return quizProgressList;
 	}
 
-	/**
-	 * @param : Quizprogress to update
-	 * @return : quizprogress
-	 * @description : For updating quizprogress of Teacher_studentquizprogress table
-	 */
+	
+	// UPDATE QUIZ PROGRESS BY STUDENT ID AND QUIZ ID
 	@Override
 	public Quizprogress updateQuizprogressByStudentIdAndQuizId(Quizprogress quizprogress) {
 		logger.debug("Entering updateQuizprogress");
@@ -118,11 +102,7 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 
 
 
-	/**
-	 * @param : String studentid
-	 * @return : Quizprogress quizprogress
-	 * @description : For get entry in Teacher_studentquizprogress table
-	 */
+	//GET QUIZ PROGRESS BY STUDENT ID
 	@Override
 	public List<Object> getQuizprogressBystudentId(int studentId) {
 		logger.debug("Entering getQuizprogressBystudentId");

@@ -33,11 +33,7 @@ public class AnswerServiceImpl implements AnswerService {
 	
 
 
-	/**
-	 * @return : List<Object> answer
-	 * @description : For fetching all answer which are active state from
-	 *              Teacher_answer table
-	 */
+	//GET ALL ANSWER
 	@Override
 	public List<Object> getAllAnswers() {
 		logger.debug("Entering getAllAnswers");

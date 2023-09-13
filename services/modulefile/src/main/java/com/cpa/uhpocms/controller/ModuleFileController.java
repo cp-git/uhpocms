@@ -72,6 +72,7 @@ public class ModuleFileController {
 		logger = Logger.getLogger(ModuleFileController.class);
 	}
 
+	//CREATE THE MODULE FILE
 	@PostMapping("/modulefile")
 	public ResponseEntity<Object> createModuleFile(@RequestPart("admin") ModuleFile modulefile,
 			@RequestParam(value = "files") List<MultipartFile> files) throws CPException {
@@ -130,29 +131,28 @@ public class ModuleFileController {
 				logger.info("ModuleFile created :" + createdModuleFile);
 
 				String moduleName = moduleRepo.finByModuleByModuleId(modulefile.getModuleFileId());
-				// System.out.println(moduleName);
-
+				
 				String courseName = moduleRepo.finByCourseByModuleId(modulefile.getModuleId());
-				// System.out.println(courseName);
+				
 				
 				String cName=courseName.trim();
 
 				String departmentName = moduleRepo
 						.finByAdminDepartmentByCourseDepartmentId(modulefile.getModuleFileId());
-				// System.out.println(departmentName);
+				
 
 				String deptName = departmentName.trim();
 //				
 
 				String InstituteName = moduleRepo
 						.finByAdminInstitutionByCourseDepartmentId(modulefile.getModuleFileId());
-				// System.out.println(InstituteName);
+				
 
 				int InstituteId = moduleRepo.finByAdminInstitutionById(modulefile.getModuleFileId());
-				// System.out.println(InstituteId);
+				
 
 				String instituteNameAndId = InstituteName + "_" + InstituteId;
-				// System.out.println(instituteNameAndId);
+				
 				
 				
 				
@@ -170,7 +170,7 @@ public class ModuleFileController {
 				for (MultipartFile file : files) {
 					String fileData=modulefile.getModuleFileId()+file.getOriginalFilename();
 					fileName = StringUtils.cleanPath(fileData);
-					System.out.println(fileName);
+					
 					Path fileStorage = Paths.get(basePath + "/institute/" + instituteNameAndId + "/"+deptName+"/"
 							+ cName + "/" + moduleName, fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
@@ -191,34 +191,8 @@ public class ModuleFileController {
 		}
 	}
 
-//	@GetMapping("/modulefile/{file}")
-//	public ResponseEntity<Object> getModuleFileByFile(@PathVariable("file") String file) throws CPException {
-//		logger.debug("Entering getModuleFileByfile");
-//		logger.info("entered user name :" + file);
-//
-//		ModuleFile modulefile = null;
-//
-//		try {
-//
-//			modulefile = modulefileService.getModuleFileByFile(file);
-//			logger.info("fetched ModuleFile :" + modulefile);
-//
-//			if (modulefile != null) {
-//				logger.debug("ModuleFile fetched generating response");
-//				return ResponseHandler.generateResponse(modulefile, HttpStatus.OK);
-//			} else {
-//				logger.debug("ModuleFile not found");
-//				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
-//			}
-//
-//		} catch (Exception ex) {
-//
-//			logger.error("Failed getting modulefile : " + ex.getMessage());
-//			throw new CPException("err001", resourceBunde.getString("err001"));
-//		}
-//
-//	}
 
+	//GET ALL MODULE FILES BASED ON ID
 	@GetMapping("/modulefile/moduleId/{moduleId}")
 	public ResponseEntity<List<Object>> getAllModuleFiles(@PathVariable(name = "moduleId") int moduleId)
 			throws CPException {
@@ -242,6 +216,7 @@ public class ModuleFileController {
 		}
 	}
 
+	//GET ALL MODILE FILE BY USINF MODULE NAME
 	@GetMapping("/modulefile")
 	public ResponseEntity<List<Object>> getAllModuleFiles(@RequestParam(name = "file") String file) throws CPException {
 		logger.debug("Entering getAllModuleFile");
@@ -271,31 +246,8 @@ public class ModuleFileController {
 		}
 	}
 
-//	@DeleteMapping("/modulefile/{file}")
-//	public ResponseEntity<Object> deleteModuleFileByFile(@PathVariable("file") String file) throws CPException {
-//		logger.debug("Entering deleteModuleFile");
-//		logger.info("entered deleteModuleFile  :" + file);
-//		// TODO - implement the business logic
-//
-//		int count = 0;
-//
-//		try {
-//			count = modulefileService.deleteModuleFileByFile(file);
-//			if (count >= 1) {
-//				logger.info("deleted ModuleFile : File = " + file);
-//				return ResponseHandler.generateResponse(HttpStatus.NO_CONTENT);
-//			} else {
-//				logger.info(resourceBunde.getString("err005"));
-//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err005");
-//			}
-//
-//		} catch (Exception ex) {
-//			logger.error("Failed to delete ModuleFile :" + ex.getMessage());
-//			throw new CPException("err005", resourceBunde.getString("err005"));
-//		}
-//
-//	}
 
+	//DELETE MODULE FILE BY MODILE FILE ID
 	@DeleteMapping("/modulefileById/{id}")
 	public ResponseEntity<Object> deleteModuleFileById(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering deleteModuleFile");
@@ -319,33 +271,8 @@ public class ModuleFileController {
 
 	}
 
-//	@PutMapping("/modulefile/{file}")
-//	public ResponseEntity<Object> updateModuleFileByFile(@RequestBody ModuleFile modulefile,
-//			@PathVariable("file") String file) throws CPException {
-//		logger.debug("Entering updateModuleFile");
-//		logger.info("entered  updateModuleFile :" + modulefile);
-//
-//		ModuleFile updatedModuleFile = null;
-//
-//		try {
-//			updatedModuleFile = modulefileService.updateModuleFileByFile(modulefile, file);
-//
-//			if (updatedModuleFile == null) {
-//				logger.info(resourceBunde.getString("err004"));
-//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-//			} else {
-//				logger.info("updated modulefile : " + updatedModuleFile);
-//				return ResponseHandler.generateResponse(updatedModuleFile, HttpStatus.CREATED);
-//			}
-//
-//		} catch (Exception ex) {
-//			logger.error("Failed update ModuleFile : " + ex.getMessage());
-//			throw new CPException("err004", resourceBunde.getString("err004"));
-//
-//		}
-//
-//	}
 
+	//UPDATE THE MODULE FILE BY ID
 	@PutMapping("/modulefileById/{id}")
 
 	public ResponseEntity<Object> updateModuleFileById(@RequestPart("admin") ModuleFile modulefile,
@@ -373,34 +300,32 @@ public class ModuleFileController {
 			System.out.println(updatedModuleFile.getModuleFileId());
 
 			String moduleName = moduleRepo.finByModuleByModuleId(updatedModuleFile.getModuleFileId());
-			System.out.println(moduleName);
-
+			
 			String courseName = moduleRepo.finByCourseByModuleId(updatedModuleFile.getModuleId());
-			System.out.println(courseName);
+			
 			
 			String cName=courseName.trim();
 
 			String departmentName = moduleRepo
 					.finByAdminDepartmentByCourseDepartmentId(updatedModuleFile.getModuleFileId());
-			// System.out.println(departmentName);
+			
 
 			String deptName = departmentName.trim();
-			System.out.println(deptName);
+			
 //			
 
 			String InstituteName = moduleRepo
 					.finByAdminInstitutionByCourseDepartmentId(updatedModuleFile.getModuleFileId());
-			System.out.println(InstituteName);
+			
 
 			int InstituteId = moduleRepo.finByAdminInstitutionById(updatedModuleFile.getModuleFileId());
-			System.out.println(InstituteId);
+			
 
 			String instituteNameAndId = InstituteName + "_" + InstituteId;
-			System.out.println(instituteNameAndId);
-
+			
 			File theDir = new File(basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/"
 					+ cName + "/" + moduleName);
-			System.out.println(theDir);
+		
 			if (!theDir.exists()) {
 				theDir.mkdirs();
 			}
@@ -410,7 +335,7 @@ public class ModuleFileController {
 			for (MultipartFile file : files) {
 				String fileData=modulefile.getModuleFileId()+file.getOriginalFilename();
 				fileName = StringUtils.cleanPath(fileData);
-				System.out.println(fileName);
+				
 				Path fileStorage = Paths.get(basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/"
 						+ cName + "/" + moduleName, fileName).toAbsolutePath().normalize();
 				try {
@@ -443,6 +368,8 @@ public class ModuleFileController {
 		return new AuthenticationBean("You are authenticated");
 	}
 
+	
+	//GET MODULE FILE BASED ON STUDENT ID
 	@GetMapping(path = "/modulefile/student")
 	public ResponseEntity<List<Object>> getModuleFilesByStudentId(@RequestParam(name = "id") int studentId)
 			throws CPException {
@@ -469,9 +396,7 @@ public class ModuleFileController {
 		}
 	}
 
-	/**
-	 * @description api to get all inactive module files
-	 */
+	// GET ALL INACTIVE MODULE FILES
 	@GetMapping("/inactive")
 	public ResponseEntity<List<Object>> getInactiveModuleFiles(
 			@RequestParam(name = "inactivemodulesfile") String inactivemodulesfile) throws CPException {
@@ -498,10 +423,8 @@ public class ModuleFileController {
 		}
 	}
 
-	/**
-	 * @description Api to update inactive status to active status
-	 */
 
+	//ACTIVATE MODULE FILE BY ID
 	@PatchMapping(path = "/modulefile/activate/{id}")
 	public ResponseEntity<Object> activateModuleFileByModuleFileId(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering activateModuleFileByModuleFileId");
@@ -526,58 +449,8 @@ public class ModuleFileController {
 		}
 	}
 
-//	@GetMapping(path="getFileById/{moduleFileId}")
-//    ResponseEntity<InputStreamResource> getImageById(@PathVariable int moduleFileId) throws IOException { //download file
-//     
-//		ModuleFile myFile =null;
-//		 myFile =moduleRepo.findByModuleFileId(moduleFileId);
-//        System.out.println(myFile);
-//
-//        
-//        String moduleName=moduleRepo.finByModuleByModuleId(myFile.getModuleFileId());
-//		System.out.println(moduleName);
-//		
-//		
-//		String courseName=moduleRepo.finByCourseByModuleId(myFile.getModuleId());
-//		System.out.println(courseName);
-//		
-//		
-//		String departmentName=moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
-//		System.out.println(departmentName);
-//		
-//		String deptName=departmentName.trim();
-//		
-//		
-//		String InstituteName=moduleRepo.finByAdminInstitutionByCourseDepartmentId(myFile.getModuleFileId());
-//		System.out.println(InstituteName);
-//		
-//		
-//		
-//		int InstituteId=moduleRepo.finByAdminInstitutionById(myFile.getModuleFileId());
-//		System.out.println(InstituteId);
-//		
-//		String instituteNameAndId=InstituteName+"_"+InstituteId;
-//		System.out.println(instituteNameAndId);
-//        
-//       String address =basePath+"/institute/"+instituteNameAndId+"/"+deptName+"/"+courseName+"/"+moduleName+"/"+ myFile.getModuleFile();
-//       File file = new File(address);
-//        System.out.println("file"+file);
-//       InputStream inputStream = new FileInputStream(file);
-////        System.out.println(inputStream);
-//       InputStreamResource a = new InputStreamResource(inputStream);
-////      
-//        HttpHeaders httpHeaders = new HttpHeaders();
-////        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
-//        httpHeaders.setContentType(MediaType.valueOf("video/mp4"));
-//        
-//        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
-////        System.out.println(myFile.getAdminInstitutionPicture());
-//       
-//       
-//       
-//        return new ResponseEntity<InputStreamResource>(a, httpHeaders,HttpStatus.OK);
-//    }
 
+	// GET FILE CONTENT BASED ON MODULE FILE ID
 	@GetMapping(path = "files/{moduleFileId}")
 	public ResponseEntity<InputStreamResource> getFile(@PathVariable int moduleFileId) {
 		try {
@@ -585,41 +458,41 @@ public class ModuleFileController {
 
 			ModuleFile myFile = null;
 			myFile = moduleRepo.findByModuleFileId(moduleFileId);
-			System.out.println(myFile);
+			
 
 			String moduleName = moduleRepo.finByModuleByModuleId(myFile.getModuleFileId());
-			System.out.println(moduleName);
+			
 
 			String courseName = moduleRepo.finByCourseByModuleId(myFile.getModuleId());
-			System.out.println(courseName);
+			
 			
 			String cName=courseName.trim();
 
 			String departmentName = moduleRepo.finByAdminDepartmentByCourseDepartmentId(myFile.getModuleFileId());
-			System.out.println(departmentName);
+			
 
 			String deptName = departmentName.trim();
 
 			String InstituteName = moduleRepo.finByAdminInstitutionByCourseDepartmentId(myFile.getModuleFileId());
-			System.out.println(InstituteName);
+			
 
 			int InstituteId = moduleRepo.finByAdminInstitutionById(myFile.getModuleFileId());
-			System.out.println(InstituteId);
+			
 
 			String instituteNameAndId = InstituteName + "_" + InstituteId;
-			System.out.println(instituteNameAndId);
+			
 			
 			String fileData=myFile.getModuleFileId()+myFile.getModuleFile();
 
 			String address = basePath + "/institute/" + instituteNameAndId + "/" + deptName + "/" + cName + "/"
 					+ moduleName + "/" +fileData;
 			File file = new File(address);
-			System.out.println("file" + file);
+			
 			InputStream inputStream = new FileInputStream(file);
-//	        System.out.println(inputStream);
+
 			InputStreamResource a = new InputStreamResource(inputStream);
 			
-			System.out.println(inputStream.toString());
+			
 			return ResponseEntity.ok().header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"")
 					.contentType(MediaType.APPLICATION_OCTET_STREAM).contentLength(file.length()).body(a);
 		} catch (FileNotFoundException e) {
@@ -628,7 +501,9 @@ public class ModuleFileController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
+	
+	//GET LIST MODULE FILE BY TEACHER ID
 	@GetMapping(path = "/modulefile/teacher")
 	public ResponseEntity<List<Object>> getModuleFilesByTeacherId(@RequestParam(name = "id") int teacherId)
 			throws CPException {
@@ -656,9 +531,9 @@ public class ModuleFileController {
 	}
 	
 	
-	//Updating the Modulefile Along with  Json Object
+
 	
-	
+	// UPDATE THE MODULE FILE ONLY JSON DATA BY ID
 	@PutMapping(value="/moduleupdatejson/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
 
 	public ResponseEntity<Object> updateModulejson(@RequestBody ModuleFile modulefile,

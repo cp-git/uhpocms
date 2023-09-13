@@ -49,6 +49,8 @@ public class CategoryController {
 		logger = Logger.getLogger(CategoryController.class);
 	}
 
+	
+	//INSERTING A NEW CATEGORY
 	@PostMapping("/category")
 	public ResponseEntity<Object> createCategory(@RequestBody Category category) throws CPException {
 		logger.debug("Entering createCategory");
@@ -84,6 +86,8 @@ public class CategoryController {
 		}
 	}
 
+	
+	//GET CATEGORY BY CATEGORY NAME
 	@GetMapping("/category/{category}")
 	public ResponseEntity<Object> getCategoryByCategory(@PathVariable("category") String name) throws CPException {
 		logger.debug("Entering getCategoryBycategory");
@@ -112,6 +116,7 @@ public class CategoryController {
 
 	}
 
+	//GET ALL CATEGORY 
 	@GetMapping("/category")
 	public ResponseEntity<List<Object>> getAllCategorys(@RequestParam(name = "category") String name)
 			throws CPException {
@@ -167,6 +172,8 @@ public class CategoryController {
 //
 //	}
 
+	
+	//UPDATE CATEGORY BY CATEGORY ID
 	@PutMapping("/category/{categoryId}")
 	public ResponseEntity<Object> updateCategoryByCategory(@RequestBody Category category,
 			@PathVariable("categoryId") int categoryId ) throws CPException {
@@ -194,6 +201,8 @@ public class CategoryController {
 
 	}
 	
+	
+	// GET ALL INACTIVE CATEGORY LIST
 	@GetMapping("/category/inactive")
 	public  ResponseEntity<List<Object>> getInactiveCategories(@RequestParam(name = "inactivecategories") String inactivecategories) throws CPException 
 	{
@@ -221,12 +230,7 @@ public class CategoryController {
 	}
 	
 	
-	/**
-	 * @author Shradha
-	 * @param category
-	 * @return
-	 * @throws CPException
-	 */
+	//UPDATE CATEGORY BY ID
 	@PatchMapping("/category/{category}")
 	public ResponseEntity<Object> updateActiveStatus(@PathVariable("category") String category) throws CPException{
 		
@@ -258,6 +262,8 @@ public class CategoryController {
         return new AuthenticationBean("You are authenticated");
     }
 
+	
+	//DELETE CATEGORY BY CATEGORY ID
 	@DeleteMapping("/category/categoryId/{id}")
 	public ResponseEntity<Object> deleteModuleById(@PathVariable("id") int categoryId) throws CPException {
 		logger.debug("Entering deleteCategory");

@@ -32,11 +32,7 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 		logger = Logger.getLogger(EnrollToStudentServiceImpl.class);
 	}
 
-	/**
-	 * @param : EnrollToStudent enrolltostudent
-	 * @return : EnrollToStudent createdEnrollToStudent
-	 * @description : For creating/inserting entry in teacher_course_enrollToStudent table
-	 */
+	//ENROLLED STUDENT
 	@Override
 	public List<Object> createEnrollToStudent(EnrollToStudent enrolltostudent) {
 	    logger.debug("Entering createEnrollToStudent in serviceimpl");
@@ -61,11 +57,7 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 	    return null;
 	}
 
-	/*
-	 * @param : String courseid
-	 * @return : EnrollToStudent enrolltostudent
-	 * @description : For get entry in teacher_course_enrollToStudent table
-	 */
+	//GET ENROLL STUDENT BY COURSE ID AND PROFILE ID
 	@Override
 	public EnrollToStudent getEnrollToStudentBycourseIdandprofileId(int courseid,int profile_id) {
 		logger.debug("Entering getEnrollToStudentBycourseId");
@@ -78,7 +70,7 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 
 
 
-
+	//GET LIST OF PROFILE INSTITUTE ID AND COURSE ID
 	@Override
 	public List<Object> getStudentByCourseId(int courseid) {
 		// TODO Auto-generated method stub
@@ -89,6 +81,7 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 
 
 
+	//GET LIST STUDENT BY COURSE ID
 	@Override
 	public List<Object> getProfilesByInstIdandCourId(int instId, int courId) {
 		// TODO Auto-generated method stub
@@ -103,6 +96,7 @@ public class EnrollToStudentServiceImpl implements EnrollToStudentService {
 	
 	}
 
+	// DELETE ENROLL STUDENT COURSE ID AND PROFILE ID
 	@Override
 	public int deleteEnrollToStudentByCourseIdAndProfileId(int courseId, int profileId) {
 		// TODO Auto-generated method stub

@@ -30,12 +30,7 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 		logger = Logger.getLogger(CourseProgressServiceImpl.class);
 	}
 
-	/**
-	 * @param : CourseProgress courseprogress
-	 * @return : CourseProgress createdCourseProgress
-	 * @description : For creating/inserting entry in teacher_studentcourseprogress
-	 *              table
-	 */
+	//INSERT COURSE PROGRESS
 	@Override
 	public CourseProgress createCourseProgress(CourseProgress courseprogress) {
 		logger.debug("Entering createCourseProgress");
@@ -59,11 +54,7 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 
 	}
 
-	/**
-	 * @param : String id
-	 * @return : CourseProgress courseprogress
-	 * @description : For get entry in teacher_studentcourseprogress table
-	 */
+	//GET COURSE PROGRESS BY ID
 	@Override
 	public CourseProgress getCourseProgressByid(int id) {
 		logger.debug("Entering getCourseProgressByid");
@@ -74,11 +65,7 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 		return courseprogress;
 	}
 
-	/**
-	 * @return : List<Object> courseprogress
-	 * @description : For fetching all courseprogress which are active state from
-	 *              teacher_studentcourseprogress table
-	 */
+	//GET LIST OF COURSE PROGRESS BY COURSE ID
 	@Override
 	public List<Object> getAllCourseProgresss() {
 
@@ -92,12 +79,7 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 		return objectCoureProgress;
 	}
 
-	/**
-	 * @param : CourseProgress to update
-	 * @return : courseprogress
-	 * @description : For updating courseprogress of teacher_studentcourseprogress
-	 *              table
-	 */
+	//GET ALL COURSE PROGRESS
 	@Override
 	public CourseProgress updateCourseProgressByid(CourseProgress courseprogress, int id) {
 		logger.debug("Entering updateCourseProgress");
@@ -127,12 +109,7 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 		return updatedCourseProgress;
 	}
 
-	
-	/**
-	 * @author shradha
-	 * @desc get list of entry in table by course Id
-	 * 
-	 */
+	//UPDATE THE COURSE PROGRESS BY ID
 	public List<Object> getCourseProgressByCourseId(int courseId) {
 		logger.debug("Entering getCourseProgressByCourseId");
 
@@ -145,11 +122,8 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 		return objectCoureProgress;
 
 	}
-
-	/**
-	 * @author shradha
-	 * @desc Function to get entries by course Id and student Id
-	 */
+	
+	//GET COURSE PROGRESS BY COURSE ID AND STUDENT ID
 	public CourseProgress getCourseProgressByCourseIdStudId(int courseId, int studId) {
 		logger.debug("Entering getCourseProgressByCourseId");
 
@@ -162,6 +136,8 @@ public class CourseProgressServiceImpl implements CourseProgressService {
 
 	}
 
+	
+	//DELETE COURSE PROGRESS BY COURSE ID AND STUDENT ID
 	@Override
 	public int deleteCourseProgressByCourseIdAndStudentId(int courseId, int studId) {
 		// TODO Auto-generated method stub

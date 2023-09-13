@@ -31,11 +31,7 @@ public class AssignToTeacherServiceImpl implements AssignToTeacherService {
 		logger = Logger.getLogger(AssignToTeacherServiceImpl.class);
 	}
 
-	/**
-	 * @param : AssignToTeacher assigntoteacher
-	 * @return : AssignToTeacher createdAssignToTeacher
-	 * @description : For creating/inserting entry in teacher_course_assigntoteacher table
-	 */
+	//CREATE ASSIGN TO TEACHER
 	@Override
 	public AssignToTeacher createAssignToTeacher(AssignToTeacher assigntoteacher) {
 		logger.debug("Entering createAssignToTeacher");
@@ -49,11 +45,7 @@ public class AssignToTeacherServiceImpl implements AssignToTeacherService {
 		return createdAssignToTeacher;
 	}
 
-	/**
-	 * @param : String courseid
-	 * @return : AssignToTeacher assigntoteacher
-	 * @description : For get entry in teacher_course_assigntoteacher table
-	 */
+	//GET ALL LIST OF  TEACHER COURSE ID
 	@Override
 	public List<Object> getTeacherBycourseId(int courseid) {
 		logger.debug("Entering getAssignToTeacherBycourseId");
@@ -79,7 +71,8 @@ public class AssignToTeacherServiceImpl implements AssignToTeacherService {
 
 
 	
-	
+
+	//GET LIST OF PROFILES BY INSTITUTE ID AND COURSE ID
 	@Override
 	public List<Object> getProfilesByInstIdandCourId(int instId, int courId) {
 		// TODO Auto-generated method stub
@@ -94,6 +87,7 @@ public class AssignToTeacherServiceImpl implements AssignToTeacherService {
 	
 	}
 
+	//DELETE ASSIGN TEACHER COURSE ID AND PROFILE ID
 	@Override
 	public int deleteAssignToTeacherByCourseIdAndProfileId(int courseId, int profileId) {
 		// TODO Auto-generated method stub

@@ -15,6 +15,7 @@ public class StudentprogressImpl implements StudentProgressService {
 	@Autowired
 	private studentRepo Studentrepo;
 
+	//CREATE QUIZ PROGRESS FOR STUDENT
 	@Override
 	public StudentProgress createQuizprogress(StudentProgress studentProgress) {
 		// TODO Auto-generated method stub
@@ -27,7 +28,7 @@ public class StudentprogressImpl implements StudentProgressService {
 
 	
 	
-	
+	// UPDATE THE QUIZ PROGRESS BY STUDENT ID AND QUIZ ID
 	@Override
 	public StudentProgress updateQuizprogressByStudentIdAndQuizId(StudentProgress studentProgress) {
 		// TODO Auto-generated method stub

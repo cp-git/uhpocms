@@ -67,6 +67,8 @@ public class CourseController {
 		logger = Logger.getLogger(CourseController.class);
 	}
 
+	
+	//CREATE  A COURSE 
 	@PostMapping("/course")
 	public ResponseEntity<Object> createCourse(@RequestBody Course course) throws CPException {
 		logger.debug("Entering createCourse");
@@ -102,7 +104,8 @@ public class CourseController {
 
 
 
-
+	
+	//GET ALL COURSE 
 	@GetMapping("/course")
 	public ResponseEntity<List<Object>> getAllCourses(@RequestParam(name = "name") String name) throws CPException {
 		logger.debug("Entering getAllCourse");
@@ -139,7 +142,7 @@ public class CourseController {
 	}
 
 
-
+	//DELETE COURSE BY COURSE ID
 	@DeleteMapping("/course/courseId/{id}")
 	public ResponseEntity<Object> deleteCourseByCourseId(@PathVariable("id") int courseid) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -165,6 +168,7 @@ public class CourseController {
 
 
 
+	//GET LIST OF COURSE BY PROFILE ID
 	@GetMapping(path = "course/profileId/{id}")
 	public ResponseEntity<List<Object>> getCourseByProfileId(@PathVariable("id") int profile_id) throws CPException {
 		logger.debug("Entering getAllCourse");
@@ -185,6 +189,8 @@ public class CourseController {
 		}
 	}
 
+	
+	//GET ALL COURSES BY DEPARTMENT ID
 	@GetMapping(path = "course/deptId/{id}")
 	public ResponseEntity<List<Object>> getCoursesByDepartmentId(@PathVariable("id") int department_id)
 			throws CPException {
@@ -213,6 +219,7 @@ public class CourseController {
 		return new AuthenticationBean("You are authenticated");
 	}
 
+	//GET CALL COURSE BY INSTITUTION ID 
 	@GetMapping(path = "course/institutionId/{id}")
 	public ResponseEntity<List<Object>> getCourseByInstitutionId(@PathVariable("id") int institutionId)
 			throws CPException {
@@ -243,6 +250,8 @@ public class CourseController {
 		}
 	}
 
+	
+	//ACTIVATING COURSE BY COURSE ID
 	@PatchMapping(path = "/course/activate/{id}")
 	public ResponseEntity<Object> activateCourseById(@PathVariable("id") int courseId) throws CPException {
 		logger.debug("Entering activateCourseById");
@@ -267,6 +276,7 @@ public class CourseController {
 		}
 	}
 
+	//GET COURSE ASSIGN TO TEACHER
 	@GetMapping(path = "course/teacherid/{id}")
 	public ResponseEntity<List<Object>> getCourseAssignToTeacher(@PathVariable("id") int profile_id)
 			throws CPException {
@@ -288,6 +298,8 @@ public class CourseController {
 		}
 	}
 
+	
+	//GET INACTIVE COURSES ASSIGN TO TEACHER
 	@GetMapping(path = "course/inactive/teacherid/{id}")
 	public ResponseEntity<List<Object>> getInactiveCourseAssignToTeacher(@PathVariable("id") int profile_id)
 			throws CPException {
@@ -309,6 +321,8 @@ public class CourseController {
 		}
 	}
 
+	
+	//ASSIGN COURSE TO DEPARTMENT 
 	@PostMapping(path = "/course/department")
 	public ResponseEntity<Object> assignCourseToDepartment(@RequestBody CourseDepartment courseDepartment)
 			throws CPException {
@@ -318,22 +332,21 @@ public class CourseController {
 
 			// List of Courses by Department
 			List<Course> CoursesByDepartment = courseRepo.findCourseByDepartmentId(courseDepartment.getDepartment_id());
-			// System.out.println("Courses Based on Department...."+CoursesByDepartment);
+			
 
 			// Course By id
 			Course course = courseRepo.findByCourseId(courseDepartment.getCourseId());
-			// System.out.println("course Object.."+course);
+			
 
 			// Find All CourseDepartment
 			List<CourseDepartment> courseDepartments = courseDeptRepo.findAll();
-			// System.out.println("All Data"+courseDepartments);
-
+			
 			for (CourseDepartment dp : courseDepartments) {
 				if (dp.getDepartment_id() == courseDepartment.getDepartment_id()) {
 
 			   
 					for (Course c : CoursesByDepartment) {
-						// System.out.println("In Loop..."+c);
+						
 
 
 
@@ -387,6 +400,8 @@ public class CourseController {
 		}
 	}
 
+	
+	//UPDATE THE COURSE BY COURSE ID
 	@PutMapping("/course/courseID/{id}")
 	public ResponseEntity<Object> updateCourseById(@RequestBody Course course, @PathVariable("id") int courseid)
 			throws CPException {
@@ -414,6 +429,8 @@ public class CourseController {
 
 	}
 
+	
+	//GET ALL CALL COURSES BASED ON DEPARTMENT ID
 	@GetMapping("/course/department")
 	public ResponseEntity<List<Object>> getAllCoursesDepartmentId(@RequestParam(name = "id") String name)
 			throws CPException {
@@ -450,6 +467,7 @@ public class CourseController {
 		}
 	}
 	
+	//GET INACTIVE COURSE BY INSTITUTION ID
 	@GetMapping(path = "course/inactive/institutionId/{id}")
 	public ResponseEntity<List<Object>> getInactiveCourseByInstitutionId(@PathVariable("id") int institutionId)
 			throws CPException {

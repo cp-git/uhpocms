@@ -47,6 +47,7 @@ public class EnrollToStudentController {
 		logger = Logger.getLogger(EnrollToStudentController.class);
 	}
 
+	// ENROLL A STUDENT
 	@PostMapping("/enrollstudent/")
 	public ResponseEntity<Object> createEnrollToStudent(@RequestBody EnrollToStudent enrolltostudent) throws CPException {
 		logger.debug("Entering createEnrollToStudent");
@@ -98,6 +99,7 @@ public class EnrollToStudentController {
 
 
 	
+	//GET ENROLLED STUDENT BY USING COURSE ID
 	@GetMapping("enrollstudent/courseid/{courseId}")
 	public ResponseEntity<Object> getStudentByCourseId(@PathVariable("courseId") int courseId)
 			throws CPException {
@@ -133,7 +135,7 @@ public class EnrollToStudentController {
 
 
 	
-	
+	//GET STUDENT BY INSTITUTE ID AND COURSE ID
 	@GetMapping("enrollstudent/instid_courid/{instId}/{courseId}")
 	public ResponseEntity<Object> getStudentByInstIdAndCourseId(@PathVariable("instId") int instId,@PathVariable("courseId") int courseId)
 			throws CPException {
@@ -163,6 +165,7 @@ public class EnrollToStudentController {
 
 	}
 
+	//DELETE THE STUDENT COURSE ID AND PROFILE ID
 	 @DeleteMapping("/enrollstudent/courseid/{courseId}/profileid/{profileId}")
 	    public ResponseEntity<Object> deleteEnrollToStudentByCourseIdAndProfileId(
 	            @PathVariable("courseId") int courseId, @PathVariable("profileId") int profileId) {

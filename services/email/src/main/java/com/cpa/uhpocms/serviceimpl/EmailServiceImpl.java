@@ -29,11 +29,8 @@ public class EmailServiceImpl implements EmailService {
 		logger = Logger.getLogger(EmailServiceImpl.class);
 	}
 
-	/**
-	 * @param : Email email
-	 * @return : Email createdEmail
-	 * @description : For creating/inserting entry in teacher_email table
-	 */
+	
+	//CREATE EMAIL
 	@Override
 	public Email createEmail(Email email) {
 		logger.debug("Entering createEmail");
@@ -48,11 +45,8 @@ public class EmailServiceImpl implements EmailService {
 		return createdEmail;
 	}
 
-	/**
-	 * @param : String title
-	 * @return : Email email
-	 * @description : For get entry in teacher_email table
-	 */
+	
+	//GET EMAIL BY TITLE
 	@Override
 	public Email getEmailByTitle(String title) {
 		logger.debug("Entering getEmailByTitle");
@@ -63,10 +57,8 @@ public class EmailServiceImpl implements EmailService {
 		return email;
 	}
 
-	/**
-	 * @return : List<Object> email
-	 * @description : For fetching all email which are active state from teacher_email table
-	 */
+	
+	//GET ALL EMAILS
 	@Override
 	public List<Object> getAllEmails() {
 		logger.debug("Entering getAllEmails");
@@ -76,11 +68,8 @@ public class EmailServiceImpl implements EmailService {
 		return emails;
 	}
 
-	/**
-	 * @param : Email to update
-	 * @return : email
-	 * @description : For updating email of teacher_email table
-	 */
+	
+	//UPDATE EMAIL BY TITLE
 	@Override
 	public Email updateEmailByTitle(Email email, String title) {
 		logger.debug("Entering updateEmail");
@@ -113,12 +102,8 @@ public class EmailServiceImpl implements EmailService {
 		return updatedEmail;
 	}
 
-	/**
-	 * @param : String title
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of Email
-	 * 
-	 */
+	
+	//DELETE EMAIL BY TITLE
 	@Override
 	public int deleteEmailByTitle(String title) {
 		logger.debug("Entering deleteEmailByTitle");

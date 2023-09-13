@@ -84,6 +84,7 @@ public class EmailController {
 		}
 	}
 
+	//GET EMAIL BY TITLE
 	@GetMapping("/email/{title}")
 	public ResponseEntity<Object> getEmailByTitle(@PathVariable("title") String title)
 			throws CPException {
@@ -113,6 +114,7 @@ public class EmailController {
 
 	}
 
+	//GET ALL EMAILS 
 	@GetMapping("/email")
 	public ResponseEntity<List<Object>> getAllEmails(@RequestParam(name = "title") String title)
 			throws CPException {
@@ -143,6 +145,7 @@ public class EmailController {
 		}
 	}
 
+	// DELETE EMAIL BY TITLE
 	@DeleteMapping("/email/{title}")
 	public ResponseEntity<Object> deleteEmailByTitle(@PathVariable("title") String title) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -169,6 +172,7 @@ public class EmailController {
 
 	}
 
+	//UPDATE EMAIL BY TITLE
 	@PutMapping("/email/{title}")
 	public ResponseEntity<Object> updateEmailByTitle(@RequestBody Email email,
 			@PathVariable("title") String title) throws CPException {

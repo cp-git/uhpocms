@@ -30,11 +30,7 @@ public class QuizServiceImpl implements QuizService {
 		logger = Logger.getLogger(QuizServiceImpl.class);
 	}
 
-	/**
-	 * @param : Quiz quiz
-	 * @return : Quiz createdQuiz
-	 * @description : For creating/inserting entry in Teacher_quiz table
-	 */
+	//CREATE QUIZ
 	@Override
 	public Quiz createQuiz(Quiz quiz) {
 		logger.debug("Entering createQuiz");
@@ -48,11 +44,8 @@ public class QuizServiceImpl implements QuizService {
 		return createdQuiz;
 	}
 
-	/**
-	 * @param : String title
-	 * @return : Quiz quiz
-	 * @description : For get entry in Teacher_quiz table
-	 */
+	
+	//GET QUIZ BY TITLE
 	@Override
 	public Quiz getQuizBytitle(String title) {
 		logger.debug("Entering getQuizBytitle");
@@ -72,11 +65,8 @@ public class QuizServiceImpl implements QuizService {
 		return null;
 	}
 
-	/**
-	 * @return : List<Object> quiz
-	 * @description : For fetching all quiz which are active state from Teacher_quiz
-	 *              table
-	 */
+	
+	//GET ALL QUIZ
 	@Override
 	public List<Object> getAllQuizs() {
 		logger.debug("Entering getAllQuizs");
@@ -86,11 +76,8 @@ public class QuizServiceImpl implements QuizService {
 		return quizs;
 	}
 
-	/**
-	 * @param : Quiz to update
-	 * @return : quiz
-	 * @description : For updating quiz of Teacher_quiz table
-	 */
+
+	//UPDATE THE QUIZ BY USING TITLE
 	@Override
 	public Quiz updateQuiz(Quiz quiz, String title) {
 		logger.debug("Entering updateQuiz");
@@ -138,12 +125,8 @@ public class QuizServiceImpl implements QuizService {
 	
 	
 
-	/**
-	 * @param : String title
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of Quiz
-	 * 
-	 */
+	
+	//DELETE QUIZ BY TITLE
 	@Override
 	public int deleteQuizBytitle(String title) {
 		logger.debug("Entering deleteQuizBytitle");
@@ -157,11 +140,8 @@ public class QuizServiceImpl implements QuizService {
 	
 
 
-	/**
-	 * @author Shradha
-	 * 
-	 * 
-	 */
+
+	//GET ALL INACTIVE QUIZZESS
 	@Override
 	public List<Object> getInactiveQuizzes() {
 		// TODO Auto-generated method stub
@@ -172,10 +152,8 @@ public class QuizServiceImpl implements QuizService {
 		return quizzes;
 	}
 
-	/**
-	 * @author Shradha
-	 * 
-	 */
+	
+	//ACTIVATE QUIZ BY QUIZ ID
 	@Override
 	public Object updateActiveStatus(int quizId) {
 		// TODO Auto-generated method stub
@@ -196,6 +174,8 @@ public class QuizServiceImpl implements QuizService {
 		return null;
 	}
 
+	
+	//GET ALL QUIZ BY PROFILE ID
 	public List<Object> getAllQuizzesByProfileId(int studentId) {
 		logger.debug("Entering getAllQuizzesByProfileId");
 
@@ -205,7 +185,7 @@ public class QuizServiceImpl implements QuizService {
 		return objQuizzes;
 	}
 
-	
+	//GET ALL INACTIVE QUIZ
 	public List<Object> getAllActInacQuizzes() {
 		logger.debug("Entering getAllQuizzesByModuleId");
 
@@ -216,6 +196,7 @@ public class QuizServiceImpl implements QuizService {
 		return objQuizzes;
 	}
 	
+	//GET ALL QUIZ BY MODULE ID
 	public List<Object> getAllQuizzesByModuleId(int moduleId) {
 		logger.debug("Entering getAllQuizzesByModuleId");
 
@@ -227,23 +208,23 @@ public class QuizServiceImpl implements QuizService {
 	}
 
 
+	// GET QUIZ LIST INFO QUIZ ID
 	@Override
 	public List<Object[]> getQuizInfoByQuizId(int quizId) {
 		// TODO Auto-generated method stub
 		 return quizRepo.getQuizInfoByQuizId(quizId);
 	}
 	
-	/**
-	 * @author shradha
-	 * @param quizId
-	 * @return
-	 */
+	
+	//GET QUIZ BY QUIZ ID
 	@Override
 	public Object getQuizByQuizId(int quizId) {
 		// TODO Auto-generated method stub
 		 return quizRepo.findByQuizId(quizId);
 	}
 	
+	
+	//GET ALL INACTIVE QUIZ BY STUDENT ID
 	@Override
 	public List<Object> getAllInactiveQuizzesByStudentId(int studentId) {
 		logger.debug("Entering getAllQuizzesByProfileId");
@@ -254,6 +235,7 @@ public class QuizServiceImpl implements QuizService {
 		return objQuizzes;
 	}
 	
+	//GET ALL QUIZ BY TEACHER ID
 	@Override
 	public List<Object> getAllQuizzesByTeacherId(int teacherId) {
 		logger.debug("Entering getAllQuizzesByProfileId");
@@ -264,6 +246,7 @@ public class QuizServiceImpl implements QuizService {
 		return objQuizzes;
 	}
 	
+	//GET ALL INACTIVE QUIZZESS BY TEACHER ID
 	@Override
 	public List<Object> getAllInactiveQuizzesByTeacherId(int teacherId) {
 		logger.debug("Entering getAllQuizzesByProfileId");

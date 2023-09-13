@@ -27,12 +27,7 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 		resourceBundle = ResourceBundle.getBundle("ErrorMessage", Locale.US);
 	}
 
-	/**
-	 * @author : Akash
-	 * @param : AdminRole
-	 * @return :createdRole
-	 * @description : For creating/save entry in adminrole table
-	 */
+	// INSERT NEW ADMIN ROLE 
 	@Override
 	public AdminRole saveAdminRole(AdminRole adminRole) {
 		logger.debug("Entering createRole");
@@ -55,11 +50,8 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 		logger.info("created Role: " + createdRole);
 		return createdRole;
 	}
-	/**
-	 * @author : Kaushik
-	 * @return : adminrole
-	 * @description : For get all the roles info
-	 */
+	
+	//GET ALL ADMIN ROLE
 	@Override
 	public List<Object> getAllAdminRole() {
 		// TODO Auto-generated method stub
@@ -70,13 +62,8 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 		return adminRole;
 	}
 
-	/**
-	 * @author : Kaushik
-	 * @param : String roleName
-	 * @return : AdminRole
-	 * @description : For soft deleting entry
-	 */
-
+	
+	// DELETE ADMIN ROLE BY NAME
 	@Override
 	public int deleteAdminRoleByRoleName(String roleName) {
 		// TODO Auto-generated method stub
@@ -88,12 +75,7 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 		return adminRole;
 	}
 
-	/**
-	 * @author : Kaushik
-	 * @param : String roleName
-	 * @return : method
-	 * @description : For geting role details by role name
-	 */
+	//GET ADMIN ROLE BY NAME
 	@Override
 	public AdminRole getRoleByRoleName(String roleName) {
 		// TODO Auto-generated method stub
@@ -104,12 +86,7 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 		return adminRole;
 	}
 
-	/**
-	 * @author : Akash
-	 * @param : AdminRole adminRole, String roleName
-	 * @return : object
-	 * @description : For updating entry in adminrole table
-	 */
+	// UPDATE ADMIN ROLE 
 	@Override
 	public AdminRole updateRoleNameByRoleName(AdminRole adminRole) {
 		// TODO Auto-generated method stub
@@ -130,12 +107,8 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 		logger.info("---update role :" + updatedRole);
 		return updatedRole;
 	}
-	/**
-	 * @param : int roleId
-	 * @return : int - count of updated /activated roles
-	 * @description : For soft deleting entry
-	 */
-
+	
+	//ACTIVATE ADMIN ROLE BY ID
 	@Override
 	public int activateAdminRoleByRoleId(int roleId) {
 
@@ -147,10 +120,8 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 		return adminRole;
 	}
 
-	/**
-	 * @return : adminrole list
-	 * @description : For get all the roles info
-	 */
+
+	//GET INACTIVE ADMIN ROLE
 	@Override
 	public List<Object> getAllInactiveAdminRoles() {
 		// TODO Auto-generated method stub

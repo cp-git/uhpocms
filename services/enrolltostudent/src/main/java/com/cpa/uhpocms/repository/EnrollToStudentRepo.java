@@ -22,28 +22,35 @@ import com.cpa.uhpocms.entity.EnrollToStudent;
 @Repository
 public interface EnrollToStudentRepo extends JpaRepository<EnrollToStudent, Integer> {
 
+	//FIND ENROLL STUDENT USING COURSE ID
 	public EnrollToStudent findByCourseId(int courseid);
 
+	//FIND ALL COURSE ID
 	public List<Object> findAllByCourseId(int courseid);
 	
 //	public List<Object> findByEnrollToStudentIsActiveTrue();
 
+	//DELETE ENROLLED STUDENT COURSE ID
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE teacher_course_enrollToStudent SET is_active=false WHERE courseid = ?1", nativeQuery = true)
 	public int deleteEnrollToStudentBycourseId(int courseid);
 
-	
+	// INSERT COURSE AND PROFILE
 	@Query(value = "INSERT INTO teacher_course_enrolltostudent(course_id, profile_id) VALUES (?1,?2)", nativeQuery = true)
 	public void insertCourseAndProfile(int courseId, int profileId);
 
+	//GET ENROLLED STUDENT COUORSE ID AND PROFILE ID
 	public EnrollToStudent findByCourseIdAndProfileId(int courseid, int profile_id);
 	
+	//FIND PROFILE BY INSTITUE ID AND COURSE ID
 	@Transactional
 	@Modifying
 	@Query(value = "SELECT DISTINCT te.* FROM teacher_course_enrolltostudent te  JOIN teacher_course tc ON te.course_id = tc.courseid WHERE tc.instid = ?1 and te.course_id=?2 and tc.isactive = 'true'", nativeQuery = true)
 	List<EnrollToStudent> findProfilesByInstIDandCourseId(int instId,int courId);
 	
+	
+	//DELETE ENROLL STUDENT COURSE ID AND PROFILE ID 
 	@Transactional
 	 @Modifying
 	    @Query(value = "DELETE FROM teacher_course_enrollToStudent WHERE course_id = ?1 AND profile_id = ?2", nativeQuery = true)

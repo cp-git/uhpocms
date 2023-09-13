@@ -76,14 +76,8 @@ public class AdminInstitutionController {
 		logger = Logger.getLogger(AdminInstitutionController.class);
 	}
 
-	/**
-	 * @author: Akash
-	 * @param: AdminInstitution adminInstitution
-	 * @return : ResponseEntity
-	 * @description : For creating/inserting entry in AdminInstitution.
-	 */
 	
-	
+	//////////////////// CREATE THE INSTITUTION  //////////////////////////
 	@PostMapping("/institution")
 	public ResponseEntity<Object> addAdminInstitution(@RequestPart("admin") AdminInstitution adminInstitution,@RequestParam("file")MultipartFile file)
 			throws CPException {
@@ -143,14 +137,7 @@ public class AdminInstitutionController {
 
 	}
 
-	/**
-	 * @author: Akash
-	 * @param: List<Object>
-	 * @return :ResponseEntity
-	 * @throws CPException
-	 * @description : get mapping that retrieves all the institution details from
-	 *              the db
-	 */
+	///////////////////// GETTING ALL ADMIN INSTITUTION LIST //////////////////////////////
 	@GetMapping("/institution")
 	public ResponseEntity<List<Object>> getAllAdminInstitution(@RequestParam(name = "name") String adminInstitutionName)
 			throws CPException {
@@ -190,7 +177,9 @@ public class AdminInstitutionController {
 	public AuthenticationBean basicauth() {
 		return new AuthenticationBean("You are authenticated");
 	}
-
+	
+	
+///////////////////////////////////////// ACTIVATE ADMIN INSTITUTE BY INSTITUTION ID //////////////////////////
 	@PatchMapping(path = "/institution/activate/{id}")
 	public ResponseEntity<Object> ActivateAdminInstitutionById(@PathVariable("id") int adminInstitutionId)
 			throws CPException {
@@ -216,7 +205,7 @@ public class AdminInstitutionController {
 	}
 	
 	
-	
+///////////////////////////////////////////// DISPLAY THE INSTITUTION IMAGE ////////////////////////////
 	@GetMapping(path="/institution/getFileById/{adminInstitutionId}")
     ResponseEntity<InputStreamResource> getImageById(@PathVariable int adminInstitutionId) throws IOException { //download file
      
@@ -231,19 +220,21 @@ public class AdminInstitutionController {
        File file = new File(address);
         System.out.println("file"+file);
        InputStream inputStream = new FileInputStream(file);
-//        System.out.println(inputStream);
+
        InputStreamResource a = new InputStreamResource(inputStream);
-//      
+     
         HttpHeaders httpHeaders = new HttpHeaders();
-//        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
+
         httpHeaders.setContentType(MediaType.IMAGE_JPEG);
-        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
-//        System.out.println(myFile.getAdminInstitutionPicture());
+      
        
        
        
         return new ResponseEntity<InputStreamResource>(a, httpHeaders, HttpStatus.ACCEPTED);
     }
+	
+	
+	///////////////////////// GET INSTITUTION BY PROFILE ID ////////////////////////////////////
 
 	@GetMapping("/institution/profile/{id}")
 	public ResponseEntity<Object> getInstitutionByprofileId(@PathVariable("id") int profileid) throws CPException {
@@ -272,7 +263,7 @@ public class AdminInstitutionController {
 
 	}
 
-	
+	////////////////////////////////   DELETE INSTITUTION BY INSTITUTION ID ///////////////////////////////
 	@DeleteMapping("/institution/institutionId/{id}")
 	public ResponseEntity<Object> deleteInstitutionById(@PathVariable("id") int institutionId) throws CPException {
 		logger.debug("Entering deleteInstitution");

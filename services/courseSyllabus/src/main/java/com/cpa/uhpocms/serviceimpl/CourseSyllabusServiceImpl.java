@@ -29,11 +29,7 @@ public class CourseSyllabusServiceImpl implements CourseSyllabusService {
 		logger = Logger.getLogger(CourseSyllabusServiceImpl.class);
 	}
 
-	/**
-	 * @param : CourseSyllabus courseSyllabus
-	 * @return : CourseSyllabus createdCourseSyllabus
-	 * @description : For creating/inserting entry in teacher_coursesyllabus table
-	 */
+	//INSERT COURSE SYLLABUS
 	@Override
 	public CourseSyllabus createCourseSyllabus(CourseSyllabus courseSyllabus) {
 		logger.debug("Entering createCourseSyllabus");
@@ -49,11 +45,8 @@ public class CourseSyllabusServiceImpl implements CourseSyllabusService {
 		return createdCourseSyllabus;
 	}
 
-	/**
-	 * @param : String id
-	 * @return : CourseSyllabus courseSyllabus
-	 * @description : For get entry in teacher_coursesyllabus table
-	 */
+	
+	// GET COURSE SYLLABUS BY ID
 	@Override
 	public CourseSyllabus getCourseSyllabusByid(int id) {
 		logger.debug("Entering getCourseSyllabusByid");
@@ -64,11 +57,9 @@ public class CourseSyllabusServiceImpl implements CourseSyllabusService {
 		return courseSyllabus;
 	}
 
-	/**
-	 * @return : List<Object> courseSyllabus
-	 * @description : For fetching all courseSyllabus which are active state from
-	 *              teacher_coursesyllabus table
-	 */
+	
+	
+	//GET LIST OF ACTIVE COURSE SYLLABUS
 	@Override
 	public List<Object> getAllCourseSyllabuss() {
 		logger.debug("Entering getAllCourseSyllabuss");
@@ -78,11 +69,8 @@ public class CourseSyllabusServiceImpl implements CourseSyllabusService {
 		return courseSyllabuss;
 	}
 
-	/**
-	 * @param : CourseSyllabus to update
-	 * @return : courseSyllabus
-	 * @description : For updating courseSyllabus of teacher_coursesyllabus table
-	 */
+
+	//UPDATE COURSE SYLLABUS BY ID
 	@Override
 	public CourseSyllabus updateCourseSyllabusByid(CourseSyllabus courseSyllabus, int courseSyllabusId) {
 		logger.debug("Entering updateCourseSyllabus");
@@ -112,13 +100,8 @@ public class CourseSyllabusServiceImpl implements CourseSyllabusService {
 		return updatedCourseSyllabus;
 	}
 
-	/**
-	 * @param : String id
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of
-	 *              CourseSyllabus
-	 * 
-	 */
+
+	//DELETE COURSE SYLLABUS BY ID
 	@Override
 	public int deleteCourseSyllabusByid(int id) {
 		logger.debug("Entering deleteCourseSyllabusByid");

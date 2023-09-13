@@ -17,75 +17,47 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 
 	
 	
-	/**
-	 * @author : Shradha
-	 * @param : FindById
-	 * @return : InstituteAdmin object
-	 * @description : For Retrieving the data using the Id(primary key)
-	 */
-	
+	//FIND PROFILE BY ID
 	public InstituteAdmin findByAdminId(int adminId);
 	
 
-	/**
-	 * @author : Anmesh
-	 * @param : FindByUserId
-	 * @return : InstituteAdmin UserId (Foriegn Key)
-	 * @description : For Retrieving the data using the UserId
-	 */
-	
+	//FIND PROFILE BY USER
 	public InstituteAdmin findByUserId(int userId);
 
-	/**
-	 * @author : Anmesh
-	 * @param : FindAllInstitute
-	 * @return : InstituteAdmin instituteAdmin
-	 * @description : For Retrieving All the data of active status is true.
-	 */
+	
+	//FIND ACTIVE PROFILE
 	public List<Object> findByActiveUserIsTrue();
 
 
 
-	/**
-	 * @return : InstituteAdmin list
-	 * @description : For Retrieving All the data of inactive status.
-	 */
 	
+	//FIND INACTIVE PROFILES BASED ON ACTIVE INSTITUTIONS
 	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN admin_institution inst ON inst.institutionid=profile.institutionid_id JOIN auth_user users ON users.id=profile.user_id where users.is_active=false and inst.isactive=true and profile.isactive=false\r\n", nativeQuery = true)
 	public List<InstituteAdmin> findInactiveProfileOfActiveInstitutions();
 
-	/**
-	 * @return : number of updated count
-	 * @description : For activating inactive profiles
-	 */
+	
+	
+	//ACTIVATE INSTITUTION BY PROFILE ID
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE instituteadmin_profile SET isactive=true WHERE id= ?1", nativeQuery = true)
 	
+	//ACTIVATE INSTITUTE PROFILE BY ID
 	public int activateInstituteProfileById(int profileId);
 
+	//FIND PROFILE BY DEPARTMENT ID 
 	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN teacher_course_enrolltostudent enroll ON  profile.id = enroll.profile_id where profile.isactive=true and enroll.course_id IN SELECT deptid.course_id FROM teacher_course_departmentid deptid WHERE deptid.department_id = ?1", nativeQuery = true)
 	public List<Object> findProfileByDepartmentId(int department_id);
 
 	
-	/**
-	 * 
-	 * @param institutionId
-	 * @param userRole
-	 * @return List of Profiles
-	 * @description Function basically returns list of profiles based on institution id and user role provided in function parameter
-	 */
-	
+	//FIND LIST OF INSTITUTION ID  AND USER ROLE
 	public List<Object> findByInstitutionIdAndUserRole(int institutionId, String userRole);
 
-	/**
-	 * @return : InstituteAdmin list
-	 * @description : For Retrieving All the data of active profile of active institute.
-	 */
+	//FIND ACTIVE PROFILE OF ACTIVE INSTITUTIONS 
 	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN admin_institution inst ON inst.institutionid=profile.institutionid_id JOIN auth_user users ON users.id=profile.user_id where users.is_active=true and inst.isactive=true and profile.isactive=true", nativeQuery = true)
 	public List<InstituteAdmin> findActiveProfileOfActiveInstitutions();
 	
-	
+	//GET PROFILE COURSES ASSIGN TO TEACHER
 	@Query(value = "SELECT DISTINCT iap.* FROM instituteadmin_profile iap JOIN teacher_course_enrolltostudent tces ON iap.id = tces.profile_id JOIN teacher_course_assigntoteacher tcat ON tces.course_id = tcat.course_id WHERE tcat.profile_id = ?1", nativeQuery = true)
     public List<InstituteAdmin> getProfilesOfCourseAssignedToTeacher(int profileId);
 	

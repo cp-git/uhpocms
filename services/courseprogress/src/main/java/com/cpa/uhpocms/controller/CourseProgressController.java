@@ -47,13 +47,9 @@ public class CourseProgressController {
 		logger = Logger.getLogger(CourseProgressController.class);
 	}
 
-	/**
-	 * @author shradha
-	 * @param courseprogress
-	 * @return
-	 * @throws CPException
-	 * @desc Api to create an entry in table
-	 */
+	
+	
+	//INSERT COURSE PROGRESS
 	@PostMapping("/courseprog")
 	public ResponseEntity<Object> createCourseProgress(@RequestBody CourseProgress courseprogress) throws CPException {
 		logger.debug("Entering createCourseProgress");
@@ -90,6 +86,8 @@ public class CourseProgressController {
 		}
 	}
 
+	
+	//GET COURSE PROGRESS BY COURSE ID
 	@GetMapping("/courseprog/courseId/{id}")
 	public ResponseEntity<Object> getCourseProgressByCourseId(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering getCourseProgressByid");
@@ -118,15 +116,8 @@ public class CourseProgressController {
 
 	}
 
-	/**
-	 * 
-	 * @author shradha
-	 * @param courId
-	 * @param studId
-	 * @return
-	 * @throws CPException
-	 * @desc Get course by course and student id
-	 */
+	
+	// GET COURSE PROGRESS BY COURSE ID AND STUDENT ID
 	@GetMapping("/courseprog/{courId}/{studId}")
 	public ResponseEntity<Object> getCourseProgressByCourseId(@PathVariable("courId") int courId,
 			@PathVariable("studId") int studId) throws CPException {
@@ -156,13 +147,8 @@ public class CourseProgressController {
 
 	}
 
-	/**
-	 * @author shradha
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 * @desc get all entries in table
-	 */
+	
+	//GET ALL COURSE PROGRESS
 	@GetMapping("/courseprog")
 	public ResponseEntity<List<Object>> getAllCourseProgresss(@RequestParam(name = "id") String id) throws CPException {
 		logger.debug("Entering getAllCourseProgress");
@@ -194,6 +180,7 @@ public class CourseProgressController {
 
 	
 
+	//UPDATE COURSE PROGRESS BY ID
 	@PutMapping("/courseprog/{id}")
 	public ResponseEntity<Object> updateCourseProgressByid(@RequestBody CourseProgress courseprogress,
 			@PathVariable("id") int id) throws CPException {
@@ -221,13 +208,7 @@ public class CourseProgressController {
 
 	}
 
-	/**
-	 * @author shradha
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 * @desc get en entry by providing id
-	 */
+	//GET COURSE PROGRESS BY ID
 	@GetMapping("/courseprog/{id}")
 	public ResponseEntity<Object> getCourseProgressByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering getCourseProgressByid");
@@ -256,6 +237,8 @@ public class CourseProgressController {
 
 	}
 
+	
+	//DELETE THE COURSE PROGRESS BY COURSE ID AND STUDENT ID
 	@DeleteMapping("/courseprog/courseid/{courseId}/studentid/{studentId}")
 	public ResponseEntity<Object> deleteCourseProgressByCourseIdAndStudentId(@PathVariable("courseId") int courseId,
 			@PathVariable("studentId") int studId) {

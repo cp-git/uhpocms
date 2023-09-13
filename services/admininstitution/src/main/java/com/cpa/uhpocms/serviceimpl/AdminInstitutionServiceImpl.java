@@ -30,14 +30,9 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 	}
 
-	/**
-	 * @author: Akash
-	 * @param : AdminInstitution adminInstitution
-	 * @return : AdminInstitution createdAdminInstitution
-	 * @description : For creating/inserting entry in admin_institution table
-	 */
+
 	
-	
+//////////////////////////CREATE AN INSTITUTE ////////////////////////////////////
 	public AdminInstitution saveAdminInstitution(AdminInstitution adminInstitution) {
 
 		adminInstitution.setAdminInstitutionCreatedBy("Admin");
@@ -57,13 +52,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		return createdAdminInstitution;
 	}
 
-	/**
-	 * @author: Akash
-	 * @return : objectList
-	 * @description : For Retrieving all entry in admin_institution table
-	 */
-
-	
+//////////////////////////GET ALL ADMIN INSTITUTION /////////////////////////////	
 	public List<Object> getAllAdminInstitution() {
 		logger.debug("Entering getAllAdminInstitution");
 		List<Object> objectList = adminInstitutionRepository.findByAdminInstitutionIsActiveTrue();
@@ -77,7 +66,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 
 	
-	
+/////////////////////// GET ALL ADMIN INSTITUTION BY PROFILE ID //////////////////////	
 	@Override
 	public List<Object> getAllInactiveAdminInstitutions() {
 		logger.debug("Entering getAllInactiveAdminInstitutions");
@@ -89,14 +78,8 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		return objectList;
 	}
 
-	/**
-	 * @param: int adminInstitutionId - id of institution we want to update
-	 * @return : int count - how many rows updated
-	 * @description : For activating the specific entry in admin_institution table
-	 *              by id
-	 */
 	
-	
+///////////////////////////// GET ALL INACTIVE INSTITUTIONS /////////////////////////
 	@Override
 	public int activateAdminInstitutionById(int adminInstitutionId) {
 		logger.debug("Entering getAllInactiveAdminInstitutions");
@@ -108,7 +91,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	}
 
 	
-	
+////////////////////////////////// ACTIVATE ADMIN INSTITUTION BY ID //////////////////	
 	@Override
 	public List<Object> getAdminInstitutionByProfileId(int profileid) {
 		// TODO Auto-generated method stub
@@ -121,6 +104,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 	
 	
+//////////////////FIND BY ADMIN INSTITUTION BY ID /////////////////////////
 	@Override
 	public AdminInstitution findInstituteById(int adminInstitutionId) {
 		// TODO Auto-generated method stub
@@ -132,7 +116,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 	}
 	
 	
-	
+	////////////////////////// DELETE ADMIN INSTITUTION BY ID ///////////////////////
 	@Override
 	public int deleteInstitutionById(int institutionId) {
 		// TODO Auto-generated method stub

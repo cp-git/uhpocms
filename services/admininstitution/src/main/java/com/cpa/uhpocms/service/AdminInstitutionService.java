@@ -17,33 +17,33 @@ import com.cpa.uhpocms.entity.AdminInstitution;
 public interface AdminInstitutionService {
 
 	
-	//USED
+	////////////////////////// CREATE AN INSTITUTE ////////////////////////////////////
 	AdminInstitution saveAdminInstitution(AdminInstitution adminInstitution);
 
 	
-	//USED
+	////////////////////////// GET ALL ADMIN INSTITUTION /////////////////////////////
 	List<Object> getAllAdminInstitution();
 
 	
 
 	
-	//USED
+	/////////////////////// GET ALL ADMIN INSTITUTION BY PROFILE ID //////////////////////
 	List<Object> getAdminInstitutionByProfileId(int profileid);
 
 	
-	//USED
+	///////////////////////////// GET ALL INACTIVE INSTITUTIONS /////////////////////////
 	List<Object> getAllInactiveAdminInstitutions();
 
 	
-	//USED
+	////////////////////////////////// ACTIVATE ADMIN INSTITUTION BY ID //////////////////
 	int activateAdminInstitutionById(int adminInstitutionId);
 	
 	
-	//USED
+	//////////////////  FIND BY ADMIN INSTITUTION BY ID /////////////////////////
 	AdminInstitution findInstituteById(int adminInstitutionId);
 	
 	
-	//USED
+	////////////////////////// DELETE ADMIN INSTITUTION BY ID ///////////////////////
 	 int deleteInstitutionById(int institutionid);
 	
 	

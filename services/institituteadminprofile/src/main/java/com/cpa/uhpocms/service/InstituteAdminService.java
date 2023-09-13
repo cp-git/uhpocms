@@ -6,45 +6,46 @@ import com.cpa.uhpocms.entity.InstituteAdmin;
 
 public interface InstituteAdminService {
 
-	//Used
+	//CREATE PROFILE
 	InstituteAdmin saveInstituteAdmin(InstituteAdmin instituteAdmin);
 
 	
 
-	//Used
+	//GET PROFILE BY ID
 	public InstituteAdmin getProfileById(int id);
 	
 	
-	//Used
+	//GET PROFILE BY USER ID
 	public InstituteAdmin findByUserId(int userId);
 
 	
-	//Used
+	//GET ALL USER PROFILE
 	List<Object> getAllInstitute();
 
 	
 	
 
-	//Used
+	//GET INACTIVE INSTITUTE
 	List<Object> getAllInactiveInstitute();
 
-	//Used
+	//ACTIVATE PROFILE BY PROFILE ID
 	int activateInstituteProfileById(int profileId);
 
 
-	//Used
+	//GET LIST PROFILE INSTITUTION ID AND USER ROLE
 	List<Object> getProfileByInstitutionIdAndUserRole(Integer institutionId, String userRole);
 
-	//Used
+	//UPDATE PROFILE BASED ON USER ID
 	InstituteAdmin updateProfileByAuthUserId(InstituteAdmin instituteAdmin, int userId);
 
-	//Used
+	//GET PROFILE BY USER ID
 	InstituteAdmin getProfileByAuthUserId(int userId);
 	
+	//GET LIST OF PROFILE COURSES ASSIGNED TO TEACHER
 	List<Object> getProfileCourseAssignedTeacher(int profileId);
 
 	
-	//Used
+	//GET PROFILE BY ID
 	InstituteAdmin getInstituteDetails(int adminId);
 
 	

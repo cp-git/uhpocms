@@ -31,11 +31,7 @@ public class ModuleServiceImpl implements ModuleService {
 		logger = Logger.getLogger(ModuleServiceImpl.class);
 	}
 
-	/**
-	 * @param : Module module
-	 * @return : Module createdModule
-	 * @description : For creating/inserting entry in teacher_module table
-	 */
+	//CREATE MODULE
 	@Override
 	public Module createModule(Module module) {
 		logger.debug("Entering createModule");
@@ -51,11 +47,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 
 
-	/**
-	 * @return : List<Object> module
-	 * @description : For fetching all module which are active state from
-	 *              teacher_module table
-	 */
+	//GET LIST OF MOUDLE
 	@Override
 	public List<Object> getAllModules() {
 		logger.debug("Entering getAllModules");
@@ -66,11 +58,7 @@ public class ModuleServiceImpl implements ModuleService {
 		return modules;
 	}
 
-	/**
-	 * @param : Module to update
-	 * @return : module
-	 * @description : For updating module of teacher_module table
-	 */
+	//UPDATE THE MODULE NAME BY MOUDLE NAME
 	@Override
 	public Module updateModuleByName(Module module, String name) {
 		logger.debug("Entering updateModule");
@@ -102,12 +90,7 @@ public class ModuleServiceImpl implements ModuleService {
 		return updatedModule;
 	}
 
-	/**
-	 * @param : String name
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of Module
-	 * 
-	 */
+	//DELETE MODULE BY NAME
 	@Override
 	public int deleteModuleByName(String name) {
 		logger.debug("Entering deleteModuleByName");
@@ -117,6 +100,7 @@ public class ModuleServiceImpl implements ModuleService {
 		return count;
 	}
 
+	//GET LIST OF MODULES BASED ON COURSE ID
 	@Override
 	public List<Object> findByCourseId(int courseId) {
 		// TODO Auto-generated method stub
@@ -125,6 +109,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 	}
 
+	//GET ALL INACTIVE MODULE LIST
 	public List<Object> getAllInactiveModules() {
 		// TODO Auto-generated method stub
 		logger.debug("Entering getAllInActiveQuestions ");
@@ -134,15 +119,7 @@ public class ModuleServiceImpl implements ModuleService {
 		return modules;
 	}
 
-	/**
-	 * @author Shradha
-	 * @createdOn Feb 10 2023
-	 * @description function updates active status of module object to true
-	 * @param accepts module name as parameter
-	 * @return return module object
-	 */
-	
-
+	//GET UPDATE DELETE MODULE BY ID
 	@Override
 	public int deleteModuleBymoduleId(int moduleId) {
 		// TODO Auto-generated method stub
@@ -153,6 +130,8 @@ public class ModuleServiceImpl implements ModuleService {
 		return count;
 	}
 
+	
+	//UPDATE MODULE BY MODULE ID
 	@Override
 	public Module updateModuleBymoduleId(Module module, int moduleId) {
 		// TODO Auto-generated method stub
@@ -187,10 +166,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 
 
-	/**
-	 * @return : List<Object> module
-	 * @description : For fetching all module of course using profile id
-	 */
+	//GET MODULE ASSIGN COURSES BY PROFILE ID
 	@Override
 	public List<Object> getModulesOfAssignedCoursesByProfileId(int profileId) {
 		logger.debug("Entering getAllModules");
@@ -201,10 +177,7 @@ public class ModuleServiceImpl implements ModuleService {
 		return objectModules;
 	}
 
-	/**
-	 * @return : List<Object> module
-	 * @description : For fetching all module of course using profile id
-	 */
+	// GET MODULES ENROLLED COURSES BY PROFILE ID
 	@Override
 	public List<Object> getModulesOfEnrolledCoursesByProfileId(int profileId) {
 		logger.debug("Entering getAllModules");
@@ -215,6 +188,8 @@ public class ModuleServiceImpl implements ModuleService {
 		return objectModules;
 	}
 
+	
+	//ACTIVATE MOUDLE BY ID
 	@Override
 	public Object updateActiveStatusByModuleId(int moduleid) {
 		// TODO Auto-generated method stub

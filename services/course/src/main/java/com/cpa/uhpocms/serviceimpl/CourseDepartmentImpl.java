@@ -23,6 +23,8 @@ public class CourseDepartmentImpl implements CourseDepartmentService {
 		logger = Logger.getLogger(CourseServiceImpl.class);
 	}
 
+	
+	//GET ALL COURSES BY DEPARTMENT ID
 	@Override
 	public List<Object> getAllCoursesDepartmentIds() {
 

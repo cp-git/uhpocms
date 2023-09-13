@@ -47,13 +47,7 @@ public class ModuleFileProgressController {
 		logger = Logger.getLogger(ModuleFileProgressController.class);
 	}
 
-	/**
-	 * @author Shradha
-	 * @param modulefileprogress
-	 * @return
-	 * @throws CPException
-	 * @desc Api to create new entry in moduleFile progress table
-	 */
+	//INSERT MODULE FILE PROGRESS
 	@PostMapping("/modulefileprog")
 	public ResponseEntity<Object> createModuleFileProgress(@RequestBody ModuleFileProgress modulefileprogress)
 			throws CPException {
@@ -94,13 +88,8 @@ public class ModuleFileProgressController {
 		}
 	}
 
-	/**
-	 * @author shradha
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 * @description API to get particular entry in moduleFileProgressTable by id
-	 */
+	
+	//GET MODILE FILE PROGRESS BY ID
 	@GetMapping("/modulefileprog/{id}")
 	public ResponseEntity<Object> getModuleFileProgressByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering getModuleFileProgressByid");
@@ -129,13 +118,7 @@ public class ModuleFileProgressController {
 
 	}
 
-	/**
-	 * @author shradha
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 * @description Api to get all entries in moduleFileProgress table
-	 */
+	//GET ALL MODULE FILE PROGRESS
 	@GetMapping("/modulefileprog")
 	public ResponseEntity<List<Object>> getAllModuleFileProgresss(@RequestParam(name = "id") String id)
 			throws CPException {
@@ -166,15 +149,8 @@ public class ModuleFileProgressController {
 		}
 	}
 
-	/**
-	 * @author shradha
-	 * @param modId
-	 * @param studId
-	 * @return
-	 * @throws CPException
-	 * @desc Api to get list of entries in respective table by providing module and
-	 *       student id whose progress will be 100
-	 */
+
+	//GET MODULE FILE BY MODULE ID AND STUDENT ID
 	@GetMapping("/modulefileprog/{modId}/{studId}")
 	public ResponseEntity<List<Object>> getModuleFileProgresss(@PathVariable("modId") int modId,
 			@PathVariable("studId") int studId) throws CPException {
@@ -205,15 +181,8 @@ public class ModuleFileProgressController {
 		}
 	}
 
-	/**
-	 * @author shradha
-	 * @param modId
-	 * @param studId
-	 * @return
-	 * @throws CPException
-	 * @desc Api to get list of entries in respective table by providing module and
-	 *       student id
-	 */
+
+	//GET MODULE FILE PROGRESS BASED ON MODULE ID AND STUDENT ID
 	@GetMapping("/modulefileprog/mod_studId/{modId}/{studId}")
 	public ResponseEntity<List<Object>> getModuleFileProgresssByModIdStudId(@PathVariable("modId") int modId,
 			@PathVariable("studId") int studId) throws CPException {
@@ -244,15 +213,7 @@ public class ModuleFileProgressController {
 		}
 	}
 
-
-	/**
-	 * @author shradha
-	 * @param modulefileprogress
-	 * @param id
-	 * @return
-	 * @throws CPException
-	 * @desc Api to update an entry in respective table
-	 */
+	//UPDATE THE MODULE FILE BASED ON ID
 	@PutMapping("/modulefileprog/{id}")
 	public ResponseEntity<Object> updateModuleFileProgressByid(@RequestBody ModuleFileProgress modulefileprogress,
 			@PathVariable("id") int id) throws CPException {
@@ -280,12 +241,7 @@ public class ModuleFileProgressController {
 
 	}
 
-	/**
-	 * @param modulefileprogress
-	 * @param fileid,            studentid, object
-	 * @throws CPException
-	 * @desc Api to update an entry in respective table
-	 */
+	//UPDATE MODULE FILE PROGRESS BY FILE ID AND STUDENT ID
 	@PutMapping("/modulefileprog/file_studid/{fileId}/{studentId}")
 	public ResponseEntity<Object> updateFileProgressByFileIdAndStudentId(@PathVariable("fileId") int moduleFileId,
 			@PathVariable("studentId") int studentId, @RequestBody ModuleFileProgress modulefileprogress)
@@ -317,46 +273,8 @@ public class ModuleFileProgressController {
 
 
 
-	/**
-	 * @param modulefileprogress
-	 * @param fileid,            studentid, object
-	 * @throws CPException
-	 * @desc Api to update an entry in respective table
-	 */
-//	@PutMapping("/modulefileprog/file_studid/{fileId}/{studentId}")
-//	public ResponseEntity<Object> updateFileProgressByFileIdAndStudentId(@PathVariable("fileId") int moduleFileId,
-//			@PathVariable("studentId") int studentId, @RequestBody ModuleFileProgress modulefileprogress)
-//			throws CPException {
-//		logger.debug("Entering updateFileProgressByFileIdAndStudentId");
-//		logger.info("entered  updateFileProgressByFileIdAndStudentId :" + modulefileprogress);
-//
-//		ModuleFileProgress updatedModuleFileProgress = null;
-//
-//		try {
-//			updatedModuleFileProgress = modulefileprogressService.updateFileProgressByFileIdAndStudentId(moduleFileId,
-//					studentId, modulefileprogress);
-//
-//			if (updatedModuleFileProgress == null) {
-//				logger.info(resourceBunde.getString("err004"));
-//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
-//			} else {
-//				logger.info("updated modulefileprogress : " + updatedModuleFileProgress);
-//				return ResponseHandler.generateResponse(updatedModuleFileProgress, HttpStatus.CREATED);
-//			}
-//
-//		} catch (Exception ex) {
-//			logger.error("Failed update ModuleFileProgress : " + ex.getMessage());
-//			throw new CPException("err004", resourceBunde.getString("err004"));
-//
-//		}
-//
-//	}
 
-	/**
-	 * @param fileid, studentid
-	 * @throws CPException
-	 * @desc Api to get file progress using student id and file id
-	 */
+	//GET MODULE FILE PROGRESS BY FILE ID AND STUDENT ID
 	@GetMapping("/modulefileprog/file_studid/{fileId}/{studentId}")
 	public ResponseEntity<Object> getFileProgressByFileIdAndStudentId(@PathVariable("fileId") int moduleFileId,
 			@PathVariable("studentId") int studentId) throws CPException {

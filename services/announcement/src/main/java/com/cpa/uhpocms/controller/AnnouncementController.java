@@ -48,6 +48,7 @@ public class AnnouncementController {
 		logger = Logger.getLogger(AnnouncementController.class);
 	}
 
+	//CREATE AN ANNOUNCEMENT
 	@PostMapping("/announcement")
 	public ResponseEntity<Object> createAnnouncement(@RequestBody Announcement announcement) throws CPException {
 		logger.debug("Entering create Announcement");
@@ -85,6 +86,7 @@ public class AnnouncementController {
 	}
 
 
+	//GET ALL ANNOUNCEMENT
 
 	@GetMapping("/announcement")
 	public ResponseEntity<List<Object>> getAllAnnouncements(@RequestParam(name = "title") String title)
@@ -116,6 +118,7 @@ public class AnnouncementController {
 		}
 	}
 
+	//DELETE ANNOUNCEMENT BY ID
 	@DeleteMapping("/announcement/{id}")
 	public ResponseEntity<Object> deleteAnnouncementById(@PathVariable("id") int announcementId) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -143,6 +146,7 @@ public class AnnouncementController {
 
 
 
+	//CREATE AN ANNOUNCEMENT BY PROFILE ID
 	@PostMapping("/announcement/send/{id}")
 	public ResponseEntity<Object> sendAnnouncements(@RequestBody Integer[] profilesId,
 			@PathVariable("id") int announcementId) throws CPException {
@@ -176,6 +180,8 @@ public class AnnouncementController {
 		return new AuthenticationBean("You are authenticated");
 	}
 	
+	
+	//GET ANNOUNCEMENT BY PROFILE ID
 	@GetMapping(path = "/announcement/profileid")
 	public ResponseEntity<List<Object>> getAnnouncementsByProfileId(@RequestParam(name = "id") int profileId)
 			throws CPException {
@@ -204,6 +210,7 @@ public class AnnouncementController {
 	}
 
 	
+	//GET LIST OF ANNOUNCEMENT BY PROFILE ID
 	@GetMapping(path = "/announcement/profileid/{id}")
 	public ResponseEntity<List<Object>> getProfileIdsByAnnouncementId(@PathVariable("id") int announcementId)
 			throws CPException {
@@ -231,6 +238,8 @@ public class AnnouncementController {
 		
 	}
 	
+	
+	//GET ANNOUNCEMENT LISTR BY PROFILE ID 
 	@GetMapping("/announcement/sendby")
 	public ResponseEntity<List<Object>> getAllAnnouncementByProfileId(@RequestParam("id") int annoucementSendby)
 			throws CPException {

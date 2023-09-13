@@ -38,11 +38,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		logger = Logger.getLogger(AnnouncementServiceImpl.class);
 	}
 
-	/**
-	 * @param : Announcement announcement
-	 * @return : Announcement createdAnnouncement
-	 * @description : For creating/inserting entry in teacher_announcements table
-	 */
+
+	//CREATE AN ANNOUNCEMENT
 	@Override
 	public Announcement createAnnouncement(Announcement announcement) {
 		logger.debug("Entering createAnnouncement");
@@ -58,11 +55,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
 	
 
-	/**
-	 * @return : List<Object> announcement
-	 * @description : For fetching all announcement which are active state from
-	 *              teacher_announcements table
-	 */
+	//GET ALL ANNOUNCEMENT 
 	@Override
 	public List<Object> getAllAnnouncements() {
 		logger.debug("Entering getAllAnnouncements");
@@ -76,14 +69,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	}
 
 
-
-	/**
-	 * @param : String title
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to delete the record of
-	 *              Announcement
-	 * 
-	 */
+	//DELETE AN ANNOUNCEMENT BY ID
 	@Override
 	public int deleteAnnouncementById(int announcementid) {
 		logger.info("Entering deleteAnnouncementById" + announcementid);
@@ -93,6 +79,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return count;
 	}
 
+	
+	//GET LIST SEND ANNOUNCEMENT BY PROFILE ID 
 	@Override
 	public List<Object> sendAnnouncementToAll(int announcementId, Integer[] profileIds) {
 		logger.debug("Entering sendAnnouncementToAll");
@@ -121,6 +109,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
 	}
 
+	
+	//GET LIST OF ANNOUNCEMENT BY PROFILE ID
 	@Override
 	public List<Object> getAnnouncementsByProfiledId(int profileId) {
 		logger.debug("Enterign getAnnouncementsByProfiledId");
@@ -141,6 +131,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return announcements;
 	}
 
+	//GET LIST OF ANNOUNCEMENT BY PROFILE ID
 	private List<Integer> getAnnouncementIdsByProfileId(int profileId) {
 		logger.debug("Enterign getAnnouncementIdsByProfileId");
 		List<AnnouncementTo> objAnnouncementsIds = null;
@@ -160,6 +151,8 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return announcementsIds;
 	}
 
+	
+	//GET LIST OF PROFILE BY ANNOUNCEMENT 
 	@Override
 	public List<Object> getProfileIdsByAnnouncementId(int announcementId) {
 		logger.debug("Enterign getProfileIdsByAnnouncementId");
@@ -177,7 +170,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		}
 		return announcementsIds;
 	}
-
+	
+	
+	//GET LIST ANNOUNCEMENT SEND BY ANNOUNEMENT ID
 	@Override
 	public List<Object> getAnnoucementBySendby(int announcementSendby) {
 		// TODO Auto-generated method stub

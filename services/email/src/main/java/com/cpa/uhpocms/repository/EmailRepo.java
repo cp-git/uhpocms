@@ -21,10 +21,14 @@ import com.cpa.uhpocms.entity.Email;
 @Repository
 public interface EmailRepo extends JpaRepository<Email, Integer> {
 
+	//FIND EMAIL BY TITLE
 	public Email findByTitle(String title);
 
+	//GET ACTIVE EMAIL
 	public List<Object> findByEmailIsActiveTrue();
 
+	
+	//DELETE EMAIL BY TITLE
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE teacher_email SET isactive=false WHERE title = ?1", nativeQuery = true)

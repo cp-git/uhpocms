@@ -30,12 +30,7 @@ public class AuthUserServiceImpl implements AuthUserService {
 		logger = Logger.getLogger(AuthUserController.class);
 	}
 
-	/**
-	 * @author : Mayur
-	 * @param : AuthUser authUser
-	 * @return : AuthUser createdAuthUser
-	 * @description : For creating/inserting entry in auth_user table
-	 */
+	//CREATE THE AUTH USER
 	@Override
 	public AuthUser createAuthUser(AuthUser authUser) {
 		logger.debug("Entering createAuthUser");
@@ -49,12 +44,7 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return createdAuthUser;
 	}
 
-	/**
-	 * @author : Mayur
-	 * @param : String authUserName
-	 * @return : AuthUser authUser
-	 * @description : For creating/inserting entry in auth_user table
-	 */
+	// GET AUTH USER BY NAME
 	@Override
 	public AuthUser getAuthUserByUserName(String authUserName) {
 		logger.debug("Entering getAuthUserByUserName");
@@ -67,12 +57,7 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return authUser;
 	}
 
-	/**
-	 * @author : Mayur
-	 * @return : List<Object> authUsers
-	 * @description : For fetching all user which are in active state from auth_user
-	 *              table
-	 */
+	// GET ALL ACTIVE AUTH USERS
 	@Override
 	public List<Object> getAllAuthUsers() {
 		logger.debug("Entering getAllAuthUsers");
@@ -82,12 +67,7 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return authUsers;
 	}
 
-	/**
-	 * @author : Mayur
-	 * @param : AuthUser to update
-	 * @return : AuthUser
-	 * @description : For updating auth user of auth_user table
-	 */
+	//UPDATE THE AUTH USER
 	@Override
 	public AuthUser updateAuthUser(AuthUser authUser, String authUserName) {
 		logger.debug("Entering updateAuthUser");
@@ -117,15 +97,8 @@ public class AuthUserServiceImpl implements AuthUserService {
 
 		return updatedUser;
 	}
-
-	/**
-	 * @author : Mayur
-	 * @param : String authUserName
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of auth
-	 *              user
-	 * 
-	 */
+	
+	//DELETE AUTH USER BY NAME
 	@Override
 	public int deleteAuthUserByUserName(String authUserName) {
 		logger.debug("Entering deleteAuthUserByUserName");
@@ -137,6 +110,8 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return authUser;
 	}
 
+	
+	//GET  AUTH USER DETAILS FOR USER NAME AND PASSWORD
 	@Override
 	public AuthUser getDetailsByUserNameAndPassword(String authUserName, String authUserPassword) {
 		// TODO Auto-generated method stub
@@ -146,12 +121,8 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return authUsers;
 	}
 
-	/**
-	 * @author : Mayur
-	 * @return : List<Object> authUsers
-	 * @description : For fetching all user which are in active state from auth_user
-	 *              table
-	 */
+	
+	//GET ALL INACTIVE AUTH USERS
 	@Override
 	public List<Object> getAllInactiveAuthUsers() {
 		logger.debug("Entering getAllInactiveAuthUsers");
@@ -161,6 +132,8 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return authUsers;
 	}
 
+	
+	//ACTIVATE AUTH USER BY USER ID
 	@Override
 	public int activateAuthUserById(int authUserId) {
 		logger.debug("Entering activateAuthUserById");
@@ -170,6 +143,8 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return count;
 	}
 	
+	
+	//GET AUTH USER BY USER ID
 	public AuthUser getAuthUserById(int authUserId) {
 		logger.debug("Entering getAuthUserByUserName");
 
@@ -181,6 +156,8 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return authUser;
 	}
 
+	
+	//GET ALL INACTIVE PROFILES
 	@Override
 	public List<Object> getAllInactiveProfiles() {
 		// TODO Auto-generated method stub

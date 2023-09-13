@@ -32,11 +32,7 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		logger = Logger.getLogger(ModuleFileServiceImpl.class);
 	}
 
-	/**
-	 * @param : ModuleFile modulefile
-	 * @return : ModuleFile createdModuleFile
-	 * @description : For creating/inserting entry in teacher_modulefile table
-	 */
+	//CREATE  MODULE FILE
 	@Override
 	public ModuleFile createModuleFile(ModuleFile modulefile) {
 		logger.debug("Entering createModuleFile");
@@ -52,10 +48,7 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 
 	
 
-	/**
-	 * @author shradha
-	 * 
-	 */
+	//GET LIST OF MODULE FILE BY MODULE ID
 	@Override
 	public List<Object> getModuleFileByModuleId(int id) {
 		logger.debug("Entering getModuleFileByModuleId");
@@ -70,11 +63,8 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		return modulesfiles;
 	}
 
-	/**
-	 * @return : List<Object> modulefile
-	 * @description : For fetching all modulefile which are active state from
-	 *              teacher_modulefile table
-	 */
+	
+	//GET ALL MODULE FILE
 	@Override
 	public List<Object> getAllModuleFiles() {
 		logger.debug("Entering getAllModuleFiles");
@@ -84,54 +74,9 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		return modulefiles;
 	}
 
-	/**
-	 * @param : ModuleFile to update
-	 * @return : modulefile
-	 * @description : For updating modulefile of teacher_modulefile table
-	 */
-	// @Override
-	// public ModuleFile updateModuleFileByFile(ModuleFile modulefile, String file)
-	// {
-	// logger.debug("Entering updateModuleFile");
-	//
-	// ModuleFile toUpdatedModuleFile = null;
-	// ModuleFile updatedModuleFile = null;
-	//
-	// toUpdatedModuleFile = modulefileRepo.findByModuleFile(file);
-	// logger.info("exisitng ModuleFile :: " + toUpdatedModuleFile);
-	//
-	// if (toUpdatedModuleFile != null) {
-	// logger.debug("setting new data of ModuleFile to exisitng ModuleFile");
-	//
-	// toUpdatedModuleFile.setModuleFile(modulefile.getModuleFile());
-	// toUpdatedModuleFile.setModuleFileOrderNo(modulefile.getModuleFileOrderNo());
-	// toUpdatedModuleFile.setModuleFileIsActive(modulefile.isModuleFileIsActive());
-	// toUpdatedModuleFile.setModuleId(modulefile.getModuleId());
-	//
-	// updatedModuleFile = modulefileRepo.save(toUpdatedModuleFile);
-	//
-	// logger.info("updated ModuleFile :" + updatedModuleFile);
-	// }
-	//
-	// return updatedModuleFile;
-	// }
-
-	/**
-	 * @param : String file
-	 * @return : int (count of record updated)
-	 * @description : This is function is used to soft delete the record of
-	 *              ModuleFile
-	 * 
-	 */
-	// @Override
-	// public int deleteModuleFileByFile(String file) {
-	// logger.debug("Entering deleteModuleFileByFile");
-	//
-	// int count = modulefileRepo.deleteModuleFileByFile(file);
-	// logger.info("deleted ModuleFile count : " + count);
-	// return count;
-	// }
-
+	
+	
+	// GET LIST OF MODULE FILE USING STUDENT ID
 	@Override
 	public List<Object> getModuleFileByStudentId(int studentId) {
 
@@ -142,17 +87,8 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		return objectModulefiles;
 	}
 
-//	@Override
-//	public int deleteModuleFileBymoduleFileId(int id) {
-//		// TODO Auto-generated method stub
-//
-//		logger.debug("Entering deleteModuleFileByModuleFileId");
-//
-//		int count = modulefileRepo.deleteModuleFileByModuleFileId(id);
-//		logger.info("deleted ModuleFile count : " + count);
-//		return count;
-//	}
 
+	// UPDATE THE MODULE BY ID
 	@Override
 	public ModuleFile updateModuleFileBymoduleFileId(ModuleFile modulefile, int moduleFileId) {
 		// TODO Auto-generated method stub
@@ -171,6 +107,7 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 
 	}
 
+	//INACTIVE MODUILE FILE
 	@Override
 	public List<Object> getAllInactiveModuleFiles() {
 		// TODO Auto-generated method stub
@@ -181,6 +118,8 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		return modulefiles;
 	}
 
+	
+	//ACTIVATE MODULE FILE BY ID
 	 @Transactional
 	public int activateModuleFileBymoduleFileId(int id) {
 		// TODO Auto-generated method stub
@@ -192,6 +131,7 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		return count;
 	}
 
+	 //GET MODULE FILE BY TEACHER ID
 	@Override
 	public List<Object> getModuleFilesByTeacherId(int teacherId) {
 
@@ -202,11 +142,13 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 		return objectModulefiles;
 	}
 
+	//GET MODULE FILE BY ID
 	public ModuleFile getModuleFileById(int id) {
 		// TODO Auto-generated method stub
 		return modulefileRepo.findByModuleFileId(id);
 	}
 
+	//DELETE MODULE FILE BY ID
 	 @Transactional
 	    public int deleteTeacherModuleFileAndModule(int id) {
 		int count= modulefileRepo.deleteModuleFileByModuleFileId(id);

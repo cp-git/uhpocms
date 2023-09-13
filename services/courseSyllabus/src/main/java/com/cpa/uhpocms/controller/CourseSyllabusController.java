@@ -47,6 +47,7 @@ public class CourseSyllabusController {
 		logger = Logger.getLogger(CourseSyllabusController.class);
 	}
 
+	//INSERT COURSE SYLLABUS
 	@PostMapping("/courseSyllabu" + "" + "s")
 	public ResponseEntity<Object> createCourseSyllabus(@RequestBody CourseSyllabus courseSyllabus) throws CPException {
 		logger.debug("Entering createCourseSyllabus");
@@ -83,6 +84,7 @@ public class CourseSyllabusController {
 		}
 	}
 
+	//GET COURSE SYALLBUS BY ID
 	@GetMapping("/courseSyllabus/{id}")
 	public ResponseEntity<Object> getCourseSyllabusByid(@PathVariable("id") int courseSyllabusId) throws CPException {
 		logger.debug("Entering getCourseSyllabusByid");
@@ -111,6 +113,7 @@ public class CourseSyllabusController {
 
 	}
 
+	//GET ALL COURSE SYLLABUS
 	@GetMapping("/courseSyllabus")
 	public ResponseEntity<List<Object>> getAllCourseSyllabuss(@RequestParam(name = "name") String name)
 			throws CPException {
@@ -141,6 +144,7 @@ public class CourseSyllabusController {
 		}
 	}
 
+	//DELETE COURSE SYALLBUS BY ID
 	@DeleteMapping("/courseSyllabus/{id}")
 	public ResponseEntity<Object> deleteCourseSyllabusByid(@PathVariable("id") int id) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -166,6 +170,7 @@ public class CourseSyllabusController {
 
 	}
 
+	//UPDATE THE COURSE SYLLABUS BY ID
 	@PutMapping("/courseSyllabus/{id}")
 	public ResponseEntity<Object> updateCourseSyllabusByid(@RequestBody CourseSyllabus courseSyllabus,
 			@PathVariable("id") int courseSyllabusId) throws CPException {

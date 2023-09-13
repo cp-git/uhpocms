@@ -49,6 +49,7 @@ public class AuthUserController {
 		logger = Logger.getLogger(AuthUserController.class);
 	}
 
+	//CREATE AUTH USER
 	@PostMapping("/authuser")
 	public ResponseEntity<Object> createAuthUser(@RequestBody AuthUser authUser) throws CPException {
 		logger.debug("Entering createAuthUser");
@@ -80,6 +81,7 @@ public class AuthUserController {
 
 	}
 
+	//GET AUTH USER BY NAME
 	@GetMapping("/authuser/{username}")
 	public ResponseEntity<Object> getAuthUserByUserName(@PathVariable("username") String authUserName)
 			throws CPException {
@@ -109,6 +111,8 @@ public class AuthUserController {
 
 	}
 
+	
+	//LOGIN URL FOR AUTH USER
 	@PostMapping("/login")
 	public AuthUser loginAuthUser(@RequestBody AuthUser authUser) throws CPException {
 		logger.debug("Entering loginAuthUser");
@@ -137,7 +141,9 @@ public class AuthUserController {
 		return loginUser;
 
 	}
-
+	
+	
+	//GET ALL AUTH USER LIST
 	@GetMapping("/authuser")
 	public ResponseEntity<List<Object>> getAllAuthUsers(@RequestParam(name = "username") String authUserName)
 			throws CPException {
@@ -176,6 +182,7 @@ public class AuthUserController {
 		}
 	}
 
+	//DELETE AUTH USER BY NAME
 	@DeleteMapping("/authuser/{username}")
 	public ResponseEntity<Object> deleteAuthUser(@PathVariable("username") String authUserName) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -200,6 +207,7 @@ public class AuthUserController {
 
 	}
 
+	//UPDATE AUTH USER BY NAME
 	@PutMapping("/authuser/{username}")
 	public ResponseEntity<Object> updateAuthUser(@RequestBody AuthUser authUser,
 			@PathVariable("username") String authUserName) throws CPException {
@@ -232,6 +240,7 @@ public class AuthUserController {
 		return new AuthenticationBean("You are authenticated");
 	}
 
+	//ACTIVATE AUTH USER BY USER ID 
 	@PatchMapping(path = "/authuser/activate/{id}")
 	public ResponseEntity<Object> activateAuthUserById(@PathVariable("id") int authUserId) throws CPException {
 		logger.debug("Entering activateAuthUserById");
@@ -256,6 +265,8 @@ public class AuthUserController {
 		}
 	}
 	
+	
+	//GET AUTH USER BY AUTH USER ID
 	@GetMapping("/authuser/user")
 	public ResponseEntity<Object> getAuthUserById(@RequestParam(name = "id") int authUserId)
 			throws CPException {

@@ -20,32 +20,25 @@ public interface AdminRoleRepository extends JpaRepository<AdminRole, String> {
 	 */
 	boolean roleIsActive = true;
 
-	/**
-	 * @author Kaushik
-	 * @param : String roleName
-	 * @description : For Soft delete record
-	 * 
-	 */
+
+	//DELETE ADMIN ROLE BY NAME
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE admin_role SET isactive=false WHERE role_name=?1", nativeQuery = true)
 	int deleteByRoleName(String roleName);
 
+	//GET ACTIVE ADMIN ROLE
 	public List<Object> findByisActiveTrue();
 
-	/**
-	 * @author Kaushik
-	 * @param : String roleName
-	 * @description : For finding role by role name
-	 * 
-	 */
+	//FIND ADMIN ROLE BY ROLE NAME
 	public AdminRole findByRoleName(String roleName);
 
-	/**
-	 * @description : For finding roles which are in inactive state
-	 */
+	
+	// GET INACTIVE ADMIN ROLE
 	public List<Object> findByisActiveFalse();
 
+	
+	// ACTIVATE ADMIN ROLE BY ROLE ID
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE admin_role SET isactive=true WHERE role_id=?1", nativeQuery = true)

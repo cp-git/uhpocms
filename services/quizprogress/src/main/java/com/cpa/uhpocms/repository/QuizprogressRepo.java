@@ -21,26 +21,28 @@ import com.cpa.uhpocms.entity.Quizprogress;
 @Repository
 public interface QuizprogressRepo extends JpaRepository<Quizprogress, Integer> {
 
+	// FIND LIST OF QUIZ PROGRESS BY STUDENT ID
 	public List<Object> findAllByStudentId(int studentId);
 
 
-
+	// GET QUIZ PROGRESS BY STUDENT ID AND QUIZ ID
 	public Quizprogress getQuizprogressByStudentIdAndQuizId(int studentId, int quizId);
 	
 	
-
+	//GET LIST OF QUIZ PROGRESS BY COURSE ID AND MOD ID
 	@Query(value = "SELECT qp.* FROM teacher_studentquizprogress qp JOIN teacher_quiz tq ON qp.quizid_id "
 			+ "= tq.quizid  where tq.courseid_id=?1 and tq.module_id=?2", nativeQuery = true)
 	List<Quizprogress> findquizprogressBycourseIdandModId(int courseId,int modId);
 	
-	
+	// GET COURSE BY QUIZ ID
 	@Query(value = "SELECT quiz.courseid_id FROM teacher_quiz quiz JOIN teacher_studentquizprogress student ON quiz.quizid= student.quizid_id where student.quizid_id=?1", nativeQuery = true)
 	Integer getCourseByid(int quizId);
 	
+	//GET MARKS BY COURSE ID
 	@Query(value = "SELECT quiz.max_marks FROM teacher_quiz quiz JOIN teacher_studentquizprogress student ON quiz.quizid= student.quizid_id where student.courseid_id=?1", nativeQuery = true)
 	List<Integer> getMarksByid(int courseId);
 	
-	
+	// GET SCORE USING STUDENT ID
 	@Query(value = "SELECT score from teacher_studentquizprogress quiz where quiz.studentid_id=?1", nativeQuery = true)
 	List<Integer> getStudentMarksid(int studentId);
 	

@@ -49,13 +49,8 @@ public class QuizController {
 		logger = Logger.getLogger(QuizController.class);
 	}
 
-	/**
-	 * 
-	 * @param quiz
-	 * @return
-	 * @throws CPException
-	 * @description Method to create a new quiz entry in table
-	 */
+	
+	//CREATE QUIZ
 	@PostMapping("/quiz")
 	public ResponseEntity<Object> createQuiz(@RequestBody Quiz quiz) throws CPException {
 		logger.debug("Entering createQuiz");
@@ -90,15 +85,7 @@ public class QuizController {
 		}
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param title
-	 * @return
-	 * @throws CPException
-	 * @Description Method to get quiz entry from qiuz table with isactive flag as
-	 *              true by providing title
-	 */
+	//GET QUIZ BY USING QUIZ TITLE
 	@GetMapping("/quiz/{title}")
 	public ResponseEntity<Object> getQuizBytitle(@PathVariable("title") String title) throws CPException {
 		logger.debug("Entering getQuizBytitle");
@@ -128,6 +115,7 @@ public class QuizController {
 	}
 	
 	
+	//GET QUIZ LIST INFO USING QUIZ ID
 	@GetMapping("/quiz/info/{quizId}")
 	public ResponseEntity<Object[]> getQuizInfoByQuizId(@PathVariable int quizId) {
         List<Object[]> quizInfoList = quizService.getQuizInfoByQuizId(quizId);
@@ -139,6 +127,7 @@ public class QuizController {
     }
 	
 	
+	//GET QUIZ DATA USING QUIZ ID
 	@GetMapping("/quiz/quizId/{quizId}")
 	public ResponseEntity<Object> getQuizByQuizId(@PathVariable int quizId) {
         Object quiz = quizService.getQuizByQuizId(quizId);
@@ -149,14 +138,9 @@ public class QuizController {
         }
     }
 
-	/**
-	 * 
-	 * 
-	 * @param title
-	 * @return
-	 * @throws CPException
-	 * @description method to get quizzes from quiz table with isactive flag as true
-	 */
+
+	
+	//GET ALL QUIZ DETAILS
 	@GetMapping("/quiz")
 	public ResponseEntity<List<Object>> getAllQuiz(@RequestParam(name = "title") String title) throws CPException {
 		logger.debug("Entering getAllQuiz");
@@ -188,7 +172,7 @@ public class QuizController {
 	}
 	
 	
-	
+	//GET INACTIVE QUIZ DATA
 	@GetMapping("/quiz/actInactQuizzes")
 	public ResponseEntity<List<Object>> getAllActInacQuizzes(@RequestParam(name = "actInac") String actInac) throws CPException {
 		logger.debug("Entering getAllQuiz");
@@ -219,14 +203,8 @@ public class QuizController {
 		}
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param title
-	 * @return
-	 * @throws CPException
-	 * @description method to perform soft delete
-	 */
+	
+	//DELETE QUIZ BY QUIZ TITLE
 	@DeleteMapping("/quiz/{title}")
 	public ResponseEntity<Object> deleteQuiz(@PathVariable("title") String title) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -253,15 +231,8 @@ public class QuizController {
 
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param quiz
-	 * @param title
-	 * @return
-	 * @throws CPException
-	 * @description Method to update an entry in quiz table
-	 */
+	
+	//UPDATE QUIZ BY QUIZ QUIZ TITLE
 	@PutMapping("/quiz/{title}")
 	public ResponseEntity<Object> updateQuiz(@RequestBody Quiz quiz, @PathVariable("title") String title)
 			throws CPException {
@@ -290,14 +261,9 @@ public class QuizController {
 
 	}
 
-	/**
-	 * 
-	 * @author Shradha
-	 * @param inactivequizzes
-	 * @return
-	 * @throws CPException
-	 */
-
+	
+	
+	//GET INACTIVE QUIZ DATA
 	@GetMapping("/quiz/inactive")
 	public ResponseEntity<List<Object>> getInactiveQuizzes(
 			@RequestParam(name = "inactivequizzes") String inactivequizzes) throws CPException {
@@ -324,12 +290,8 @@ public class QuizController {
 		}
 	}
 
-	/**
-	 * @author Shradha
-	 * @param title
-	 * @return
-	 * @throws CPException
-	 */
+
+	//ACTIVATE QUIZ BY QUIZ ID
 	@PatchMapping("/quiz/{id}")
 	public ResponseEntity<Object> updateActiveStatus(@PathVariable("id") int quizId) throws CPException {
 
@@ -360,9 +322,9 @@ public class QuizController {
 		return new AuthenticationBean("You are authenticated");
 	}
 
-	/**
-	 * @description method to get quizzes from quiz table by profileId
-	 */
+	
+	
+	//GET LIST OF QUIZ BASED ON STUDENT ID
 	@GetMapping("/quiz/studentId")
 	public ResponseEntity<List<Object>> getAllQuizByStudentId(@RequestParam(name = "id") int studentId)
 			throws CPException {
@@ -395,10 +357,8 @@ public class QuizController {
 	
 	
 	
-	/**
-	 * @author shradha
-	 * @description method to get quizzes from quiz table by moduleId
-	 */
+	
+	//GET LIST OF QUIZ BASED ON MODULE ID
 	@GetMapping("/quiz/moduleId/{moduleId}")
 	public ResponseEntity<List<Object>> getAllQuizByModuleId(@PathVariable("moduleId") int moduleId)
 			throws CPException {
@@ -429,9 +389,8 @@ public class QuizController {
 
 	}
 	
-	/**
-	 * @description method to get inactive quizzes from quiz table by profileId
-	 */
+
+	//GET INACTIVE QUIZ BY STUDENT ID
 	@GetMapping("/quiz/enroll/inactive/profileid")
 	public ResponseEntity<List<Object>> getAllInactiveQuizzesByStudentId(@RequestParam(name = "id") int studentId)
 			throws CPException {
@@ -462,9 +421,8 @@ public class QuizController {
 
 	}
 	
-	/**
-	 * @description method to get quizzes from quiz table by profileId
-	 */
+	
+	//GET ALL QUIZ BY TEACHER ID
 	@GetMapping("/quiz/assign/active/profileid")
 	public ResponseEntity<List<Object>> getAllQuizzesByTeacherId(@RequestParam(name = "id") int profileId)
 			throws CPException {
@@ -495,9 +453,8 @@ public class QuizController {
 
 	}
 	
-	/**
-	 * @description method to get inactive quizzes from quiz table by profileId
-	 */
+	
+	//GET ALL ACTIVE QUIZ BY TEACHER ID
 	@GetMapping("/quiz/assign/inactive/profileid")
 	public ResponseEntity<List<Object>> getAllInactiveQuizzesByTeacherId(@RequestParam(name = "id") int profileId)
 			throws CPException {

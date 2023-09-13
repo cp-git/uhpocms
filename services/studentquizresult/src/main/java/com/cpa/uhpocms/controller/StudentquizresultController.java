@@ -44,6 +44,8 @@ public class StudentquizresultController {
 		logger = Logger.getLogger(StudentquizresultController.class);
 	}
 
+	
+	//ADD AND UPDATE STUDENT ANSWER
 	@PutMapping("/quizresult")
 	public ResponseEntity<Object> addAndUpdateStudentAnswer(@RequestBody Studentquizresult studentquizresult)
 			throws CPException {
@@ -87,7 +89,7 @@ public class StudentquizresultController {
 	}
 
 
-
+	// GET STUDENT ANSWER BY STUDENT ID AND QUIZ ID
 	@GetMapping("/quizresult/{studentid}/{quizid}")
 	public ResponseEntity<List<Object>> getStudentAnswerByStudentIdAndQuizId(@PathVariable("studentid") int studentid,
 			@PathVariable("quizid") int quizid) throws CPException {

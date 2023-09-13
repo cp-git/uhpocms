@@ -78,41 +78,9 @@ public class QuestionController {
 	@Value("${file.base-path}")
 	private String basePath;
 
-//	@PostMapping("/question")
-//	public ResponseEntity<Object> createQuestion(@RequestBody Question question) throws CPException {
-//		logger.debug("Entering createQuestion");
-//		logger.info("data of creating Question  :" + question.toString());
-//
-//		Question createdQuestion = null;
-//		try {
-//
-//			Question toCheckQuestion = questionService.getQuestionByFigure(question.getQuestionFigure());
-//			logger.debug("existing question :" + toCheckQuestion);
-//
-//			if (toCheckQuestion == null) {
-//
-//			// TODO: Uncomment below 2 lines and change the method name as per your Entity class
-//			//	question.setCreatedby("admin");
-//			//	question.setUpdatedby("admin");
-//
-//				createdQuestion = questionService.createQuestion(question);
-//				logger.info("Question created :" + createdQuestion);
-//
-//				return ResponseHandler.generateResponse(createdQuestion, HttpStatus.CREATED);
-//
-//			} else {
-//
-//				logger.error(resourceBundle.getString("err003"));
-//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
-//			}
-//
-//		} catch (Exception ex) {
-//			logger.error("Failed Question creation : " + ex.getMessage());
-//			throw new CPException("err003", resourceBundle.getString("err003"));
-//		}
-//	}
 
 
+	// GET ALL INACTIVE QUESTIONS
 	@GetMapping("/question/inactive")
 	public ResponseEntity<List<Object>> getInactiveQuestions(
 			@RequestParam(name = "inactivequestions") String inactivequestions) throws CPException {
@@ -139,6 +107,7 @@ public class QuestionController {
 		}
 	}
 
+	//GET ALL ACTIVE QUESTIONS
 	@GetMapping("/question")
 	public ResponseEntity<List<Object>> getAllQuestions(@RequestParam(name = "figure") String figure)
 			throws CPException {
@@ -169,6 +138,7 @@ public class QuestionController {
 		}
 	}
 
+	//DELETE QUESTION BY FIGURE
 	@DeleteMapping("/question/{figure}")
 	public ResponseEntity<Object> deleteQuestionByFigure(@PathVariable("figure") String figure) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -195,14 +165,7 @@ public class QuestionController {
 	}
 
 	
-	
-	/**
-	 * @author shradha
-	 * @param questionId
-	 * @return
-	 * @throws CPException
-	 * @explanation DELETE QUE AND ANSWERS BASED ON QUESTION ID
-	 */
+	// DELETE QUESTION AND ANSER BY QUESTION ID
 	@DeleteMapping("/question/deletequeansbyid/{questionId}")
 	public ResponseEntity<Object> deleteQuestionAnswerById(@PathVariable("questionId") int questionId) throws CPException {
 		logger.debug("Entering deleteAuthUser");
@@ -232,6 +195,7 @@ public class QuestionController {
 
 	}
 
+	//UPDATE QUESTION ANSER BY FIGURE
 	@PutMapping("/question/{figure}")
 	public ResponseEntity<Object> updateQuestionByFigure(@RequestBody Question question,
 			@PathVariable("figure") String figure) throws CPException {
@@ -259,6 +223,7 @@ public class QuestionController {
 
 	}
 
+	// UPDATE UESTION ANSWER BY QUESTION ID
 	@PutMapping("/question/byid/{questionId}")
 	public ResponseEntity<Object> updateQuestionById(@RequestBody Question question,
 			@PathVariable("questionId") int questionId) throws CPException {
@@ -288,13 +253,8 @@ public class QuestionController {
 
 	
 
-	/**
-	 * @author Shradha
-	 * @param figure
-	 * @return
-	 * @throws CPException
-	 */
-
+	
+	// ACTIVATE QUESTION BY QUESTION FIGURE
 	@PatchMapping("/question/{figure}")
 	public ResponseEntity<Object> updateActiveStatus(@PathVariable("figure") String figure) throws CPException {
 
@@ -326,6 +286,7 @@ public class QuestionController {
 	}	
 	
 
+	//GET QUESTION IMAGE BY ID
 	@GetMapping("/question/id/{questionId}")
 	public ResponseEntity<Object> getQuestionById(@PathVariable("questionId") int questionId) throws CPException {
 		logger.debug("Entering getQuestionByfigure");
@@ -352,6 +313,7 @@ public class QuestionController {
 
 	}
 
+	//GET ALL QUESTION BY QUIZ ID
 	@GetMapping("/questions")
 	public ResponseEntity<List<Object>> getQuestionByQuizId(@RequestParam(name = "quizId") int quizId)
 			throws CPException {
@@ -373,6 +335,8 @@ public class QuestionController {
 		}
 	}
 	
+	
+	//GET SHUFFLED QUESTION BY QUIZ ID
 	@GetMapping("/questions/quizid/{quizId}")
 	public ResponseEntity<List<Object>> getShuffledQuesitonByQuizId(@PathVariable(name = "quizId") int quizId)
 			throws CPException {
@@ -394,7 +358,7 @@ public class QuestionController {
 		}
 	}
 
-	// for inserting question and answers
+	//INSERTING THE QUESTION ANSWER ADD AND UPDATE
 	@PostMapping("/question/add")
 	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestPart("request") QuestionAnswer request,@RequestParam(value="files",required=false)List<MultipartFile> files) throws CPException {
 		// Extract questions and answers arrays from the request
@@ -448,12 +412,12 @@ public class QuestionController {
 		            	
 		                String fileName = file.getOriginalFilename();
 		                // Insert the file into the database or perform any other necessary operations
-		                System.out.println("File inserted: " + fileName);
+		               
 //		                files.add(file);
 		            } else {
 		                // File is null or empty
 		                // Perform your desired action here, such as logging an error or returning a response
-		                System.out.println("Null or empty file found");
+		              
 		              
 		            }
 		        }
@@ -481,24 +445,23 @@ public class QuestionController {
 			
 				//Institute Name
 				String instituteName=questionRepo.getInstituteByQuestion(questionId);
-				System.out.println("institute Name"+instituteName);
+				
 				
 				
 				//Institute Id
 				int instituteId=questionRepo.getInstituteidByQuestion(questionId);
-				System.out.println("institute Name"+instituteId);
-				
+			
 				
 				
 				String InstituteNameandId=instituteName+"_"+instituteId;
-				System.out.println(InstituteNameandId);
+				
 				              
 				
 				
 				
 				//Department Name
 				String departmentName=questionRepo.getDepartmentByQuestion(questionId);
-				System.out.println("Department Name"+departmentName);
+				
 				
 				String deptName=departmentName.trim();
 				
@@ -506,25 +469,25 @@ public class QuestionController {
 				
 				//Course Name
 				String courseName=questionRepo.getCourseByQuestion(questionId);
-				System.out.println("Course Name"+courseName);
+				
 				
 				String cName=courseName.trim();
 				
 				//Module Name
 				
 				String moduleName=questionRepo.getModuleByQuestion(questionId);
-				System.out.println("Module Name"+moduleName);
+				
 				
 				//Quiz Name
 				
 				String quizName=questionRepo.getQuizByQuestion(questionId);
-				System.out.println("Quiz Name"+quizName);
+				
 				
 				int quizId=questionRepo.getQuizIdByQuestion(questionId);
-				System.out.println("Quiz Name"+quizId);
+			
 				
 				String QuestionData=quizName+"_"+quizId;
-				System.out.println(QuestionData);
+			
 				
 				
 				
@@ -546,15 +509,14 @@ public class QuestionController {
 					if(fileData == file.getOriginalFilename()) {
 						String fileDataName=questionId+"_"+file.getOriginalFilename();
 						 fileName = StringUtils.cleanPath(fileDataName);
-						System.out.println(fileName);
+						
 					}
 					else {
 						 fileName = StringUtils.cleanPath(file.getOriginalFilename());
-						System.out.println(fileName);
+						
 						
 					}
 					
-						System.out.println(file.getOriginalFilename());
 					
 					
 					
@@ -584,32 +546,32 @@ public class QuestionController {
 	
 	
 	
+	//GET DISPLAY IMAGE BY QUESTION ID
 	@GetMapping(path="getFileById/{questionId}")
     ResponseEntity<InputStreamResource> getImageById(@PathVariable int questionId) throws IOException { //download file
      
 		System.out.println("in controller..");
 		Question myFile;
 		 myFile =questionService.findQuestionById(questionId);
-        System.out.println(myFile);
+      
         
 		//Institute Name
 		String instituteName=questionRepo.getInstituteByQuestion(questionId);
-		System.out.println("institute Name"+instituteName);
+	
 		
 		
 		//Institute Id
 		int instituteId=questionRepo.getInstituteidByQuestion(questionId);
-		System.out.println("institute Name"+instituteId);
 		
 		
 		
 		String InstituteNameandId=instituteName+"_"+instituteId;
-		System.out.println(InstituteNameandId);
+	
 		
 		
 		//Department Name
 		String departmentName=questionRepo.getDepartmentByQuestion(questionId);
-		System.out.println("Department Name"+departmentName);
+		
 		
 		String deptName=departmentName.trim();
 		
@@ -617,35 +579,35 @@ public class QuestionController {
 		
 		//Course Name
 		String courseName=questionRepo.getCourseByQuestion(questionId);
-		System.out.println("Course Name"+courseName);
+	
 		
 		String cName=courseName.trim();
 		
 		//Module Name
 		
 		String moduleName=questionRepo.getModuleByQuestion(questionId);
-		System.out.println("Module Name"+moduleName);
+	
 		
 		//Quiz Name
 		
 		String quizName=questionRepo.getQuizByQuestion(questionId);
-		System.out.println("Quiz Name"+quizName);
+		
 		
 		int quizId=questionRepo.getQuizIdByQuestion(questionId);
-		System.out.println("Quiz Name"+quizId);
+		
 		
 		String QuestionData=quizName+"_"+quizId;
 		
-		System.out.println(myFile.getQuestionFigure());
+	
 		
 		String imageName=myFile.getQuestionId()+"_"+myFile.getQuestionFigure();
         
         
        String address =basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+cName+"/"+moduleName+"/"+QuestionData+"/"+imageName;
        File file = new File(address);
-        System.out.println("file"+file);
+   
        InputStream inputStream = new FileInputStream(file);
-//        System.out.println(inputStream);
+
        InputStreamResource a = new InputStreamResource(inputStream);
 //      
         HttpHeaders httpHeaders = new HttpHeaders();

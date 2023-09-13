@@ -30,12 +30,7 @@ public class StudentquizresultServiceImpl implements StudentquizresultService {
 		logger = Logger.getLogger(StudentquizresultServiceImpl.class);
 	}
 
-	/**
-	 * @param : Studentquizresult studentquizresult
-	 * @return : Studentquizresult createdStudentquizresult
-	 * @description : For creating/inserting entry in teacher_studentquizresult
-	 *              table
-	 */
+	//CREATE STUDENT QUIZ RESULT
 	@Override
 	public Studentquizresult createStudentquizresult(Studentquizresult studentquizresult) {
 		logger.debug("Entering createStudentquizresult");
@@ -50,6 +45,7 @@ public class StudentquizresultServiceImpl implements StudentquizresultService {
 	}
 
 
+	//GET STUDENT ANSWER BY PROFILE AND QUESTION ID
 	@Override
 	public Studentquizresult getStudentAnswerByProfileIdAndQuestionId(int studentId, int questionId) {
 		// TODO Auto-generated method stub
@@ -61,6 +57,7 @@ public class StudentquizresultServiceImpl implements StudentquizresultService {
 	
 	
 
+	// GET STUDENT QUIZ RESULT BY STUDENT AND QUIZ ID
 	@Override
 	public List<Object> getStudentquizresultByStudentAndQuizId(int studentId, int quizId) {
 		// TODO Auto-generated method stub
@@ -73,6 +70,8 @@ public class StudentquizresultServiceImpl implements StudentquizresultService {
 		return objectResult;
 	}
 	
+	
+	//UPDATE STUDENT QUIZ RESULT BY QUESTION ID
 	@Override
 	public Studentquizresult updateStudentquizresultByquestionid(Studentquizresult studentquizresult) {
 		logger.debug("Entering updateStudentquizresult");

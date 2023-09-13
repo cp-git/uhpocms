@@ -26,13 +26,8 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	private InstituteAdminRepository instituteAdminRepository;
 
 	private static final Logger logger = Logger.getLogger(InstituteAdminServiceImpl.class);
-
-	/**
-	 * @author : Anmesh
-	 * @param : InstituteAdmin
-	 * @return : InstituteAdmin
-	 * @description : For Saving All the data
-	 */
+	
+	//CREATE PROFILE
 	@Override
 	public InstituteAdmin saveInstituteAdmin(InstituteAdmin instituteAdmin) {
 		logger.debug("In SaveInstituteAdmin Method...");
@@ -46,12 +41,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return createInstituteAdmin;
 	}
 
-	/**
-	 * @author : Anmesh
-	 * @return : List<InstituteAdmin>
-	 * @description : For getting All data using getAllInstitute
-	 */
-
+	//GET PROFILE BY ID
 	@Override
 	public List<Object> getAllInstitute() {
 		logger.debug("in GetAllInstituteAdmin method...");
@@ -63,34 +53,20 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 
 	
 
-	/**
-	 * @author : Anmesh
-	 * @param : int
-	 * @return : int UserId
-	 * @description : For fetching userId using
-	 */
+	//GET PROFILE BY USER ID
 	@Override
 	public InstituteAdmin findByUserId(int userId) {
 		logger.debug("in unique key constraint...");
 		return instituteAdminRepository.findByUserId(userId);
 	}
 
-	/**
-	 * @author : Anmesh
-	 * @param : getInstituteByName
-	 * @return : InstituteAdmin
-	 * @description : For getting data using firstName
-	 */
+	
 
 
 
 
 
-	/**
-	 * @return : List<InstituteAdmin>
-	 * @description : For getting All institute admin profile data which are in
-	 *              inactive state
-	 */
+	//GET ALL USER PROFILE
 	@Override
 	public List<Object> getAllInactiveInstitute() {
 		logger.debug("in getAllInactiveInstitute method...");
@@ -105,11 +81,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return objectInstitutionProfiles;
 	}
 
-	/**
-	 * @return : count of activated profiles
-	 * @description : For activating institute admin profile data which are in
-	 *              inactive state using profileId
-	 */
+	//ACTIVATE PROFILE BY PROFILE ID
 	@Override
 	public int activateInstituteProfileById(int profileId) {
 		logger.debug("Entering activateInstitutionProfileById");
@@ -119,13 +91,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return count;
 	}
 
-	/**
-	 * @author Shradha
-	 * @return : List of Institute_Admin_Profile Objects
-	 * @param : institution Id and userRole
-	 * @description : returns a sorted list of profiles based on institution id and
-	 *              userRole provided
-	 */
+	//GET LIST PROFILE INSTITUTION ID AND USER ROLE
 	public List<Object> getProfileByInstitutionIdAndUserRole(Integer institutionId, String userRole) {
 		// TODO Auto-generated method stub
 		logger.debug("Entering getProfileByUserRole");
@@ -138,11 +104,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 
 	}
 
-	/**
-	 * @param : InstituteAdmin, int
-	 * @return : InstituteAdmin
-	 * @description : For updating data using auth user id
-	 */
+	//UPDATE PROFILE BASED ON USER ID
 	@Override
 	public InstituteAdmin updateProfileByAuthUserId(InstituteAdmin instituteAdmin, int userId) {
 		logger.debug("updateProfileByAuthUserId...");
@@ -174,12 +136,7 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return existingProfile;
 	}
 
-	/**
-	 * @param : authuser id
-	 * @return : InstituteAdmin
-	 * @description : For getting data using authuser id
-	 */
-
+	//GET PROFILE BY USER ID
 	@Override
 	public InstituteAdmin getProfileByAuthUserId(int userId) {
 
@@ -190,13 +147,10 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 
 		return instituteAdmin;
 	}
-
-	/**
-	 * @param : authuser id
-	 * @return : InstituteAdmin
-	 * @description : For getting data using authuser id
-	 */
-
+	
+	
+	
+	//GET LIST OF PROFILE COURSES ASSIGNED TO TEACHER
 	@Override
 	public InstituteAdmin getProfileById(int id) {
 
@@ -210,6 +164,8 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return instituteAdmin;
 	}
 
+	
+	//GET LIST OF PROFILE COURSES ASSIGNED TO TEACHER
 	@Override
 	public List<Object> getProfileCourseAssignedTeacher(int profileId) {
 		List<Object> profileObject = null;
@@ -220,6 +176,8 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return profileObject;
 	}
 
+	
+	//GET PROFILE BY ID
 	@Override
 	public InstituteAdmin getInstituteDetails(int adminId) {
 		// TODO Auto-generated method stub

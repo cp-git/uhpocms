@@ -74,12 +74,7 @@ public class InstituteAdminController {
 	
 	
 	
-	/**
-	 * @author shradha
-	 * @param userId
-	 * @return
-	 * @throws CPException
-	 */
+	//GET PROFILE BY USING USER ID
 	@GetMapping("/profile/userId/{userId}")
 	public ResponseEntity<Object> getIntituteByUserId(@PathVariable("userId") int userId) throws CPException {
 
@@ -105,12 +100,7 @@ public class InstituteAdminController {
 
 	}
 	
-	/**
-	 * @author shradha
-	 * @param userId
-	 * @return
-	 * @throws CPException
-	 */
+	//GET USER BY PROFILE ID
 	@GetMapping("/profile/id/{id}")
 	public ResponseEntity<Object> getProfileByAdminId(@PathVariable("id") int id) throws CPException {
 
@@ -138,13 +128,7 @@ public class InstituteAdminController {
 
 
 
-	/**
-	 * @author : Anmesh
-	 * @param : getAllInstituteAdmin
-	 * @return : ResponseEntity<List<object>>
-	 * @description : For Getting All Data using firstName
-	 */
-
+	//GET ALL PROFILE
 	@GetMapping("/profile")
 	public ResponseEntity<List<Object>> getAllInstituteAdmin(@RequestParam(name = "firstName") String firstName)
 			throws CPException {
@@ -178,11 +162,9 @@ public class InstituteAdminController {
 		return new AuthenticationBean("You are authenticated");
 	}
 
-	/**
-	 * @description : For activating inactive institute admin profile data using
-	 *              profile id
-	 */
-
+	
+	
+	//ACTIVATING PROFILE BY PROFILE ID
 	@PatchMapping(path = "/profile/activate/{id}")
 	public ResponseEntity<Object> activateInstituteProfileById(@PathVariable("id") int profileId) throws CPException {
 		logger.debug("Entering activateInstituteProfileById");
@@ -208,12 +190,7 @@ public class InstituteAdminController {
 
 	
 	
-	/**
-	 * @author Shradha
-	 * @return : List of Institute_Admin_Profile Objects
-	 * @param : institution Id and userRole
-	 * @description : returns a sorted list of profiles based on institution id and userRole provided
-	 */
+	//GET ALL PROFILE BASED ON INSTITUTE ID
 	@GetMapping("/profile/{userRole}/{institutionId}")
 	@ResponseBody
 	public ResponseEntity<List<Object>> getAllProfilesByRoleAndInstId(@PathVariable("institutionId") Integer institutionId, @PathVariable("userRole") String userRole) throws CPException
@@ -235,7 +212,7 @@ public class InstituteAdminController {
 	
 
 	
-
+	//SAVE PROFILE 
 	@PutMapping("/profile/{id}")
 	public ResponseEntity<Object> saveInstituteAdminByAuthUserId(@RequestPart("admin") InstituteAdmin instituteAdmin,@RequestParam("file")MultipartFile file,
 			@PathVariable("id") int authUserId) throws CPException {
@@ -287,11 +264,8 @@ public class InstituteAdminController {
 
 	
 	
-	
-	//display image using the instituteadminprofile
-	
-	
-	
+
+	//GET PROFILE IMAGE BY ID
 	@GetMapping(path="profile/getFileById/{adminId}")
     ResponseEntity<InputStreamResource> getImageById(@PathVariable int adminId) throws IOException { //download file
      
@@ -321,6 +295,8 @@ public class InstituteAdminController {
     }
 	
 	
+	
+	//UPDATE PROFILE BY ID
 	@PutMapping("/profile/updatedelete/{Id}")
 	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestPart("admin") InstituteAdmin instituteAdmin,
 			@PathVariable("Id") int authUserId,@RequestParam(value="file",required=false)MultipartFile file) throws CPException {
@@ -380,7 +356,7 @@ public class InstituteAdminController {
 	}
 	
 	
-	//DeleteAuthUser
+	//DELETE PROFILE BY USER ID
 	@PutMapping("/profile/delete/{Id}")
 	public ResponseEntity<Object> deleteInstituteAdminByAuthUserId(@RequestBody InstituteAdmin instituteAdmin,
 			@PathVariable("Id") int authUserId) throws CPException {
@@ -418,7 +394,7 @@ public class InstituteAdminController {
 
 	}
 	
-	//used in Auth User updation to profile..
+	//USER PROFILE UPDATION BASED ON AUTH USER CONDITION ONLY JSON DATA
 	@PutMapping("/profile/updateprofile/{Id}")
 	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestBody InstituteAdmin instituteAdmin,
 			@PathVariable("Id") int authUserId) throws CPException {

@@ -30,13 +30,8 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 		logger = Logger.getLogger(ModuleFileProgressServiceImpl.class);
 	}
 
-	/**
-	 * @author shradha
-	 * @param : ModuleFileProgress modulefileprogress
-	 * @return : ModuleFileProgress createdModuleFileProgress
-	 * @description : For creating/inserting entry in
-	 *              teacher_studentmodulefileprogress table
-	 */
+	
+	//CREATE THE MODULE FILE PROGRESS
 	@Override
 	public ModuleFileProgress createModuleFileProgress(ModuleFileProgress modulefileprogress) {
 		logger.debug("Entering createModuleFileProgress");
@@ -58,11 +53,8 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 
 	}
 
-	/**
-	 * @param : String id
-	 * @return : ModuleFileProgress modulefileprogress
-	 * @description : For get entry in teacher_studentmodulefileprogress table
-	 */
+	
+	//GET MODULE FILE PROGRESS BY ID 
 	@Override
 	public ModuleFileProgress getModuleFileProgressByid(int id) {
 		logger.debug("Entering getModuleFileProgressByid");
@@ -73,11 +65,8 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 		return modulefileprogress;
 	}
 
-	/**
-	 * @author shradha
-	 * @desc Function to get list of entries where progress is 100 for given module
-	 *       and student id's
-	 */
+	
+	//GET LIST OF MODULE FILES USING MODULE ID AND STUDENT ID
 	@Override
 	public List<Object> getModuleFileProgressByModStudProg(int modId, int studId) {
 		logger.debug("Entering getModuleFileProgressByModStudProg");
@@ -89,10 +78,8 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 		return objectModuleFileProgresss;
 	}
 
-	/**
-	 * @author shradha
-	 * @desc Function to get list of entries for given module and student id's
-	 */
+	
+	//GET MODULE FILE PROGRESS MODULE ID AND STUDENT ID
 	@Override
 	public List<Object> getModuleFileProgressByModStudId(int modId, int studId) {
 		logger.debug("Entering getModuleFileProgressByModStudProg");
@@ -104,11 +91,8 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 		return objectModuleFileProgresss;
 	}
 
-	/**
-	 * @return : List<Object> modulefileprogress
-	 * @description : For fetching all modulefileprogress which are active state
-	 *              from teacher_studentmodulefileprogress table
-	 */
+	
+	//GET ALL MODULE FILE PROGRESS
 	@Override
 	public List<Object> getAllModuleFileProgresss() {
 		logger.debug("Entering getAllModuleFileProgresss");
@@ -120,12 +104,8 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 		return objectModuleFileProgresss;
 	}
 
-	/**
-	 * @param : ModuleFileProgress to update
-	 * @return : modulefileprogress
-	 * @description : For updating modulefileprogress of
-	 *              teacher_studentmodulefileprogress table
-	 */
+
+	//UPDATE THE MODULE FILE PROGRESS BY ID
 	@Override
 	public ModuleFileProgress updateModuleFileProgressByid(ModuleFileProgress modulefileprogress, int id) {
 		logger.debug("Entering updateModuleFileProgress");
@@ -154,12 +134,8 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 	}
 
 
-	/**
-	 * @param : ModuleFileProgress to update
-	 * @return : modulefileprogress
-	 * @description : For updating modulefileprogress of
-	 *              teacher_studentmodulefileprogress table
-	 */
+	
+	//UPDATE MODULE FILE PROGRESS BY FILE AND STUDENT ID
 	@Override
 	public ModuleFileProgress updateFileProgressByFileIdAndStudentId(int moduleFileId, int studentId,
 			ModuleFileProgress modulefileprogress) {
@@ -188,9 +164,8 @@ public class ModuleFileProgressServiceImpl implements ModuleFileProgressService 
 		return updatedModuleFileProgress;
 	}
 
-	/**
-	 * @desc Function to get list of entries for given file id and student id
-	 */
+
+	//UPDATE MODULE FILE PROGRESS BY FILE AND STUDENT ID
 	@Override
 	public ModuleFileProgress getFileProgressByFileIdAndStudentId(int moduleFileId, int studentId) {
 		logger.debug("Entering getFileProgressByFileIdAndStudentId");

@@ -10,9 +10,10 @@ import com.cpa.uhpocms.entity.StudentProgress;
 
 public interface studentRepo  extends JpaRepository<StudentProgress, Integer> {
 	
-	
+	// GET STUDENT PROGRESS BY STUDENT ID
 	public StudentProgress getStudentprogressByStudentId(int studentId);
 	
+	//GET SCORE BY STUDENT ID
 	@Query(value = "SELECT grade from student_course_grade student where student.studentid_id=?1", nativeQuery = true)
 	List<Object> getStudentMarksid(int studentId);
 

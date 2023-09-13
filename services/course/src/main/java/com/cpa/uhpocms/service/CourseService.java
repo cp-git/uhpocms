@@ -14,51 +14,51 @@ import com.cpa.uhpocms.entity.CourseDepartment;
 
 public interface CourseService {
 
-	//Used
+	//CREATE COURSE
 	Course createCourse(Course course);
 
 
 
 	
-	//Used
+	//GET ALL COURSE
 	List<Object> getAllCourses();
 
 	
 
-	//Used
+	//UPDATE COURSE BY ID
 	Course updateCourseById(Course course, int courseid);
 
 	
 
-	//Used
+	//DELETE THE COURSE BY ID
 	int deleteCourseByCourseId(int courseid);
 
-	//Used
+	//FIND COURSE BY PROFILE ID
 	List<Object> findCourseByProfileId(int profile_id);
 
-	//Used
+	//FIND COURSE BY DEPARTMENT ID
 	List<Object> findCoursesByDepartmentId(int department_id);
 
-	//used
+	//FIND BY INSTITUTION ID
 	List<Object> findByInstitutionId(int institutionId);
 
-	//Used
+	//GET ALL INACTIVE COURSES
 	List<Object> getAllInactiveCourses();
 
-	//Used
+	//FIND COURSES ASSIGN TO TEACHER
 	List<Object> findCoursesAssignToTeacher(int profile_id);
 	
-	//Used
+	//FIND INACTIVE COURSES ASSIGN TO TEACHER
 	List<Object> findInactiveCoursesAssignToTeacher(int profile_id);
 	
-	//Used
+	//ACTIVATE COURSE BY ID
 	int activateCourseById(int courseId);
 	
 
-	//Used
+	//ASSIGN COURSE TO DEPARTMENT
 	CourseDepartment assignCourseToDepartment(CourseDepartment courseDepartment);
 
-	//Used
+	//GET LIST OF INACTIVE COURSES BASED ON INSTITUTION ID
 	List<Object> findInactiveCourseByInstitutionId(int institutionId);
 
 }
