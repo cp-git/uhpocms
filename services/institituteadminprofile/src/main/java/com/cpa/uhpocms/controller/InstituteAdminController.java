@@ -50,6 +50,7 @@ import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.InstituteAdmin;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.exception.ResponseHandler;
+import com.cpa.uhpocms.repository.InstituteAdminRepository;
 import com.cpa.uhpocms.service.InstituteAdminService;
 
 @CrossOrigin
@@ -58,6 +59,9 @@ import com.cpa.uhpocms.service.InstituteAdminService;
 public class InstituteAdminController {
 	@Autowired
 	private InstituteAdminService instituteAdminService;
+	
+	@Autowired
+	private InstituteAdminRepository instituteRepository;
 
 	private ResourceBundle resourceBundle;
 
@@ -230,7 +234,10 @@ public class InstituteAdminController {
 				instituteAdminProfile = instituteAdminService.saveInstituteAdmin(instituteAdmin);
 				
 
-				String instituteAdminProfileNameAndId=instituteAdmin.getFirstName()+"_"+instituteAdmin.getAdminId();
+				String userName=instituteRepository.getUserNameAuthUser(instituteAdminProfile.getUserId());
+				
+				
+				String instituteAdminProfileNameAndId=userName+"_"+instituteAdmin.getAdminId();
 				
 				File theDir = new File(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId);
 				if (!theDir.exists()){
@@ -239,7 +246,6 @@ public class InstituteAdminController {
 				
 				//Path path = theDir.toPath();
 				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
-				System.out.println(fileName);
 				Path fileStorage = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, fileName).toAbsolutePath().normalize();
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 
@@ -272,25 +278,19 @@ public class InstituteAdminController {
 		System.out.println("in controller..");
 		InstituteAdmin myFile;
 		 myFile =instituteAdminService.getInstituteDetails(adminId);
-        System.out.println(myFile);
+       
         
-        String instNameAndId=myFile.getFirstName()+"_"+myFile.getAdminId();
+        String userName=instituteRepository.getUserNameAuthUser(myFile.getUserId());
+		
+        String instNameAndId=userName+"_"+myFile.getAdminId();
 		System.out.println(instNameAndId);
        String address =basePath+"/institute/"+"/user_profile/"+instNameAndId+"/"+ myFile.getProfilePics();
        File file = new File(address);
         System.out.println("file"+file);
        InputStream inputStream = new FileInputStream(file);
-//        System.out.println(inputStream);
-       InputStreamResource a = new InputStreamResource(inputStream);
-//      
+       InputStreamResource a = new InputStreamResource(inputStream);      
         HttpHeaders httpHeaders = new HttpHeaders();
-//        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
-        httpHeaders.setContentType(MediaType.IMAGE_JPEG);
-        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
-//        System.out.println(myFile.getAdminInstitutionPicture());
-       
-       
-       
+        httpHeaders.setContentType(MediaType.IMAGE_JPEG);       
         return new ResponseEntity<InputStreamResource>(a, httpHeaders, HttpStatus.ACCEPTED);
     }
 	
@@ -303,46 +303,32 @@ public class InstituteAdminController {
 
 		logger.info("inside the put method..");
 		InstituteAdmin instituteAdminProfile = null;
-		
-		
-	
-		
-	
+
 		try {
 
 			instituteAdminProfile = instituteAdminService.getProfileByAuthUserId(authUserId);
 			logger.info("updateInstituteAdmin Values" + instituteAdminProfile);
 			
-			System.out.println(instituteAdminProfile.getProfilePics());
 			
 			String PreviousImage=instituteAdminProfile.getProfilePics();
-			System.out.println(PreviousImage);
-			
-			 
-			 
-				
-				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
-				//System.out.println(instituteAdminProfile.getAdminId());
-				
 
-				String instituteAdminProfileNameAndId=instituteAdminProfile.getFirstName()+"_"+instituteAdminProfile.getAdminId();
+				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
+				
+				 String userName=instituteRepository.getUserNameAuthUser(instituteAdminProfile.getUserId());
+			
+				String instituteAdminProfileNameAndId=userName+"_"+instituteAdminProfile.getAdminId();
 				
 				File theDir = new File(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId);
 				if (!theDir.exists()){
 				    theDir.mkdirs();
 				}
 				
-				//Path path = theDir.toPath();
+				
 				
 				String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-				System.out.println(fileName);
 				Path fileStorage = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, fileName).toAbsolutePath().normalize();
 				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 				
-				
-				
-//				Path fileStorage1 = Paths.get(basePath+"/institute/"+"/user_profile/"+instituteAdminProfileNameAndId, PreviousImage).toAbsolutePath().normalize();
-//				Files.delete(fileStorage1);
 				
 				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);
 			
@@ -380,7 +366,7 @@ public class InstituteAdminController {
 			} else {
 				
 				instituteAdminProfile = instituteAdminService.updateProfileByAuthUserId(instituteAdmin, authUserId);
-				//System.out.println(instituteAdminProfile.getAdminId());
+				
 				
 				
 				return ResponseHandler.generateResponse(instituteAdminProfile, HttpStatus.CREATED);

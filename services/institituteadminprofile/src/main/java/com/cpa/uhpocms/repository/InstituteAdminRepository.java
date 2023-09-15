@@ -61,5 +61,13 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	@Query(value = "SELECT DISTINCT iap.* FROM instituteadmin_profile iap JOIN teacher_course_enrolltostudent tces ON iap.id = tces.profile_id JOIN teacher_course_assigntoteacher tcat ON tces.course_id = tcat.course_id WHERE tcat.profile_id = ?1", nativeQuery = true)
     public List<InstituteAdmin> getProfilesOfCourseAssignedToTeacher(int profileId);
 	
+	//get Inactive users 
+	@Query(value = "SELECT first_name FROM auth_user T WHERE NOT EXISTS( SELECT 1 FROM instituteadmin_profile U WHERE U.user_id = T.id);", nativeQuery = true)
+	public List<InstituteAdmin> getAllInactiveProfileUers();
+	
+	//FIND USER NAME FROM AUTH USER TABLE FOR DIRECTORY STRUCTURE CREATION
+	@Query(value = "Select dp.username from auth_user dp JOIN instituteadmin_profile tc  ON tc.user_id = dp.id where tc.user_id=?1", nativeQuery = true)
+	public String getUserNameAuthUser(int userId);
+	
 	
 }

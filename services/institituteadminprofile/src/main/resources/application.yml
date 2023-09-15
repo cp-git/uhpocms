@@ -29,7 +29,7 @@ spring.datasource:
 
 
 server:
-  port : 8090
+  port : 8092
   
   
 file:
