@@ -93,5 +93,11 @@ public interface ModuleFileRepo extends JpaRepository<ModuleFile, Integer> {
 	@Modifying
 	@Query(value="UPDATE public.teacher_module AS tm SET isactive =CASE WHEN EXISTS (SELECT 1 FROM public.teacher_modulefile AS tmf WHERE tmf.id IN (SELECT id FROM public.teacher_modulefile WHERE moduleid_id = (SELECT moduleid_id FROM public.teacher_modulefile WHERE id = ?1 ) AND isactive = true))THEN true ELSE false END WHERE tm.moduleid = (SELECT tmf.moduleid_id FROM public.teacher_modulefile AS tmf WHERE tmf.id = ?1)",nativeQuery=true)
 	int updateIsActiveInTeacherModule(int id);
+	
+	//FETCH MODULE FILES BASED ON ACTIVE MODULE
+	@Query(value = "SELECT * FROM teacher_modulefile T WHERE  EXISTS( SELECT 1 FROM teacher_module U  WHERE U.moduleid = T.moduleid_id AND U.isactive=true);", nativeQuery = true)
+	public List<ModuleFile> getAllModuleFileByActiveModule();
+	
+	
 
 }

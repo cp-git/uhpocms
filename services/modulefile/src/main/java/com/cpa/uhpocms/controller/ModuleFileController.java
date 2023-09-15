@@ -56,7 +56,11 @@ import com.cpa.uhpocms.service.ModuleFileService;
 public class ModuleFileController {
 
 	@Autowired
-	private ModuleFileService modulefileService;;
+	private ModuleFileService modulefileService;
+	
+	
+	@Autowired
+	private ModuleFileRepo modulefileRepo;
 
 	private ResourceBundle resourceBunde;
 	private static Logger logger;
@@ -227,8 +231,9 @@ public class ModuleFileController {
 		try {
 
 			if (file.equalsIgnoreCase("all")) {
-
 				modulefiles = modulefileService.getAllModuleFiles();
+				
+				
 				logger.info("Fetched all ModuleFile :" + modulefiles);
 
 				return ResponseHandler.generateListResponse(modulefiles, HttpStatus.OK);
@@ -558,6 +563,35 @@ public class ModuleFileController {
 
 		}
 
+	}
+	
+	
+	@GetMapping("/modulefileActiveByModule")
+	public  List<ModuleFile> getAllModuleFilesByActiveModule(@RequestParam(name = "file") String file) throws CPException {
+		logger.debug("Entering getAllModuleFile");
+		logger.info("Parameter  :" + file);
+
+		List<ModuleFile> modulefiles = null;
+
+		try {
+
+			if (file.equalsIgnoreCase("all")) {
+
+//				modulefiles = modulefileService.getAllModuleFiles();
+				
+				modulefiles=modulefileRepo.getAllModuleFileByActiveModule();
+				logger.info("Fetched all ModuleFile :" + modulefiles);
+
+				//return ResponseHandler.generateListResponse(modulefiles, HttpStatus.OK);
+			} 
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all modulefiles : " + ex.getMessage());
+			throw new CPException("err002", resourceBunde.getString("err002"));
+
+		}
+		return modulefiles;
 	}
 
 }
