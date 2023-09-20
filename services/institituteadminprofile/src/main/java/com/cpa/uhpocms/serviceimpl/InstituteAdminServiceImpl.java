@@ -13,11 +13,16 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.cpa.uhpocms.entity.InstituteAdmin;
 import com.cpa.uhpocms.repository.InstituteAdminRepository;
 import com.cpa.uhpocms.service.InstituteAdminService;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
 
 @Service
 class InstituteAdminServiceImpl implements InstituteAdminService {
@@ -25,6 +30,15 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 	@Autowired
 	private InstituteAdminRepository instituteAdminRepository;
 
+	@Autowired
+    private JavaMailSender emailSender;
+	
+	 @Value("${spring.mail.host}")
+	 private String mailHost;
+
+	 @Value("${spring.mail.port}")
+	 private int mailPort;
+	
 	private static final Logger logger = Logger.getLogger(InstituteAdminServiceImpl.class);
 
 	/**
@@ -298,4 +312,16 @@ class InstituteAdminServiceImpl implements InstituteAdminService {
 		return profileObject;
 	}
 
+	 public void sendSimpleMessage(String to, String subject, String text) {
+	        if (emailSender == null) {
+	            logger.error("emailSender is null!");
+	        } else {
+	            logger.info("emailSender is correctly autowired!");
+	            SimpleMailMessage message = new SimpleMailMessage();
+	            message.setTo(to);
+	            message.setSubject(subject);
+	            message.setText(text);
+	            emailSender.send(message);
+	        }
+	    }
 }

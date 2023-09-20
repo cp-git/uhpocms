@@ -3841,3 +3841,15 @@
 
 2023-Jul-26 11:41:02 DEBUG [main      ] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.deleteInstitutionProfileByName(InstituteAdminServiceImpl.java:107) - in deleteByInstituteAdmin Name
 2023-Jul-26 11:50:18 DEBUG [main      ] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.deleteInstitutionProfileByName(InstituteAdminServiceImpl.java:107) - in deleteByInstituteAdmin Name
+2023-Sep-15 13:27:07 INFO [restartedMain] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:15) - in Main class
+2023-Sep-15 13:31:11 INFO [restartedMain] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:15) - in Main class
+2023-Sep-15 13:41:46 INFO [restartedMain] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:15) - in Main class
+2023-Sep-15 13:59:14 INFO [restartedMain] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:15) - in Main class
+2023-Sep-15 14:10:37 INFO [restartedMain] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:15) - in Main class
+2023-Sep-15 14:11:19 INFO [http-nio-8080-exec-2] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.sendSimpleMessage(InstituteAdminServiceImpl.java:319) - emailSender is correctly autowired!
+2023-Sep-15 14:17:39 INFO [restartedMain] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:15) - in Main class
+2023-Sep-15 14:17:46 INFO [http-nio-8080-exec-2] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.sendSimpleMessage(InstituteAdminServiceImpl.java:319) - emailSender is correctly autowired!
+2023-Sep-15 14:20:21 INFO [http-nio-8080-exec-4] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.sendSimpleMessage(InstituteAdminServiceImpl.java:319) - emailSender is correctly autowired!
+2023-Sep-15 14:24:50 INFO [restartedMain] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:15) - in Main class
+2023-Sep-15 14:25:06 INFO [http-nio-8080-exec-2] com.cpa.uhpocms.serviceimpl.InstituteAdminServiceImpl.sendSimpleMessage(InstituteAdminServiceImpl.java:319) - emailSender is correctly autowired!
+2023-Sep-15 16:02:44 INFO [restartedMain] com.cpa.uhpocms.InstituteAdminApplication.main(InstituteAdminApplication.java:15) - in Main class

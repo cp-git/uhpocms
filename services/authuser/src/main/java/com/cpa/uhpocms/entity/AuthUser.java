@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class AuthUser {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int authUserId;
 
@@ -42,7 +42,7 @@ public class AuthUser {
 	@Column(name = "last_name", nullable = false)
 	private String authUserLastName;
 
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, unique = true)
 	private String authUserEmail;
 
 	@Column(name = "last_login", columnDefinition = "TIMESTAMP")

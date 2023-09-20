@@ -22,7 +22,7 @@ public class Quizprogress {
 
 	@Column(name = "id")
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "score")

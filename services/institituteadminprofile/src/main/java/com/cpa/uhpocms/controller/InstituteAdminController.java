@@ -47,6 +47,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import com.cpa.uhpocms.entity.AuthenticationBean;
+import com.cpa.uhpocms.entity.EmailRequest;
 import com.cpa.uhpocms.entity.InstituteAdmin;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.exception.ResponseHandler;
@@ -58,6 +59,8 @@ import com.cpa.uhpocms.service.InstituteAdminService;
 public class InstituteAdminController {
 	@Autowired
 	private InstituteAdminService instituteAdminService;
+	
+	
 
 	private ResourceBundle resourceBundle;
 
@@ -107,6 +110,7 @@ public class InstituteAdminController {
 
 				logger.info("created profile :" + institueAdminProfile);
 
+		            
 				return ResponseHandler.generateResponse(institueAdminProfile, HttpStatus.CREATED);
 			} else {
 				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err003");
@@ -656,6 +660,15 @@ public class InstituteAdminController {
 		}
 
 	}
+	
+	
+	@PostMapping("/profile/send-email")
+    public void sendEmail(@RequestBody EmailRequest emailRequest) {
+        // Assuming EmailRequest contains 'to', 'subject', and 'text' fields
+		System.out.println("Entered");
+		System.out.println(emailRequest.getTo() +"  "+emailRequest.getSubject()+"  "+emailRequest.getText());
+        instituteAdminService.sendSimpleMessage(emailRequest.getTo(), emailRequest.getSubject(), emailRequest.getText());
+    }
 }
 	
 	
