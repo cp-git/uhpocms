@@ -29,7 +29,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Course {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "courseid", nullable = false)
 	private int courseId;
 

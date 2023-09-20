@@ -53,15 +53,16 @@ public class AuthUserController {
 	public ResponseEntity<Object> createAuthUser(@RequestBody AuthUser authUser) throws CPException {
 		logger.debug("Entering createAuthUser");
 		logger.info("data of creating auth user with username :" + authUser.getAuthUserName());
-
+		System.out.println(" *****************IN Controller" + authUser);
 		AuthUser createdUser = null;
 		try {
 
 			AuthUser toCheckAuthUser = authUserService.getAuthUserByUserName(authUser.getAuthUserName());
 			logger.debug("existing auth user :" + toCheckAuthUser);
-
+			System.out.println(toCheckAuthUser);
 			if (toCheckAuthUser == null) {
 
+				System.out.println("***************Entered in if (toCheckAuthUser == null) ");
 				createdUser = authUserService.createAuthUser(authUser);
 				logger.info("user created :" + createdUser);
 
@@ -91,6 +92,37 @@ public class AuthUserController {
 		try {
 
 			authUser = authUserService.getAuthUserByUserName(authUserName);
+			logger.info("fetched auth user :" + authUser);
+
+			if (authUser != null) {
+				logger.debug("auth user fetched generating response");
+				return ResponseHandler.generateResponse(authUser, HttpStatus.OK);
+			} else {
+				logger.debug("auth user not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting auth user : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
+	
+	
+
+	@GetMapping("/authuser/email/{useremail}")
+	public ResponseEntity<Object> getAuthUserByUserEmail(@PathVariable("useremail") String authUserEmail)
+			throws CPException {
+		logger.debug("Entering getAuthUserByUserEmail");
+		logger.info("entered user name :" + authUserEmail);
+
+		AuthUser authUser = null;
+
+		try {
+
+			authUser = authUserService.getByEmailId(authUserEmail);
 			logger.info("fetched auth user :" + authUser);
 
 			if (authUser != null) {
@@ -226,6 +258,38 @@ public class AuthUserController {
 		}
 
 	}
+
+	
+	
+	@PutMapping("/authuser/forgotpass/{useremail}/{password}")
+	public ResponseEntity<Object> updatePassword (
+			@PathVariable("useremail") String authUserEmail,@PathVariable("password") String authPass) throws CPException {
+		logger.debug("Entering  updatePassword ");
+		logger.info("entered emailId to update auth user is :" + authUserEmail);
+
+		AuthUser updatedUser = null;
+
+		try {
+			updatedUser = authUserService.updatePassword(authUserEmail, authPass);
+
+			if (updatedUser == null) {
+				logger.info(resourceBundle.getString("err004"));
+				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err004");
+			} else {
+				logger.info("updated auth user :" + updatedUser);
+				return ResponseHandler.generateResponse(updatedUser, HttpStatus.CREATED);
+			}
+
+		} catch (Exception ex) {
+			logger.error("Failed update auth user : " + ex.getMessage());
+			throw new CPException("err004", resourceBundle.getString("err004"));
+
+		}
+
+	}
+
+	
+	
 
 	@GetMapping(path = "/basicauth")
 	public AuthenticationBean basicauth() {

@@ -29,7 +29,7 @@ public class Quiz {
 
 	@Column(name = "quizid")
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int quizId;
 
 	@Column(name = "title", unique=true)

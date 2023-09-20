@@ -39,4 +39,6 @@ public interface InstituteAdminService {
 	InstituteAdmin getInstituteDetails(int adminId);
 
 	List<Object> getEnrolledProfilesOfCourseByOneStudentId(int profileId);
+	
+	void sendSimpleMessage(String to, String subject, String text);
 }

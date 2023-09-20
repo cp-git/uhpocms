@@ -26,7 +26,7 @@ public class Studentquizresult {
 //TODO - add attributed and genrate setters and getters
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int Id;
 

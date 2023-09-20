@@ -30,4 +30,8 @@ public interface AuthUserService {
 	AuthUser getAuthUserById(int authUserId);
 	
 	List<Object> getAllInactiveProfiles();
+	
+	AuthUser updatePassword(String authEmailId, String authPass);
+	
+	AuthUser getByEmailId(String authEmailId);
 }

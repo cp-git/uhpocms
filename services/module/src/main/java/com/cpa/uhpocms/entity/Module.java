@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Module {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "moduleid", nullable = false)
 	private int moduleId;
 
