@@ -51,3 +51,18 @@ spring:
           auth: true
           starttls:
             enable: true
+  jackson:
+    default-property-inclusion: NON_NULL
+ 
+
+# YAML Configuration File
+jwt:
+  secret: secretkey
+  token:
+    validity: 180000
+
+
+ 
+
+ 
+
