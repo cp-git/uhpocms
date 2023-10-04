@@ -59,6 +59,10 @@ public class Module {
 
 	@Column(name = "moduleorderno")
 	private int moduleOrderNo;
+	
+
+	@Column(name = "review")
+	private Boolean moduleReview;
 
 	
 
@@ -100,7 +104,7 @@ public class Module {
 	 */
 	public Module(int moduleId, String moduleName, String moduleDescription, boolean moduleIsActive,
 			Date moduleStartDate, Date moduleEndDate, int moduleCourse, int moduleOrderNo, int courseId_id,
-			String moduleCreatedBy, Date moduleCreatedDate, String moduleUpdatedBy, Date moduleUpdatedDate) {
+			String moduleCreatedBy, Date moduleCreatedDate, String moduleUpdatedBy, Date moduleUpdatedDate,Boolean moduleReview) {
 		super();
 		this.moduleId = moduleId;
 		this.moduleName = moduleName;
@@ -115,6 +119,7 @@ public class Module {
 		this.moduleCreatedDate = moduleCreatedDate;
 		this.moduleUpdatedBy = moduleUpdatedBy;
 		this.moduleUpdatedDate = moduleUpdatedDate;
+		this.moduleReview=moduleReview;
 	}
 
 	/**
@@ -126,7 +131,7 @@ public class Module {
 	}
 
 	public Module(String moduleName, String moduleDescription, boolean moduleIsActive, Date moduleStartDate,
-			Date moduleEndDate, int moduleCourse, int moduleOrderNo, int courseId_id) {
+			Date moduleEndDate, int moduleCourse, int moduleOrderNo, int courseId_id, Boolean moduleReview) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.moduleName = moduleName;
@@ -137,6 +142,7 @@ public class Module {
 		this.moduleCourse = moduleCourse;
 		this.moduleOrderNo = moduleOrderNo;
 		this.courseId = courseId_id;
+		this.moduleReview=moduleReview;
 	}
 
 	/**
@@ -321,14 +327,25 @@ public class Module {
 		this.moduleUpdatedDate = moduleUpdatedDate;
 	}
 
+	
+	
+	public Boolean getModuleReview() {
+		return moduleReview;
+	}
+
+	public void setModuleReview(Boolean moduleReview) {
+		this.moduleReview = moduleReview;
+	}
+
 	@Override
 	public String toString() {
 		return "Module [moduleId=" + moduleId + ", moduleName=" + moduleName + ", moduleDescription="
 				+ moduleDescription + ", moduleIsActive=" + moduleIsActive + ", moduleStartDate=" + moduleStartDate
 				+ ", moduleEndDate=" + moduleEndDate + ", moduleCourse=" + moduleCourse + ", moduleOrderNo="
-				+ moduleOrderNo + ", courseId_id=" + courseId + ", moduleCreatedBy=" + moduleCreatedBy
-				+ ", moduleCreatedDate=" + moduleCreatedDate + ", moduleUpdatedBy=" + moduleUpdatedBy
-				+ ", moduleUpdatedDate=" + moduleUpdatedDate + "]";
+				+ moduleOrderNo + ", moduleReview=" + moduleReview + ", course=" + course + ", courseId=" + courseId
+				+ ", moduleCreatedBy=" + moduleCreatedBy + ", moduleCreatedDate=" + moduleCreatedDate
+				+ ", moduleUpdatedBy=" + moduleUpdatedBy + ", moduleUpdatedDate=" + moduleUpdatedDate + "]";
 	}
+
 
 }
