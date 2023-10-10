@@ -22,6 +22,9 @@ public interface CourseService {
 	
 	//GET ALL COURSE
 	List<Object> getAllCourses();
+	
+	//Get Course By CourseId
+	Course getCourseByCourseId(int courseid);
 
 	
 

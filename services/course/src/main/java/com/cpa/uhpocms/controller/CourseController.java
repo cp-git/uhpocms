@@ -100,6 +100,33 @@ public class CourseController {
 			throw new CPException("err003", resourceBundle.getString("err003"));
 		}
 	}
+	
+	@GetMapping("/course/courseId/{id}")
+	public ResponseEntity<Object> getCourseByCourseId(@PathVariable("id") int courseid) throws CPException {
+		logger.debug("Entering getCourseByCourseId");
+
+		Course course = null;
+
+		try {
+
+			course = courseService.getCourseByCourseId(courseid);
+			logger.info("fetched Course :" + course);
+
+			if (course != null) {
+				logger.debug("Course fetched generating response");
+				return ResponseHandler.generateResponse(course, HttpStatus.OK);
+			} else {
+				logger.debug("Course not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting course : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
 
 
 

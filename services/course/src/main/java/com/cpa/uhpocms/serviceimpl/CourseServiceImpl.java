@@ -62,6 +62,19 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	
+	// Get COurse By Course Id
+	@Override
+	public Course getCourseByCourseId(int courseid) {
+		// TODO Auto-generated method stub
+
+		logger.debug("Entering getCourseByCourseId");
+
+		Course course = courseRepo.findByCourseId(courseid);
+		logger.info("Founded course :" + course);
+
+		return course;
+	}
+	
 
 	//GET ALL COURSES
 	@Override
