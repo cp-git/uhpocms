@@ -34,11 +34,12 @@ public class AuthUserServiceImpl implements AuthUserService {
 	@Override
 	public AuthUser createAuthUser(AuthUser authUser) {
 		logger.debug("Entering createAuthUser");
+		System.out.println("*****************Entering createAuthUser in service impl");
 		AuthUser createdAuthUser = null;
 
 		authUser.setAuthUserCreatedBy("admin");
 		authUser.setAuthUserModifiedBy("admin");
-
+        System.out.println(authUser);
 		createdAuthUser = authUserRepo.save(authUser);
 		logger.info("created authuser :" + createdAuthUser);
 		return createdAuthUser;
@@ -121,8 +122,37 @@ public class AuthUserServiceImpl implements AuthUserService {
 		return authUsers;
 	}
 
+
 	
 	//GET ALL INACTIVE AUTH USERS
+	public AuthUser updatePassword(String authEmailId, String authPass)
+	{
+		logger.debug("Entering updatePassword");
+		AuthUser authUser ;
+		authUser =	authUserRepo.findByAuthUserEmail(authEmailId);
+		logger.debug("Fetched authuser by email Id");
+		authUser.setAuthUserPassword(authPass);
+		
+		authUserRepo.save(authUser);
+		logger.debug("Updated Password");
+	 
+		return authUser;
+	}
+	
+	public AuthUser getByEmailId(String authEmailId) {
+		logger.debug("Entering getByEmailId");
+
+		AuthUser authUser = authUserRepo.findByAuthUserEmail(authEmailId);
+		logger.info("Fetched AuthUesr By Emial ID :" + authUser);
+		return authUser;
+	}
+	/**
+	 * @author : Mayur
+	 * @return : List<Object> authUsers
+	 * @description : For fetching all user which are in active state from auth_user
+	 *              table
+	 */
+
 	@Override
 	public List<Object> getAllInactiveAuthUsers() {
 		logger.debug("Entering getAllInactiveAuthUsers");

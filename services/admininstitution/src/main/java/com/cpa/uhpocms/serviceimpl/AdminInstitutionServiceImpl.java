@@ -65,8 +65,59 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 
 
 
+
 	
-/////////////////////// GET ALL ADMIN INSTITUTION BY PROFILE ID //////////////////////	
+
+
+	/**
+	 * @author: Akash
+	 * @param: AdminInstitution adminInstitution,String adminInstitutionName
+	 * @return : AdminInstitution admin.
+	 * @description : For updating entry in admin_institution table
+	 */
+	public AdminInstitution updateAdminInstitutionByName(AdminInstitution adminInstitution,
+			String adminInstitutionName) {
+		logger.debug("Entering updateAdminInstitutionByName");
+
+		AdminInstitution updatedAdminInstitution = null;
+
+		AdminInstitution admin = adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
+		logger.info("Existimg Admin Institution" + admin);
+
+		if (admin != null) {
+			admin.setAdminInstitutionName(adminInstitution.getAdminInstitutionName());
+			admin.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
+			admin.setAdminInstitutionIsActive(adminInstitution.isAdminInstitutionIsActive());
+			admin.setAdminInstitutionPicture(adminInstitution.getAdminInstitutionPicture());
+			admin.setInstSignature(adminInstitution.getInstSignature());
+			updatedAdminInstitution = adminInstitutionRepository.save(admin);
+		}
+
+		logger.info("Updated AdminInstitution data" + updatedAdminInstitution);
+		return updatedAdminInstitution;
+
+	}
+
+	/**
+	 * @author: Akash
+	 * @param: String adminInstitutionName
+	 * @return : adminInstitutionName
+	 * @description : For retrieving the specific entry in admin_institution table
+	 */
+	public AdminInstitution findByAdminInstitutionName(String adminInstitutionName) {
+		logger.debug("Entering getAdminInstitutionByName");
+		AdminInstitution adminInstitution = adminInstitutionRepository.findByAdminInstitutionName(adminInstitutionName);
+
+		logger.info("Fetched AdminInstitution data" + adminInstitution);
+		return adminInstitution;
+	}
+
+	/**
+	 * @return : adminInstitutions - list of institution which are in inactive state
+	 * @description : For retrieving the all entries in admin_institution table
+	 *              which are in inactive state
+	 */
+
 	@Override
 	public List<Object> getAllInactiveAdminInstitutions() {
 		logger.debug("Entering getAllInactiveAdminInstitutions");
@@ -110,7 +161,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		// TODO Auto-generated method stub
 		System.out.println("in serviceImpl");
 		AdminInstitution admin=null;
-		admin =adminInstitutionRepository.findByAdminInstitutionId(adminInstitutionId);
+		admin = adminInstitutionRepository.findByAdminInstitutionId(adminInstitutionId);
 		
 		return  admin;
 	}

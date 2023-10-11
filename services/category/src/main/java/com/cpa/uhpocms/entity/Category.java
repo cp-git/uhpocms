@@ -25,7 +25,7 @@ public class Category {
 
 	@Column(name = "id")
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int categoryId;
 
 	@Column(name = "category")

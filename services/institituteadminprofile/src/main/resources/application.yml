@@ -38,3 +38,31 @@ file:
   
   spring.http:
     multipart.enabled=true
+   
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: shradhapatil.1112@gmail.com
+    password: hiwuribhmcdorrmt
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  jackson:
+    default-property-inclusion: NON_NULL
+ 
+
+# YAML Configuration File
+jwt:
+  secret: secretkey
+  token:
+    validity: 180000
+
+
+ 
+
+ 
+

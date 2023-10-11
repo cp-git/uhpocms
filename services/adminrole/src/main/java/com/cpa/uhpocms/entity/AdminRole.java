@@ -27,7 +27,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class AdminRole {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "role_id")
 	private int roleId;
 

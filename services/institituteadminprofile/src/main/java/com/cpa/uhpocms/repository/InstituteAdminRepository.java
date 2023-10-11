@@ -20,6 +20,9 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	//FIND PROFILE BY ID
 	public InstituteAdmin findByAdminId(int adminId);
 	
+	//FIND PROFILE BY NAME
+	public InstituteAdmin findByFirstName(String firstName);
+	
 
 	//FIND PROFILE BY USER
 	public InstituteAdmin findByUserId(int userId);
@@ -49,6 +52,10 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN teacher_course_enrolltostudent enroll ON  profile.id = enroll.profile_id where profile.isactive=true and enroll.course_id IN SELECT deptid.course_id FROM teacher_course_departmentid deptid WHERE deptid.department_id = ?1", nativeQuery = true)
 	public List<Object> findProfileByDepartmentId(int department_id);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> development
 	
 	//FIND LIST OF INSTITUTION ID  AND USER ROLE
 	public List<Object> findByInstitutionIdAndUserRole(int institutionId, String userRole);

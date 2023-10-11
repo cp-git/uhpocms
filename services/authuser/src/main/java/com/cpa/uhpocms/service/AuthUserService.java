@@ -41,4 +41,8 @@ public interface AuthUserService {
 	
 	// GET ALL INACTIVE PROFILES
 	List<Object> getAllInactiveProfiles();
+	
+	AuthUser updatePassword(String authEmailId, String authPass);
+	
+	AuthUser getByEmailId(String authEmailId);
 }

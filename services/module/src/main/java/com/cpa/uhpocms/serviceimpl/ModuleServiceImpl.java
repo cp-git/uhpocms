@@ -81,6 +81,8 @@ public class ModuleServiceImpl implements ModuleService {
 			toUpdatedModule.setModuleCourse(module.getModuleCourse());
 			toUpdatedModule.setModuleOrderNo(module.getModuleOrderNo());
 			toUpdatedModule.setCourseId_id(module.getCourseId_id());
+			toUpdatedModule.setModuleReview(module.getModuleReview());
+		
 
 			updatedModule = moduleRepo.save(toUpdatedModule);
 
@@ -155,6 +157,8 @@ public class ModuleServiceImpl implements ModuleService {
 			toUpdatedModule.setModuleCourse(module.getModuleCourse());
 			toUpdatedModule.setModuleOrderNo(module.getModuleOrderNo());
 			toUpdatedModule.setCourseId_id(module.getCourseId_id());
+			toUpdatedModule.setModuleReview(module.getModuleReview());
+			
 
 			updatedModule = moduleRepo.save(toUpdatedModule);
 

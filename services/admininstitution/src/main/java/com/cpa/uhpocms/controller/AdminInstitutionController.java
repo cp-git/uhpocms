@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -77,67 +78,242 @@ public class AdminInstitutionController {
 	}
 
 	
-	//////////////////// CREATE THE INSTITUTION  //////////////////////////
-	@PostMapping("/institution")
-	public ResponseEntity<Object> addAdminInstitution(@RequestPart("admin") AdminInstitution adminInstitution,@RequestParam("file")MultipartFile file)
-			throws CPException {
-		logger.debug("creating Admin Institution");
-		logger.info("data entered of AdminInstitution" + adminInstitution);
-		
-		
 
-		AdminInstitution addInstitution = null;
-		String fileName=null;
-		
-		try {
-			
+	//////////////////// CREATE THE INSTITUTION  //////////////////////////
+//	@PostMapping("/institution")
+//	public ResponseEntity<Object> addAdminInstitution(@RequestPart("admin") AdminInstitution adminInstitution,@RequestParam("file")MultipartFile file)
+//			throws CPException {
+//		logger.debug("creating Admin Institution");
+//		logger.info("data entered of AdminInstitution" + adminInstitution);
+//		
+//		
+//
+//		AdminInstitution addInstitution = null;
+//		String fileName=null;
+//		
+//		try {
+//			
 //			AdminInstitution toCheckAdminInstitution = adminInstitutionService
 //					.findByAdminInstitutionName(adminInstitution.getAdminInstitutionName());
 //			logger.debug("existing admin institution :" + toCheckAdminInstitution);
+
+//	@PostMapping("/institution")
+//	public ResponseEntity<Object> addAdminInstitution(@RequestPart("admin") AdminInstitution adminInstitution,@RequestParam("file")MultipartFile file
+//			,@RequestParam("signaturefile")MultipartFile signaturefile)
+//			throws CPException {
+//		logger.debug("creating Admin Institution");
+//		System.out.println("Entered IN POST METHOD");
+//		logger.info("data entered of AdminInstitution" + adminInstitution);
+//		
+//		
+//
+//		AdminInstitution addInstitution = null;
+//		String fileName=null;
+//		String sigfileName=null;
+//		
+//		try {
+
 //			
-//			System.out.println(toCheckAdminInstitution);
+////			AdminInstitution toCheckAdminInstitution = adminInstitutionService
+////					.findByAdminInstitutionName(adminInstitution.getAdminInstitutionName());
+////			logger.debug("existing admin institution :" + toCheckAdminInstitution);
+////			
+////			System.out.println(toCheckAdminInstitution);
+//
+//		
+//			if (addInstitution == null) {
+//				
+//				
+//				adminInstitution.setAdminInstitutionPicture(file.getOriginalFilename());
+//				adminInstitution.setInstSignature(signaturefile.getOriginalFilename());
+//				addInstitution = adminInstitutionService.saveAdminInstitution(adminInstitution);
+//				logger.info("institution created :" + addInstitution);
+//				
+////				System.out.println("instituteName"+addInstitution.getAdminInstitutionName());
+////				System.out.println("instituteId"+addInstitution.getAdminInstitutionId());
+//				
+//				String instNameAndId=addInstitution.getAdminInstitutionName()+"_"+addInstitution.getAdminInstitutionId();
+//				System.out.println(instNameAndId);
+//				
+//				File theDir = new File(basePath+"/institute/"+instNameAndId+"/logo/");
+//				File theSigDir = new File(basePath+"/institute/"+instNameAndId+"/signature/");
+//				if (!theDir.exists() && !theSigDir.exists() ){
+//				    theDir.mkdirs();
+//				    theSigDir.mkdirs();
+//				}
+//				
+//				//Path path = theDir.toPath();
+//				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//				 sigfileName = StringUtils.cleanPath(signaturefile.getOriginalFilename());
+//				System.out.println(fileName);
+//				Path fileStorage = Paths.get(basePath+"/institute/"+instNameAndId+"/logo/", fileName).toAbsolutePath().normalize();
+//				Path sigfileStorage = Paths.get(basePath+"/institute/"+instNameAndId+"/signature/", sigfileName).toAbsolutePath().normalize();
+//
+//				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
+//				Files.copy(signaturefile.getInputStream(), sigfileStorage, StandardCopyOption.REPLACE_EXISTING);
+//				//fileNames.add(fileName);
+//            
+//				
+//				return ResponseHandler.generateResponse(addInstitution, HttpStatus.CREATED);
+//
+//			} else {
+//				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err013");
+//			}
+//		} catch (Exception e) {
+//			logger.error(resourceBundle.getString("err013"));
+//			throw new CPException("err013", resourceBundle.getString("err013"));
+//
+//		}
+//
+//	}
+	
+	@PostMapping("/institution")
+	public ResponseEntity<Object> addAdminInstitution(
+	    @RequestPart("admin") AdminInstitution adminInstitution,
+	    @RequestParam(value = "file", required = true) MultipartFile file,
+	    @RequestParam(value = "signaturefile", required = false) MultipartFile signaturefile
+	) throws CPException {
+	    logger.debug("creating Admin Institution");
+	    System.out.println("Entered IN POST METHOD");
+	    logger.info("data entered of AdminInstitution" + adminInstitution);
 
-		
-			if (addInstitution == null) {
-				
-				
-				adminInstitution.setAdminInstitutionPicture(file.getOriginalFilename());
-				addInstitution = adminInstitutionService.saveAdminInstitution(adminInstitution);
-				logger.info("institution created :" + addInstitution);
-				
-//				System.out.println("instituteName"+addInstitution.getAdminInstitutionName());
-//				System.out.println("instituteId"+addInstitution.getAdminInstitutionId());
-				
-				String instNameAndId=addInstitution.getAdminInstitutionName()+"_"+addInstitution.getAdminInstitutionId();
-				System.out.println(instNameAndId);
-				
-				File theDir = new File(basePath+"/institute/"+instNameAndId+"/logo/");
-				if (!theDir.exists()){
-				    theDir.mkdirs();
-				}
-				
-				//Path path = theDir.toPath();
-				 fileName = StringUtils.cleanPath(file.getOriginalFilename());
-				System.out.println(fileName);
-				Path fileStorage = Paths.get(basePath+"/institute/"+instNameAndId+"/logo/", fileName).toAbsolutePath().normalize();
-				Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
-				//fileNames.add(fileName);
-            
-				
-				return ResponseHandler.generateResponse(addInstitution, HttpStatus.CREATED);
+	    AdminInstitution addInstitution = null;
+	    String fileName = null;
+	    String sigfileName = null;
 
-			} else {
-				return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err013");
-			}
-		} catch (Exception e) {
-			logger.error(resourceBundle.getString("err013"));
-			throw new CPException("err013", resourceBundle.getString("err013"));
+	    try {
+	        if (addInstitution == null) {
+	            adminInstitution.setAdminInstitutionPicture(file.getOriginalFilename());
 
-		}
+	            // Check if the signaturefile is provided before setting it
+	            if (signaturefile != null) {
+	                adminInstitution.setInstSignature(signaturefile.getOriginalFilename());
+	            }
 
+	            addInstitution = adminInstitutionService.saveAdminInstitution(adminInstitution);
+	            logger.info("institution created: " + addInstitution);
+
+	            String instNameAndId = addInstitution.getAdminInstitutionName() + "_" + addInstitution.getAdminInstitutionId();
+	            System.out.println(instNameAndId);
+
+	            File theDir = new File(basePath + "/institute/" + instNameAndId + "/logo/");
+	            File theSigDir = new File(basePath + "/institute/" + instNameAndId + "/signature/");
+	            if (!theDir.exists() && !theSigDir.exists()) {
+	                theDir.mkdirs();
+	                theSigDir.mkdirs();
+	            }
+
+	            fileName = StringUtils.cleanPath(file.getOriginalFilename());
+	            
+	            System.out.println(fileName);
+	            Path fileStorage = Paths.get(basePath + "/institute/" + instNameAndId + "/logo/", fileName)
+	                    .toAbsolutePath().normalize();
+	            
+
+	            Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
+
+	            // Check if the signaturefile is provided before copying it
+	            if (signaturefile != null) {
+	            	sigfileName = StringUtils.cleanPath(signaturefile.getOriginalFilename());
+	            	Path sigfileStorage = Paths.get(basePath + "/institute/" + instNameAndId + "/signature/", sigfileName)
+		                    .toAbsolutePath().normalize();
+	                Files.copy(signaturefile.getInputStream(), sigfileStorage, StandardCopyOption.REPLACE_EXISTING);
+	            }
+
+	            return ResponseHandler.generateResponse(addInstitution, HttpStatus.CREATED);
+	        } else {
+	            return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR, "err013");
+	        }
+	    } catch (Exception e) {
+	        logger.error(resourceBundle.getString("err013"));
+	        throw new CPException("err013", resourceBundle.getString("err013"));
+	    }
 	}
 
-	///////////////////// GETTING ALL ADMIN INSTITUTION LIST //////////////////////////////
+
+	
+	
+	@PutMapping("/institution/{institutionId}/update-image")
+	public ResponseEntity<Object> updateInstitutionImage(
+	    @PathVariable("institutionId") int institutionId,
+	    @RequestParam(value = "file", required = false) MultipartFile file,
+	    @RequestParam(value = "signaturefile", required = false) MultipartFile signaturefile,
+	    @RequestPart("admin") AdminInstitution adminInstitution
+	) throws CPException {
+	    // Retrieve the existing institution based on institutionId
+	    AdminInstitution existingInstitution = adminInstitutionService.findInstituteById(institutionId);
+	    existingInstitution.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
+	    existingInstitution.setAdminInstitutionModifiedBy("admin");
+	  
+	    
+	    
+	    
+	    if (existingInstitution == null) {
+	        return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "Institution not found");
+	    }
+
+	    try {
+	        // Delete the existing image file
+	        String existingImageFilePath = basePath + "/institute/" + existingInstitution.getAdminInstitutionName() + "_" + existingInstitution.getAdminInstitutionId() + "/logo/" + existingInstitution.getAdminInstitutionPicture();
+	        String theSigFilePath = basePath + "/institute/"+ existingInstitution.getAdminInstitutionName() + "_" + existingInstitution.getAdminInstitutionId() + "/signature/" + existingInstitution.getInstSignature();
+
+	        if (file != null) {
+	            System.out.println("Entered into file");
+	            File existingImageFile = new File(existingImageFilePath);
+
+	            if (existingImageFile.exists()) {
+	                existingImageFile.delete();
+	            }
+
+	            // Save the new image file
+	            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+	            Path fileStorage = Paths.get(basePath + "/institute/" + existingInstitution.getAdminInstitutionName() + "_" + existingInstitution.getAdminInstitutionId() + "/logo/", fileName).toAbsolutePath().normalize();
+	            Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
+
+	            // Update the institution object with the new image filename
+	            existingInstitution.setAdminInstitutionPicture(fileName);
+	        }
+
+	        if (signaturefile != null) {
+	            File theSigFile = new File(theSigFilePath);
+
+	            if (theSigFile.exists()) {
+	                theSigFile.delete();
+	            }
+
+	            // Save the new signature file
+	            String sigFileName = StringUtils.cleanPath(signaturefile.getOriginalFilename());
+	            Path sigFileStorage = Paths.get(basePath + "/institute/" + existingInstitution.getAdminInstitutionName() + "_" + existingInstitution.getAdminInstitutionId() + "/signature/", sigFileName).toAbsolutePath().normalize();
+
+	            Files.copy(signaturefile.getInputStream(), sigFileStorage, StandardCopyOption.REPLACE_EXISTING);
+	            existingInstitution.setInstSignature(sigFileName);
+	        }
+
+	        adminInstitutionService.saveAdminInstitution(existingInstitution);
+
+	        return ResponseHandler.generateResponse(existingInstitution, HttpStatus.OK);
+	    } catch (Exception e) {
+	        logger.error("Error updating institution image: " + e.getMessage());
+	        throw new CPException("Error updating institution image", e.getMessage());
+	    }
+	}
+
+
+	
+	
+	
+	
+
+	/**
+	 * @author: Akash
+	 * @param: List<Object>
+	 * @return :ResponseEntity
+	 * @throws CPException
+	 * @description : get mapping that retrieves all the institution details from
+	 *              the db
+	 */
+
 	@GetMapping("/institution")
 	public ResponseEntity<List<Object>> getAllAdminInstitution(@RequestParam(name = "name") String adminInstitutionName)
 			throws CPException {
@@ -233,8 +409,35 @@ public class AdminInstitutionController {
         return new ResponseEntity<InputStreamResource>(a, httpHeaders, HttpStatus.ACCEPTED);
     }
 	
-	
-	///////////////////////// GET INSTITUTION BY PROFILE ID ////////////////////////////////////
+
+	@GetMapping(path="/institution/getSigFileById/{adminInstitutionId}")
+    ResponseEntity<InputStreamResource> getSigImageById(@PathVariable int adminInstitutionId) throws IOException { //download file
+     
+		System.out.println("in controller..");
+		AdminInstitution myFile;
+		 myFile =adminInstitutionService.findInstituteById(adminInstitutionId);
+        System.out.println(myFile);
+        
+        String instNameAndId=myFile.getAdminInstitutionName()+"_"+myFile.getAdminInstitutionId();
+		System.out.println(instNameAndId);
+       String address =basePath+"/institute/"+ instNameAndId+"/signature/" + myFile.getInstSignature();
+       File file = new File(address);
+        System.out.println("file"+file);
+       InputStream inputStream = new FileInputStream(file);
+//        System.out.println(inputStream);
+       InputStreamResource a = new InputStreamResource(inputStream);
+//      
+        HttpHeaders httpHeaders = new HttpHeaders();
+//        // httpHeaders.put("Content-Disposition", Collections.singletonList("attachmen"+image.getName())); //download link
+        httpHeaders.setContentType(MediaType.IMAGE_JPEG);
+        //httpHeaders.set("Content-Disposition", "attachment; filename=" + myFile.getAdminInstitutionPicture()); // best for download
+//        System.out.println(myFile.getAdminInstitutionPicture());
+       
+       
+       
+        return new ResponseEntity<InputStreamResource>(a, httpHeaders, HttpStatus.ACCEPTED);
+    }
+
 
 	@GetMapping("/institution/profile/{id}")
 	public ResponseEntity<Object> getInstitutionByprofileId(@PathVariable("id") int profileid) throws CPException {
@@ -287,4 +490,33 @@ public class AdminInstitutionController {
 			throw new CPException("err005", resourceBundle.getString("err005"));
 		}
 	}
+	
+	@GetMapping("/institution/instId/{id}")
+	public ResponseEntity<Object> getInstitutionByinstId(@PathVariable("id") int instId) throws CPException {
+		logger.debug("Entering getInstitutionByinstId");
+
+	     AdminInstitution adminInstitution = null;
+
+		try {
+
+			adminInstitution =  adminInstitutionService.findInstituteById(instId);
+			logger.info("fetched Institution :" + adminInstitution);
+
+			if (adminInstitution != null) {
+				logger.debug("Institution fetched generating response");
+				return ResponseHandler.generateResponse(adminInstitution, HttpStatus.OK);
+			} else {
+				logger.debug("Institution not found");
+				return ResponseHandler.generateResponse(HttpStatus.NOT_FOUND, "err001");
+			}
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting insttitution : " + ex.getMessage());
+			throw new CPException("err001", resourceBundle.getString("err001"));
+		}
+
+	}
+	
+	
 }

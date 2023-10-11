@@ -14,6 +14,9 @@ public interface InstituteAdminService {
 	//GET PROFILE BY ID
 	public InstituteAdmin getProfileById(int id);
 	
+	//GET PROFILE BY NAME
+	InstituteAdmin getInstituteByName(String firstName);
+	
 	
 	//GET PROFILE BY USER ID
 	public InstituteAdmin findByUserId(int userId);
@@ -48,5 +51,9 @@ public interface InstituteAdminService {
 	//GET PROFILE BY ID
 	InstituteAdmin getInstituteDetails(int adminId);
 
+
+	List<Object> getEnrolledProfilesOfCourseByOneStudentId(int profileId);
 	
+	void sendSimpleMessage(String to, String subject, String text);
+
 }

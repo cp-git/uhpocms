@@ -33,7 +33,7 @@ public class AdminDepartment {
 
 	@Column(name = "departmentid")
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "name")

@@ -46,6 +46,10 @@ public interface AdminInstitutionRepository extends JpaRepository<AdminInstituti
 	public AdminInstitution findByAdminInstitutionId(int adminInstitutionId);
 	
 	
+	// FIND  INSTITUTE BY INSTITUTE NAME	
+	public AdminInstitution findByAdminInstitutionName(String adminInstitutionName);
+	
+	
 
 // FIND ACTIVE INSTITUTION BY PROFILE ID
 	@Transactional
