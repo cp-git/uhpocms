@@ -51,21 +51,17 @@ public class AdminInstitution {
 
 	@Column(name = "picture")
 	private String adminInstitutionPicture;
+	
+	@Column(name = "signaturepic")
+	private String instSignature;
 
-	/**
-	 * @param adminInstitutionId
-	 * @param adminInstitutionName
-	 * @param adminInstitutionDescription
-	 * @param adminInstitutionIsActive
-	 * @param adminInstitutionCreatedBy
-	 * @param adminInstitutionCreatedOn
-	 * @param adminInstitutionModifiedBy
-	 * @param adminInstitutionModifiedOn
-	 * @param adminInstitutionPicture
-	 */
+
+
+	
 	public AdminInstitution(int adminInstitutionId, String adminInstitutionName, String adminInstitutionDescription,
 			boolean adminInstitutionIsActive, String adminInstitutionCreatedBy, Date adminInstitutionCreatedOn,
-			String adminInstitutionModifiedBy, Date adminInstitutionModifiedOn, String adminInstitutionPicture) {
+			String adminInstitutionModifiedBy, Date adminInstitutionModifiedOn, String adminInstitutionPicture,
+			String instSignature) {
 		super();
 		this.adminInstitutionId = adminInstitutionId;
 		this.adminInstitutionName = adminInstitutionName;
@@ -76,6 +72,7 @@ public class AdminInstitution {
 		this.adminInstitutionModifiedBy = adminInstitutionModifiedBy;
 		this.adminInstitutionModifiedOn = adminInstitutionModifiedOn;
 		this.adminInstitutionPicture = adminInstitutionPicture;
+		this.instSignature = instSignature;
 	}
 
 	public AdminInstitution(String adminInstitutionName, String adminInstitutionDescription,
@@ -221,6 +218,16 @@ public class AdminInstitution {
 	public void setAdminInstitutionPicture(String adminInstitutionPicture) {
 		this.adminInstitutionPicture = adminInstitutionPicture;
 	}
+	
+	
+	public String getInstSignature() {
+		return instSignature;
+	}
+
+	public void setInstSignature(String instSignature) {
+		this.instSignature = instSignature;
+	}
+
 
 	@Override
 	public String toString() {
