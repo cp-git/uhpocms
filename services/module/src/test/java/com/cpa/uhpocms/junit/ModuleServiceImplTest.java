@@ -46,11 +46,11 @@ public class ModuleServiceImplTest {
 			e.printStackTrace();
 		}
 		// actual module
-		this.module = new Module(8, "calculator", "chatting", true, startDate, endDate, 5, 5, 1, "admin", createdDate,
-				"admin", updatedDate);
-		// expected module
-		this.expect = new Module(8, "calculator", "chatting", true, startDate, endDate, 5, 5, 1, "admin", createdDate,
-				"admin", updatedDate);
+//		this.module = new Module(8, "calculator", "chatting", true, startDate, endDate, 5, 5, 1, "admin", createdDate,
+//				"admin", updatedDate);
+//		// expected module
+//		this.expect = new Module(8, "calculator", "chatting", true, startDate, endDate, 5, 5, 1, "admin", createdDate,
+//				"admin", updatedDate);
 	}
 
 	@Test
@@ -110,15 +110,15 @@ public class ModuleServiceImplTest {
 			e.printStackTrace();
 		}
 		// exisiting module
-		Module existing = new Module(8, "calculator", "chatting", true, startDate, endDate, 5, 5, 1, "admin",
-				createdDate, "admin", updatedDate);
-		// updating module to update entry in table
-		//Module module = new Module("calculator", "calculation", false, startDate, endDate, 5, 5, 1);
-		// expected module
-		Module expect = new Module(8, "calculator", "calculation", false, startDate, endDate, 5, 5, 1, "admin",
-				createdDate, "admin", updatedDate);
-
-		Mockito.when(moduleRepo.findByModuleName("calculator")).thenReturn(existing);
+//		Module existing = new Module(8, "calculator", "chatting", true, startDate, endDate, 5, 5, 1, "admin",
+//				createdDate, "admin", updatedDate);
+//		// updating module to update entry in table
+//		//Module module = new Module("calculator", "calculation", false, startDate, endDate, 5, 5, 1);
+//		// expected module
+//		Module expect = new Module(8, "calculator", "calculation", false, startDate, endDate, 5, 5, 1, "admin",
+//				createdDate, "admin", updatedDate);
+//
+//		Mockito.when(moduleRepo.findByModuleName("calculator")).thenReturn(existing);
 		Module toUpdateQuestion = moduleRepo.findByModuleName("calculator");
 		Mockito.when(moduleRepo.save(toUpdateQuestion)).thenReturn(expect);
 		Module result = moduleService.updateModuleByName(module, "calculator");

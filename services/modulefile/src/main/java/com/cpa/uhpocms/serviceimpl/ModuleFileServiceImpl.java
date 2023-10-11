@@ -76,7 +76,7 @@ public class ModuleFileServiceImpl implements ModuleFileService {
 
 		List<Object> modulesfiles = null;
 
-		List<Object> files = modulefileRepo.findByModuleId(id);
+		List<Object> files = modulefileRepo.getAllModuleFilesbyModuleid(id);
 
 		modulesfiles = new ArrayList<Object>(files);
 
