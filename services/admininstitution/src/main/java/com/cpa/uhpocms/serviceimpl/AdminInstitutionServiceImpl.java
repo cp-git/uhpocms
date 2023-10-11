@@ -107,6 +107,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 			admin.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
 			admin.setAdminInstitutionIsActive(adminInstitution.isAdminInstitutionIsActive());
 			admin.setAdminInstitutionPicture(adminInstitution.getAdminInstitutionPicture());
+			admin.setInstSignature(adminInstitution.getInstSignature());
 			updatedAdminInstitution = adminInstitutionRepository.save(admin);
 		}
 
@@ -176,7 +177,7 @@ public class AdminInstitutionServiceImpl implements AdminInstitutionService {
 		// TODO Auto-generated method stub
 		System.out.println("in serviceImpl");
 		AdminInstitution admin=null;
-		admin =adminInstitutionRepository.findByAdminInstitutionId(adminInstitutionId);
+		admin = adminInstitutionRepository.findByAdminInstitutionId(adminInstitutionId);
 		
 		return  admin;
 	}

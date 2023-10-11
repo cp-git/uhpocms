@@ -139,6 +139,11 @@
     <artifactId>xmlworker</artifactId>
     <version>5.5.13</version> <!-- Use the same version as itextpdf -->
 </dependency>
+<dependency>
+    <groupId>org.xhtmlrenderer</groupId>
+    <artifactId>flying-saucer-pdf</artifactId>
+    <version>9.1.22</version> <!-- Use the latest version available -->
+</dependency>
 	</dependencies>
 	<modules>
 		<module>services/announcement</module>

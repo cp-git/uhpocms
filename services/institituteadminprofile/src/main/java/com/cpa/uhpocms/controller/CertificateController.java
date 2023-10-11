@@ -9,7 +9,8 @@ import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.springframework.http.MediaType;
 
 import javax.annotation.Resource;
@@ -69,12 +70,13 @@ private SimpleMailMessage simpleMailMessage;
 	
 
 	
-	@GetMapping("/profile/generateCertificate/{userId}/{instId}/{instName}/{instImg}/{courName}")
+	@GetMapping("/profile/generateCertificate/{userId}/{instId}/{instName}/{instImg}/{sigImg}/{courName}")
     public String  generateCertificate(
             @PathVariable("userId") int userId,
             @PathVariable("instId") int instId,
             @PathVariable("instName") String instName,
             @PathVariable("instImg") String instImg,
+            @PathVariable("sigImg") String sigImg,
             @PathVariable("courName") String courName,
             HttpServletRequest request,
             HttpServletResponse response
@@ -91,17 +93,26 @@ private SimpleMailMessage simpleMailMessage;
 	    instName = instName.toUpperCase();
 	    firstName = firstName.toUpperCase();
 	    lastName = lastName.toUpperCase();
+	    // Get the current date
+	    Date currentDate = new Date();
+
+	    // Format the current date as per your requirement
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	    String formattedDate = dateFormat.format(currentDate);
+
+	    
+	    
 	    
 	    // Read the content of the image file into a byte array
 	    byte[] imageBytes = Files.readAllBytes(Paths.get("D:\\UHPOCMS\\institute\\" + instName + "_" + instId + "\\logo\\"+instImg));
-	    byte[] sigImageBytes = Files.readAllBytes(Paths.get("D:\\UHPOCMS\\institute\\" + instName + "_" + instId + "\\signature\\signature.jpg"));
+	    byte[] sigImageBytes = Files.readAllBytes(Paths.get("D:\\UHPOCMS\\institute\\" + instName + "_" + instId + "\\signature\\"+sigImg));
 	    // Encode the image bytes as Base64 for embedding in HTML
         String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
         String sigEncodedImage = Base64.getEncoder().encodeToString(sigImageBytes);
 	
 	    
 	    // Create the HTML content for the certificate with the embedded image
-	    String certificateHtml = "<!DOCTYPE html>\r\n"
+        String certificateHtml = "<!DOCTYPE html>\r\n"
 	            + "<html>\r\n"
 	            + "<head>\r\n"
 	            + "    <title>Certificate of Achievement</title>\r\n"
@@ -145,6 +156,8 @@ private SimpleMailMessage simpleMailMessage;
 	            + "        <p>This is to certify that</p>\r\n"
 	            + "        <h2>" + firstName + "  " + lastName + "</h2>\r\n"
 	            + "        <p>has successfully completed the course  " + "<b>" + courName + "</b></p>\r\n"
+	            + "        <p>Date: " + formattedDate + "</p>\r\n" 
+
 	            + "        <div class=\"signature\">\r\n"
 	            + "            <p>Signature:</p>\r\n"
 	            + "        <img src=\"data:image/jpeg;base64," + sigEncodedImage + "\" alt=\"Seal\" class=\"seal2\"/>\r\n"
@@ -152,7 +165,6 @@ private SimpleMailMessage simpleMailMessage;
 	            + "    </div>\r\n"
 	            + "</body>\r\n"
 	            + "</html>";
-	    
 //	    // Create a response map with the HTML code and a download link
 	    try {
 	    	sendCertificateAsAttachment(email, certificateHtml);
