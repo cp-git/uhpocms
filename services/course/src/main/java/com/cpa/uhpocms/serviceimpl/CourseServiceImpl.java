@@ -81,7 +81,7 @@ public class CourseServiceImpl implements CourseService {
 	public List<Object> getAllCourses() {
 		logger.debug("Entering getAllCourses");
 
-		List<Course> courses = courseRepo.findActiveCoursesOfActiveInstitutions();
+		List<Course> courses = courseRepo.findActiveCoursesOfActiveInstitutionsandDepartment();
 		logger.info("Fetched all active course :" + courses);
 		List<Object> course = new ArrayList<>(courses);
 		return course;
