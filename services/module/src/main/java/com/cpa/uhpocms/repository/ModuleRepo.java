@@ -52,6 +52,13 @@ public interface ModuleRepo extends JpaRepository<Module, Integer> {
 
 	//GET INACTIVE MODULES
 	public List<Object> findByModuleIsActiveFalse();
+	
+	
+
+	//FIND Module by active courses and department
+		@Query(value = "SELECT teacher_module FROM teacher_module,teacher_course,admin_department WHERE  teacher_module.courseid_id = teacher_course.courseid AND teacher_course.instid = admin_department.institutionid AND teacher_course.isactive = true AND admin_department.isactive = true", nativeQuery = true)
+		public List<Module> findModuleByCourseAndDepartment();
+
 
 	
 	
@@ -83,7 +90,7 @@ public interface ModuleRepo extends JpaRepository<Module, Integer> {
 	List<Module> findModules(int courseId);
 
 	//GET MODULES ASSIGN COURSES AND PROFILE ID
-	@Query(value = "SELECT m.* FROM teacher_module AS m JOIN teacher_course AS c ON m.courseid_id = c.courseid JOIN teacher_course_assigntoteacher AS a ON c.courseid = a.course_id WHERE a.profile_id =?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM teacher_module, teacher_course, admin_department,teacher_course_assigntoteacher WHERE  teacher_module.courseid_id = teacher_course.courseid AND teacher_course.instid = admin_department.institutionid AND teacher_course.isactive = true AND admin_department.isactive = true AND teacher_course.courseid = teacher_course_assigntoteacher.course_id AND teacher_course_assigntoteacher.profile_id=?1", nativeQuery = true)
 	List<Module> getModulesOfAssignedCoursesByProfileId(int ProfileId);
 
 	

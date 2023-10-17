@@ -405,4 +405,33 @@ public class ModuleController {
 		}
 
 	}
+	
+	
+
+	//GET LIST OF MODULES
+	@GetMapping("/modulecoursedept")
+	public List<Module> getAllModulesBasedCourseAndDepartment(@RequestParam(name = "name") String name) throws CPException {
+		logger.debug("Entering getAllModule");
+		logger.info("Parameter  :" + name);
+
+		List<Module> modules = null;
+
+		try {
+
+			if (name.equalsIgnoreCase("all")) {
+
+				modules = moduleRepo.findModuleByCourseAndDepartment();
+				logger.info("Fetched all Module :" + modules);
+
+			
+			} 
+
+		} catch (Exception ex) {
+
+			logger.error("Failed getting all modules : " + ex.getMessage());
+			throw new CPException("err002", resourceBundle.getString("err002"));
+
+		}
+		return modules;
+	}
 }
