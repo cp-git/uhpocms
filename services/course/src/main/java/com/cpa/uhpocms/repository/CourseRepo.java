@@ -80,7 +80,7 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	public List<Course> findActiveCoursesOfActiveInstitutions();
 	
 	
-	@Query(value = "SELECT * FROM teacher_course,admin_institution,admin_department,teacher_course_departmentid WHERE admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND admin_department.isactive=true AND admin_institution.isactive=true", nativeQuery = true)
+	@Query(value = "SELECT * FROM teacher_course,admin_institution,admin_department,teacher_course_departmentid WHERE admin_department.departmentid = teacher_course_departmentid.department_id AND teacher_course_Departmentid.course_id = teacher_course.courseid AND admin_institution.institutionid = teacher_course.instid AND admin_department.isactive=true AND admin_institution.isactive=true AND teacher_course.isactive=true", nativeQuery = true)
 	public List<Course> findActiveCoursesOfActiveInstitutionsandDepartment();
 
 
