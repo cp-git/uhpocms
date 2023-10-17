@@ -45,8 +45,8 @@ public interface CourseRepo extends JpaRepository<Course, Integer> {
 	@Query(value = "SELECT tc.* FROM teacher_course tc JOIN teacher_course_departmentid deptCourse ON  tc.courseid = deptCourse.course_id WHERE deptCourse.department_id = ?1", nativeQuery = true)
 	public List<Course> findCourseByDepartmentId(int department_id);
 
-	// finding assign courses to teacher
-	@Query(value = "SELECT tc.* FROM teacher_course tc JOIN teacher_course_assigntoteacher tca ON tc.courseid = tca.course_id WHERE tc.isactive = true AND tca.profile_id= ?1", nativeQuery = true)
+	// finding assign courses to teacher /////////////////
+	@Query(value = " SELECT * FROM	teacher_course,	admin_department,teacher_course_assigntoteacher WHERE teacher_course.courseid = teacher_course_assigntoteacher.course_id AND teacher_course.instid = admin_department.institutionid AND admin_department.isactive=true AND teacher_course.isactive=true AND teacher_course_assigntoteacher.profile_id=?1", nativeQuery = true)
 	public List<Course> findCourseAssigntoTeacherByProfileId(int profileid);
 
 	// finding assign courses to teacher
