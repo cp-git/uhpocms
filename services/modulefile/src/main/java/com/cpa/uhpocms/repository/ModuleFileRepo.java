@@ -28,7 +28,8 @@ public interface ModuleFileRepo extends JpaRepository<ModuleFile, Integer> {
 	public List<Object> findByModuleId(int module_id);
 
 	//ACTIVE MODULE FILE
-	public List<Object> findByModuleFileIsActiveTrue();
+	@Query(value = "SELECT * FROM teacher_modulefile, teacher_module,teacher_course,admin_department WHERE teacher_modulefile.moduleid_id = teacher_module.moduleid AND teacher_module.courseid_id = teacher_course.courseid AND teacher_course.instid = admin_department.institutionid AND admin_department.isactive=true AND teacher_course.isactive=true AND teacher_module.isactive=true", nativeQuery = true)
+	public List<ModuleFile> findModuleFileByActiveCourseAndDept();
 
 	//FIND MODULE FILE ID
 	public ModuleFile findByModuleFileId(int id);
