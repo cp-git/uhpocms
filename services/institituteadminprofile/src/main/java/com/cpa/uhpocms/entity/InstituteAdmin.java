@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,7 +26,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table(name = "instituteadmin_profile")
 public class InstituteAdmin {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO,generator = "instituteadmin_profile_id_seq")
+	@SequenceGenerator(name = "instituteadmin_profile_id_seq", sequenceName = "instituteadmin_profile_id_seq", allocationSize = 1)
 	@Column(name = "id")
 	private int adminId;
 

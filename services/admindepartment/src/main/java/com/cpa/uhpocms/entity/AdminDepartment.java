@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,7 +31,8 @@ public class AdminDepartment {
 
 	@Column(name = "departmentid")
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "admin_department_departmentid_seq")
+	@SequenceGenerator(name = "admin_department_departmentid_seq", sequenceName = "admin_department_departmentid_seq", allocationSize = 1)
 	private int id;
 
 	@Column(name = "name")
