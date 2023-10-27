@@ -12,5 +12,13 @@ spring.datasource:
   username: postgres
   password: Pass1word
   
+#server:
+#  port : 8090
+
 server:
-  port : 8090
+  port : 8443
+  ssl:
+    key-store-password: sslpass
+    key-store: src/main/resources/keystore/javadevjournal.p12
+    key-store-type: PKCS12
+    key-alias: javadevjournal

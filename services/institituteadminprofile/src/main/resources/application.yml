@@ -28,8 +28,16 @@ spring.datasource:
     
 
 
+#server:
+#  port : 8090
+
 server:
-  port : 8090
+  ssl:
+    key-store-password: sslpass
+    key-store: src/main/resources/keystore/javadevjournal.p12
+    key-store-type: PKCS12
+    key-alias: javadevjournal
+  port: 8443
   
   
 file:
@@ -55,11 +63,12 @@ spring:
     default-property-inclusion: NON_NULL
  
 
-# YAML Configuration File
-jwt:
-  secret: secretkey
-  token:
-    validity: 180000
+## YAML Configuration File
+#jwt:
+#  secret: secretkey
+#  token:
+#    validity: 180000
+
 
 
  

@@ -26,6 +26,16 @@ public class BasicAuthWebSecurityConfiguration {
 		String encodedPassword = passwordEncoder.encode(password);
 		auth.inMemoryAuthentication().withUser("uhpocadmin").password(encodedPassword).authorities("ROLE_USER");
 	}
+	
+	 @Bean
+	  SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	    return http
+	      .requiresChannel(channel -> 
+	          channel.anyRequest().requiresSecure())
+	      .authorizeRequests(authorize ->
+	          authorize.anyRequest().permitAll() )
+	      .build();
+	    }
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {

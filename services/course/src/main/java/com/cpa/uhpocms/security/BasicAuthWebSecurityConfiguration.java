@@ -18,6 +18,17 @@ public class BasicAuthWebSecurityConfiguration {
 				.authenticated().and().httpBasic();
 		return http.build();
 	}
+	
+	 @Bean
+	  SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	    return http
+	      .requiresChannel(channel -> 
+	          channel.anyRequest().requiresSecure())
+	      .authorizeRequests(authorize ->
+	          authorize.anyRequest().permitAll() )
+	      .build();
+	    }
+    
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -27,6 +38,7 @@ public class BasicAuthWebSecurityConfiguration {
 		auth.inMemoryAuthentication().withUser("uhpocadmin").password(encodedPassword).authorities("ROLE_USER");
 	}
 
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
