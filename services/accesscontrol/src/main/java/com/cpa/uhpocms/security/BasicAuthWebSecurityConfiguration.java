@@ -45,6 +45,19 @@ public class BasicAuthWebSecurityConfiguration {
 	    }
 	 
 	 
+	 	//SSL CONFIGURATION
+			 
+			 @Bean
+			  SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+			    return http
+			      .requiresChannel(channel -> 
+			          channel.anyRequest().requiresSecure())
+			      .authorizeRequests(authorize ->
+			          authorize.anyRequest().permitAll() )
+			      .build();
+			    }
+	 
+	 
 	 @Autowired
 	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		 String password = "P@55w0rd"; 

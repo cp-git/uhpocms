@@ -28,8 +28,17 @@ spring.datasource:
     
 
 
+#server:
+#  port : 8092
+  
+  
 server:
-  port : 8092
+  ssl:
+    key-store-password: sslpass
+    key-store: src/main/resources/keystore/javadevjournal.p12
+    key-store-type: PKCS12
+    key-alias: javadevjournal
+  port: 8443
   
   
 file:
