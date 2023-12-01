@@ -171,7 +171,7 @@ public class AdminInstitutionController {
 	public ResponseEntity<Object> addAdminInstitution(
 	    @RequestPart("admin") AdminInstitution adminInstitution,
 	    @RequestParam(value = "file", required = true) MultipartFile file,
-	    @RequestParam(value = "signaturefile", required = false) MultipartFile signaturefile
+	    @RequestParam(value = "signaturefile", required = true) MultipartFile signaturefile
 	) throws CPException {
 	    logger.debug("creating Admin Institution");
 	    System.out.println("Entered IN POST METHOD");
