@@ -23,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -65,6 +66,9 @@ public class CertificateController {
 	
 	@Autowired
 	private InstituteAdminService profileServ; 
+	
+	@Value("${file.base-path}")
+	private String basePath;
 
 private SimpleMailMessage simpleMailMessage;
 	
@@ -104,8 +108,8 @@ private SimpleMailMessage simpleMailMessage;
 	    
 	    
 	    // Read the content of the image file into a byte array
-	    byte[] imageBytes = Files.readAllBytes(Paths.get("D:\\UHPOCMS\\institute\\" + instName + "_" + instId + "\\logo\\"+instImg));
-	    byte[] sigImageBytes = Files.readAllBytes(Paths.get("D:\\UHPOCMS\\institute\\" + instName + "_" + instId + "\\signature\\"+sigImg));
+	    byte[] imageBytes = Files.readAllBytes(Paths.get(basePath+"/institute/" + instName + "_" + instId + "/logo/"+instImg));
+	    byte[] sigImageBytes = Files.readAllBytes(Paths.get(basePath+"/institute/" + instName + "_" + instId + "/signature/"+sigImg));
 	    // Encode the image bytes as Base64 for embedding in HTML
         String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
         String sigEncodedImage = Base64.getEncoder().encodeToString(sigImageBytes);
