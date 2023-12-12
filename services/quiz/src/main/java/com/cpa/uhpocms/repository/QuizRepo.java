@@ -61,6 +61,6 @@ public interface QuizRepo extends JpaRepository<Quiz, Integer> {
 	public List<Quiz> getAllInactiveQuizzesByTeacherId(int profileId);
 	
 	//GET ALL QUIZZESS BY TEACHER ID
-	@Query(value = "SELECT * FROM teacher_quiz,teacher_module,teacher_course,admin_department,teacher_course_assigntoteacher WHERE teacher_quiz.module_id= teacher_module.moduleid AND teacher_module.courseid_id = teacher_course.courseid AND teacher_course.instid = admin_department.institutionid  AND teacher_quiz.courseid_id = teacher_course_assigntoteacher.course_id AND admin_department.isactive=true AND teacher_course.isactive=true  AND teacher_module.isactive=true AND teacher_quiz.isactive=true AND teacher_course_assigntoteacher.profile_id=?1", nativeQuery = true)
+	@Query(value = "SELECT distinct teacher_quiz.* FROM teacher_quiz teacher_quiz,teacher_module,teacher_course,admin_department,teacher_course_assigntoteacher WHERE teacher_quiz.module_id= teacher_module.moduleid AND teacher_module.courseid_id = teacher_course.courseid AND teacher_course.instid = admin_department.institutionid  AND teacher_quiz.courseid_id = teacher_course_assigntoteacher.course_id AND admin_department.isactive=true AND teacher_course.isactive=true  AND teacher_module.isactive=true AND teacher_quiz.isactive=true AND teacher_course_assigntoteacher.profile_id=?1", nativeQuery = true)
 	public List<Quiz> getAllQuizzesByTeacherId(int profileId);
 }
