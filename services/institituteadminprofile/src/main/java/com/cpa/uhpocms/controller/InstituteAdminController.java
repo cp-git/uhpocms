@@ -83,7 +83,7 @@ public class InstituteAdminController {
 
 	@PostMapping("/profile")
 
-	public ResponseEntity<Object> saveInstituteAdmin(@RequestPart("admin") InstituteAdmin instituteAdmin,@RequestParam("file")MultipartFile file) throws CPException {
+	public ResponseEntity<Object> saveInstituteAdmin(@RequestPart("admin") InstituteAdmin instituteAdmin,@RequestParam("file")MultipartFile file) throws CPException,IOException {
 		InstituteAdmin institueAdminProfile = null;
 		
 		String fileName=null;
@@ -301,7 +301,7 @@ public class InstituteAdminController {
 	//SAVE PROFILE 
 	@PutMapping("/profile/{id}")
 	public ResponseEntity<Object> saveInstituteAdminByAuthUserId(@RequestPart("admin") InstituteAdmin instituteAdmin,@RequestParam("file")MultipartFile file,
-			@PathVariable("id") int authUserId) throws CPException {
+			@PathVariable("id") int authUserId) throws CPException,IOException {
 
 		logger.info("inside the put method..");
 		InstituteAdmin instituteAdminProfile = null;
@@ -465,7 +465,7 @@ public class InstituteAdminController {
 	//USER PROFILE UPDATION BASED ON AUTH USER CONDITION ONLY JSON DATA
 	@PutMapping("/profile/updateprofile/{Id}")
 	public ResponseEntity<Object> updateInstituteAdminByAuthUserId(@RequestBody InstituteAdmin instituteAdmin,
-			@PathVariable("Id") int authUserId) throws CPException {
+			@PathVariable("Id") int authUserId) throws CPException,IOException {
 
 		logger.info("inside the put method..");
 		InstituteAdmin instituteAdminProfile = null;

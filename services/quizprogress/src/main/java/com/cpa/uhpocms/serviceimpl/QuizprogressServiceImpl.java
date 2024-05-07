@@ -93,6 +93,9 @@ public class QuizprogressServiceImpl implements QuizprogressService {
 			toUpdatedQuizprogress.setNumberOfAttempts(quizprogress.getNumberOfAttempts());
 
 			updatedQuizprogress = quizprogressRepo.save(toUpdatedQuizprogress);
+			
+			System.out.println("Updated Quiz Progress"+updatedQuizprogress);
+			
 
 			logger.info("updated Quizprogress :" + toUpdatedQuizprogress);
 		}

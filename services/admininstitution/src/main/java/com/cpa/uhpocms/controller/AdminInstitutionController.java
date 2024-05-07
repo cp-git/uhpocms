@@ -172,7 +172,7 @@ public class AdminInstitutionController {
 	    @RequestPart("admin") AdminInstitution adminInstitution,
 	    @RequestParam(value = "file", required = true) MultipartFile file,
 	    @RequestParam(value = "signaturefile", required = true) MultipartFile signaturefile
-	) throws CPException {
+	) throws CPException,IOException {
 	    logger.debug("creating Admin Institution");
 	    System.out.println("Entered IN POST METHOD");
 	    logger.info("data entered of AdminInstitution" + adminInstitution);
@@ -239,7 +239,7 @@ public class AdminInstitutionController {
 	    @RequestParam(value = "file", required = false) MultipartFile file,
 	    @RequestParam(value = "signaturefile", required = false) MultipartFile signaturefile,
 	    @RequestPart("admin") AdminInstitution adminInstitution
-	) throws CPException {
+	) throws CPException,IOException {
 	    // Retrieve the existing institution based on institutionId
 	    AdminInstitution existingInstitution = adminInstitutionService.findInstituteById(institutionId);
 	    existingInstitution.setAdminInstitutionDescription(adminInstitution.getAdminInstitutionDescription());
@@ -402,11 +402,16 @@ public class AdminInstitutionController {
         HttpHeaders httpHeaders = new HttpHeaders();
 
         httpHeaders.setContentType(MediaType.IMAGE_JPEG);
+        
+       
+        
+        
+       
       
        
        
        
-        return new ResponseEntity<InputStreamResource>(a, httpHeaders, HttpStatus.ACCEPTED);
+        return new ResponseEntity<InputStreamResource>(a, httpHeaders, HttpStatus.OK);
     }
 	
 

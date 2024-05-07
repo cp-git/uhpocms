@@ -72,7 +72,7 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	
 
 	// GET ALL INACTIVE PROFILES
-	@Query(value = "SELECT T.* FROM auth_user T WHERE NOT EXISTS( SELECT 1 FROM instituteadmin_profile U WHERE U.user_id = T.id);", nativeQuery = true)
+	@Query(value = "SELECT T.* FROM auth_user T WHERE NOT EXISTS(SELECT 1 FROM instituteadmin_profile U WHERE U.user_id = T.id AND T.is_active=true)", nativeQuery = true)
 	public List<AuthUser> findByInactiveProfile();
 	
 	/**

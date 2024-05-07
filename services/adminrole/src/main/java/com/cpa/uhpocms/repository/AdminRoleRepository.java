@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cpa.uhpocms.entity.AdminRole;
 
 @Repository
-public interface AdminRoleRepository extends JpaRepository<AdminRole, String> {
+public interface AdminRoleRepository extends JpaRepository<AdminRole, Integer> {
 
 	/**
 	 * @author Kaushik

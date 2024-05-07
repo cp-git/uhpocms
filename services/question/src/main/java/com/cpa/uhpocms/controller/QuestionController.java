@@ -288,7 +288,7 @@ public class QuestionController {
 
 	//GET QUESTION IMAGE BY ID
 	@GetMapping("/question/id/{questionId}")
-	public ResponseEntity<Object> getQuestionById(@PathVariable("questionId") int questionId) throws CPException {
+	public ResponseEntity<Object> getQuestionById(@PathVariable("questionId") int questionId) throws CPException,IOException {
 		logger.debug("Entering getQuestionByfigure");
 		// logger.info("entered user name :" + question);
 		Question question = null;
@@ -360,7 +360,7 @@ public class QuestionController {
 
 	//INSERTING THE QUESTION ANSWER ADD AND UPDATE
 	@PostMapping("/question/add")
-	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestPart("request") QuestionAnswer request,@RequestParam(value="files",required=false)List<MultipartFile> files) throws CPException {
+	public ResponseEntity<Object> addQuestionsAndAnswers(@RequestPart("request") QuestionAnswer request,@RequestParam(value="files",required=false)List<MultipartFile> files) throws CPException, IOException {
 		// Extract questions and answers arrays from the request
 
 		Question question = request.getQuestion();
@@ -402,28 +402,22 @@ public class QuestionController {
 			
 			
 		
-			try {
-				
-		        for (MultipartFile file : files) {
-		            if (file != null && !file.isEmpty()) {
-		                // File is not null and has content
-		                // Process the file and perform the insertion logic
-		            	
-		            	
-		                String fileName = file.getOriginalFilename();
-		                // Insert the file into the database or perform any other necessary operations
-		               
+			for (MultipartFile file : files) {
+			    if (file != null && !file.isEmpty()) {
+			        // File is not null and has content
+			        // Process the file and perform the insertion logic
+			    	
+			    	
+			        String fileName = file.getOriginalFilename();
+			        // Insert the file into the database or perform any other necessary operations
+			       
 //		                files.add(file);
-		            } else {
-		                // File is null or empty
-		                // Perform your desired action here, such as logging an error or returning a response
-		              
-		              
-		            }
-		        }
-			}
-			catch(Exception ee) {
-				System.out.println(ee);
+			    } else {
+			        // File is null or empty
+			        // Perform your desired action here, such as logging an error or returning a response
+			      
+			      
+			    }
 			}
 		    
 			
@@ -523,6 +517,9 @@ public class QuestionController {
 					Path fileStorage = Paths.get(basePath+"/institute/"+InstituteNameandId+"/"+deptName+"/"+cName+"/"+moduleName+"/"+QuestionData+"/", fileName).toAbsolutePath().normalize();
 					Files.copy(file.getInputStream(), fileStorage, StandardCopyOption.REPLACE_EXISTING);
 					fileNames.add(fileName);
+					
+					theDir.delete();
+					
 				}
 
 

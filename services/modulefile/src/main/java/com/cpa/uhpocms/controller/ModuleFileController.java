@@ -79,7 +79,7 @@ public class ModuleFileController {
 	//CREATE THE MODULE FILE
 	@PostMapping("/modulefile")
 	public ResponseEntity<Object> createModuleFile(@RequestPart("admin") ModuleFile modulefile,
-			@RequestParam(value = "files") List<MultipartFile> files) throws CPException {
+			@RequestParam(value = "files") List<MultipartFile> files) throws CPException,IOException {
 		logger.debug("Entering createModuleFile");
 		logger.info("data of creating ModuleFile  :" + modulefile.toString());
 
@@ -281,7 +281,7 @@ public class ModuleFileController {
 	@PutMapping("/modulefileById/{id}")
 
 	public ResponseEntity<Object> updateModuleFileById(@RequestPart("admin") ModuleFile modulefile,
-			@PathVariable("id") int id, @RequestParam(value = "files",required=false) List<MultipartFile> files) throws CPException{
+			@PathVariable("id") int id, @RequestParam(value = "files",required=false) List<MultipartFile> files) throws CPException,IOException{
 		logger.debug("Entering updateModuleFile");
 		logger.info("entered  updateModuleFile :" + modulefile);
 
@@ -457,7 +457,7 @@ public class ModuleFileController {
 
 	// GET FILE CONTENT BASED ON MODULE FILE ID
 	@GetMapping(path = "files/{moduleFileId}")
-	public ResponseEntity<InputStreamResource> getFile(@PathVariable int moduleFileId) {
+	public ResponseEntity<InputStreamResource> getFile(@PathVariable int moduleFileId) throws IOException{
 		try {
 			// retrieve
 

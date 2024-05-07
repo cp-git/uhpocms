@@ -99,6 +99,8 @@ public class QuizprogressController {
 				List<Integer> datanum=quizRepo.getMarksByid(quizprogress.getCourseId());
 				System.out.println("Data"+datanum);
 				
+				
+				
 				int maxVal=0;
 				
 				for(int i=0;i<datanum.size();i++) {
@@ -108,7 +110,7 @@ public class QuizprogressController {
 				
 				//marks obtained by student
 				
-				List<Integer> studentMarks=quizRepo.getStudentMarksid(quizprogress.getStudentId());
+				List<Integer> studentMarks=quizRepo.getStudentMarksid(quizprogress.getStudentId(),quizprogress.getCourseId());
 				
 				
 				int studentmaxVal=0;
@@ -186,7 +188,7 @@ public class QuizprogressController {
 				
 				//marks obtained by student
 				
-				List<Integer> studentMarks=quizRepo.getStudentMarksid(quizprogress.getStudentId());
+				List<Integer> studentMarks=quizRepo.getStudentMarksid(quizprogress.getStudentId(),quizprogress.getCourseId());
 				
 				
 				int studentmaxVal=0;
@@ -234,6 +236,7 @@ public class QuizprogressController {
 				std.setObtainMarks(studentmaxVal);
 				std.setMaxMarks(maxVal);
 				std.setPercentAge(percentageval);
+				System.out.println("object val"+std);
 				finalRepo.save(std);
 				
 				
@@ -415,17 +418,17 @@ public class QuizprogressController {
 		
 	
 		
-		@GetMapping("/studentprogress/{studentId}")
-		public List<Object> getStudentProgresssByStudentId(@PathVariable("studentId") int studentId)
+		@GetMapping("/studentprogress/{studentId}/{courseId}")
+		public List<Object> getStudentProgresssByStudentId(@PathVariable("studentId") int studentId,@PathVariable("courseId") int courseId)
 				throws CPException {
 			logger.debug("Entering getAllQuizprogresssByStudentId");
 			
 
 			
-			List<Object> quizprogresses=null;
+			List<Object> quizprogresses;
 			try {
 
-				quizprogresses = finalRepo.getStudentMarksid(studentId);
+				quizprogresses = finalRepo.getStudentMarksid(studentId,courseId);
 				logger.info("fetched Quizprogress :" + quizprogresses);
 
 			

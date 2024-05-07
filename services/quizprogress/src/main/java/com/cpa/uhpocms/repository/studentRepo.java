@@ -14,7 +14,7 @@ public interface studentRepo  extends JpaRepository<StudentProgress, Integer> {
 	public StudentProgress getStudentprogressByStudentId(int studentId);
 	
 	//GET SCORE BY STUDENT ID
-	@Query(value = "SELECT grade from student_course_grade student where student.studentid_id=?1", nativeQuery = true)
-	List<Object> getStudentMarksid(int studentId);
+	@Query(value = "SELECT  grade from student_course_grade student where student.studentid_id=?1 AND student.course_id=?2", nativeQuery = true)
+	List<Object> getStudentMarksid(int studentId,int courseId);
 
 }
