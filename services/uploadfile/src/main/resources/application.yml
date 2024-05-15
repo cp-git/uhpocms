@@ -12,7 +12,7 @@ spring:
     show-sql: true
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/uhpocms
+    url: jdbc:postgresql://54.152.5.217:5432/uhpocms
     username: postgres
     password: 7$Rt6&m,6&Ui4!as9^Yu2
 
@@ -28,5 +28,6 @@ server:
   port: 8443
   
 file:
-  base-path: E:/uploadFiles
+  #base-path: E:/uploadFiles
+  base-path: /demo/uhpocms
 

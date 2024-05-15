@@ -35,6 +35,7 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	 * @description To find the all data of users where auth user is in active state
 	 * 
 	 */
+	
 	public List<Object> findByAuthUserIsActiveTrue();
 
 	/**
@@ -72,7 +73,7 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	
 
 	// GET ALL INACTIVE PROFILES
-	@Query(value = "SELECT T.* FROM auth_user T WHERE NOT EXISTS(SELECT 1 FROM instituteadmin_profile U WHERE U.user_id = T.id AND T.is_active=true)", nativeQuery = true)
+	@Query(value = "SELECT T.* FROM auth_user T WHERE NOT EXISTS(SELECT 1 FROM instituteadmin_profile U WHERE U.user_id = T.id)", nativeQuery = true)
 	public List<AuthUser> findByInactiveProfile();
 	
 	/**
@@ -81,6 +82,11 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Integer> {
 	 * @return
 	 */
 	public AuthUser  findByAuthUserEmail(String authUserEmail);
+	
+	
+	@Query(value = "SELECT  auth_user.* FROM auth_user, instituteadmin_profile, admin_institution WHERE admin_institution.institutionid = instituteadmin_profile.institutionid_id AND instituteadmin_profile.user_id = auth_user.id AND admin_institution.isactive=true AND instituteadmin_profile.isactive=true", nativeQuery = true)
+	public List<Object> getAllActiveUsers();
+	
 	
 	
 

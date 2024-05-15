@@ -96,7 +96,7 @@ public class QuizprogressController {
 				
 				
 				//Max Marks for quiz table
-				List<Integer> datanum=quizRepo.getMarksByid(quizprogress.getCourseId());
+				List<Integer> datanum=quizRepo.getMarksByid(quizprogress.getCourseId(),quizprogress.getStudentId());
 				System.out.println("Data"+datanum);
 				
 				
@@ -176,7 +176,7 @@ public class QuizprogressController {
 				
 				
 				//Max Marks for quiz table
-				List<Integer> datanum=quizRepo.getMarksByid(quizprogress.getCourseId());
+				List<Integer> datanum=quizRepo.getMarksByid(quizprogress.getCourseId(),quizprogress.getStudentId());
 				
 				
 				int maxVal=0;
