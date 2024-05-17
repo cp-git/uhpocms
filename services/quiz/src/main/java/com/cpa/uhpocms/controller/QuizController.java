@@ -31,6 +31,7 @@ import com.cpa.uhpocms.entity.AuthenticationBean;
 import com.cpa.uhpocms.entity.Quiz;
 import com.cpa.uhpocms.exception.CPException;
 import com.cpa.uhpocms.helper.ResponseHandler;
+import com.cpa.uhpocms.repository.QuizRepo;
 import com.cpa.uhpocms.service.QuizService;
 
 @CrossOrigin
@@ -39,7 +40,10 @@ import com.cpa.uhpocms.service.QuizService;
 public class QuizController {
 
 	@Autowired
-	private QuizService quizService;;
+	private QuizService quizService;
+	
+	@Autowired
+	private QuizRepo quizRepo;
 
 	private ResourceBundle resourceBundle;
 	private static Logger logger;
@@ -59,10 +63,25 @@ public class QuizController {
 		Quiz createdQuiz = null;
 		try {
 
-			Quiz toCheckQuiz = quizService.getQuizBytitle(quiz.getTitle());
-			logger.debug("existing quiz :" + toCheckQuiz);
+//			Quiz toCheckQuiz = quizService.getQuizBytitle(quiz.getTitle());
+//			logger.debug("existing quiz :" + toCheckQuiz);
+			
+			
+			List<Quiz> getAllQuizData=quizRepo.getAllQuizByModuleId(quiz.getModuleId());
+			
+			
 
-			if (toCheckQuiz == null) {
+			for(Quiz qz: getAllQuizData)
+			{
+				if(qz.getModuleId() == quiz.getModuleId()) {
+				   if (qz.getTitle().equalsIgnoreCase(quiz.getTitle())) {
+		                // Data already exists, handle accordingly (e.g., throw an exception or return an error message)
+					   throw new CPException("err001", resourceBundle.getString("err001"));
+		            }
+				}
+			}
+
+			if (createdQuiz == null) {
 
 				createdQuiz = quizService.createQuiz(quiz);
 				logger.info("Quiz created :" + createdQuiz);

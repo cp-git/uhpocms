@@ -35,7 +35,7 @@ public interface InstituteAdminRepository extends JpaRepository<InstituteAdmin, 
 
 	
 	//FIND INACTIVE PROFILES BASED ON ACTIVE INSTITUTIONS
-	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile JOIN admin_institution inst ON inst.institutionid=profile.institutionid_id JOIN auth_user users ON users.id=profile.user_id where users.is_active=false and inst.isactive=true and profile.isactive=false\r\n", nativeQuery = true)
+	@Query(value = "SELECT profile.* FROM instituteadmin_profile profile where profile.isactive=false", nativeQuery = true)
 	public List<InstituteAdmin> findInactiveProfileOfActiveInstitutions();
 
 	

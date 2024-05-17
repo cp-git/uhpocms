@@ -228,7 +228,7 @@ public class InstituteAdminController {
 				logger.info("GetAllIntituteAdminProfile Values" + adminInstitute);
 				return ResponseHandler.generateListResponse(adminInstitute, HttpStatus.OK);
 			} else if (firstName.equals("inactive")) {
-
+				System.out.println("In controller...");
 				adminInstitute = instituteAdminService.getAllInactiveInstitute();
 				logger.info("GetAllIntituteAdminProfile Values" + adminInstitute);
 				return ResponseHandler.generateListResponse(adminInstitute, HttpStatus.OK);
